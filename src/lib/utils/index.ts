@@ -4,7 +4,7 @@
  * script will be used to switch this flag to false when publishing, then immediately back
  * to true after a successful publish.
  */
-type Strict = true;
+type InternalOnly = true;
 
 /**
  * Helper type to convert `T` to `F` if strict mode is on.
@@ -21,14 +21,14 @@ type Strict = true;
  * function over(flag: string): string { return flag }
  * ```
  */
-export type IfStrict<T, F> = Strict extends true ? T : F;
+export type IfInternal<T, F> = InternalOnly extends true ? T : F;
 
 /**
  * Helper type to convert `T` to `never` if strict mode is on.
  *
- * See {@link IfStrict} for the rationale.
+ * See {@link IfInternal} for the rationale.
  */
-export type NeverIfStrict<T> = IfStrict<never, T>;
+export type NeverIfInternal<T> = IfInternal<never, T>;
 
 export {
     Options,
@@ -50,4 +50,3 @@ export {
 } from './fs';
 export { Logger, LogLevel, ConsoleLogger, CallbackLogger } from './loggers';
 export { PluginHost } from './plugins';
-export { Result } from './result';

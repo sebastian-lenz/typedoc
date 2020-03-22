@@ -55,7 +55,7 @@ describe('Options', () => {
     });
 
     it('Errors if converting a set value errors', () => {
-        throws(() => options.setValue('mode', 'nonsense' as any).unwrap());
+        throws(() => options.setValue('mode', 'nonsense' as any));
     });
 
     it('Supports directly getting values', () => {

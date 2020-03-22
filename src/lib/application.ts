@@ -24,7 +24,7 @@ import {
     DUMMY_APPLICATION_OWNER
 } from './utils/component';
 import { Options, BindOption } from './utils';
-import { TypeDocAndTSOptions } from './utils/options/declaration';
+import { TypeDocAndTSOptions, TypeDocOptions } from './utils/options/declaration';
 
 /**
  * The default TypeDoc main application class.
@@ -115,7 +115,13 @@ export class Application extends ChildableComponent<
      * @param options  The desired options to set.
      */
     bootstrap(options: Partial<TypeDocAndTSOptions> = {}): { hasErrors: boolean, inputFiles: string[] } {
-        this.options.setValues(options); // Ignore result, plugins might declare an option
+        for (const [key, val] of Object.entries(options)) {
+            try {
+                this.options.setValue(key as keyof TypeDocOptions, val);
+            } catch {
+                // Ignore errors, plugins haven't been loaded yet and may declare an option.
+            }
+        }
         this.options.read(new Logger());
 
         const logger = this.loggerType;
@@ -130,11 +136,13 @@ export class Application extends ChildableComponent<
         this.plugins.load();
 
         this.options.reset();
-        this.options.setValues(options).mapErr(errors => {
-            for (const error of errors) {
+        for (const [key, val] of Object.entries(options)) {
+            try {
+                this.options.setValue(key as keyof TypeDocOptions, val);
+            } catch (error) {
                 this.logger.error(error.message);
             }
-        });
+        }
         this.options.read(this.logger);
 
         return {

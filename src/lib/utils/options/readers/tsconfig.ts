@@ -37,7 +37,7 @@ export class TSConfigReader implements OptionsReader {
         this._tryReadOptions(tsconfigOpt, container);
     }
 
-    private _tryReadOptions(file: string, container: Options, logger?: Logger): void {
+    private _tryReadOptions(file: string, container: Options & { setValue(name: string, value: unknown): void }, logger?: Logger): void {
         let fileToRead: string | undefined = file;
         if (!isFile(fileToRead)) {
             fileToRead = ts.findConfigFile(file, isFile, file.toLowerCase().endsWith('.json') ? basename(file) : undefined);
@@ -58,7 +58,7 @@ export class TSConfigReader implements OptionsReader {
             {},
             fileToRead);
 
-        container.setValue('inputFiles', fileNames).unwrap();
+        container.setValue('inputFiles', fileNames);
         for (const key of IGNORED) {
             delete options[key];
         }
@@ -71,16 +71,20 @@ export class TSConfigReader implements OptionsReader {
             delete typedocOptions.options;
         }
 
-        container.setValues(options).mapErr(errors => {
-            for (const err of errors) {
-                logger?.error(err.message);
+        for (const [key, val] of Object.entries(options)) {
+            try {
+                container.setValue(key, val);
+            } catch (error) {
+                logger?.error(error.message);
             }
-        });
-        container.setValues(typedocOptions || {}).mapErr(errors => {
-            for (const err of errors) {
-                logger?.error(err.message);
+        }
+        for (const [key, val] of Object.entries(typedocOptions || {})) {
+            try {
+                container.setValue(key, val);
+            } catch (error) {
+                logger?.error(error.message);
             }
-        });
+        }
     }
 
 }

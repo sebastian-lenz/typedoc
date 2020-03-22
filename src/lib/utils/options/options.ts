@@ -3,11 +3,10 @@ import * as ts from 'typescript';
 
 import { DeclarationOption, ParameterScope, convert, TypeDocOptions, KeyToDeclaration, TypeDocAndTSOptions, TypeDocOptionMap } from './declaration';
 import { Logger } from '../loggers';
-import { Result, Ok, Err } from '../result';
 import { insertPrioritySorted } from '../array';
 import { addTSOptions, addTypeDocOptions } from './sources';
 import { Application } from '../../..';
-import { NeverIfStrict } from '..';
+import { NeverIfInternal } from '..';
 
 /**
  * Describes an option reader that discovers user configuration and converts it to the
@@ -111,8 +110,7 @@ export class Options {
     reset() {
         for (const declaration of this._declarations.values()) {
             if (declaration.scope !== ParameterScope.TypeScript) {
-                this._values[declaration.name] = convert(declaration.defaultValue, declaration)
-                    .expect(`Failed to validate default value for ${declaration.name}`);
+                this._values[declaration.name] = convert(declaration.defaultValue, declaration);
             }
         }
         this._compilerOptions = {};
@@ -152,7 +150,7 @@ export class Options {
      * Adds an option declaration to the container.
      * @param declaration
      */
-    addDeclaration(declaration: NeverIfStrict<Readonly<DeclarationOption>>): void;
+    addDeclaration(declaration: NeverIfInternal<Readonly<DeclarationOption>>): void;
 
     addDeclaration(declaration: Readonly<DeclarationOption>): void {
         const names = [declaration.name];
@@ -171,8 +169,7 @@ export class Options {
         }
 
         if (declaration.scope !== ParameterScope.TypeScript) {
-            this._values[declaration.name] = convert(declaration.defaultValue, declaration)
-                .expect(`Failed to validate default value for ${declaration.name}`);
+            this._values[declaration.name] = convert(declaration.defaultValue, declaration);
         }
     }
 
@@ -230,7 +227,7 @@ export class Options {
      * @param name
      */
     isDefault(name: keyof TypeDocOptions): boolean;
-    isDefault(name: NeverIfStrict<string>): boolean;
+    isDefault(name: NeverIfInternal<string>): boolean;
     isDefault(name: string): boolean {
         // getValue will throw if the declaration does not exist.
         return this.getValue(name as keyof TypeDocOptions) === this.getDeclaration(name)!.defaultValue;
@@ -248,32 +245,18 @@ export class Options {
      * @param name
      */
     getValue<K extends keyof TypeDocOptions>(name: K): TypeDocOptions[K];
-    getValue(name: NeverIfStrict<string>): unknown;
+    getValue(name: NeverIfInternal<string>): unknown;
     getValue(name: string): unknown {
-        return this.tryGetValue(name as keyof TypeDocOptions).match({
-            ok: v => v,
-            err(err) { throw err; }
-        });
-    }
-
-    /**
-     * Tries to get the given option key, returns an [[Ok]] result if the option has been
-     * declared with a TypeDoc scope, or an [[Err]] result otherwise.
-     * @param name
-     */
-    tryGetValue<K extends keyof TypeDocOptions>(name: K): Result<TypeDocOptions[K], Error>;
-    tryGetValue(name: NeverIfStrict<string>): Result<unknown, Error>;
-    tryGetValue(name: string): Result<unknown, Error> {
         const declaration = this.getDeclaration(name);
         if (!declaration) {
-            return Err(new Error(`Unknown option '${name}'`));
+            throw new Error(`Unknown option '${name}'`);
         }
 
         if (declaration.scope === ParameterScope.TypeScript) {
-            return Err(new Error('TypeScript options must be fetched with getCompilerOptions.'));
+            throw new Error('TypeScript options must be fetched with getCompilerOptions.');
         }
 
-        return Ok(this._values[declaration.name]);
+        return this._values[declaration.name];
     }
 
     /**
@@ -284,47 +267,35 @@ export class Options {
     }
 
     /**
-     * Sets the given declared option. Returns a result with the Err set if the option fails,
-     * otherwise Ok(void).
+     * Sets the given declared option. Throws if setting the option fails.
      * @param name
      * @param value
      */
-    setValue<K extends keyof TypeDocAndTSOptions>(name: K, value: TypeDocAndTSOptions[K]): Result<void, Error>;
-    setValue(name: NeverIfStrict<string>, value: NeverIfStrict<unknown>): Result<void, Error>;
-    setValue(name: string, value: unknown): Result<void, Error> {
+    setValue<K extends keyof TypeDocAndTSOptions>(name: K, value: TypeDocAndTSOptions[K]): void;
+    setValue(name: NeverIfInternal<string>, value: NeverIfInternal<unknown>): void;
+    setValue(name: string, value: unknown): void {
         const declaration = this.getDeclaration(name);
         if (!declaration) {
-            return Err(Error(`Tried to set an option (${name}) that was not declared.`));
+            throw new Error(`Tried to set an option (${name}) that was not declared.`);
         }
 
-        return convert(value, declaration).match({
-            ok: value => {
-                const bag = declaration.scope === ParameterScope.TypeScript
-                    ? this._compilerOptions
-                    : this._values;
-                bag[declaration.name] = value;
-                return Ok(void 0);
-            },
-            err: err => Err(Error(err))
-        });
+        const converted = convert(value, declaration);
+        const bag = declaration.scope === ParameterScope.TypeScript
+            ? this._compilerOptions
+            : this._values;
+        bag[declaration.name] = converted;
     }
 
     /**
-     * Sets all the given option values, returns a result with an array of errors for
-     * keys which failed to be set.
+     * Sets all the given option values, throws if any value fails to be set.
      * @param obj
+     * @deprecated will be removed in 0.19. Use setValue in a loop instead.
      */
-    setValues(obj: Partial<TypeDocAndTSOptions>): Result<void, Error[]> {
-        const errors: Error[] = [];
+    setValues(obj: NeverIfInternal<Partial<TypeDocAndTSOptions>>): void {
+        this._logger.warn('Options.setValues is deprecated and will be removed in 0.19.');
         for (const [name, value] of Object.entries(obj)) {
-            this.setValue(name as keyof TypeDocOptions, value).match({
-                ok() {},
-                err(error) {
-                    errors.push(error);
-                }
-            });
+            this.setValue(name as keyof TypeDocOptions, value);
         }
-        return errors.length ? Err(errors) : Ok(void 0);
     }
 }
 
@@ -346,7 +317,7 @@ export function BindOption<K extends keyof TypeDocOptionMap>(name: K):
  * @privateRemarks
  * This overload is intended for plugin use only with looser type checks. Do not use internally.
  */
-export function BindOption(name: NeverIfStrict<string>):
+export function BindOption(name: NeverIfInternal<string>):
     (target: { application: Application } | { options: Options }, key: PropertyKey) => void;
 
 export function BindOption(name: string) {

@@ -12,7 +12,7 @@ describe('Options - TypeDocReader', () => {
     function test(name: string, input: string, cb: () => void) {
         it(name, () => {
             options.reset();
-            options.setValue('options', input).unwrap();
+            options.setValue('options', input);
             options.read(new ConsoleLogger());
             cb();
         });
@@ -34,7 +34,7 @@ describe('Options - TypeDocReader', () => {
     function testError(name: string, file: string) {
         it(name, () => {
             options.reset();
-            options.setValue('options', file).unwrap();
+            options.setValue('options', file);
             const logger = new Logger();
             options.read(logger);
             equal(logger.hasErrors(), true, 'No error was logged');

@@ -1,7 +1,6 @@
 import { OptionsReader, Options } from '..';
 import { Logger } from '../../loggers';
 import { ParameterType } from '../declaration';
-import { Result } from '../..';
 
 /**
  * Obtains option values from command-line arguments
@@ -19,13 +18,19 @@ export class ArgumentsReader implements OptionsReader {
     read(container: Options, logger: Logger): void {
         // Make container's type more lax, we do the appropriate checks manually.
         const options = container as Options & {
-            setValue(name: string, value: unknown): Result<void, Error>;
+            setValue(name: string, value: unknown): void;
             getValue(name: string): unknown;
         };
         const seen = new Set<string>();
         let index = 0;
 
-        const error = (error: Error) => logger.error(error.message);
+        const trySet = (name: string, value: unknown) => {
+            try {
+                options.setValue(name, value);
+            } catch (err) {
+                logger.error(err.message);
+            }
+        };
 
         while (index < this.args.length) {
             const name = this.args[index];
@@ -35,22 +40,19 @@ export class ArgumentsReader implements OptionsReader {
 
             if (decl) {
                 if (seen.has(decl.name) && decl.type === ParameterType.Array) {
-                    options.setValue(
-                        decl.name,
-                        (options.getValue(decl.name) as string[]).concat(this.args[index])
-                    ).mapErr(error);
+                    trySet(decl.name, (options.getValue(decl.name) as string[]).concat(this.args[index]));
                 } else if (decl.type === ParameterType.Boolean) {
                     const value = String(this.args[index]).toLowerCase();
 
                     if (value === 'true' || value === 'false') {
-                        options.setValue(decl.name, value === 'true').mapErr(error);
+                        trySet(decl.name, value === 'true');
                     } else {
-                        options.setValue(decl.name, true).mapErr(error);
+                        trySet(decl.name, true);
                         // Bool option didn't consume the next argument as expected.
                         index--;
                     }
                 } else {
-                    options.setValue(decl.name, this.args[index]).mapErr(error);
+                    trySet(decl.name, this.args[index]);
                 }
                 seen.add(decl.name);
             } else {

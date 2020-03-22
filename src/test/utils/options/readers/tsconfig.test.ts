@@ -13,7 +13,7 @@ describe('Options - TSConfigReader', () => {
     function testError(name: string, file: string) {
         it(name, () => {
             options.reset();
-            options.setValue('tsconfig', file).unwrap();
+            options.setValue('tsconfig', file);
             const logger = new Logger();
             options.read(logger);
             equal(logger.hasErrors(), true, 'No error was logged');
@@ -33,7 +33,7 @@ describe('Options - TSConfigReader', () => {
         })(new Logger());
         options.addDefaultDeclarations();
 
-        options.setValue('tsconfig', join(__dirname, 'data/does_not_exist.json')).unwrap();
+        options.setValue('tsconfig', join(__dirname, 'data/does_not_exist.json'));
         const logger = new Logger();
         options.addReader(new TSConfigReader());
         options.read(logger);
@@ -42,7 +42,7 @@ describe('Options - TSConfigReader', () => {
 
     it('Also reads files according to --project', () => {
         options.reset();
-        options.setValue('project', join(__dirname, 'data/valid.tsconfig.json')).unwrap();
+        options.setValue('project', join(__dirname, 'data/valid.tsconfig.json'));
         const logger = new Logger();
         options.read(logger);
         equal(options.getValue('help'), true);

@@ -1,6 +1,5 @@
 import { convert, DeclarationOption, ParameterType, MapDeclarationOption } from '../../../lib/utils/options/declaration';
-import { deepStrictEqual as equal } from 'assert';
-import { Result } from '../../../lib/utils';
+import { deepStrictEqual as equal, throws } from 'assert';
 
 describe('Options - Default convert function', () => {
     const optionWithType = (type: ParameterType) => ({
@@ -11,29 +10,29 @@ describe('Options - Default convert function', () => {
     }) as DeclarationOption;
 
     it('Converts to numbers', () => {
-        equal(convert('123', optionWithType(ParameterType.Number)), Result.Ok(123));
-        equal(convert('a', optionWithType(ParameterType.Number)), Result.Ok(0));
-        equal(convert(NaN, optionWithType(ParameterType.Number)), Result.Ok(0));
+        equal(convert('123', optionWithType(ParameterType.Number)), 123);
+        equal(convert('a', optionWithType(ParameterType.Number)), 0);
+        equal(convert(NaN, optionWithType(ParameterType.Number)), 0);
     });
 
     it('Converts to strings', () => {
-        equal(convert('123', optionWithType(ParameterType.String)), Result.Ok('123'));
-        equal(convert(123, optionWithType(ParameterType.String)), Result.Ok('123'));
-        equal(convert(['1', '2'], optionWithType(ParameterType.String)), Result.Ok('1,2'));
-        equal(convert(null, optionWithType(ParameterType.String)), Result.Ok(''));
-        equal(convert(void 0, optionWithType(ParameterType.String)), Result.Ok(''));
+        equal(convert('123', optionWithType(ParameterType.String)), '123');
+        equal(convert(123, optionWithType(ParameterType.String)), '123');
+        equal(convert(['1', '2'], optionWithType(ParameterType.String)), '1,2');
+        equal(convert(null, optionWithType(ParameterType.String)), '');
+        equal(convert(void 0, optionWithType(ParameterType.String)), '');
     });
 
     it('Converts to booleans', () => {
-        equal(convert('a', optionWithType(ParameterType.Boolean)), Result.Ok(true));
-        equal(convert([1], optionWithType(ParameterType.Boolean)), Result.Ok(true));
-        equal(convert(false, optionWithType(ParameterType.Boolean)), Result.Ok(false));
+        equal(convert('a', optionWithType(ParameterType.Boolean)), true);
+        equal(convert([1], optionWithType(ParameterType.Boolean)), true);
+        equal(convert(false, optionWithType(ParameterType.Boolean)), false);
     });
 
     it('Converts to arrays', () => {
-        equal(convert('12,3', optionWithType(ParameterType.Array)), Result.Ok(['12', '3']));
-        equal(convert(['12,3'], optionWithType(ParameterType.Array)), Result.Ok(['12,3']));
-        equal(convert(true, optionWithType(ParameterType.Array)), Result.Ok([]));
+        equal(convert('12,3', optionWithType(ParameterType.Array)), ['12', '3']);
+        equal(convert(['12,3'], optionWithType(ParameterType.Array)), ['12,3']);
+        equal(convert(true, optionWithType(ParameterType.Array)), []);
     });
 
     it('Converts to mapped types', () => {
@@ -47,9 +46,9 @@ describe('Options - Default convert function', () => {
             },
             defaultValue: 1
         };
-        equal(convert('a', declaration), Result.Ok(1));
-        equal(convert('b', declaration), Result.Ok(2));
-        equal(convert(2, declaration), Result.Ok(2));
+        equal(convert('a', declaration), 1);
+        equal(convert('b', declaration), 2);
+        equal(convert(2, declaration), 2);
     });
 
     it('Converts to mapped types with a map', () => {
@@ -63,9 +62,9 @@ describe('Options - Default convert function', () => {
             ]),
             defaultValue: 1
         };
-        equal(convert('a', declaration), Result.Ok(1));
-        equal(convert('b', declaration), Result.Ok(2));
-        equal(convert(2, declaration), Result.Ok(2));
+        equal(convert('a', declaration), 1);
+        equal(convert('b', declaration), 2);
+        equal(convert(2, declaration), 2);
     });
 
     it('Uses the mapError if provided for errors', () => {
@@ -77,7 +76,7 @@ describe('Options - Default convert function', () => {
             defaultValue: 1,
             mapError: 'Test error'
         };
-        equal(convert('a', declaration), Result.Err(declaration.mapError));
+        throws(() => convert('a', declaration), new Error(declaration.mapError));
     });
 
     it('Generates a nice error if no mapError is provided', () => {
@@ -88,7 +87,7 @@ describe('Options - Default convert function', () => {
             map: new Map([['a', 1], ['b', 2]]),
             defaultValue: 1
         };
-        equal(convert('c', declaration), Result.Err('test must be one of a, b'));
+        throws(() => convert('c', declaration), new Error('test must be one of a, b'));
     });
 
     it('Correctly handles enum types in the map error', () => {
@@ -100,11 +99,11 @@ describe('Options - Default convert function', () => {
             map: Enum,
             defaultValue: Enum.a
         } as const;
-        equal(convert('c', declaration), Result.Err('test must be one of a, b'));
+        throws(() => convert('c', declaration), new Error('test must be one of a, b'));
     });
 
     it('Passes through mixed', () => {
         const data = Symbol();
-        equal(convert(data, optionWithType(ParameterType.Mixed)), Result.Ok(data));
+        equal(convert(data, optionWithType(ParameterType.Mixed)), data);
     });
 });
