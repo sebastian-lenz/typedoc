@@ -7,6 +7,7 @@ import { Result, Ok, Err } from '../result';
 import { insertPrioritySorted } from '../array';
 import { addTSOptions, addTypeDocOptions } from './sources';
 import { Application } from '../../..';
+import { NeverIfStrict } from '..';
 
 /**
  * Describes an option reader that discovers user configuration and converts it to the
@@ -151,7 +152,7 @@ export class Options {
      * Adds an option declaration to the container.
      * @param declaration
      */
-    addDeclaration(declaration: Readonly<DeclarationOption>): void;
+    addDeclaration(declaration: NeverIfStrict<Readonly<DeclarationOption>>): void;
 
     addDeclaration(declaration: Readonly<DeclarationOption>): void {
         const names = [declaration.name];
@@ -178,10 +179,15 @@ export class Options {
     /**
      * Adds the given declarations to the container
      * @param declarations
+     *
+     * @privateRemarks
+     * This function explicitly provides a way out of the strict typing enforced
+     * by {@link addDeclaration}. It should only be used with careful validation
+     * of the declaration map. Internally, it is only used for adding TS options
      */
     addDeclarations(declarations: readonly DeclarationOption[]): void {
         for (const decl of declarations) {
-            this.addDeclaration(decl);
+            this.addDeclaration(decl as any);
         }
     }
 
@@ -223,11 +229,11 @@ export class Options {
      * Checks if the given option has a set value or if the value is the default value.
      * @param name
      */
-    isDefault(name: keyof TypeDocAndTSOptions): boolean;
-    isDefault(name: string): boolean;
+    isDefault(name: keyof TypeDocOptions): boolean;
+    isDefault(name: NeverIfStrict<string>): boolean;
     isDefault(name: string): boolean {
         // getValue will throw if the declaration does not exist.
-        return this.getValue(name) === this.getDeclaration(name)!.defaultValue;
+        return this.getValue(name as keyof TypeDocOptions) === this.getDeclaration(name)!.defaultValue;
     }
 
     /**
@@ -242,9 +248,9 @@ export class Options {
      * @param name
      */
     getValue<K extends keyof TypeDocOptions>(name: K): TypeDocOptions[K];
-    getValue(name: string): unknown;
+    getValue(name: NeverIfStrict<string>): unknown;
     getValue(name: string): unknown {
-        return this.tryGetValue(name).match({
+        return this.tryGetValue(name as keyof TypeDocOptions).match({
             ok: v => v,
             err(err) { throw err; }
         });
@@ -256,7 +262,7 @@ export class Options {
      * @param name
      */
     tryGetValue<K extends keyof TypeDocOptions>(name: K): Result<TypeDocOptions[K], Error>;
-    tryGetValue(name: string): Result<unknown, Error>;
+    tryGetValue(name: NeverIfStrict<string>): Result<unknown, Error>;
     tryGetValue(name: string): Result<unknown, Error> {
         const declaration = this.getDeclaration(name);
         if (!declaration) {
@@ -284,7 +290,7 @@ export class Options {
      * @param value
      */
     setValue<K extends keyof TypeDocAndTSOptions>(name: K, value: TypeDocAndTSOptions[K]): Result<void, Error>;
-    setValue(name: string, value: unknown): Result<void, Error>;
+    setValue(name: NeverIfStrict<string>, value: NeverIfStrict<unknown>): Result<void, Error>;
     setValue(name: string, value: unknown): Result<void, Error> {
         const declaration = this.getDeclaration(name);
         if (!declaration) {
@@ -311,7 +317,7 @@ export class Options {
     setValues(obj: Partial<TypeDocAndTSOptions>): Result<void, Error[]> {
         const errors: Error[] = [];
         for (const [name, value] of Object.entries(obj)) {
-            this.setValue(name, value).match({
+            this.setValue(name as keyof TypeDocOptions, value).match({
                 ok() {},
                 err(error) {
                     errors.push(error);
@@ -340,7 +346,7 @@ export function BindOption<K extends keyof TypeDocOptionMap>(name: K):
  * @privateRemarks
  * This overload is intended for plugin use only with looser type checks. Do not use internally.
  */
-export function BindOption(name: string):
+export function BindOption(name: NeverIfStrict<string>):
     (target: { application: Application } | { options: Options }, key: PropertyKey) => void;
 
 export function BindOption(name: string) {
@@ -348,9 +354,9 @@ export function BindOption(name: string) {
         Object.defineProperty(target, key, {
             get(this: { application: Application } | { options: Options }) {
                 if ('options' in this) {
-                    return this.options.getValue(name);
+                    return this.options.getValue(name as keyof TypeDocOptions);
                 } else {
-                    return this.application.options.getValue(name);
+                    return this.application.options.getValue(name as keyof TypeDocOptions);
                 }
             },
             enumerable: true,

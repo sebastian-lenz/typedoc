@@ -2,36 +2,22 @@ import { deepStrictEqual as equal } from 'assert';
 
 import { Options, Logger } from '../../../../lib/utils';
 import { ArgumentsReader } from '../../../../lib/utils/options/readers';
-import { ParameterType } from '../../../../lib/utils/options';
+import { ParameterType, SourceFileMode, NumberDeclarationOption } from '../../../../lib/utils/options';
 
 describe('Options - ArgumentsReader', () => {
-    const options = new Options(new Logger());
+    // Note: We lie about the type of Options here since we want the less strict
+    // behavior for tests. If TypeDoc ever gets a numeric option, then we can
+    // exclusively use the builtin options for tests and this cast can go away.
+    const options = new Options(new Logger()) as Options & {
+        addDeclaration(declaration: Readonly<NumberDeclarationOption> & { name: 'numOption'}): void;
+        getValue(name: 'numOption'): number;
+    };
     options.addDefaultDeclarations();
     options.addDeclaration({
         name: 'numOption',
         short: 'no',
         help: '',
         type: ParameterType.Number
-    });
-    options.addDeclaration({
-        name: 'bool',
-        help: '',
-        type: ParameterType.Boolean
-    });
-    options.addDeclaration({
-        name: 'map',
-        help: '',
-        type: ParameterType.Map,
-        map: {
-            item: { a: true },
-            other: 'blah'
-        },
-        defaultValue: 'blah'
-    });
-    options.addDeclaration({
-        name: 'mixed',
-        help: '',
-        type: ParameterType.Mixed
     });
 
     function test(name: string, args: string[], cb: () => void) {
@@ -57,31 +43,31 @@ describe('Options - ArgumentsReader', () => {
         equal(options.getValue('numOption'), 123);
     });
 
-    test('Works with boolean options', ['--bool'], () => {
-        equal(options.getValue('bool'), true);
+    test('Works with boolean options', ['--includeVersion'], () => {
+        equal(options.getValue('includeVersion'), true);
     });
 
-    test('Allows setting boolean options with a value', ['--bool', 'TrUE'], () => {
-        equal(options.getValue('bool'), true);
+    test('Allows setting boolean options with a value', ['--includeVersion', 'TrUE'], () => {
+        equal(options.getValue('includeVersion'), true);
         equal(options.getValue('inputFiles'), []);
     });
 
-    test('Allows setting boolean options to false with a value', ['--bool', 'FALse'], () => {
-        equal(options.getValue('bool'), false);
+    test('Allows setting boolean options to false with a value', ['--includeVersion', 'FALse'], () => {
+        equal(options.getValue('includeVersion'), false);
         equal(options.getValue('inputFiles'), []);
     });
 
-    test('Bool options do not improperly consume arguments', ['--bool', 'foo'], () => {
-        equal(options.getValue('bool'), true);
+    test('Bool options do not improperly consume arguments', ['--includeVersion', 'foo'], () => {
+        equal(options.getValue('includeVersion'), true);
         equal(options.getValue('inputFiles'), ['foo']);
     });
 
-    test('Works with map options', ['--map', 'item'], () => {
-        equal(options.getValue('map'), { a: true });
+    test('Works with map options', ['--mode', 'file'], () => {
+        equal(options.getValue('mode'), SourceFileMode.File);
     });
 
-    test('Works with mixed options', ['--mixed', 'word'], () => {
-        equal(options.getValue('mixed'), 'word');
+    test('Works with mixed options', ['--logger', 'word'], () => {
+        equal(options.getValue('logger'), 'word');
     });
 
     test('Works with array options', ['--exclude', 'a'], () => {

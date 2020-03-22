@@ -1,9 +1,13 @@
 import { Logger, Options, ParameterType, ParameterScope } from '../../../lib/utils';
 import { deepStrictEqual as equal, throws } from 'assert';
+import { DeclarationOption } from '../../../lib/utils/options';
 
 describe('Options', () => {
     const logger = new Logger();
-    const options = new Options(logger);
+    const options = new Options(logger) as Options & {
+        addDeclaration(declaration: Readonly<DeclarationOption>): void;
+        getValue(name: string): unknown;
+    };
     options.addDefaultDeclarations();
 
     it('Errors on duplicate declarations', () => {
@@ -51,7 +55,7 @@ describe('Options', () => {
     });
 
     it('Errors if converting a set value errors', () => {
-        throws(() => options.setValue('mode', 'nonsense').unwrap());
+        throws(() => options.setValue('mode', 'nonsense' as any).unwrap());
     });
 
     it('Supports directly getting values', () => {

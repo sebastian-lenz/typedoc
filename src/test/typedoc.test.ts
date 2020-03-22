@@ -2,6 +2,7 @@ import { Application } from '..';
 import * as Path from 'path';
 import Assert = require('assert');
 import { Converter, Context } from '../lib/converter';
+import { ModuleKind } from 'typescript';
 
 describe('TypeDoc', function() {
     let application: Application;
@@ -25,7 +26,7 @@ describe('TypeDoc', function() {
         });
         it('honors the exclude argument even on a fixed directory list', function() {
             const inputFiles = Path.join(__dirname, 'converter', 'class');
-            application.options.setValue('exclude', '**/class.ts').unwrap();
+            application.options.setValue('exclude', ['**/class.ts']).unwrap();
             const expanded = application.expandInputFiles([inputFiles]);
 
             Assert(!expanded.includes(Path.join(inputFiles, 'class.ts')));
@@ -33,14 +34,14 @@ describe('TypeDoc', function() {
         });
         it('honors the exclude argument even on a fixed file list', function() {
             const inputFiles = Path.join(__dirname, 'converter', 'class', 'class.ts');
-            application.options.setValue('exclude', '**/class.ts').unwrap();
+            application.options.setValue('exclude', ['**/class.ts']).unwrap();
             const expanded = application.expandInputFiles([inputFiles]);
 
             Assert(!expanded.includes(inputFiles));
         });
         it('supports multiple excludes', function() {
             const inputFiles = Path.join(__dirname, 'converter');
-            application.options.setValue('exclude', '**/+(class|access).ts').unwrap();
+            application.options.setValue('exclude', ['**/+(class|access).ts']).unwrap();
             const expanded = application.expandInputFiles([inputFiles]);
 
             Assert(!expanded.includes(Path.join(inputFiles, 'class', 'class.ts')));
@@ -58,15 +59,15 @@ describe('TypeDoc', function() {
         });
         it('supports excluding directories beginning with dots', function() {
             const inputFiles = __dirname;
-            application.options.setValue('exclude', '**/+(.dot)/**').unwrap();
+            application.options.setValue('exclude', ['**/+(.dot)/**']).unwrap();
             const expanded = application.expandInputFiles([inputFiles]);
 
             Assert(!expanded.includes(Path.join(inputFiles, '.dot', 'index.ts')));
             Assert(!expanded.includes(inputFiles));
         });
         it('Honors the exclude option even if a module is imported', () => {
-            application.options.setValue('exclude', '**/b.ts').unwrap();
-            application.options.setValue('module', 'commonjs').unwrap();
+            application.options.setValue('exclude', ['**/b.ts']).unwrap();
+            application.options.setValue('module', ModuleKind.CommonJS).unwrap();
 
             function handler(context: Context) {
                 Assert.deepStrictEqual(context.fileNames, [

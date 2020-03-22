@@ -64,7 +64,8 @@
     "postbuild": "node scripts/replace_application_version.js",
     "build_and_test": "npm run build && npm run test",
     "lint": "tslint --project .",
-    "prepublishOnly": "npm run lint && npm run build_and_test",
+    "prepublishOnly": "node scripts/set_strict.js false && npm run lint && npm run build_and_test",
+    "postpublish": "node scripts/set_strict.js true",
     "prepare": "npm run build",
     "clean": "rm -rf node_modules package-lock.json lib coverage"
   },
