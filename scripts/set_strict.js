@@ -10,9 +10,8 @@ const file = join(__dirname, '../src/lib/utils/index.ts');
 const isStrict = process.argv[2] === 'true'
 
 fs.readFile(file, { encoding: 'utf-8'})
-    .then(text => fs.writeFile(file, text.replace(/type Strict =.*/, `type Strict = ${isStrict};`)))
+    .then(text => fs.writeFile(file, text.replace(/type InternalOnly =.*/, `type InternalOnly = ${isStrict};`)))
     .catch(reason => {
         console.error(reason);
         process.exit(1);
     });
-
