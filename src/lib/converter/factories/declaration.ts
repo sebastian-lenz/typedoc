@@ -56,7 +56,7 @@ export function createDeclaration(context: Context, node: ts.Declaration, kind: 
         const match = builtInSymbolRegExp.exec(name);
         if (match) {
             name = `[Symbol.${match[1]}]`;
-        } else if (kind & ReflectionKind.ClassMember && name === '__computed') {
+        } else if (kind & (ReflectionKind.ClassMember | ReflectionKind.VariableOrProperty) && name === '__computed') {
             // rename computed properties
             const declName = ts.getNameOfDeclaration(node);
             const symbol = declName && context.checker.getSymbolAtLocation(declName);
@@ -179,6 +179,7 @@ function setupDeclaration(context: Context, reflection: DeclarationReflection, n
     reflection.setFlag(ReflectionFlag.Protected, !!(modifiers & ts.ModifierFlags.Protected));
     reflection.setFlag(ReflectionFlag.Public,    !!(modifiers & ts.ModifierFlags.Public));
     reflection.setFlag(ReflectionFlag.Optional,  !!(node['questionToken']));
+    reflection.setFlag(ReflectionFlag.Readonly,  !!(modifiers & ts.ModifierFlags.Readonly));
 
     if (
         context.isInherit &&

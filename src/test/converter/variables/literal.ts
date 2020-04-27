@@ -1,3 +1,4 @@
+const x = 'literal';
 /**
  * An object literal.
  */
@@ -10,7 +11,10 @@ const objectLiteral = {
         valueA: [100, 200, 300]
     },
     valueA: 100,
-    valueB: true
+    valueB: true,
+    [Symbol.toStringTag]: 'computed',
+    [x]: true,
+    ['literal2']: true,
 };
 
 /**

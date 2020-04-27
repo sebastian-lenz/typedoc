@@ -85,8 +85,8 @@ export class VariableConverter extends ConverterNodeComponent<ts.VariableDeclara
                     break;
                 case ReflectionKind.Property:
                     if (node.modifiers
-                        && node.modifiers.some( m => m.kind === ts.SyntaxKind.AbstractKeyword )) {
-                    variable.setFlag(ReflectionFlag.Abstract, true);
+                        && node.modifiers.some( m => m.kind === ts.SyntaxKind.AbstractKeyword)) {
+                        variable.setFlag(ReflectionFlag.Abstract, true);
                     }
                     break;
             }

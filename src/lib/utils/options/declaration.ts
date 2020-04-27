@@ -161,6 +161,16 @@ export interface NumberDeclarationOption extends DeclarationOptionBase {
     type: ParameterType.Number;
 
     /**
+     * Lowest possible value.
+     */
+    minValue?: number;
+
+    /**
+     * Highest possible value.
+     */
+    maxValue?: number;
+
+    /**
      * If not specified defaults to 0.
      */
     defaultValue?: number;
@@ -235,9 +245,9 @@ export type DeclarationOptionToOptionType<T extends DeclarationOption> =
  * The default conversion function used by the Options container. Readers may
  * re-use this conversion function or implement their own. The arguments reader
  * implements its own since 'false' should not be converted to true for a boolean option.
- *
- * @param value
- * @param option
+ * @param value The value to convert.
+ * @param option The option for which the value should be converted.
+ * @returns The result of the conversion. Might be the value or an error.
  */
 export function convert<T extends DeclarationOption>(value: unknown, option: T): DeclarationOptionToOptionType<T>;
 export function convert<T extends DeclarationOption>(value: unknown, option: T): unknown {
@@ -246,7 +256,12 @@ export function convert<T extends DeclarationOption>(value: unknown, option: T):
         case ParameterType.String:
             return value == null ? '' : String(value);
         case ParameterType.Number:
-            return parseInt(String(value), 10) || 0;
+            const numberOption = option as NumberDeclarationOption;
+            const numValue = parseInt(String(value), 10) || 0;
+            if (!valueIsWithinBounds(numValue, numberOption.minValue, numberOption.maxValue)) {
+                throw new Error(getBoundsError(numberOption.name, numberOption.minValue, numberOption.maxValue));
+            }
+            return numValue;
         case ParameterType.Boolean:
             return Boolean(value);
         case ParameterType.Array:
@@ -280,7 +295,13 @@ export function convert<T extends DeclarationOption>(value: unknown, option: T):
     }
 }
 
-function getMapError(map: MapDeclarationOption<unknown>['map'], name: string) {
+/**
+ * Returns an error message for a map option, indicating that a given value was not one of the values within the map.
+ * @param map The values for the option.
+ * @param name The name of the option.
+ * @returns The error message.
+ */
+function getMapError(map: MapDeclarationOption<unknown>['map'], name: string): string {
     let keys = map instanceof Map ? [...map.keys()] : Object.keys(map);
     const getString = (key: string) => String(map instanceof Map ? map.get(key) : map[key]);
 
@@ -292,4 +313,52 @@ function getMapError(map: MapDeclarationOption<unknown>['map'], name: string) {
     }
 
     return `${name} must be one of ${keys.join(', ')}`;
+}
+
+/**
+ * Returns an error message for a value that is out of bounds of the given min and/or max values.
+ * @param name The name of the thing the value represents.
+ * @param minValue The lower bound of the range of allowed values.
+ * @param maxValue The upper bound of the range of allowed values.
+ * @returns The error message.
+ */
+function getBoundsError(name: string, minValue?: number, maxValue?: number): string {
+    if (isFiniteNumber(minValue) && isFiniteNumber(maxValue)) {
+        return `${name} must be between ${minValue} and ${maxValue}`;
+    } else if (isFiniteNumber(minValue)) {
+        return `${name} must be >= ${minValue}`;
+    } else if (isFiniteNumber(maxValue)) {
+        return `${name} must be <= ${maxValue}`;
+    }
+    throw new Error('Unreachable');
+}
+
+/**
+ * Checks if the given value is a finite number.
+ * This is equivalent to Number.isFinite, but that function is incorrectly typed to only accept
+ * `number` in the latest TS version. See TypeScript/34932
+ * @param value The value being checked.
+ * @returns True, if the value is a finite number, otherwise false.
+ */
+function isFiniteNumber(value?: unknown): value is number {
+    return typeof value === 'number' && isFinite(value);
+}
+
+/**
+ * Checks if a value is between the bounds of the given min and/or max values.
+ * @param value The value being checked.
+ * @param minValue The lower bound of the range of allowed values.
+ * @param maxValue The upper bound of the range of allowed values.
+ * @returns True, if the value is within the given bounds, otherwise false.
+ */
+function valueIsWithinBounds(value: number, minValue?: number, maxValue?: number): boolean {
+    if (isFiniteNumber(minValue) && isFiniteNumber(maxValue)) {
+        return minValue <= value && value <= maxValue;
+    } else if (isFiniteNumber(minValue)) {
+        return minValue <= value;
+    } else if (isFiniteNumber(maxValue)) {
+        return value <= maxValue;
+    } else {
+        return true;
+    }
 }

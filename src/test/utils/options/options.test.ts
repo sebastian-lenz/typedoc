@@ -1,4 +1,5 @@
 import { Logger, Options, ParameterType, ParameterScope } from '../../../lib/utils';
+import { MapDeclarationOption, NumberDeclarationOption } from '../../../lib/utils/options';
 import { deepStrictEqual as equal, throws } from 'assert';
 import { DeclarationOption } from '../../../lib/utils/options';
 
@@ -29,9 +30,69 @@ describe('Options', () => {
         options.removeDeclarationByName(declaration.name);
     });
 
-    it('Does not error if a map declaration has a default value that is not part of the map of possible values', () => {
-        logger.resetErrors();
-        options.addDeclaration({
+    it('Does not throw if number declaration has no min and max values', () => {
+        const declaration: NumberDeclarationOption = {
+            name: 'test-number-declaration',
+            help: '',
+            type: ParameterType.Number,
+            defaultValue: 1
+        };
+        options.addDeclaration(declaration);
+        options.removeDeclarationByName(declaration.name);
+    });
+
+    it('Does not throw if default value is within range for number declaration', () => {
+        const declaration: NumberDeclarationOption = {
+            name: 'test-number-declaration',
+            help: '',
+            type: ParameterType.Number,
+            minValue: 1,
+            maxValue: 10,
+            defaultValue: 5
+        };
+        options.addDeclaration(declaration);
+        options.removeDeclarationByName(declaration.name);
+    });
+
+    it('Throws if default value is out of range for number declaration', () => {
+        const declaration: NumberDeclarationOption = {
+            name: 'test-number-declaration',
+            help: '',
+            type: ParameterType.Number,
+            minValue: 1,
+            maxValue: 10,
+            defaultValue: 0
+        };
+        throws(() => options.addDeclaration(declaration));
+        options.removeDeclarationByName(declaration.name);
+    });
+
+    it('Throws if default value is lower than the min value', () => {
+        const declaration: NumberDeclarationOption = {
+            name: 'test-number-declaration',
+            help: '',
+            type: ParameterType.Number,
+            minValue: 1,
+            defaultValue: 0
+        };
+        throws(() => options.addDeclaration(declaration));
+        options.removeDeclarationByName(declaration.name);
+    });
+
+    it('Throws if default value is greater than the max value', () => {
+        const declaration: NumberDeclarationOption = {
+            name: 'test-number-declaration',
+            help: '',
+            type: ParameterType.Number,
+            maxValue: 1,
+            defaultValue: 2
+        };
+        throws(() => options.addDeclaration(declaration));
+        options.removeDeclarationByName(declaration.name);
+    });
+
+    it('Does not throw if a map declaration has a default value that is not part of the map of possible values', () => {
+        const declaration: MapDeclarationOption<number> = {
             name: 'testMapDeclarationWithForeignDefaultValue',
             help: '',
             type: ParameterType.Map,
@@ -40,8 +101,9 @@ describe('Options', () => {
                 ['b', 2]
             ]),
             defaultValue: 0
-        });
-        equal(logger.hasErrors(), false);
+        };
+        options.addDeclaration(declaration);
+        options.removeDeclarationByName(declaration.name);
     });
 
     it('Supports removing a declaration by name', () => {

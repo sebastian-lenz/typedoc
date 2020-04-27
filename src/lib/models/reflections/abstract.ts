@@ -86,7 +86,8 @@ export enum ReflectionFlag {
     ConstructorProperty = 1024,
     Abstract = 2048,
     Const = 4096,
-    Let = 8192
+    Let = 8192,
+    Readonly = 16384
 }
 
 const relevantFlags: ReflectionFlag[] = [
@@ -99,7 +100,8 @@ const relevantFlags: ReflectionFlag[] = [
     ReflectionFlag.Rest,
     ReflectionFlag.Abstract,
     ReflectionFlag.Let,
-    ReflectionFlag.Const
+    ReflectionFlag.Const,
+    ReflectionFlag.Readonly
 ];
 
 /**
@@ -199,6 +201,10 @@ export class ReflectionFlags extends Array<string> {
 
     get isLet() {
         return this.hasFlag(ReflectionFlag.Let);
+    }
+
+    get isReadonly() {
+        return this.hasFlag(ReflectionFlag.Readonly);
     }
 
     setFlag(flag: ReflectionFlag, set: boolean) {

@@ -1,7 +1,7 @@
 {
   "name": "typedoc",
   "description": "Create api documentation for TypeScript projects.",
-  "version": "0.17.4",
+  "version": "0.17.5",
   "homepage": "https://typedoc.org",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -22,27 +22,27 @@
   "dependencies": {
     "fs-extra": "^8.1.0",
     "handlebars": "^4.7.6",
-    "highlight.js": "^9.18.1",
+    "highlight.js": "^10.0.0",
     "lodash": "^4.17.15",
     "lunr": "^2.3.8",
-    "marked": "0.8.2",
+    "marked": "1.0.0",
     "minimatch": "^3.0.0",
     "progress": "^2.0.3",
-    "shelljs": "^0.8.3",
-    "typedoc-default-themes": "^0.10.0"
+    "shelljs": "^0.8.4",
+    "typedoc-default-themes": "^0.10.1"
   },
   "peerDependencies": {
     "typescript": ">=3.8.3"
   },
   "devDependencies": {
     "@types/fs-extra": "^8.1.0",
-    "@types/lodash": "^4.14.149",
+    "@types/lodash": "^4.14.150",
     "@types/lunr": "^2.3.3",
-    "@types/marked": "^0.7.3",
+    "@types/marked": "^0.7.4",
     "@types/minimatch": "3.0.3",
     "@types/mocha": "^7.0.2",
     "@types/mockery": "^1.4.29",
-    "@types/node": "^13.11.0",
+    "@types/node": "^13.13.2",
     "@types/shelljs": "^0.8.7",
     "mocha": "^7.1.1",
     "mockery": "^2.1.0",

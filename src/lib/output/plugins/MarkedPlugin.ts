@@ -135,6 +135,7 @@ export class MarkedPlugin extends ContextAwareRendererComponent {
                         return contents;
                     }
                 } else {
+                    this.application.logger.warn('Could not find file to include: ' + path);
                     return '';
                 }
             });
@@ -142,9 +143,12 @@ export class MarkedPlugin extends ContextAwareRendererComponent {
 
         if (this.mediaDirectory) {
             text = text.replace(this.mediaPattern, (match: string, path: string) => {
-                if (FS.existsSync(Path.join(this.mediaDirectory!, path))) {
+                const fileName = Path.join(this.mediaDirectory!, path);
+
+                if (FS.existsSync(fileName) && FS.statSync(fileName).isFile()) {
                     return this.getRelativeUrl('media') + '/' + path;
                 } else {
+                    this.application.logger.warn('Could not find media file: ' + fileName);
                     return match;
                 }
             });
