@@ -303,6 +303,9 @@ export class Options {
             // No need to convert the defaultValue for a map type as it has to be of a specific type
             if (declaration.type === ParameterType.Map) {
                 this._values[declaration.name] = declaration.defaultValue;
+            } else if (declaration.type === ParameterType.Number) {
+                // Don't use convert for number options to allow every possible number as a default value
+                this._values[declaration.name] = declaration.defaultValue || 0;
             } else {
                 this._values[declaration.name] = convert(declaration.defaultValue, declaration);
             }

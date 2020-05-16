@@ -16,7 +16,7 @@ export class MarkedLinksPlugin extends ContextAwareRendererComponent {
     private brackets: RegExp = /\[\[([^\]]+)\]\]/g;
 
     /**
-     * Regular expression for detecting inline tags like {@link ...}.
+     * Regular expression for detecting inline tags like {&amp;link ...}.
      */
     private inlineTag: RegExp = /(?:\[(.+?)\])?\{@(link|linkcode|linkplain)\s+((?:.|\n)+?)\}/gi;
 
@@ -56,7 +56,7 @@ export class MarkedLinksPlugin extends ContextAwareRendererComponent {
     }
 
     /**
-     * Find symbol {@link ...} strings in text and turn into html links
+     * Find symbol {&amp;link ...} strings in text and turn into html links
      *
      * @param text  The string in which to replace the inline tags.
      * @return      The updated string.
@@ -152,8 +152,8 @@ export class MarkedLinksPlugin extends ContextAwareRendererComponent {
 
         if (splitIndex !== -1) {
             return {
-                caption: text.substr(splitIndex + 1).replace(/\n+/, ' '),
-                target: text.substr(0, splitIndex)
+                caption: text.substr(splitIndex + 1).replace(/\n+/, ' ').trim(),
+                target: text.substr(0, splitIndex).trim()
             };
         } else {
             return {

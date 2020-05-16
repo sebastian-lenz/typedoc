@@ -15,3 +15,5 @@ yarn-error.log
 
 typedoc*.tgz
 tmp
+
+src/test/renderer/specs/assets/*

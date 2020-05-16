@@ -1,11 +1,33 @@
 /**
  * This is a simple interface.
+ *
+ * Links - these should all point to the name property:
+ * - {@link name}
+ * - {@link NameInterface.name}
+ * - {@link "classes".NameInterface.name}
+ * - {@link name Text} &lt;-- This one goes away eventually
+ * - {@link name|Text}
+ * - {@link name | Text}
+ * - {@link NameInterface.name | Text}
  */
 export interface NameInterface {
     /**
      * This is a interface member of INameInterface.
      *
      * It should be inherited by all subinterfaces.
+     *
+     * Links - these should all point to this property:
+     * - {@link name}
+     * - {@link NameInterface.name}
+     * - {@link "classes".NameInterface.name}
+     * - {@link name Text} &lt;-- This one goes away eventually
+     * - {@link name|Text}
+     * - {@link name | Text}
+     * - {@link NameInterface.name | Text}
+     *
+     * Links - these should point to the containing interface
+     * - {@link NameInterface}
+     * - {@link "classes".NameInterface}
      */
     name: string;
 
@@ -43,6 +65,10 @@ export interface PrintNameInterface extends NameInterface, PrintInterface {
  * This is a simple base class.
  *
  * [[include:class-example.md]]
+ *
+ * Links:
+ * - {@link name | The name property on this class}
+ * - {@link NameInterface.name | The name property we inherit from the interface}
  */
 export abstract class BaseClass implements NameInterface {
     /**

@@ -84,7 +84,6 @@ async function rebuildRendererTest() {
     app.options.setValue('excludeExternals', false);
     app.generateDocs(app.expandInputFiles([src]), out)
     app.options.setValue('excludeExternals', true);
-    await fs.remove(path.join(out, 'assets'))
 
     /**
      * Avoiding sync methods here is... difficult.

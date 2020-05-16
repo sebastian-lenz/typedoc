@@ -20,7 +20,7 @@ describe('Paths', () => {
     });
 
     it('Minimatch can match absolute paths expressions', () => {
-      const paths = ['/unix/absolute/**/path', '\\windows\\alternative\\absolute\\path', 'C:\\Windows\\absolute\\*\\path', '**/arbitrary/path/**'];
+      const paths = ['/unix/absolute/**/path', '\\windows\\alternative\\absolute\\path', '\\Windows\\absolute\\*\\path', '**/arbitrary/path/**'];
       const mms = createMinimatch(paths);
       const patterns = mms.map(({ pattern }) => pattern);
       const comparePaths = [
