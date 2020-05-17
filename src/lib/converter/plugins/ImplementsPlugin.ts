@@ -3,6 +3,7 @@ import { Type, ReferenceType } from '../../models/types/index';
 import { Component, ConverterComponent } from '../components';
 import { Converter } from '../converter';
 import { Context } from '../context';
+import { Comment } from '../../models/comments/comment';
 
 /**
  * A plugin that detects interface implementations of functions and
@@ -88,8 +89,13 @@ export class ImplementsPlugin extends ConverterComponent {
             if (target instanceof SignatureReflection && target.parameters &&
                 source instanceof SignatureReflection && source.parameters) {
                 for (let index = 0, count = target.parameters.length; index < count; index++) {
-                    if (target.parameters[index].comment) {
-                        target.parameters[index].comment!.copyFrom(source.parameters[index].comment!);
+                    const sourceParameter = source.parameters[index];
+                    if (sourceParameter && sourceParameter.comment) {
+                        const targetParameter = target.parameters[index];
+                        if (!targetParameter.comment) {
+                            targetParameter.comment = new Comment();
+                            targetParameter.comment.copyFrom(sourceParameter.comment);
+                        }
                     }
                 }
             }

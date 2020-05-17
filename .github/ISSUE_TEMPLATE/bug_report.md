@@ -4,6 +4,12 @@ about: Report a bug in TypeDoc
 labels: bug
 ---
 
+<!-- !! Important !!
+Before reporting a bug, please turn off ignoreCompilerErrors and ensure you can still reproduce the issue.
+If there are compiler errors, the TypeScript compiler API will not always behave correctly, and may lead
+to TypeDoc not working.
+-->
+
 ## Search terms
 <!-- Include keywords that might help others with the same problem find this issue -->
 

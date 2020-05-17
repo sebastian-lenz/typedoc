@@ -1,0 +1,431 @@
+{
+  "id": 0,
+  "name": "typedoc",
+  "kind": 0,
+  "flags": {},
+  "children": [
+    {
+      "id": 1,
+      "name": "\"inherit-param-doc\"",
+      "kind": 1,
+      "kindString": "Module",
+      "flags": {
+        "isExported": true
+      },
+      "originalName": "%BASE%/inherit-param-doc/inherit-param-doc.ts",
+      "children": [
+        {
+          "id": 7,
+          "name": "Class1",
+          "kind": 128,
+          "kindString": "Class",
+          "flags": {
+            "isExported": true
+          },
+          "children": [
+            {
+              "id": 8,
+              "name": "method1",
+              "kind": 2048,
+              "kindString": "Method",
+              "flags": {
+                "isExported": true
+              },
+              "signatures": [
+                {
+                  "id": 9,
+                  "name": "method1",
+                  "kind": 4096,
+                  "kindString": "Call signature",
+                  "flags": {
+                    "isExported": true
+                  },
+                  "comment": {},
+                  "parameters": [
+                    {
+                      "id": 10,
+                      "name": "a",
+                      "kind": 32768,
+                      "kindString": "Parameter",
+                      "flags": {
+                        "isExported": true
+                      },
+                      "comment": {
+                        "text": "Parameter A."
+                      },
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "number"
+                      }
+                    },
+                    {
+                      "id": 11,
+                      "name": "b",
+                      "kind": 32768,
+                      "kindString": "Parameter",
+                      "flags": {
+                        "isExported": true
+                      },
+                      "comment": {
+                        "text": "Parameter B.\n"
+                      },
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "string"
+                      }
+                    }
+                  ],
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "void"
+                  },
+                  "implementationOf": {
+                    "type": "reference",
+                    "id": 4,
+                    "name": "Base.method1"
+                  }
+                }
+              ],
+              "implementationOf": {
+                "type": "reference",
+                "id": 3,
+                "name": "Base.method1"
+              }
+            }
+          ],
+          "groups": [
+            {
+              "title": "Methods",
+              "kind": 2048,
+              "children": [
+                8
+              ]
+            }
+          ],
+          "implementedTypes": [
+            {
+              "type": "reference",
+              "id": 2,
+              "name": "Base"
+            }
+          ]
+        },
+        {
+          "id": 12,
+          "name": "Class2",
+          "kind": 128,
+          "kindString": "Class",
+          "flags": {
+            "isExported": true
+          },
+          "children": [
+            {
+              "id": 13,
+              "name": "method1",
+              "kind": 2048,
+              "kindString": "Method",
+              "flags": {
+                "isExported": true
+              },
+              "signatures": [
+                {
+                  "id": 14,
+                  "name": "method1",
+                  "kind": 4096,
+                  "kindString": "Call signature",
+                  "flags": {
+                    "isExported": true
+                  },
+                  "comment": {},
+                  "parameters": [
+                    {
+                      "id": 15,
+                      "name": "a",
+                      "kind": 32768,
+                      "kindString": "Parameter",
+                      "flags": {
+                        "isExported": true
+                      },
+                      "comment": {
+                        "text": "Custom parameter A doc.\n"
+                      },
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "number"
+                      }
+                    },
+                    {
+                      "id": 16,
+                      "name": "b",
+                      "kind": 32768,
+                      "kindString": "Parameter",
+                      "flags": {
+                        "isExported": true
+                      },
+                      "comment": {
+                        "text": "Parameter B.\n"
+                      },
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "string"
+                      }
+                    }
+                  ],
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "void"
+                  },
+                  "implementationOf": {
+                    "type": "reference",
+                    "id": 4,
+                    "name": "Base.method1"
+                  }
+                }
+              ],
+              "implementationOf": {
+                "type": "reference",
+                "id": 3,
+                "name": "Base.method1"
+              }
+            }
+          ],
+          "groups": [
+            {
+              "title": "Methods",
+              "kind": 2048,
+              "children": [
+                13
+              ]
+            }
+          ],
+          "implementedTypes": [
+            {
+              "type": "reference",
+              "id": 2,
+              "name": "Base"
+            }
+          ]
+        },
+        {
+          "id": 17,
+          "name": "Class3",
+          "kind": 128,
+          "kindString": "Class",
+          "flags": {
+            "isExported": true
+          },
+          "children": [
+            {
+              "id": 18,
+              "name": "method1",
+              "kind": 2048,
+              "kindString": "Method",
+              "flags": {
+                "isExported": true
+              },
+              "signatures": [
+                {
+                  "id": 19,
+                  "name": "method1",
+                  "kind": 4096,
+                  "kindString": "Call signature",
+                  "flags": {
+                    "isExported": true
+                  },
+                  "comment": {},
+                  "parameters": [
+                    {
+                      "id": 20,
+                      "name": "a",
+                      "kind": 32768,
+                      "kindString": "Parameter",
+                      "flags": {
+                        "isExported": true
+                      },
+                      "comment": {
+                        "text": "Parameter A."
+                      },
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "number"
+                      }
+                    },
+                    {
+                      "id": 21,
+                      "name": "c",
+                      "kind": 32768,
+                      "kindString": "Parameter",
+                      "flags": {
+                        "isExported": true
+                      },
+                      "comment": {
+                        "text": "Custom second parameter doc with name change.\n"
+                      },
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "string"
+                      }
+                    }
+                  ],
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "void"
+                  },
+                  "implementationOf": {
+                    "type": "reference",
+                    "id": 4,
+                    "name": "Base.method1"
+                  }
+                }
+              ],
+              "implementationOf": {
+                "type": "reference",
+                "id": 3,
+                "name": "Base.method1"
+              }
+            }
+          ],
+          "groups": [
+            {
+              "title": "Methods",
+              "kind": 2048,
+              "children": [
+                18
+              ]
+            }
+          ],
+          "implementedTypes": [
+            {
+              "type": "reference",
+              "id": 2,
+              "name": "Base"
+            }
+          ]
+        },
+        {
+          "id": 2,
+          "name": "Base",
+          "kind": 256,
+          "kindString": "Interface",
+          "flags": {
+            "isExported": true
+          },
+          "children": [
+            {
+              "id": 3,
+              "name": "method1",
+              "kind": 2048,
+              "kindString": "Method",
+              "flags": {
+                "isExported": true
+              },
+              "signatures": [
+                {
+                  "id": 4,
+                  "name": "method1",
+                  "kind": 4096,
+                  "kindString": "Call signature",
+                  "flags": {
+                    "isExported": true
+                  },
+                  "comment": {},
+                  "parameters": [
+                    {
+                      "id": 5,
+                      "name": "a",
+                      "kind": 32768,
+                      "kindString": "Parameter",
+                      "flags": {
+                        "isExported": true
+                      },
+                      "comment": {
+                        "text": "Parameter A."
+                      },
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "number"
+                      }
+                    },
+                    {
+                      "id": 6,
+                      "name": "b",
+                      "kind": 32768,
+                      "kindString": "Parameter",
+                      "flags": {
+                        "isExported": true
+                      },
+                      "comment": {
+                        "text": "Parameter B.\n"
+                      },
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "string"
+                      }
+                    }
+                  ],
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "void"
+                  }
+                }
+              ]
+            }
+          ],
+          "groups": [
+            {
+              "title": "Methods",
+              "kind": 2048,
+              "children": [
+                3
+              ]
+            }
+          ],
+          "implementedBy": [
+            {
+              "type": "reference",
+              "id": 7,
+              "name": "Class1"
+            },
+            {
+              "type": "reference",
+              "id": 12,
+              "name": "Class2"
+            },
+            {
+              "type": "reference",
+              "id": 17,
+              "name": "Class3"
+            }
+          ]
+        }
+      ],
+      "groups": [
+        {
+          "title": "Classes",
+          "kind": 128,
+          "children": [
+            7,
+            12,
+            17
+          ]
+        },
+        {
+          "title": "Interfaces",
+          "kind": 256,
+          "children": [
+            2
+          ]
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "title": "Modules",
+      "kind": 1,
+      "children": [
+        1
+      ]
+    }
+  ]
+}

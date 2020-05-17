@@ -17,10 +17,7 @@ const IGNORED_OPTIONS = [
     'inlineSources',
     'removeComments',
     'incremental',
-    'tsBuildInfoFile',
-    // This is not a TS option, but TypeScript will add it to the compiler options
-    // so we need to remove it or TypeDoc will error since it isn't declared.
-    'configFilePath'
+    'tsBuildInfoFile'
 ] as const;
 
 /**
@@ -43,6 +40,16 @@ export function addTSOptions(container: Options) {
     container.addDeclarations(_ts.optionDeclarations
         .filter(decl => !IGNORED.has(decl.name))
         .map(createTSDeclaration));
+
+    // This isn't really an option, and should never be set by users, but it shows up in the
+    // return value from ts.parseJsonConfigFileContent and is used to find @types packages.
+    // It is only needed if the project is outside of the cwd. See GH#1300.
+    container.addDeclarations([{
+        name: 'configFilePath',
+        type: ParameterType.String,
+        scope: ParameterScope.TypeScript,
+        help: ''
+    }]);
 }
 
 function createTSDeclaration(option: _ts.CommandLineOption): DeclarationOption {
