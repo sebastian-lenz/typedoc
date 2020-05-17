@@ -1,10 +1,9 @@
 import { CommentTag } from './tag';
 
 /**
- * A model that represents a javadoc comment.
+ * A model that represents a TypeDoc comment.
  *
- * Instances of this model are created by the [[CommentHandler]]. You can retrieve comments
- * through the [[BaseReflection.comment]] property.
+ * Comments are created by the {@link CommentPlugin} and {@link DeepCommentPlugin}.
  */
 export class Comment {
     /**
@@ -14,17 +13,17 @@ export class Comment {
     shortText: string;
 
     /**
-     * The full body text of the comment. Excludes the [[shortText]].
+     * The full body text of the comment. Excludes the {@link shortText}.
      */
     text: string;
 
     /**
-     * The text of the ```@returns``` tag if present.
+     * The text of the `@returns` tag if present.
      */
     returns?: string;
 
     /**
-     * All associated javadoc tags.
+     * All associated tags.
      */
     tags?: CommentTag[];
 
@@ -52,15 +51,7 @@ export class Comment {
      * @returns TRUE when this comment contains a tag with the given name, otherwise FALSE.
      */
     hasTag(tagName: string): boolean {
-        if (!this.tags) {
-            return false;
-        }
-        for (let i = 0, c = this.tags.length; i < c; i++) {
-            if (this.tags[i].tagName === tagName) {
-                return true;
-            }
-        }
-        return false;
+        return this.tags?.some(tag => tag.tagName === tagName) ?? false;
     }
 
     /**
@@ -73,29 +64,17 @@ export class Comment {
      * @returns The found tag or undefined.
      */
     getTag(tagName: string, paramName?: string): CommentTag | undefined {
-        return (this.tags || []).find(tag => {
+        return this.tags?.find(tag => {
             return tag.tagName === tagName && (paramName === void 0 || tag.paramName === paramName);
         });
     }
 
     /**
-     * Removes all tags with the given tag name from teh comment.
+     * Removes all tags with the given tag name from this comment.
      * @param tagName
      */
     removeTags(tagName: string) {
-        if (!this.tags) {
-            return;
-        }
-
-        let i = 0, c = this.tags.length ?? 0;
-        while (i < c) {
-            if (this.tags[i].tagName === tagName) {
-                this.tags.splice(i, 1);
-                c--;
-            } else {
-                i++;
-            }
-        }
+        this.tags = this.tags?.filter(tag => tag.tagName !== tagName)
     }
 
     /**
@@ -107,6 +86,6 @@ export class Comment {
         this.shortText = comment.shortText;
         this.text = comment.text;
         this.returns = comment.returns;
-        this.tags = comment.tags ? comment.tags.map((tag) => new CommentTag(tag.tagName, tag.paramName, tag.text)) : undefined;
+        this.tags = comment.tags?.map(tag => tag.clone());
     }
 }

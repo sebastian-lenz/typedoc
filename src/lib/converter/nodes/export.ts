@@ -4,7 +4,6 @@ import { Reflection, ReflectionFlag, DeclarationReflection, ContainerReflection 
 import { Context } from '../context';
 import { Component, ConverterNodeComponent } from '../components';
 import { createReferenceReflection } from '../factories/reference';
-import { SourceFileMode } from '../../utils';
 
 @Component({name: 'node:export'})
 export class ExportConverter extends ConverterNodeComponent<ts.ExportAssignment> {
@@ -59,11 +58,6 @@ export class ExportDeclarationConverter extends ConverterNodeComponent<ts.Export
     supports = [ts.SyntaxKind.ExportDeclaration];
 
     convert(context: Context, node: ts.ExportDeclaration): Reflection | undefined {
-        // It doesn't make sense to convert export declarations if we are pretending everything is global.
-        if (this.application.options.getValue('mode') === SourceFileMode.File) {
-            return;
-        }
-
         const scope = context.scope;
         if (!(scope instanceof ContainerReflection)) {
             throw new Error('Expected to be within a container');

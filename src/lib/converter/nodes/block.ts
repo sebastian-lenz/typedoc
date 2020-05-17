@@ -4,7 +4,6 @@ import { Reflection, ReflectionKind, ReflectionFlag } from '../../models/index';
 import { createDeclaration } from '../factories/index';
 import { Context } from '../context';
 import { Component, ConverterNodeComponent } from '../components';
-import { BindOption, SourceFileMode } from '../../utils';
 
 const preferred: ts.SyntaxKind[] = [
     ts.SyntaxKind.ClassDeclaration,
@@ -14,9 +13,6 @@ const preferred: ts.SyntaxKind[] = [
 
 @Component({name: 'node:block'})
 export class BlockConverter extends ConverterNodeComponent<ts.SourceFile|ts.Block|ts.ModuleBlock> {
-    @BindOption('mode')
-    mode!: SourceFileMode;
-
     /**
      * List of supported TypeScript syntax kinds.
      */
@@ -54,15 +50,11 @@ export class BlockConverter extends ConverterNodeComponent<ts.SourceFile|ts.Bloc
         let result: Reflection | undefined = context.scope;
 
         context.withSourceFile(node, () => {
-            if (this.mode === SourceFileMode.Modules) {
-                result = createDeclaration(context, node, ReflectionKind.Module, node.fileName);
-                context.withScope(result, () => {
-                    this.convertStatements(context, node);
-                    result!.setFlag(ReflectionFlag.Exported);
-                });
-            } else {
+            result = createDeclaration(context, node, ReflectionKind.Module, node.fileName);
+            context.withScope(result, () => {
                 this.convertStatements(context, node);
-            }
+                result!.setFlag(ReflectionFlag.Exported);
+            });
         });
 
         return result;

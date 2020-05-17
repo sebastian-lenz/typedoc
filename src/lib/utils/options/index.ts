@@ -3,7 +3,6 @@ export { ArgumentsReader, TypeDocReader, TSConfigReader } from './readers';
 export {
     TypeDocOptions,
     TypeDocAndTSOptions,
-    SourceFileMode,
 
     TypeDocOptionMap,
     KeyToDeclaration,

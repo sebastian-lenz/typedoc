@@ -17,7 +17,7 @@ type InternalOnly = true;
  *
  * ```ts
  * function over(flag: 'a' | 'b'): string
- * function over(flag: IfStrict<string, never>): string
+ * function over(flag: IfInternal<never, string>): string
  * function over(flag: string): string { return flag }
  * ```
  */
@@ -36,7 +36,6 @@ export {
     ParameterHint,
     ParameterScope,
     BindOption,
-    SourceFileMode
 } from './options';
 export { insertPrioritySorted, removeIfPresent } from './array';
 export { Component, AbstractComponent, ChildableComponent } from './component';

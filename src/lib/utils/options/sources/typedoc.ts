@@ -1,5 +1,5 @@
 import { Options } from '..';
-import { ParameterType, ParameterHint, SourceFileMode } from '../declaration';
+import { ParameterType, ParameterHint } from '../declaration';
 
 export function addTypeDocOptions(options: Options) {
     options.addDeclaration({
@@ -21,16 +21,6 @@ export function addTypeDocOptions(options: Options) {
         type: ParameterType.Array
     });
 
-    options.addDeclaration({
-        name: 'mode',
-        help: "Specifies the output mode the project is used to be compiled with: 'file' or 'modules'",
-        type: ParameterType.Map,
-        map: {
-            'file': SourceFileMode.File,
-            'modules': SourceFileMode.Modules
-        },
-        defaultValue: SourceFileMode.Modules
-    });
     options.addDeclaration({
         name: 'includeDeclarations',
         help: 'Turn on parsing of .d.ts declaration files.',

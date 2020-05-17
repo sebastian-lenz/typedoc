@@ -4,7 +4,7 @@ import { ReflectionCategory } from './ReflectionCategory';
 /**
  * A group of reflections. All reflections in a group are of the same kind.
  *
- * Reflection groups are created by the ´GroupHandler´ in the resolving phase
+ * Reflection groups are created by the {@link GroupHandler} in the resolving phase
  * of the dispatcher. The main purpose of groups is to be able to more easily
  * render human readable children lists in templates.
  */
@@ -33,10 +33,11 @@ export class ReflectionGroup {
     /**
      * Do all children of this group have a separate document?
      *
-     * A bound representation of the ´ReflectionGroup.getAllChildrenHaveOwnDocument´
-     * that can be used within templates.
+     * @privateRemarks
+     * This isn't a normal class method because Handlebars templates might not call it
+     * with the correct `this` binding.
      */
-    allChildrenHaveOwnDocument: Function;
+    allChildrenHaveOwnDocument = () => this.children.every(child => child.hasOwnDocument);
 
     /**
      * Are all children inherited members?
@@ -77,19 +78,5 @@ export class ReflectionGroup {
     constructor(title: string, kind: ReflectionKind) {
         this.title = title;
         this.kind = kind;
-
-        this.allChildrenHaveOwnDocument = (() => this.getAllChildrenHaveOwnDocument());
-    }
-
-    /**
-     * Do all children of this group have a separate document?
-     */
-    private getAllChildrenHaveOwnDocument(): boolean {
-        let onlyOwnDocuments = true;
-        this.children.forEach((child) => {
-            onlyOwnDocuments = onlyOwnDocuments && !!child.hasOwnDocument;
-        });
-
-        return onlyOwnDocuments;
     }
 }

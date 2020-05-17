@@ -3,7 +3,7 @@ import { Reflection } from './reflections/abstract';
 /**
  * A category of reflections.
  *
- * Reflection categories are created by the ´CategoryPlugin´ in the resolving phase
+ * Reflection categories are created by the {@link CategoryPlugin} in the resolving phase
  * of the dispatcher. The main purpose of categories is to be able to more easily
  * render human readable children lists in templates.
  */
@@ -21,10 +21,12 @@ export class ReflectionCategory {
     /**
      * Do all children of this category have a separate document?
      *
-     * A bound representation of the ´ReflectionCategory.getAllChildrenHaveOwnDocument´
-     * that can be used within templates.
+     * @privateRemarks
+     * This isn't a standard class method because Handlebars might not call it with the
+     * correct `this` binding.
+     * TODO: This ought not live here. Models shouldn't know how they are rendered.
      */
-    allChildrenHaveOwnDocument: Function;
+    allChildrenHaveOwnDocument = () => this.children.every(child => child.hasOwnDocument);
 
     /**
      * Create a new ReflectionCategory instance.
@@ -33,19 +35,5 @@ export class ReflectionCategory {
      */
     constructor(title: string) {
         this.title = title;
-
-        this.allChildrenHaveOwnDocument = (() => this.getAllChildrenHaveOwnDocument());
-    }
-
-    /**
-     * Do all children of this category have a separate document?
-     */
-    private getAllChildrenHaveOwnDocument(): boolean {
-        let onlyOwnDocuments = true;
-        this.children.forEach((child) => {
-            onlyOwnDocuments = onlyOwnDocuments && !!child.hasOwnDocument;
-        });
-
-        return onlyOwnDocuments;
     }
 }

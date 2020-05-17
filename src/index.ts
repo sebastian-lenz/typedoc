@@ -23,7 +23,6 @@ export {
     TypeDocAndTSOptions,
     TypeDocOptionMap,
     KeyToDeclaration,
-    SourceFileMode,
 
     TSConfigReader,
     TypeDocReader,

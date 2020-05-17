@@ -2,7 +2,7 @@ import { deepStrictEqual as equal } from 'assert';
 
 import { Options, Logger } from '../../../../lib/utils';
 import { ArgumentsReader } from '../../../../lib/utils/options/readers';
-import { ParameterType, SourceFileMode, NumberDeclarationOption } from '../../../../lib/utils/options';
+import { ParameterType, NumberDeclarationOption, MapDeclarationOption } from '../../../../lib/utils/options';
 
 describe('Options - ArgumentsReader', () => {
     // Note: We lie about the type of Options here since we want the less strict
@@ -10,7 +10,9 @@ describe('Options - ArgumentsReader', () => {
     // exclusively use the builtin options for tests and this cast can go away.
     const options = new Options(new Logger()) as Options & {
         addDeclaration(declaration: Readonly<NumberDeclarationOption> & { name: 'numOption'}): void;
+        addDeclaration(declaration: Readonly<MapDeclarationOption<number>> & { name: 'mapOption'}): void;
         getValue(name: 'numOption'): number;
+        getValue(name: 'mapOption'): number;
     };
     options.addDefaultDeclarations();
     options.addDeclaration({
@@ -18,6 +20,16 @@ describe('Options - ArgumentsReader', () => {
         short: 'no',
         help: '',
         type: ParameterType.Number
+    });
+    options.addDeclaration({
+        name: 'mapOption',
+        help: '',
+        type: ParameterType.Map,
+        defaultValue: 1,
+        map: {
+            a: 1,
+            b: 2
+        }
     });
 
     function test(name: string, args: string[], cb: () => void) {
@@ -62,8 +74,8 @@ describe('Options - ArgumentsReader', () => {
         equal(options.getValue('inputFiles'), ['foo']);
     });
 
-    test('Works with map options', ['--mode', 'file'], () => {
-        equal(options.getValue('mode'), SourceFileMode.File);
+    test('Works with map options', ['--mapOption', 'b'], () => {
+        equal(options.getValue('mapOption'), 2);
     });
 
     test('Works with mixed options', ['--logger', 'word'], () => {

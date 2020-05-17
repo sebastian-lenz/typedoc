@@ -29,10 +29,6 @@ type KnownKeys<T> = {
 export type TypeDocAndTSOptions = TypeDocOptions
     & Pick<CompilerOptions, Exclude<KnownKeys<CompilerOptions>, IgnoredTsOptionKeys>>;
 
-export enum SourceFileMode {
-    File, Modules
-}
-
 /**
  * Describes all TypeDoc options. Used internally to provide better types when fetching options.
  * External consumers should likely use either [[TypeDocAndTSOptions]] or [[TypeDocOptions]].
@@ -42,7 +38,6 @@ export interface TypeDocOptionMap {
     tsconfig: string;
 
     inputFiles: string[];
-    mode: { file: SourceFileMode.File, modules: SourceFileMode.Modules };
     includeDeclarations: boolean;
     entryPoint: string;
     exclude: string[];

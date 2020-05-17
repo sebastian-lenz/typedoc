@@ -11,7 +11,6 @@ describe('Converter', function() {
     const base = Path.join(__dirname, 'converter');
     const app = new Application();
     app.bootstrap({
-        mode: 'modules',
         logger: 'none',
         target: ScriptTarget.ES2016,
         module: ModuleKind.CommonJS,
