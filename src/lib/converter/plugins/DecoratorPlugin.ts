@@ -1,11 +1,52 @@
 import * as ts from 'typescript';
 import * as _ts from '../../ts-internal';
 
-import { ReferenceType } from '../../models/types/index';
+import { ReferenceType, Type } from '../../models/types/index';
 import { Reflection, Decorator } from '../../models/reflections/index';
 import { Component, ConverterComponent } from '../components';
 import { Converter } from '../converter';
 import { Context } from '../context';
+
+declare module '../../models/reflections/abstract' {
+    export interface Reflection {
+        /**
+         * A list of all types that are decorated by this reflection.
+         * This is added by the {@link DecoratorPlugin}.
+         */
+        decorates?: Type[];
+    }
+}
+
+/**
+ * Defines the usage of a decorator.
+ */
+export interface Decorator {
+    /**
+     * The name of the decorator being applied.
+     */
+    name: string;
+
+    /**
+     * The type declaring the decorator.
+     * Usually a ReferenceType instance pointing to the decorator function.
+     */
+    type?: Type;
+
+    /**
+     * A named map of arguments the decorator is applied with.
+     */
+    arguments?: any;
+}
+
+declare module '../../models/reflections/abstract' {
+    export interface Reflection {
+        /**
+         * A list of all decorators attached to this reflection.
+         * This is added by the {@link DecoratorPlugin}.
+         */
+        decorators?: Decorator[];
+    }
+}
 
 /**
  * A plugin that detects decorators.

@@ -17,6 +17,16 @@ import { partition, uniq } from 'lodash';
 import { SourceReference } from '../../models';
 import { BindOption } from '../../utils';
 
+declare module '../../models/reflections/abstract' {
+    interface Reflection {
+        /**
+         * The parsed documentation comment attached to this reflection.
+         * This is added by the {@link CommentPlugin}.
+         */
+        comment?: Comment;
+    }
+}
+
 /**
  * These tags are not useful to display in the generated documentation.
  * They should be ignored when parsing comments. Any relevant type information
@@ -63,7 +73,7 @@ interface ModuleComment {
  * A handler that parses TypeDoc comments and attaches [[Comment]] instances to
  * the generated reflections.
  */
-@Component({name: 'comment'})
+@Component({ name: 'comment' })
 export class CommentPlugin extends ConverterComponent {
     @BindOption('excludeTags')
     excludeTags!: string[];
@@ -72,20 +82,20 @@ export class CommentPlugin extends ConverterComponent {
      * List of discovered module comments.
      * Defined in this.onBegin
      */
-    private comments!: {[id: number]: ModuleComment};
+    private comments!: { [id: number]: ModuleComment };
 
     /**
      * Create a new CommentPlugin instance.
      */
     initialize() {
         this.listenTo(this.owner, {
-            [Converter.EVENT_BEGIN]:                   this.onBegin,
-            [Converter.EVENT_CREATE_DECLARATION]:      this.onDeclaration,
-            [Converter.EVENT_CREATE_SIGNATURE]:        this.onDeclaration,
-            [Converter.EVENT_CREATE_TYPE_PARAMETER]:   this.onCreateTypeParameter,
+            [Converter.EVENT_BEGIN]: this.onBegin,
+            [Converter.EVENT_CREATE_DECLARATION]: this.onDeclaration,
+            [Converter.EVENT_CREATE_SIGNATURE]: this.onDeclaration,
+            [Converter.EVENT_CREATE_TYPE_PARAMETER]: this.onCreateTypeParameter,
             [Converter.EVENT_FUNCTION_IMPLEMENTATION]: this.onFunctionImplementation,
-            [Converter.EVENT_RESOLVE_BEGIN]:           this.onBeginResolve,
-            [Converter.EVENT_RESOLVE]:                 this.onResolve
+            [Converter.EVENT_RESOLVE_BEGIN]: this.onBeginResolve,
+            [Converter.EVENT_RESOLVE]: this.onResolve
         });
     }
 
@@ -98,12 +108,12 @@ export class CommentPlugin extends ConverterComponent {
                 return;
             }
 
-            info.fullText    = comment;
+            info.fullText = comment;
             info.isPreferred = isPreferred;
         } else {
             this.comments[reflection.id] = {
-                reflection:  reflection,
-                fullText:    comment,
+                reflection: reflection,
+                fullText: comment,
                 isPreferred: isPreferred
             };
         }
@@ -241,7 +251,7 @@ export class CommentPlugin extends ConverterComponent {
                 continue;
             }
 
-            const info    = this.comments[id];
+            const info = this.comments[id];
             const comment = parseComment(info.fullText);
             comment.removeTags('preferred');
 
@@ -264,7 +274,7 @@ export class CommentPlugin extends ConverterComponent {
         hidden.forEach(reflection => project.removeReflection(reflection, true));
 
         // remove functions with empty signatures after their signatures have been removed
-        const [ allRemoved, someRemoved ] = partition(
+        const [allRemoved, someRemoved] = partition(
             hidden.map(reflection => reflection.parent!)
                 .filter(method => method.kindOf(ReflectionKind.FunctionOrMethod)) as DeclarationReflection[],
             method => method.signatures?.length === 0
@@ -313,9 +323,9 @@ export class CommentPlugin extends ConverterComponent {
                     }
 
                     childComment.shortText = childComment.shortText || comment.shortText;
-                    childComment.text      = childComment.text      || comment.text;
-                    childComment.returns   = childComment.returns   || comment.returns;
-                    childComment.tags      = childComment.tags      || comment.tags;
+                    childComment.text = childComment.text || comment.text;
+                    childComment.returns = childComment.returns || comment.returns;
+                    childComment.tags = childComment.tags || comment.tags;
                 }
 
                 if (signature.parameters) {
@@ -347,44 +357,6 @@ export class CommentPlugin extends ConverterComponent {
         for (const tag of this.excludeTags) {
             comment.removeTags(tag);
         }
-    }
-
-    /**
-     * Remove all tags with the given name from the given comment instance.
-     * @deprecated Use [[Comment.removeTags]] instead.
-     * Warn in 0.17, remove in 0.18.
-     *
-     * @param comment  The comment that should be modified.
-     * @param tagName  The name of the that that should be removed.
-     */
-    static removeTags(comment: Comment | undefined, tagName: string) {
-        // Can't use a logger here, we don't have one.
-        console.warn('Using deprecated function removeTags. This function will be removed in the next minor release.');
-        comment?.removeTags(tagName);
-    }
-
-    /**
-     * Remove the specified reflections from the project.
-     * @deprecated use [[ProjectReflection.removeReflection]]
-     * Warn in 0.17, remove in 0.18
-     */
-    static removeReflections(project: ProjectReflection, reflections: Reflection[]) {
-        // Can't use a logger here, we don't have one.
-        console.warn('Using deprecated function removeReflections. This function will be removed in the next minor release.');
-        for (const reflection of reflections) {
-            project.removeReflection(reflection, true);
-        }
-    }
-
-    /**
-     * Remove the given reflection from the project.
-     * @deprecated use [[ProjectReflection.removeReflection]]
-     * Warn in 0.17, remove in 0.18
-     */
-    static removeReflection(project: ProjectReflection, reflection: Reflection) {
-        // Can't use a logger here, we don't have one.
-        console.warn('Using deprecated function removeReflections. This function will be removed in the next minor release.');
-        project.removeReflection(reflection, true);
     }
 
     /**

@@ -1,64 +1,37 @@
 import { Type } from './abstract';
+import type { SomeType } from './index';
+import { cloned } from './utils';
 
 /**
  * Represents a tuple type.
  *
- * ~~~
- * let value: [string,boolean];
- * ~~~
+ * ```ts
+ * let value: [string, boolean];
+ * ```
  */
 export class TupleType extends Type {
-    /**
-     * The ordered type elements of the tuple type.
-     */
-    elements: Type[];
-
-    /**
-     * The type name identifier.
-     */
+    /** @inheritdoc */
     readonly type = 'tuple';
 
     /**
-     * Create a new TupleType instance.
-     *
-     * @param elements  The ordered type elements of the tuple type.
+     * The ordered type elements of the tuple type.
      */
-    constructor(elements: Type[]) {
+    elements: SomeType[];
+
+    constructor(elements: SomeType[]) {
         super();
         this.elements = elements;
     }
 
-    /**
-     * Clone this type.
-     *
-     * @return A clone of this type.
-     */
-    clone(): Type {
-        return new TupleType(this.elements);
+    /** @inheritdoc */
+    clone() {
+        return new TupleType(cloned(this.elements));
     }
 
-    /**
-     * Test whether this type equals the given type.
-     *
-     * @param type  The type that should be checked for equality.
-     * @returns TRUE if the given type equals this type, FALSE otherwise.
-     */
-    equals(type: TupleType): boolean {
-        if (!(type instanceof TupleType)) {
-            return false;
-        }
-        return Type.isTypeListEqual(type.elements, this.elements);
-    }
-
-    /**
-     * Return a string representation of this type.
-     */
-    toString() {
-        const names: string[] = [];
-        this.elements.forEach((element) => {
-            names.push(element.toString());
-        });
-
-        return '[' + names.join(', ') + ']';
+    /** @inheritdoc */
+    stringify() {
+        // No need for parenthesis here, each element is distinguishable and the whole type
+        // is wrapped with brackets.
+        return `[${this.elements.map(type => type.stringify(false)).join(', ')}]`;
     }
 }

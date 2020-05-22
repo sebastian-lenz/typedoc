@@ -1,65 +1,35 @@
-import { Type, UnionType, IntersectionType } from './index';
+import { Type } from './abstract';
+import type { SomeType } from '.';
 
 /**
  * Represents an array type.
  *
- * ~~~
- * let value: string[];
- * ~~~
+ * ```ts
+ * type A = string[];
+ * type B = Array<string>;
+ * ```
  */
 export class ArrayType extends Type {
+    /** @inheritdoc */
+    readonly type = 'array';
 
     /**
      * The type of the array elements.
      */
-    elementType: Type;
+    elementType: SomeType;
 
-    /**
-     * The type name identifier.
-     */
-    readonly type = 'array';
-
-    /**
-     * Create a new TupleType instance.
-     *
-     * @param elementType  The type of the array's elements.
-     */
-    constructor(elementType: Type) {
+    constructor(elementType: SomeType) {
         super();
         this.elementType = elementType;
     }
 
-    /**
-     * Clone this type.
-     *
-     * @return A clone of this type.
-     */
-    clone(): Type {
-        return new ArrayType(this.elementType);
+    /** @inheritdoc */
+    clone() {
+        return new ArrayType(this.elementType.clone());
     }
 
-    /**
-     * Test whether this type equals the given type.
-     *
-     * @param type  The type that should be checked for equality.
-     * @returns TRUE if the given type equals this type, FALSE otherwise.
-     */
-    equals(type: Type): boolean {
-        if (!(type instanceof ArrayType)) {
-            return false;
-        }
-        return type.elementType.equals(this.elementType);
-    }
-
-    /**
-     * Return a string representation of this type.
-     */
-    toString() {
-        const elementTypeStr = this.elementType.toString();
-        if (this.elementType instanceof UnionType || this.elementType instanceof IntersectionType) {
-            return '(' + elementTypeStr + ')[]';
-        } else {
-            return elementTypeStr + '[]';
-        }
+    /** @inheritdoc */
+    stringify(wrapped: boolean) {
+        return this.elementType.stringify(true) + '[]';
     }
 }

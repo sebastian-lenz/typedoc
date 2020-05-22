@@ -1,36 +1,23 @@
-import { Type, ReflectionType } from '../types/index';
-import { Reflection, DefaultValueContainer, TypeContainer, TraverseCallback, TraverseProperty } from './abstract';
-import { SignatureReflection } from './signature';
+import { Reflection, ReflectionKind } from './abstract';
+import type { SomeType } from '../types/index';
 
-export class ParameterReflection extends Reflection implements DefaultValueContainer, TypeContainer {
-    parent?: SignatureReflection;
+export class ParameterReflection extends Reflection {
+    readonly kind = ReflectionKind.Parameter;
 
     defaultValue?: string;
 
-    type?: Type;
-
     /**
-     * Traverse all potential child reflections of this reflection.
+     * The parameter type, if there is no type, defaults to `any` to conform to TypeScript's
+     * behavior. Turning on `noImplicitAny` is recommended as it can prevent `any` from sneaking
+     * in accidentally.
      *
-     * The given callback will be invoked for all children, signatures and type parameters
-     * attached to this reflection.
-     *
-     * @param callback  The callback function that should be applied for each child reflection.
+     * Themes may choose to not render the type of a parameter if it is `any`.
      */
-    traverse(callback: TraverseCallback) {
-        if (this.type instanceof ReflectionType) {
-            if (callback(this.type.declaration, TraverseProperty.TypeLiteral) === false) {
-                return;
-            }
-        }
+    type: SomeType;
 
-        super.traverse(callback);
-    }
-
-    /**
-     * Return a string representation of this reflection.
-     */
-    toString() {
-        return super.toString() + (this.type ? ':' + this.type.toString() :  '');
+    constructor(name: string, type: SomeType, defaultValue?: string) {
+        super(name);
+        this.type = type;
+        this.defaultValue = defaultValue;
     }
 }

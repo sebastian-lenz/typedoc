@@ -1,79 +1,30 @@
+import { SomeType } from '.';
+
 /**
  * Base class of all type definitions.
- *
- * Instances of this class are also used to represent the type `void`.
  */
 export abstract class Type {
-
     /**
      * The type name identifier.
      */
-    readonly type: string = 'void';
+    abstract readonly type: string;
 
     /**
-     * Clone this type.
-     *
-     * @return A clone of this type.
+     * Make a deep clone of this type.
      */
-    abstract clone(): Type;
+    abstract clone(): SomeType;
 
     /**
-     * Test whether this type equals the given type.
-     *
-     * @param type  The type that should be checked for equality.
-     * @returns TRUE if the given type equals this type, FALSE otherwise.
+     * Stringifies this type, the `wrapped` parameter is used to determine if complex types should be
+     * wrapped in parenthesis.
+     * @internal
      */
-    equals(type: Type): boolean {
-        return false;
-    }
+    abstract stringify(wrapped: boolean): string;
 
     /**
      * Return a string representation of this type.
      */
-    toString(): string {
-        return 'void';
-    }
-
-    /**
-     * Test whether the two given list of types contain equal types.
-     *
-     * @param a
-     * @param b
-     */
-    static isTypeListSimilar(a: Type[], b: Type[]): boolean {
-        if (a.length !== b.length) {
-            return false;
-        }
-        outerLoop: for (let an = 0, count = a.length; an < count; an++) {
-            const at = a[an];
-            for (let bn = 0; bn < count; bn++) {
-                if (b[bn].equals(at)) {
-                    continue outerLoop;
-                }
-            }
-
-            return false;
-        }
-
-        return true;
-    }
-
-    /**
-     * Test whether the two given list of types are equal.
-     *
-     * @param a
-     * @param b
-     */
-    static isTypeListEqual(a: Type[], b: Type[]): boolean {
-        if (a.length !== b.length) {
-            return false;
-        }
-        for (let index = 0, count = a.length; index < count; index++) {
-            if (!a[index].equals(b[index])) {
-                return false;
-            }
-        }
-
-        return true;
+    toString() {
+        return this.stringify(false);
     }
 }

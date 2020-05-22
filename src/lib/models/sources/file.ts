@@ -21,10 +21,13 @@ export interface SourceReference {
     fileName: string;
 
     /**
-     * The number of the line that emitted the declaration.
+     * The number of the line that emitted the declaration. One based.
      */
     line: number;
 
+    /**
+     * The column in the line that contains the declaration. Zero based.
+     */
     character: number;
 
     /**

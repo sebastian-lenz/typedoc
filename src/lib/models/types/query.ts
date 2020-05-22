@@ -1,5 +1,5 @@
 import { Type } from './abstract';
-import { ReferenceType } from './reference';
+import type { ReferenceType } from './reference';
 
 /**
  * Represents a type that is constructed by querying the type of a reflection.
@@ -9,24 +9,26 @@ import { ReferenceType } from './reference';
  * ```
  */
 export class QueryType extends Type {
-    readonly queryType: ReferenceType;
-
+    /** @inheritdoc */
     readonly type = 'query';
+
+    /**
+     * A reference to the reflection whose type is being queried.
+     */
+    queryType: ReferenceType;
 
     constructor(reference: ReferenceType) {
         super();
         this.queryType = reference;
     }
 
-    clone(): Type {
-        return new QueryType(this.queryType);
+    /** @inheritdoc */
+    clone() {
+        return new QueryType(this.queryType.clone());
     }
 
-    equals(other: Type) {
-        return other instanceof QueryType && this.queryType.equals(other.queryType);
-    }
-
-    toString() {
-        return `typeof ${this.queryType.toString()}`;
+    /** @inheritdoc */
+    stringify() {
+        return `typeof ${this.queryType}`;
     }
 }

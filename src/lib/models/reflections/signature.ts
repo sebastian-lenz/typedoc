@@ -1,99 +1,117 @@
-import { Type, ReflectionType } from '../types/index';
-import { Reflection, TypeContainer, TypeParameterContainer, TraverseProperty, TraverseCallback } from './abstract';
-import { ContainerReflection } from './container';
-import { ParameterReflection } from './parameter';
-import { TypeParameterReflection } from './type-parameter';
-import { toArray } from 'lodash';
+import { ReflectionKind, Reflection } from './abstract';
+import type { ParameterReflection } from './parameter';
+import type { SomeType } from '../types/index';
+import { TypeParameterType } from '../types/type-parameter';
 
-export class SignatureReflection extends Reflection implements TypeContainer, TypeParameterContainer {
-    parent?: ContainerReflection;
+export abstract class CallableReflection extends Reflection {
+    signatures: SignatureReflection[] = [];
+}
 
-    parameters?: ParameterReflection[];
+/**
+ * Represents a function exported from a module or namespace.
+ *
+ * Functions attached to classes or interfaces are represented by a {@link MethodReflection}
+ * Both arrow functions (`export const a = () => 1`) and function expressions
+ * (`export const a = function(){}`) are converted to a function reflection.
+ */
+export class FunctionReflection extends CallableReflection {
+    readonly kind = ReflectionKind.Function;
+}
 
-    typeParameters?: TypeParameterReflection[];
-
-    type?: Type;
+/**
+ * Represents a method on a class or interface.
+ */
+export class MethodReflection extends CallableReflection {
+    readonly kind = ReflectionKind.Method;
 
     /**
-     * A type that points to the reflection that has been overwritten by this reflection.
+     * The method on the parent class or interface which this method overwrites.
      *
-     * Applies to interface and class members.
-     */
-    overwrites?: Type;
-
-    /**
-     * A type that points to the reflection this reflection has been inherited from.
+     * Note that this is appropriately named. Unless types are identical, subclasses may specify methods
+     * which overwrite, rather than implement, parent interfaces. This can be partially mitigated with
+     * strictFunctionTypes, but even then only applies to function properties, not class methods.
      *
-     * Applies to interface and class members.
-     */
-    inheritedFrom?: Type;
-
-    /**
-     * A type that points to the reflection this reflection is the implementation of.
+     * ```ts
+     * interface A { method(): string }
+     * interface B extends A { method(): 'b' }
+     * class Impl implements B {
+     *   // Even though this implements A, which B extends, it does not meet the requirements for B.
+     *   // So B's method() *overwrites* A's method().
+     *   method() { // Error: Type 'string' is not assignable to type '"b"'
+     *     return 'impl'
+     *   }
+     * }
+     * ```
      *
-     * Applies to class members.
+     * This is a TypeScript design limitation. See Microsoft/TypeScript#22156. The default theme presents
+     * methods as "overridden" instead of "overwritten", this is a compromise since most cases will not
+     * intentionally overwrite methods. See GH#271.
      */
-    implementationOf?: Type;
+    get overwrites(): MethodReflection | undefined {
+        return this._overwrites
+            ? this.project?.getReflectionById(this._overwrites) as MethodReflection | undefined
+            : undefined;
+    }
 
-    /**
-     * Return an array of the parameter types.
-     */
-    getParameterTypes(): Type[] {
-        if (!this.parameters) {
-            return [];
-        }
-        function notUndefined<T>(t: T | undefined): t is T {
-            return !!t;
-        }
-        return this.parameters.map(parameter => parameter.type).filter(notUndefined);
+    set overwrites(value: MethodReflection | undefined) {
+        this._overwrites = value?.id;
     }
 
     /**
-     * Traverse all potential child reflections of this reflection.
-     *
-     * The given callback will be invoked for all children, signatures and type parameters
-     * attached to this reflection.
-     *
-     * @param callback  The callback function that should be applied for each child reflection.
+     * The method on the parent class or interface which this signature is inherited from.
      */
-    traverse(callback: TraverseCallback) {
-        if (this.type instanceof ReflectionType) {
-            if (callback(this.type.declaration, TraverseProperty.TypeLiteral) === false) {
-                return;
-            }
-        }
+    get inheritedFrom(): MethodReflection | undefined {
+        return this._inheritedFrom
+            ? this.project?.getReflectionById(this._inheritedFrom) as MethodReflection | undefined
+            : undefined;
+    }
 
-        for (const parameter of toArray(this.typeParameters)) {
-            if (callback(parameter, TraverseProperty.TypeParameter) === false) {
-                return;
-            }
-        }
-
-        for (const parameter of toArray(this.parameters)) {
-            if (callback(parameter, TraverseProperty.Parameters) === false) {
-                return;
-            }
-        }
-
-        super.traverse(callback);
+    set inheritedFrom(value: MethodReflection | undefined) {
+        this._inheritedFrom = value?.id;
     }
 
     /**
-     * Return a string representation of this reflection.
+     * The method signature which this method is an implementation of.
+     * Both {@link inheritedFrom} and {@link implementationOf} may be set, if the reflection
+     * this reflection is inherited from is an implementation of some interface.
      */
-    toString(): string {
-        let result = super.toString();
+    get implementationOf(): MethodReflection | undefined {
+        return this._implementationOf
+            ? this.project?.getReflectionById(this._implementationOf) as MethodReflection | undefined
+            : undefined;
+    }
 
-        if (this.typeParameters) {
-            const parameters: string[] = [];
-            this.typeParameters.forEach((parameter) => parameters.push(parameter.name));
-            result += '<' + parameters.join(', ') + '>';
-        }
+    set implementationOf(value: MethodReflection | undefined) {
+        this._inheritedFrom = value?.id;
+    }
 
-        if (this.type) {
-            result += ':' + this.type.toString();
-        }
+    private _overwrites?: number;
+    private _inheritedFrom?: number;
+    private _implementationOf?: number;
+}
 
-        return result;
+export class SignatureReflection extends Reflection {
+    readonly kind = ReflectionKind.Signature;
+
+    /**
+     * The function parameters of this signature.
+     */
+    parameters: ParameterReflection[];
+
+    /**
+     * Any type parameters owned by this signature.
+     */
+    typeParameters: TypeParameterType[];
+
+    /**
+     * The return type of this signature.
+     */
+    returnType: SomeType;
+
+    constructor(name: string, returnType: SomeType, parameters: ParameterReflection[], typeParameters: TypeParameterType[]) {
+        super(name);
+        this.returnType = returnType;
+        this.parameters = parameters;
+        this.typeParameters = typeParameters;
     }
 }

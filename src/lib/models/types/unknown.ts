@@ -2,52 +2,39 @@ import { Type } from './abstract';
 
 /**
  * Represents all unknown types.
+ * Note that this is *not* equivalent to TypeScript's `unknown` type. TypeScript's
+ * `unknown` type is an {@link IntrinsicType}. This type is reserved for reference types which
+ * target reflections that do not exist in the documentation and for types which TypeDoc doesn't
+ * know how to convert yet.
  */
 export class UnknownType extends Type {
-    /**
-     * A string representation of the type as returned from TypeScript compiler.
-     */
-    name: string;
-
     /**
      * The type name identifier.
      */
     readonly type = 'unknown';
 
     /**
+     * A string representation of the type as returned from TypeScript compiler.
+     */
+    name: string;
+
+    /**
      * Create a new instance of UnknownType.
      *
-     * @param name  A string representation of the type as returned from TypeScript compiler.
+     * @param name A string representation of the type as returned from TypeScript compiler.
      */
     constructor(name: string) {
         super();
         this.name = name;
     }
 
-    /**
-     * Clone this type.
-     *
-     * @return A clone of this type.
-     */
-    clone(): Type {
+    /** @inheritdoc */
+    clone() {
         return new UnknownType(this.name);
     }
 
-    /**
-     * Test whether this type equals the given type.
-     *
-     * @param type  The type that should be checked for equality.
-     * @returns TRUE if the given type equals this type, FALSE otherwise.
-     */
-    equals(type: UnknownType): boolean {
-        return type instanceof UnknownType &&
-            type.name === this.name;
-    }
-
-    /**
-     * Return a string representation of this type.
-     */
-    toString() {
+    /** @inheritdoc */
+    stringify() {
         return this.name;
     }
 }

@@ -18,7 +18,6 @@ export class ReflectionSerializer extends ReflectionSerializerComponent<Reflecti
             id: reflection.id,
             name: reflection.name,
             kind: reflection.kind,
-            kindString: reflection.kindString,
             flags: {}
         };
 

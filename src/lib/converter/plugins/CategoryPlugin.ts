@@ -1,10 +1,24 @@
-import { Reflection, ContainerReflection, DeclarationReflection } from '../../models';
+import { Reflection, ContainerReflection, ReflectionGroup, IndependentReflection } from '../../models';
 import { ReflectionCategory } from '../../models/ReflectionCategory';
 import { Component, ConverterComponent } from '../components';
 import { Converter } from '../converter';
 import { Context } from '../context';
 import { BindOption } from '../../utils';
 import { Comment } from '../../models/comments/index';
+
+declare module '../../models/reflections/abstract' {
+    export interface ContainerReflection<Child extends IndependentReflection> {
+        /**
+         * All children grouped by their kind.
+         */
+        groups?: ReflectionGroup[];
+
+        /**
+         * All children grouped by their category.
+         */
+        categories?: ReflectionCategory[];
+    }
+}
 
 /**
  * A handler that sorts and categorizes the found reflections in the resolving phase.

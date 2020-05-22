@@ -1,17 +1,25 @@
-import { Reflection } from '../reflections/abstract';
+import * as ts from 'typescript';
+import type { SomeType } from '.';
+import type { ProjectReflection } from '../reflections';
+import { Reflection, ReflectionKind } from '../reflections/abstract';
 import { Type } from './abstract';
+import { cloned } from './utils';
+
+const TYPE_CONTRIBUTING_KINDS = ReflectionKind.Interface
+    | ReflectionKind.Class
+    | ReflectionKind.Enum
+    | ReflectionKind.TypeAlias
+    | ReflectionKind.Module;
 
 /**
  * Represents a type that refers to another reflection like a class, interface or enum.
  *
- * ~~~
+ * ```ts
  * let value: MyClass;
- * ~~~
+ * ```
  */
 export class ReferenceType extends Type {
-    /**
-     * The type name identifier.
-     */
+    /** @inheritdoc */
     readonly type = 'reference';
 
     /**
@@ -25,80 +33,62 @@ export class ReferenceType extends Type {
     /**
      * The type arguments of this reference.
      */
-    typeArguments?: Type[];
+    typeArguments: SomeType[];
 
     /**
-     * The fully qualified name of the referenced type as returned from the TypeScript compiler.
-     *
-     * After the all reflections have been generated this is can be used to lookup the
-     * relevant reflection with [[ProjectReflection.getSymbolFromFQN]]. This property used to be
-     * the internal ts.Symbol.id, but symbol IDs are not stable when dealing with imports.
+     * The resolved reflection, if it exists.
      */
-    symbolFullyQualifiedName: string;
+    get reflection(): Reflection | undefined {
+        if (typeof this._reference === 'number') {
+            return this._project.getReflectionById(this._reference);
+        }
+        for (const reflection of this._project.getReflectionsFromSymbol(this._reference)) {
+            if (this._preferValueSpace !== reflection.kindOf(TYPE_CONTRIBUTING_KINDS)) {
+                this._reference = reflection.id;
+                return reflection;
+            }
+        }
+        for (const reflection of this._project.getReflectionsFromSymbol(this._reference)) {
+            this._reference = reflection.id;
+            return reflection;
+        }
+    }
 
-    /**
-     * The resolved reflection.
-     *
-     * The [[TypePlugin]] will try to set this property in the resolving phase.
-     */
-    reflection?: Reflection;
+    private _reference: ts.Symbol | number;
+    private _project: ProjectReflection;
+    private _preferValueSpace: boolean;
 
-    /**
-     * Special symbol FQN noting that the reference of a ReferenceType was known when creating the type.
-     */
-    static SYMBOL_FQN_RESOLVED = '///resolved';
+    constructor(
+        name: string,
+        typeArguments: SomeType[],
+        reference: ts.Symbol | Reflection | number,
+        preferValueSpace: boolean,
+        project: ProjectReflection) {
 
-    /**
-     * Special symbol ID noting that the reference should be resolved by the type name.
-     */
-    static SYMBOL_FQN_RESOLVE_BY_NAME = '///resolve_by_name';
-
-    /**
-     * Create a new instance of ReferenceType.
-     *
-     * @param name        The name of the referenced type.
-     * @param symbolID    The symbol id of the referenced type as returned from the TypeScript compiler.
-     * @param reflection  The resolved reflection if already known.
-     */
-    constructor(name: string, symbolFQN: string, reflection?: Reflection) {
         super();
         this.name = name;
-        this.symbolFullyQualifiedName = symbolFQN;
-        this.reflection = reflection;
+        this.typeArguments = typeArguments;
+        this._reference = reference instanceof Reflection ? reference.id : reference;
+        this._preferValueSpace = preferValueSpace;
+        this._project = project;
     }
 
-    /**
-     * Clone this type.
-     *
-     * @return A clone of this type.
-     */
-    clone(): Type {
-        const clone = new ReferenceType(this.name, this.symbolFullyQualifiedName, this.reflection);
-        clone.typeArguments = this.typeArguments;
-        return clone;
+    /** @inheritdoc */
+    clone() {
+        return new ReferenceType(
+            this.name,
+            cloned(this.typeArguments),
+            this._reference,
+            this._preferValueSpace,
+            this._project);
     }
 
-    /**
-     * Test whether this type equals the given type.
-     *
-     * @param other  The type that should be checked for equality.
-     * @returns TRUE if the given type equals this type, FALSE otherwise.
-     */
-    equals(other: ReferenceType): boolean {
-        return other instanceof ReferenceType && (other.symbolFullyQualifiedName === this.symbolFullyQualifiedName || other.reflection === this.reflection);
-    }
-
-    /**
-     * Return a string representation of this type.
-     * @example EventEmitter<any>
-     */
-    toString() {
-        const name = this.reflection ? this.reflection.name : this.name;
+    /** @inheritdoc */
+    stringify() {
+        const name = this.reflection?.name ?? this.name;
         let typeArgs = '';
-        if (this.typeArguments) {
-            typeArgs += '<';
-            typeArgs += this.typeArguments.map(arg => arg.toString()).join(', ');
-            typeArgs += '>';
+        if (this.typeArguments.length) {
+            typeArgs = `<${this.typeArguments.map(arg => arg.toString()).join(', ')}>`;
         }
 
         return name + typeArgs;

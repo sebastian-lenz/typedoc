@@ -1,65 +1,43 @@
+import * as assert from 'assert';
 import { Type } from './abstract';
+import type { SomeType } from '.';
 
 /**
  * Represents a type parameter type.
  *
- * ~~~
- * let value: T;
- * ~~~
+ * ```ts
+ * function test<T extends string = 'bar'>() {
+ *   // here     ^^^^^^^^^^^^^^^^^^^^^^^^
+ *   let value: T;
+ *   // but not ^ this is a reference
+ * }
+ * ```
  */
 export class TypeParameterType extends Type {
-    /**
-     *
-     */
-    readonly name: string;
+    /** @inheritdoc */
+    readonly type = 'typeParameter';
 
-    constraint?: Type;
+    constructor(
+        public name: string,
+        public constraint?: SomeType,
+        public defaultValue?: SomeType) {
 
-    /**
-     * The type name identifier.
-     */
-    readonly type: string = 'typeParameter';
-
-    constructor(name: string) {
         super();
         this.name = name;
+        this.constraint = constraint;
+        this.defaultValue = defaultValue;
     }
 
-    /**
-     * Clone this type.
-     *
-     * @return A clone of this type.
-     */
-    clone(): Type {
-        const clone = new TypeParameterType(this.name);
-        clone.constraint = this.constraint;
-        return clone;
+    /** @inheritdoc */
+    clone() {
+        return new TypeParameterType(this.name, this.constraint?.clone(), this.defaultValue?.clone());
     }
 
-    /**
-     * Test whether this type equals the given type.
-     *
-     * @param type  The type that should be checked for equality.
-     * @returns TRUE if the given type equals this type, FALSE otherwise.
-     */
-    equals(type: TypeParameterType): boolean {
-        if (!(type instanceof TypeParameterType)) {
-            return false;
-        }
-
-        if (this.constraint && type.constraint) {
-            return type.constraint.equals(this.constraint);
-        } else if (!this.constraint && !type.constraint) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Return a string representation of this type.
-     */
-    toString() {
-        return this.name;
+    /** @inheritdoc */
+    stringify(wrapped) {
+        assert(wrapped === false, 'Type parameters should never be wrapped in another type.');
+        const extendsClause = this.constraint ? ` extends ${this.constraint}` : '';
+        const defaultClause = this.defaultValue ? ` = ${this.defaultValue}` : '';
+        return this.name + extendsClause + defaultClause;
     }
 }

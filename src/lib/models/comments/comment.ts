@@ -74,7 +74,7 @@ export class Comment {
      * @param tagName
      */
     removeTags(tagName: string) {
-        this.tags = this.tags?.filter(tag => tag.tagName !== tagName)
+        this.tags = this.tags?.filter(tag => tag.tagName !== tagName);
     }
 
     /**

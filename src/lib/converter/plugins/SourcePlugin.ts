@@ -10,6 +10,30 @@ import { Converter } from '../converter';
 import { Context } from '../context';
 import { BindOption } from '../../utils';
 
+declare module '../../models/reflections/abstract' {
+    export interface Reflection {
+        /**
+         * A list of all source files that contributed to this reflection.
+         * This is added by the {@link SourcePlugin}.
+         */
+        sources?: SourceReference[];
+    }
+}
+
+declare module '../../models/reflections/project' {
+    export interface ProjectReflection {
+        /**
+         * A list of all source files within the project.
+         */
+        files: SourceFile[];
+
+        /**
+         * The root directory of the project.
+         */
+        directory: SourceDirectory;
+    }
+}
+
 /**
  * A handler that attaches source file information to reflections.
  */

@@ -32,6 +32,6 @@ export class CommentTag {
      * Creates a copy of this tag.
      */
     clone(): CommentTag {
-        return new CommentTag(this.tagName, this.paramName, this.text)
+        return new CommentTag(this.tagName, this.paramName, this.text);
     }
 }

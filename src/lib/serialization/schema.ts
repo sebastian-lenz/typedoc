@@ -143,7 +143,6 @@ export interface Reflection extends S<M.Reflection,
       'id'
     | 'name'
     | 'kind'
-    | 'kindString'
     | 'comment'
     | 'decorates'> {
     originalName?: M.Reflection['originalName'];

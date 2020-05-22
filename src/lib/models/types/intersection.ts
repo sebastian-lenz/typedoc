@@ -1,64 +1,35 @@
 import { Type } from './abstract';
+import { wrap, cloned } from './utils';
+import type { SomeType } from './index';
 
 /**
  * Represents an intersection type.
  *
- * ~~~
+ * ```ts
  * let value: A & B;
- * ~~~
+ * ```
  */
 export class IntersectionType extends Type {
-    /**
-     * The types this union consists of.
-     */
-    types: Type[];
+    /** @inheritdoc */
+    readonly type = 'intersection';
 
     /**
-     * The type name identifier.
+     * The types this intersection consists of.
      */
-    readonly type: string = 'intersection';
+    types: SomeType[];
 
-    /**
-     * Create a new TupleType instance.
-     *
-     * @param types  The types this union consists of.
-     */
-    constructor(types: Type[]) {
+    constructor(types: SomeType[]) {
         super();
         this.types = types;
     }
 
-    /**
-     * Clone this type.
-     *
-     * @return A clone of this type.
-     */
-    clone(): Type {
-        return new IntersectionType(this.types);
+    /** @inheritdoc */
+    clone() {
+        return new IntersectionType(cloned(this.types));
     }
 
-    /**
-     * Test whether this type equals the given type.
-     *
-     * @param type  The type that should be checked for equality.
-     * @returns TRUE if the given type equals this type, FALSE otherwise.
-     */
-    equals(type: IntersectionType): boolean {
-        if (!(type instanceof IntersectionType)) {
-            return false;
-        }
-        return Type.isTypeListSimilar(type.types, this.types);
-    }
-
-    /**
-     * Return a string representation of this type.
-     */
-    toString() {
-        const names: string[] = [];
-        this.types.forEach((element) => {
-            names.push(element.toString());
-        });
-
-        return names.join(' & ');
+    /** @inheritdoc */
+    stringify(wrapped: boolean) {
+        return wrap(wrapped, this.types.map(type => type.stringify(true)).join(' & '));
     }
 }

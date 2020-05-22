@@ -1,49 +1,25 @@
-import { Type } from './index';
+import { Type } from './abstract';
+import type { SomeType } from './index';
 
 /**
  * Represents an indexed access type.
  */
 export class IndexedAccessType extends Type {
-    /**
-     * The type name identifier.
-     */
+    /** @inheritdoc */
     readonly type = 'indexedAccess';
 
-    /**
-     * Create a new TupleType instance.
-     *
-     * @param elementType  The type of the array's elements.
-     */
-    constructor(public objectType: Type, public indexType: Type) {
+    constructor(public objectType: SomeType, public indexType: SomeType) {
         super();
     }
 
-    /**
-     * Clone this type.
-     *
-     * @return A clone of this type.
-     */
-    clone(): Type {
-        return new IndexedAccessType(this.objectType, this.indexType);
+    /** @inheritdoc */
+    clone() {
+        return new IndexedAccessType(this.objectType.clone(), this.indexType.clone());
     }
 
-    /**
-     * Test whether this type equals the given type.
-     *
-     * @param type  The type that should be checked for equality.
-     * @returns TRUE if the given type equals this type, FALSE otherwise.
-     */
-    equals(type: Type): boolean {
-        if (!(type instanceof IndexedAccessType)) {
-            return false;
-        }
-        return type.objectType.equals(this.objectType) && type.indexType.equals(this.indexType);
-    }
-
-    /**
-     * Return a string representation of this type.
-     */
-    toString() {
-        return `${this.objectType.toString()}[${this.indexType.toString()}]`;
+    /** @inheritdoc */
+    stringify() {
+        // The index type is contained within brackets and does not need parenthesis, even if complex.
+        return `${this.objectType.stringify(true)}[${this.indexType.stringify(false)}]`;
     }
 }
