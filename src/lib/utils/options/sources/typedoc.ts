@@ -67,11 +67,6 @@ export function addTypeDocOptions(options: Options) {
         type: ParameterType.Boolean
     });
     options.addDeclaration({
-        name: 'ignoreCompilerErrors',
-        help: 'Skips checking for TypeScript compilation errors if set.',
-        type: ParameterType.Boolean
-    });
-    options.addDeclaration({
         name: 'disableSources',
         help: 'Disables setting the source of a reflection when documenting it.',
         type: ParameterType.Boolean

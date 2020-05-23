@@ -72,9 +72,6 @@ export class Application extends ChildableComponent<
     @BindOption('logger')
     loggerType!: string | Function;
 
-    @BindOption('ignoreCompilerErrors')
-    ignoreCompilerErrors!: boolean;
-
     @BindOption('exclude')
     exclude!: Array<string>;
 
@@ -187,12 +184,6 @@ export class Application extends ChildableComponent<
         const result = this.converter.convert(src);
         if (result.errors && result.errors.length) {
             this.logger.diagnostics(result.errors);
-            if (this.ignoreCompilerErrors) {
-                this.logger.resetErrors();
-                return result.project;
-            } else {
-                return;
-            }
         } else {
             return result.project;
         }

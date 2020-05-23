@@ -17,7 +17,6 @@ describe('Converter', function() {
         experimentalDecorators: true,
         jsx: JsxEmit.React,
         name: 'typedoc',
-        ignoreCompilerErrors: true,
         excludeExternals: true,
         disableSources: true
     });

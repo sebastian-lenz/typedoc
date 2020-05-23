@@ -64,7 +64,6 @@ describe('Renderer', function() {
             module: ModuleKind.CommonJS,
             gaSite: 'foo.com', // verify theme option without modifying output
             name: 'typedoc',
-            ignoreCompilerErrors: true,
             disableSources: true
         });
     });

@@ -3,7 +3,7 @@ import * as _ts from '../ts-internal';
 import * as _ from 'lodash';
 
 import { Application } from '../application';
-import { Reflection, Type, ProjectReflection } from '../models/index';
+import { Reflection, Type, ProjectReflection, SomeReflection } from '../models/index';
 import { Context } from './context';
 import { ConverterComponent, ConverterNodeComponent, ConverterTypeComponent, TypeTypeConverter, TypeNodeConverter } from './components';
 import { Component, ChildableComponent, ComponentClass } from '../utils/component';
@@ -400,33 +400,12 @@ export class Converter extends ChildableComponent<Application, ConverterComponen
     }
 
     private getCompilerErrors(program: ts.Program, includedSourceFiles: readonly ts.SourceFile[]): ReadonlyArray<ts.Diagnostic> {
-        if (this.application.ignoreCompilerErrors) {
-            return [];
-        }
-
-        const isRelevantError = ({ file }: ts.Diagnostic) => !file || includedSourceFiles.includes(file);
-
-        let diagnostics = program.getOptionsDiagnostics().filter(isRelevantError);
-        if (diagnostics.length) {
-            return diagnostics;
-        }
-
-        diagnostics = program.getSyntacticDiagnostics().filter(isRelevantError);
-        if (diagnostics.length) {
-            return diagnostics;
-        }
-
-        diagnostics = program.getGlobalDiagnostics().filter(isRelevantError);
-        if (diagnostics.length) {
-            return diagnostics;
-        }
-
-        diagnostics = program.getSemanticDiagnostics().filter(isRelevantError);
-        if (diagnostics.length) {
-            return diagnostics;
-        }
-
-        return [];
+        return [
+            ...program.getOptionsDiagnostics(),
+            ...program.getSyntacticDiagnostics(),
+            ...program.getGlobalDiagnostics(),
+            ...program.getSemanticDiagnostics()
+        ];
     }
 
     /**
