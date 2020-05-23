@@ -5,7 +5,7 @@ import { deepStrictEqual as equal, ok } from 'assert';
 import { ScriptTarget, ModuleKind, JsxEmit } from 'typescript';
 
 import json = require('./converter/class/specs.json');
-import { JSONOutput } from '../lib/serialization';
+import { SerializedProjectReflection } from '../lib/models/reflections/project';
 
 describe('Converter', function() {
     const base = Path.join(__dirname, 'converter');
@@ -63,7 +63,7 @@ describe('Converter', function() {
 
                 it(`[${file}] matches specs`, function() {
                     const specs = JSON.parse(FS.readFileSync(specsFile, 'utf-8'));
-                    let data = JSON.stringify(app.serializer.toObject(result), null, '  ');
+                    let data = JSON.stringify(app.serializer.toObject(result!), null, '  ');
                     data = data.split(normalizePath(base)).join('%BASE%');
 
                     equal(JSON.parse(data), specs);
@@ -75,7 +75,7 @@ describe('Converter', function() {
 
 describe('Serializer', () => {
     it('Type checks', () => {
-        const typed: JSONOutput.ProjectReflection = json;
+        const typed: SerializedProjectReflection = json;
         equal(json, typed);
     });
 });

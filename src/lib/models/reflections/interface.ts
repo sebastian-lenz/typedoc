@@ -2,6 +2,7 @@ import { ContainerReflection, ReflectionKind } from './abstract';
 import type { SignatureReflection, MethodReflection } from './signature';
 import type { PropertyReflection } from './property';
 import type { ReferenceType } from '../types';
+import { Serializer, BaseSerialized } from '../../serialization';
 
 /**
  * Describes an interface.
@@ -41,4 +42,16 @@ export class InterfaceReflection extends ContainerReflection<MethodReflection | 
         this.constructSignatures = constructSignatures;
         this.extendedTypes = extendedTypes;
     }
+
+    serialize(serializer: Serializer, init: BaseSerialized<InterfaceReflection>): SerializedInterfaceReflection {
+        return {
+            ...init,
+            signatures: serializer.toObjects(this.signatures),
+            constructSignatures: serializer.toObjects(this.constructSignatures),
+            extendedTypes: serializer.toObjects(this.extendedTypes)
+        }
+    }
+}
+
+export interface SerializedInterfaceReflection extends Serialized<InterfaceReflection, 'signatures' | 'constructSignatures' | 'extendedTypes'> {
 }

@@ -2,8 +2,9 @@ import * as ts from 'typescript';
 import type { SomeType } from '.';
 import type { ProjectReflection } from '../reflections';
 import { Reflection, ReflectionKind } from '../reflections/abstract';
-import { Type } from './abstract';
+import { Type, TypeKind } from './abstract';
 import { cloned } from './utils';
+import { Serializer, BaseSerialized, Serialized } from '../../serialization';
 
 const TYPE_CONTRIBUTING_KINDS = ReflectionKind.Interface
     | ReflectionKind.Class
@@ -20,7 +21,7 @@ const TYPE_CONTRIBUTING_KINDS = ReflectionKind.Interface
  */
 export class ReferenceType extends Type {
     /** @inheritdoc */
-    readonly type = 'reference';
+    readonly kind = TypeKind.Reference;
 
     /**
      * The name of the referenced type.
@@ -93,4 +94,23 @@ export class ReferenceType extends Type {
 
         return name + typeArgs;
     }
+
+    /** @inheritdoc */
+    serialize(serializer: Serializer, init: BaseSerialized<ReferenceType>): SerializedReferenceType {
+        const result: SerializedReferenceType = {
+            ...init,
+            name: this.name,
+            typeArguments: serializer.toObjects(this.typeArguments),
+        };
+
+        if (this.reflection) {
+            result.id = this.reflection.id;
+        }
+
+        return result;
+    }
+}
+
+export interface SerializedReferenceType extends Serialized<ReferenceType, 'name' | 'typeArguments'> {
+    id?: number;
 }

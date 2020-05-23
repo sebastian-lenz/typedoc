@@ -1,5 +1,6 @@
-import { Type } from './abstract';
 import type { SomeType } from '.';
+import type { Serializer, BaseSerialized, Serialized } from '../../serialization';
+import { Type, TypeKind } from './abstract';
 
 /**
  * Represents an array type.
@@ -11,7 +12,7 @@ import type { SomeType } from '.';
  */
 export class ArrayType extends Type {
     /** @inheritdoc */
-    readonly type = 'array';
+    readonly kind = TypeKind.Array;
 
     /**
      * The type of the array elements.
@@ -32,4 +33,15 @@ export class ArrayType extends Type {
     stringify(wrapped: boolean) {
         return this.elementType.stringify(true) + '[]';
     }
+
+    /** @inheritdoc */
+    serialize(serializer: Serializer, init: BaseSerialized<ArrayType>): SerializedArrayType {
+        return {
+            ...init,
+            elementType: serializer.toObject(this.elementType)
+        };
+    }
+}
+
+export interface SerializedArrayType extends Serialized<ArrayType, 'elementType'> {
 }

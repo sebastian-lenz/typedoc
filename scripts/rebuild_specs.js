@@ -1,6 +1,5 @@
 // @ts-check
 
-const assert = require('assert');
 const fs = require('fs-extra');
 const path = require('path');
 const TypeDoc = require('..');
@@ -8,7 +7,6 @@ const ts = require('typescript');
 
 const app = new TypeDoc.Application();
 app.bootstrap({
-    mode: TypeDoc.SourceFileMode.Modules,
     target: ts.ScriptTarget.ES2016,
     module: ts.ModuleKind.CommonJS,
     experimentalDecorators: true,

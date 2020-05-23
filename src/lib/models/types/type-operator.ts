@@ -1,5 +1,6 @@
-import { Type } from './abstract';
-import type { SomeType } from './index';
+import { Type, TypeKind } from './abstract';
+import { Serializer, BaseSerialized, Serialized } from '../../serialization';
+import { SomeType } from '.';
 
 /**
  * Represents a type operator type.
@@ -11,7 +12,7 @@ import type { SomeType } from './index';
  */
 export class TypeOperatorType extends Type {
     /** @inheritdoc */
-    readonly type = 'typeOperator';
+    readonly kind = TypeKind.TypeOperator;
 
     constructor(
         public target: SomeType,
@@ -29,4 +30,16 @@ export class TypeOperatorType extends Type {
     stringify() {
         return `${this.operator} ${this.target.stringify(false)}`;
     }
+
+    /** @inheritdoc */
+    serialize(serializer: Serializer, init: BaseSerialized<TypeOperatorType>): SerializedTypeOperatorType {
+        return {
+            ...init,
+            operator: this.operator,
+            target: serializer.toObject(this.target),
+        };
+    }
+}
+
+export interface SerializedTypeOperatorType extends Serialized<TypeOperatorType, 'target' | 'operator'> {
 }

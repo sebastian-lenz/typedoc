@@ -1,5 +1,6 @@
 import { Reflection, ReflectionKind } from './abstract';
 import type { SomeType } from '../types';
+import { Serialized, BaseSerialized, Serializer } from '../../serialization';
 
 /**
  * Describes a variable.
@@ -26,4 +27,20 @@ export class VariableReflection extends Reflection {
         this.type = type;
         this.defaultValue = defaultValue;
     }
+
+    serialize(serializer: Serializer, init: BaseSerialized<VariableReflection>): SerializedVariableReflection {
+        const result: SerializedVariableReflection = {
+            ...init,
+            type: serializer.toObject(this.type)
+        };
+
+        if (typeof this.defaultValue === 'string') {
+            result.defaultValue = this.defaultValue;
+        }
+
+        return result;
+    }
+}
+
+export interface SerializedVariableReflection extends Serialized<VariableReflection, 'type' | 'defaultValue'> {
 }

@@ -1,5 +1,6 @@
 import { ReflectionKind, Reflection } from './abstract';
 import type { SomeType } from '../types';
+import { Serializer, BaseSerialized, Serialized } from '../../serialization';
 
 /**
  * Describes a property of a {@link ClassReflection} or {@link InterfaceReflection}.
@@ -37,7 +38,24 @@ export class PropertyReflection extends Reflection {
         this.type = type;
         this.defaultValue = defaultValue;
     }
+
+    serialize(serializer: Serializer, init: BaseSerialized<PropertyReflection>): SerializedPropertyReflection {
+        const result: SerializedPropertyReflection = {
+            ...init,
+            type: serializer.toObject(this.type),
+        }
+
+        if (typeof this.defaultValue === 'string') {
+            result.defaultValue = this.defaultValue;
+        }
+
+        return result;
+    }
 }
+
+export interface SerializedPropertyReflection extends Serialized<PropertyReflection, 'type' | 'defaultValue'> {
+}
+
 
 /**
  * Describes a dynamic getter or setter property of a {@link ClassReflection}
@@ -83,4 +101,16 @@ export class DynamicPropertyReflection extends Reflection {
         this.hasGetter = hasGetter;
         this.hasSetter = hasSetter;
     }
+
+    serialize(serializer: Serializer, init: BaseSerialized<DynamicPropertyReflection>): SerializedDynamicPropertyReflection {
+        return {
+            ...init,
+            hasGetter: this.hasGetter,
+            hasSetter: this.hasSetter,
+            type: serializer.toObject(this.type),
+        };
+    }
+}
+
+export interface SerializedDynamicPropertyReflection extends Serialized<DynamicPropertyReflection, 'type' | 'hasGetter' | 'hasSetter'> {
 }

@@ -1,6 +1,7 @@
 import { Reflection, ReflectionKind } from './abstract';
 import type { TypeParameterReflection } from './parameter';
 import type { SomeType } from '../types';
+import { Serialized, Serializer, BaseSerialized } from '../../serialization';
 
 /**
  * Describes a type alias.
@@ -23,4 +24,15 @@ export class TypeAliasReflection extends Reflection {
         this.type = type;
         this.typeParameters = typeParameters;
     }
+
+    serialize(serializer: Serializer, init: BaseSerialized<TypeAliasReflection>): SerializedTypeAliasReflection {
+        return {
+            ...init,
+            typeParameters: serializer.toObjects(this.typeParameters),
+            type: serializer.toObject(this.type)
+        }
+    }
+}
+
+export interface SerializedTypeAliasReflection extends Serialized<TypeAliasReflection, 'typeParameters' | 'type'> {
 }

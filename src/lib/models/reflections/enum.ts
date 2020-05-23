@@ -1,5 +1,6 @@
 import { ReflectionKind, ContainerReflection, Reflection } from './abstract';
 import { ReflectionFlag } from './flags';
+import { Serializer, BaseSerialized, Serialized } from '../../serialization';
 
 /**
  * Describes an enum which may contain enum members. The {@link ReflectionFlag.Const} flag
@@ -18,7 +19,15 @@ export class EnumReflection extends ContainerReflection<EnumMemberReflection> {
         super(name);
         this.flags.setFlag(ReflectionFlag.Const, isConst);
     }
+
+    serialize(_serializer: Serializer, init: BaseSerialized<EnumReflection>): SerializedEnumReflection {
+        return init;
+    }
 }
+
+export interface SerializedEnumReflection extends Serialized<EnumReflection, never> {
+}
+
 
 /**
  * Describes an enum member. Members may have either a string or
@@ -40,4 +49,14 @@ export class EnumMemberReflection extends Reflection {
         super(name);
         this.value = value;
     }
+
+    serialize(_serializer: Serializer, init: BaseSerialized<EnumMemberReflection>): SerializedEnumMemberReflection {
+        return {
+            ...init,
+            value: this.value
+        }
+    }
+}
+
+export interface SerializedEnumMemberReflection extends Serialized<EnumMemberReflection, 'value'> {
 }

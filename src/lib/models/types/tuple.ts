@@ -1,6 +1,7 @@
-import { Type } from './abstract';
-import type { SomeType } from './index';
+import { Type, TypeKind } from './abstract';
 import { cloned } from './utils';
+import { Serializer, BaseSerialized, Serialized } from '../../serialization';
+import { SomeType } from '.';
 
 /**
  * Represents a tuple type.
@@ -11,7 +12,7 @@ import { cloned } from './utils';
  */
 export class TupleType extends Type {
     /** @inheritdoc */
-    readonly type = 'tuple';
+    readonly kind = TypeKind.Tuple;
 
     /**
      * The ordered type elements of the tuple type.
@@ -34,4 +35,15 @@ export class TupleType extends Type {
         // is wrapped with brackets.
         return `[${this.elements.map(type => type.stringify(false)).join(', ')}]`;
     }
+
+    /** @inheritdoc */
+    serialize(serializer: Serializer, init: BaseSerialized<TupleType>): SerializedTupleType {
+        return {
+            ...init,
+            elements: serializer.toObjects(this.elements)
+        }
+    }
+}
+
+export interface SerializedTupleType extends Serialized<TupleType, 'elements'> {
 }

@@ -1,6 +1,7 @@
 import * as assert from 'assert';
-import { Type } from './abstract';
+import { Type, TypeKind } from './abstract';
 import type { SomeType } from '.';
+import { Serializer, BaseSerialized, Serialized } from '../../serialization';
 
 /**
  * Represents a type predicate.
@@ -14,7 +15,7 @@ import type { SomeType } from '.';
  */
 export class PredicateType extends Type {
     /** @inheritdoc */
-    readonly type = 'predicate';
+    readonly kind = TypeKind.Predicate;
 
     /**
      * The type that the identifier is tested to be.
@@ -57,4 +58,22 @@ export class PredicateType extends Type {
 
         return out.join(' ');
     }
+
+    /** @inheritdoc */
+    serialize(serializer: Serializer, init: BaseSerialized<PredicateType>): SerializedPredicateType {
+        const result: SerializedPredicateType = {
+            ...init,
+            name: this.name,
+            asserts: this.asserts,
+        };
+
+        if (this.targetType) {
+            result.targetType = serializer.toObject(this.targetType);
+        }
+
+        return result;
+    }
+}
+
+export interface SerializedPredicateType extends Serialized<PredicateType, 'name' | 'asserts' | 'targetType'> {
 }

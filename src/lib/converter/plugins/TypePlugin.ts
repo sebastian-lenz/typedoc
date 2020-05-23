@@ -15,10 +15,10 @@ export class TypePlugin extends ConverterComponent {
      * Create a new TypeHandler instance.
      */
     initialize() {
-        this.listenTo(this.owner, {
-            [Converter.EVENT_RESOLVE]:     this.onResolve,
-            [Converter.EVENT_RESOLVE_END]: this.onResolveEnd
-        });
+        // this.listenTo(this.owner, {
+        //     [Converter.EVENT_RESOLVE]:     this.onResolve,
+        //     [Converter.EVENT_RESOLVE_END]: this.onResolveEnd
+        // });
     }
 
     /**

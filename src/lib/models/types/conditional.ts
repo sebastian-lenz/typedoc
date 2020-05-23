@@ -1,6 +1,7 @@
-import { Type } from './abstract';
-import { wrap } from './utils';
 import type { SomeType } from '.';
+import type { Serializer, BaseSerialized, Serialized } from '../../serialization';
+import { Type, TypeKind } from './abstract';
+import { wrap } from './utils';
 
 /**
  * Represents a conditional type.
@@ -11,7 +12,7 @@ import type { SomeType } from '.';
  * ```
  */
 export class ConditionalType extends Type {
-    readonly type = 'conditional';
+    readonly kind = TypeKind.Conditional;
 
     constructor(
         public checkType: SomeType,
@@ -43,4 +44,19 @@ export class ConditionalType extends Type {
             this.falseType.stringify(true)
         }`);
     }
+
+    /** @inheritdoc */
+    serialize(serializer: Serializer, init: BaseSerialized<ConditionalType>): SerializedConditionalType {
+        return {
+            ...init,
+            checkType: serializer.toObject(this.checkType),
+            extendsType: serializer.toObject(this.extendsType),
+            trueType: serializer.toObject(this.trueType),
+            falseType: serializer.toObject(this.falseType)
+        }
+    }
+}
+
+export interface SerializedConditionalType extends Serialized<ConditionalType,
+    'checkType' | 'extendsType' | 'trueType' | 'falseType'> {
 }

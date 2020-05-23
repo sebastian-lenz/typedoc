@@ -255,7 +255,7 @@ export class Application extends ChildableComponent<
 
         out = Path.resolve(out);
         const eventData = { outputDirectory: Path.dirname(out), outputFile: Path.basename(out) };
-        const ser = this.serializer.projectToObject(project, { begin: eventData, end: eventData });
+        const ser = this.serializer.toObject(project, { begin: eventData, end: eventData });
         writeFile(out, JSON.stringify(ser, null, '\t'), false);
         this.logger.success('JSON written to %s', out);
 

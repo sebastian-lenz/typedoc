@@ -62,12 +62,12 @@ export class DecoratorPlugin extends ConverterComponent {
      * Create a new ImplementsPlugin instance.
      */
     initialize() {
-        this.listenTo(this.owner, {
-            [Converter.EVENT_BEGIN]:              this.onBegin,
-            [Converter.EVENT_CREATE_DECLARATION]: this.onDeclaration,
-            [Converter.EVENT_CREATE_PARAMETER]:   this.onDeclaration,
-            [Converter.EVENT_RESOLVE]:            this.onBeginResolve
-        });
+        // this.listenTo(this.owner, {
+        //     [Converter.EVENT_BEGIN]:              this.onBegin,
+        //     [Converter.EVENT_CREATE_DECLARATION]: this.onDeclaration,
+        //     [Converter.EVENT_CREATE_PARAMETER]:   this.onDeclaration,
+        //     [Converter.EVENT_RESOLVE]:            this.onBeginResolve
+        // });
     }
 
     /**

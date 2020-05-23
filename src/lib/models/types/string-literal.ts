@@ -1,4 +1,5 @@
-import { Type } from './abstract';
+import { Type, TypeKind } from './abstract';
+import { BaseSerialized, Serialized } from '../../serialization';
 
 /**
  * Represents a string literal type.
@@ -9,7 +10,7 @@ import { Type } from './abstract';
  */
 export class StringLiteralType extends Type {
     /** @inheritdoc */
-    readonly type = 'stringLiteral';
+    readonly kind = TypeKind.StringLiteral;
 
     /**
      * The string literal value.
@@ -30,4 +31,15 @@ export class StringLiteralType extends Type {
     stringify(): string {
         return JSON.stringify(this.value);
     }
+
+    /** @inheritdoc */
+    serialize(serializer: unknown, init: BaseSerialized<StringLiteralType>): SerializedStringLiteralType {
+        return {
+            ...init,
+            value: this.value
+        };
+    }
+}
+
+export interface SerializedStringLiteralType extends Serialized<StringLiteralType, 'value'> {
 }

@@ -1,8 +1,10 @@
 import * as assert from 'assert';
 import { removeIfPresent } from '../../utils';
 import { ReflectionFlags } from './flags';
-import type { SomeReflection, IndependentReflection } from './index';
-import { ProjectReflection } from './project';
+import type { SomeReflection, IndependentReflection, ModelToSerialized } from './index';
+import type { ProjectReflection } from './project';
+import { makeToKindArray, makeToKindString } from '../../utils/enum';
+import type { Serializer, BaseSerialized } from '../../serialization';
 
 /**
  * Current reflection id. This provides a quick way to look up a reference to a reflection.
@@ -48,6 +50,17 @@ export enum ReflectionKind {
     Parameter = 8192,
     TypeAlias = 16384,
     Reference = 32768
+}
+
+export namespace ReflectionKind {
+    const LAST_KIND = ReflectionKind.Reference;
+
+    // tslint:disable-next-line
+    export const All: ReflectionKind = LAST_KIND * 2 - 1;
+
+    export const toKindArray = makeToKindArray(LAST_KIND);
+
+    export const toKindString = makeToKindString(ReflectionKind);
 }
 
 /**
@@ -101,6 +114,11 @@ export abstract class Reflection {
     abstract readonly kind: ReflectionKind;
 
     /**
+     * Serialize this reflection to a JSON object.
+     */
+    abstract serialize(serializer: Serializer, init: BaseSerialized<SomeReflection>): ModelToSerialized<SomeReflection>;
+
+    /**
      * Modifier flags for this reflection. Not that not all flags make sense
      * for each reflection. For example, only parameters may have the `rest`
      * flag set, while
@@ -125,7 +143,7 @@ export abstract class Reflection {
      * If a reflection has not been added to a project, this will return undefined.
      */
     get project(): ProjectReflection | undefined {
-        if (this instanceof ProjectReflection) {
+        if (this.isProject()) {
             return this;
         }
         if (this._projectCache !== undefined) {
@@ -164,11 +182,19 @@ export abstract class Reflection {
      * @returns The full name of this reflection.
      */
     getFullName(separator = '.'): string {
-        if (!this.parent || this.parent instanceof ProjectReflection) {
+        if (!this.parent || this.parent.isProject()) {
             return this.name;
         } else {
             return this.parent.getFullName(separator) + separator + this.name;
         }
+    }
+
+    /**
+     * Checks if the current reflection is the project.
+     * This is used instead of `instanceof` to avoid circular dependencies.
+     */
+    isProject(): this is ProjectReflection {
+        return false;
     }
 }
 

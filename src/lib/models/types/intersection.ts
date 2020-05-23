@@ -1,6 +1,6 @@
-import { Type } from './abstract';
-import { wrap, cloned } from './utils';
-import type { SomeType } from './index';
+import { Type, TypeKind, SomeType } from ".";
+import { cloned, wrap } from "./utils";
+import { Serializer, BaseSerialized, Serialized } from "../../serialization";
 
 /**
  * Represents an intersection type.
@@ -11,7 +11,7 @@ import type { SomeType } from './index';
  */
 export class IntersectionType extends Type {
     /** @inheritdoc */
-    readonly type = 'intersection';
+    readonly kind = TypeKind.Intersection;
 
     /**
      * The types this intersection consists of.
@@ -32,4 +32,15 @@ export class IntersectionType extends Type {
     stringify(wrapped: boolean) {
         return wrap(wrapped, this.types.map(type => type.stringify(true)).join(' & '));
     }
+
+    /** @inheritdoc */
+    serialize(serializer: Serializer, init: BaseSerialized<IntersectionType>): SerializedIntersectionType {
+        return {
+            ...init,
+            types: serializer.toObjects(this.types)
+        };
+    }
+}
+
+export interface SerializedIntersectionType extends Serialized<IntersectionType, 'types'> {
 }

@@ -1,5 +1,6 @@
-import { Reflection, ReflectionKind } from './abstract';
+import type { BaseSerialized, Serialized, Serializer } from '../../serialization';
 import type { SomeType } from '../types/index';
+import { Reflection, ReflectionKind } from './abstract';
 
 export class ParameterReflection extends Reflection {
     readonly kind = ReflectionKind.Parameter;
@@ -20,4 +21,20 @@ export class ParameterReflection extends Reflection {
         this.type = type;
         this.defaultValue = defaultValue;
     }
+
+    serialize(serializer: Serializer, init: BaseSerialized<ParameterReflection>): SerializedParameterReflection {
+        const result: SerializedParameterReflection = {
+            ...init,
+            type: serializer.toObject(this.type),
+        }
+
+        if (typeof this.defaultValue === 'string') {
+            result.defaultValue = this.defaultValue;
+        }
+
+        return result;
+    }
+}
+
+export interface SerializedParameterReflection extends Serialized<ParameterReflection, 'type' | 'defaultValue'> {
 }

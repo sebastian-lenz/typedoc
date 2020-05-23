@@ -27,11 +27,11 @@ export class DynamicModulePlugin extends ConverterComponent {
      * Create a new DynamicModuleHandler instance.
      */
     initialize() {
-        this.listenTo(this.owner, {
-            [Converter.EVENT_BEGIN]:              this.onBegin,
-            [Converter.EVENT_CREATE_DECLARATION]: this.onDeclaration,
-            [Converter.EVENT_RESOLVE_BEGIN]:      this.onBeginResolve
-        });
+        // this.listenTo(this.owner, {
+        //     [Converter.EVENT_BEGIN]:              this.onBegin,
+        //     [Converter.EVENT_CREATE_DECLARATION]: this.onDeclaration,
+        //     [Converter.EVENT_RESOLVE_BEGIN]:      this.onBeginResolve
+        // });
     }
 
     /**

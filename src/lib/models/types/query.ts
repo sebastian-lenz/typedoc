@@ -1,5 +1,6 @@
-import { Type } from './abstract';
+import { Type, TypeKind } from './abstract';
 import type { ReferenceType } from './reference';
+import { Serializer, BaseSerialized, Serialized } from '../../serialization';
 
 /**
  * Represents a type that is constructed by querying the type of a reflection.
@@ -10,7 +11,7 @@ import type { ReferenceType } from './reference';
  */
 export class QueryType extends Type {
     /** @inheritdoc */
-    readonly type = 'query';
+    readonly kind = TypeKind.Query;
 
     /**
      * A reference to the reflection whose type is being queried.
@@ -31,4 +32,15 @@ export class QueryType extends Type {
     stringify() {
         return `typeof ${this.queryType}`;
     }
+
+    /** @inheritdoc */
+    serialize(serializer: Serializer, init: BaseSerialized<QueryType>): SerializedQueryType {
+        return {
+            ...init,
+            queryType: serializer.toObject(this.queryType)
+        };
+    }
+}
+
+export interface SerializedQueryType extends Serialized<QueryType, 'queryType'> {
 }

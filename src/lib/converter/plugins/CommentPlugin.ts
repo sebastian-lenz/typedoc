@@ -88,15 +88,15 @@ export class CommentPlugin extends ConverterComponent {
      * Create a new CommentPlugin instance.
      */
     initialize() {
-        this.listenTo(this.owner, {
-            [Converter.EVENT_BEGIN]: this.onBegin,
-            [Converter.EVENT_CREATE_DECLARATION]: this.onDeclaration,
-            [Converter.EVENT_CREATE_SIGNATURE]: this.onDeclaration,
-            [Converter.EVENT_CREATE_TYPE_PARAMETER]: this.onCreateTypeParameter,
-            [Converter.EVENT_FUNCTION_IMPLEMENTATION]: this.onFunctionImplementation,
-            [Converter.EVENT_RESOLVE_BEGIN]: this.onBeginResolve,
-            [Converter.EVENT_RESOLVE]: this.onResolve
-        });
+        // this.listenTo(this.owner, {
+        //     [Converter.EVENT_BEGIN]: this.onBegin,
+        //     [Converter.EVENT_CREATE_DECLARATION]: this.onDeclaration,
+        //     [Converter.EVENT_CREATE_SIGNATURE]: this.onDeclaration,
+        //     [Converter.EVENT_CREATE_TYPE_PARAMETER]: this.onCreateTypeParameter,
+        //     [Converter.EVENT_FUNCTION_IMPLEMENTATION]: this.onFunctionImplementation,
+        //     [Converter.EVENT_RESOLVE_BEGIN]: this.onBeginResolve,
+        //     [Converter.EVENT_RESOLVE]: this.onResolve
+        // });
     }
 
     private storeModuleComment(comment: string, reflection: Reflection) {

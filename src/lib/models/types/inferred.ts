@@ -1,5 +1,6 @@
-import { Type } from './abstract';
-import { wrap } from './utils';
+import { wrap } from "module";
+import { Type, TypeKind } from ".";
+import { BaseSerialized, Serialized } from "../../serialization";
 
 /**
  * Represents an inferred type, U in the example below.
@@ -10,7 +11,7 @@ import { wrap } from './utils';
  */
 export class InferredType extends Type {
     /** @inheritdoc */
-    readonly type = 'inferred';
+    readonly kind = TypeKind.Inferred;
 
     constructor(public name: string) {
         super();
@@ -25,4 +26,15 @@ export class InferredType extends Type {
     stringify(wrapped: boolean) {
         return wrap(wrapped, `infer ${this.name}`);
     }
+
+    /** @inheritdoc */
+    serialize(_serializer: unknown, init: BaseSerialized<InferredType>): SerializedInferredType {
+        return {
+            ...init,
+            name: this.name
+        };
+    }
+}
+
+export interface SerializedInferredType extends Serialized<InferredType, 'name'> {
 }

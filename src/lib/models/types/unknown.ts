@@ -1,4 +1,5 @@
-import { Type } from './abstract';
+import { Type, TypeKind } from './abstract';
+import { BaseSerialized, Serialized } from '../../serialization';
 
 /**
  * Represents all unknown types.
@@ -8,10 +9,8 @@ import { Type } from './abstract';
  * know how to convert yet.
  */
 export class UnknownType extends Type {
-    /**
-     * The type name identifier.
-     */
-    readonly type = 'unknown';
+    /** @inheritdoc */
+    readonly kind = TypeKind.Unknown;
 
     /**
      * A string representation of the type as returned from TypeScript compiler.
@@ -37,4 +36,15 @@ export class UnknownType extends Type {
     stringify() {
         return this.name;
     }
+
+    /** @inheritdoc */
+    serialize(_serializer: unknown, init: BaseSerialized<UnknownType>): SerializedUnknownType {
+        return {
+            ...init,
+            name: this.name
+        };
+    }
+}
+
+export interface SerializedUnknownType extends Serialized<UnknownType, 'name'> {
 }

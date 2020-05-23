@@ -48,11 +48,11 @@ export class PackagePlugin extends ConverterComponent {
      * Create a new PackageHandler instance.
      */
     initialize() {
-        this.listenTo(this.owner, {
-            [Converter.EVENT_BEGIN]:         this.onBegin,
-            [Converter.EVENT_FILE_BEGIN]:    this.onBeginDocument,
-            [Converter.EVENT_RESOLVE_BEGIN]: this.onBeginResolve
-        });
+        // this.listenTo(this.owner, {
+        //     [Converter.EVENT_BEGIN]:         this.onBegin,
+        //     [Converter.EVENT_FILE_BEGIN]:    this.onBeginDocument,
+        //     [Converter.EVENT_RESOLVE_BEGIN]: this.onBeginResolve
+        // });
     }
 
     /**

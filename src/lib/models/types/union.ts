@@ -1,6 +1,7 @@
-import { Type } from './abstract';
-import type { SomeType } from './index';
+import { Type, TypeKind } from './abstract';
 import { wrap, cloned } from './utils';
+import { Serializer, BaseSerialized, Serialized } from '../../serialization';
+import { SomeType } from '.';
 
 /**
  * Represents an union type.
@@ -11,7 +12,7 @@ import { wrap, cloned } from './utils';
  */
 export class UnionType extends Type {
     /** @inheritdoc */
-    readonly type = 'union';
+    readonly kind = TypeKind.Union;
 
     /**
      * The types this union consists of.
@@ -32,4 +33,15 @@ export class UnionType extends Type {
     stringify(wrapped: boolean) {
         return wrap(wrapped, this.types.map(type => type.stringify(true)).join(' | '));
     }
+
+    /** @inheritdoc */
+    serialize(serializer: Serializer, init: BaseSerialized<UnionType>): SerializedUnionType {
+        return {
+            ...init,
+            types: serializer.toObjects(this.types)
+        };
+    }
+}
+
+export interface SerializedUnionType extends Serialized<UnionType, 'types'> {
 }

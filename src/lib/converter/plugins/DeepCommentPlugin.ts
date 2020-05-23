@@ -13,7 +13,7 @@ export class DeepCommentPlugin extends ConverterComponent {
      * Create a new CommentHandler instance.
      */
     initialize() {
-        this.listenTo(this.owner, Converter.EVENT_RESOLVE_BEGIN, this.onBeginResolve, 512);
+        // this.listenTo(this.owner, Converter.EVENT_RESOLVE_BEGIN, this.onBeginResolve, 512);
     }
 
     /**

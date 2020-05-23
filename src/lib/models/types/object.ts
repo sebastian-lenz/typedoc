@@ -1,8 +1,9 @@
 import * as assert from 'assert';
-import { Type } from './abstract';
-import type { SomeType } from './index';
+import type { Serializer, BaseSerialized, Serialized } from '../../serialization';
+import { Type, TypeKind } from './abstract';
 import type { SignatureType } from './signature';
 import { cloned, wrap } from './utils';
+import { SomeType } from '.';
 
 /**
  * The most versatile type, describes any type of object with properties, methods,
@@ -10,7 +11,7 @@ import { cloned, wrap } from './utils';
  */
 export class ObjectType extends Type {
     /** @inheritdoc */
-    readonly type = 'object';
+    readonly kind = TypeKind.Object;
 
     constructor(
         /** Includes methods, like the TS Type. */
@@ -48,11 +49,24 @@ export class ObjectType extends Type {
 
         return `{ ${members.join('; ')} }`;
     }
+
+    /** @inheritdoc */
+    serialize(serializer: Serializer, init: BaseSerialized<ObjectType>): SerializedObjectType {
+        return {
+            ...init,
+            properties: serializer.toObjects(this.properties),
+            signatures: serializer.toObjects(this.signatures),
+            constructSignatures: serializer.toObjects(this.constructSignatures)
+        };
+    }
+}
+
+export interface SerializedObjectType extends Serialized<ObjectType, 'properties' | 'signatures' | 'constructSignatures'> {
 }
 
 export class PropertyType extends Type {
     /** @inheritdoc */
-    readonly type = 'property';
+    readonly kind = TypeKind.Property;
 
     constructor(
         public name: string,
@@ -75,4 +89,18 @@ export class PropertyType extends Type {
         const tailModifier = this.isOptional ? '?' : '';
         return `${frontModifier}${this.name}${tailModifier}: ${this.propertyType}`;
     }
+
+    /** @inheritdoc */
+    serialize(serializer: Serializer, init: BaseSerialized<PropertyType>): SerializedPropertyType {
+        return {
+            ...init,
+            name: this.name,
+            isReadonly: this.isReadonly,
+            isOptional: this.isOptional,
+            propertyType: serializer.toObject(this.propertyType)
+        };
+    }
+}
+
+export interface SerializedPropertyType extends Serialized<PropertyType, 'name' | 'isReadonly' | 'isOptional' | 'propertyType'> {
 }

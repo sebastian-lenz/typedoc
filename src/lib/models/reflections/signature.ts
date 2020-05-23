@@ -2,6 +2,7 @@ import { ReflectionKind, Reflection } from './abstract';
 import type { ParameterReflection } from './parameter';
 import type { SomeType } from '../types/index';
 import { TypeParameterType } from '../types/type-parameter';
+import { BaseSerialized, Serializer, Serialized } from '../../serialization';
 
 export abstract class CallableReflection extends Reflection {
     signatures: SignatureReflection[] = [];
@@ -16,7 +17,18 @@ export abstract class CallableReflection extends Reflection {
  */
 export class FunctionReflection extends CallableReflection {
     readonly kind = ReflectionKind.Function;
+
+    serialize(serializer: Serializer, init: BaseSerialized<FunctionReflection>): SerializedFunctionReflection {
+        return {
+            ...init,
+            signatures: serializer.toObjects(this.signatures)
+        };
+    }
 }
+
+export interface SerializedFunctionReflection extends Serialized<FunctionReflection, 'signatures'> {
+}
+
 
 /**
  * Represents a method on a class or interface.
@@ -88,6 +100,31 @@ export class MethodReflection extends CallableReflection {
     private _overwrites?: number;
     private _inheritedFrom?: number;
     private _implementationOf?: number;
+
+    serialize(serializer: Serializer, init: BaseSerialized<MethodReflection>): SerializedMethodReflection {
+        const result: SerializedMethodReflection = {
+            ...init,
+            signatures: serializer.toObjects(this.signatures),
+        }
+
+        if (typeof this._overwrites === 'number') {
+            result.overwrites = this._overwrites;
+        }
+        if (typeof this._inheritedFrom === 'number') {
+            result.inheritedFrom = this._inheritedFrom;
+        }
+        if (typeof this._implementationOf === 'number') {
+            result.implementationOf = this._implementationOf;
+        }
+
+        return result;
+    }
+}
+
+export interface SerializedMethodReflection extends Serialized<MethodReflection, 'signatures'> {
+    overwrites?: number;
+    inheritedFrom?: number;
+    implementationOf?: number;
 }
 
 export class SignatureReflection extends Reflection {
@@ -114,4 +151,16 @@ export class SignatureReflection extends Reflection {
         this.parameters = parameters;
         this.typeParameters = typeParameters;
     }
+
+    serialize(serializer: Serializer, init: BaseSerialized<SignatureReflection>): SerializedSignatureReflection {
+        return {
+            ...init,
+            parameters: serializer.toObjects(this.parameters),
+            typeParameters: serializer.toObjects(this.typeParameters),
+            returnType: serializer.toObject(this.returnType)
+        };
+    }
+}
+
+export interface SerializedSignatureReflection extends Serialized<SignatureReflection, 'parameters' | 'typeParameters' | 'returnType'> {
 }

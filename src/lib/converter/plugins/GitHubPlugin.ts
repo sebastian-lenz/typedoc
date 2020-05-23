@@ -176,7 +176,7 @@ export class GitHubPlugin extends ConverterComponent {
     initialize() {
         ShellJS.config.silent = true;
         if (ShellJS.which('git')) {
-            this.listenTo(this.owner, Converter.EVENT_RESOLVE_END, this.onEndResolve);
+            // this.listenTo(this.owner, Converter.EVENT_RESOLVE_END, this.onEndResolve);
         }
     }
 

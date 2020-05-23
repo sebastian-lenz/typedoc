@@ -56,15 +56,15 @@ export class SourcePlugin extends ConverterComponent {
      * Create a new SourceHandler instance.
      */
     initialize() {
-        this.listenTo(this.owner, {
-            [Converter.EVENT_BEGIN]:              this.onBegin,
-            [Converter.EVENT_FILE_BEGIN]:         this.onBeginDocument,
-            [Converter.EVENT_CREATE_DECLARATION]: this.onDeclaration,
-            [Converter.EVENT_CREATE_SIGNATURE]:   this.onDeclaration,
-            [Converter.EVENT_RESOLVE_BEGIN]:      this.onBeginResolve,
-            [Converter.EVENT_RESOLVE]:            this.onResolve,
-            [Converter.EVENT_RESOLVE_END]:        this.onEndResolve
-        });
+        // this.listenTo(this.owner, {
+        //     [Converter.EVENT_BEGIN]:              this.onBegin,
+        //     [Converter.EVENT_FILE_BEGIN]:         this.onBeginDocument,
+        //     [Converter.EVENT_CREATE_DECLARATION]: this.onDeclaration,
+        //     [Converter.EVENT_CREATE_SIGNATURE]:   this.onDeclaration,
+        //     [Converter.EVENT_RESOLVE_BEGIN]:      this.onBeginResolve,
+        //     [Converter.EVENT_RESOLVE]:            this.onResolve,
+        //     [Converter.EVENT_RESOLVE_END]:        this.onEndResolve
+        // });
     }
 
     private getSourceFile(fileName: string, project: ProjectReflection): SourceFile {

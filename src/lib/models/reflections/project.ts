@@ -1,7 +1,8 @@
 import { ReflectionKind, ContainerReflection, Reflection } from './abstract';
 import { ReferenceReflection } from './reference';
 import type { IndependentReflection, ModuleReflection } from '.';
-import ts = require('typescript');
+import type * as ts from 'typescript';
+import { BaseSerialized, Serializer, Serialized } from '../../serialization';
 
 /**
  * A reflection that represents the root of the project.
@@ -93,6 +94,15 @@ export class ProjectReflection extends ContainerReflection<ModuleReflection> {
         return reflections;
     }
 
+    serialize(serializer: Serializer, init: BaseSerialized<ProjectReflection>): SerializedProjectReflection {
+        return init;
+    }
+
+    /** @inheritdoc */
+    isProject() {
+        return true;
+    }
+
     private getReferenceGraph(): Map<number, number[]> {
         if (!this._referenceGraph) {
             this._referenceGraph = new Map();
@@ -110,4 +120,7 @@ export class ProjectReflection extends ContainerReflection<ModuleReflection> {
 
         return this._referenceGraph;
     }
+}
+
+export interface SerializedProjectReflection extends Serialized<ProjectReflection, never> {
 }

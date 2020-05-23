@@ -1,138 +1,105 @@
-import { EventDispatcher } from '../utils';
-import { ProjectReflection } from '../models';
+import * as assert from 'assert';
+import { ReflectionKind, TypeKind, SomeReflection, SomeType, Reflection, Type, ReflectionFlags, ContainerReflection } from '../models';
+import type { ModelToObject, BaseSerialized } from './schema';
+import { insertPrioritySorted } from '../utils';
 
-import { SerializerComponent } from './components';
-import { SerializeEvent, SerializeEventData } from './events';
-import { ModelToObject } from './schema';
-import * as S from './serializers';
+export interface SerializeWorker<T extends Type | Reflection> {
+    priority: number;
 
-export class Serializer extends EventDispatcher {
-    /**
-     * Triggered when the [[Serializer]] begins transforming a project.
-     * @event EVENT_BEGIN
-     */
-    static EVENT_BEGIN = 'begin';
+    serialize(value: T, serialized: Partial<ModelToObject<T>>): Partial<ModelToObject<T>>;
+}
 
-    /**
-     * Triggered when the [[Serializer]] has finished transforming a project.
-     * @event EVENT_END
-     */
-    static EVENT_END = 'end';
+export interface RegisterableSerializeWorker<T extends Type | Reflection> extends SerializeWorker<T> {
+    kind: T['kind'];
+}
 
-    /**
-     * Serializers, sorted by their `serializeGroup` function to enable higher performance.
-     */
-    private serializers = new Map<(instance: unknown) => boolean, SerializerComponent<any>[]>();
+export class Serializer {
+    private _reflectionSerializers = new Map<ReflectionKind, SerializeWorker<SomeReflection>[]>();
+    private _typeSerializers = new Map<TypeKind, SerializeWorker<SomeType>[]>();
 
     constructor() {
-        super();
-        addSerializers(this);
+        addBaseSerializers(this);
     }
 
-    addSerializer(serializer: SerializerComponent<any>): void {
-        let group = this.serializers.get(serializer.serializeGroup);
-
-        if (!group) {
-            this.serializers.set(serializer.serializeGroup, (group = []));
+    addReflectionSerializer(kinds: ReflectionKind, worker: SerializeWorker<SomeReflection>): void {
+        for (const kind of ReflectionKind.toKindArray(kinds)) {
+            const group = this._reflectionSerializers.get(kind) ?? [];
+            insertPrioritySorted(group, worker);
+            this._reflectionSerializers.set(kind, group);
         }
-
-        group.push(serializer);
-        group.sort((a, b) => b.priority - a.priority);
     }
 
-    toObject<T>(value: T, init: object = {}): ModelToObject<T> {
-        // Note: This type *could* potentially lie, if a serializer declares a partial type but fails to provide
-        // the defined property, but the benefit of being mostly typed is probably worth it.
-        // TypeScript errors out if init is correctly typed as `Partial<ModelToObject<T>>`
-        return this.findSerializers(value).reduce<any>((result, curr) => curr.toObject(value, result), init);
+    addTypeSerializer(kinds: TypeKind, worker: SerializeWorker<SomeType>): void {
+        for (const kind of TypeKind.toKindArray(kinds)) {
+            const group = this._typeSerializers.get(kind) ?? [];
+            insertPrioritySorted(group, worker);
+            this._typeSerializers.set(kind, group);
+        }
     }
 
-    /**
-     * Same as toObject but emits [[ Serializer#EVENT_BEGIN ]] and [[ Serializer#EVENT_END ]] events.
-     * @param value
-     * @param eventData Partial information to set in the event
-     */
-    projectToObject(
-        value: ProjectReflection,
-        eventData: { begin?: SerializeEventData; end?: SerializeEventData } = {}
-    ): ModelToObject<ProjectReflection> {
-        const eventBegin = new SerializeEvent(Serializer.EVENT_BEGIN, value, {});
-        if (eventData.begin) {
-            eventBegin.outputDirectory = eventData.begin.outputDirectory;
-            eventBegin.outputFile = eventData.begin.outputFile;
+    toObject<T extends SomeType | SomeReflection>(value: T, init: object = {}): ModelToObject<T> {
+        let serializers: SerializeWorker<any>[] | undefined;
+
+        if (value instanceof Reflection) {
+            serializers = this._reflectionSerializers.get(value.kind);
+        } else if (value instanceof Type) {
+            serializers = this._typeSerializers.get(value.kind);
         }
-        this.trigger(eventBegin);
 
-        const project = this.toObject(value, eventBegin.output);
+        assert(serializers, `No serializers registered for object with kind: ${value.kind}. This is a bug.`);
 
-        const eventEnd = new SerializeEvent(Serializer.EVENT_END, value, project);
-        if (eventData.end) {
-            eventBegin.outputDirectory = eventData.end.outputDirectory;
-            eventBegin.outputFile = eventData.end.outputFile;
-        }
-        this.trigger(eventEnd);
-
-        return project;
+        return serializers.reduce((serialized, worker) => worker.serialize(value as any, serialized), init) as ModelToObject<T>;
     }
 
-    private findSerializers<T>(value: T): SerializerComponent<T>[] {
-        const routes: SerializerComponent<any>[] = [];
-
-        for (const [groupSupports, components] of this.serializers.entries()) {
-            if (groupSupports(value)) {
-                for (const component of components) {
-                    if (component.supports(value)) {
-                        routes.push(component);
-                    }
-                }
-            }
-        }
-
-        return routes as any;
+    toObjects<T extends SomeType | SomeReflection>(values: T[]): ModelToObject<T>[] {
+        return values.map(value => this.toObject(value));
     }
 }
 
-const serializerComponents: (new (owner: Serializer) => SerializerComponent<any>)[] = [
-    S.CommentTagSerializer,
-    S.CommentSerializer,
+function addBaseSerializers(serializer: Serializer) {
+    serializer.addTypeSerializer(TypeKind.All, {
+        priority: 100,
+        serialize(type, init): BaseSerialized<SomeType> {
+            const base: BaseSerialized<SomeType> = {
+                ...init,
+                kind: type.kind as any,
+                kindString: TypeKind.toKindString(type.kind)
+            };
 
-    S.ReflectionSerializer,
-    S.ReferenceReflectionSerializer,
-    S.ContainerReflectionSerializer,
-    S.DeclarationReflectionSerializer,
-    S.ParameterReflectionSerializer,
-    S.ProjectReflectionSerializer,
-    S.SignatureReflectionSerializer,
-    S.TypeParameterReflectionSerializer,
+            // TS can't validate that `base` is the right type.
+            return type.serialize(serializer, base as any);
+        }
+    })
 
-    S.SourceReferenceContainerSerializer,
+    serializer.addReflectionSerializer(ReflectionKind.All, {
+        priority: 100,
+        serialize(reflection, init) {
+            const base: BaseSerialized<SomeReflection> = {
+                ...init,
+                kind: reflection.kind,
+                kindString: ReflectionKind.toKindString(reflection.kind),
+                name: reflection.name,
+                flags: {}
+            };
 
-    S.TypeSerializer,
-    S.ArrayTypeSerializer,
-    S.ConditionalTypeSerializer,
-    S.IndexedAccessTypeSerializer,
-    S.InferredTypeSerializer,
-    S.IntersectionTypeSerializer,
-    S.IntrinsicTypeSerializer,
-    S.QueryTypeSerializer,
-    S.PredicateTypeSerializer,
-    S.ReferenceTypeSerializer,
-    S.ReferenceTypeSerializer,
-    S.ReflectionTypeSerializer,
-    S.StringLiteralTypeSerializer,
-    S.TupleTypeSerializer,
-    S.TypeOperatorTypeSerializer,
-    S.TypeParameterTypeSerializer,
-    S.UnionTypeSerializer,
-    S.UnknownTypeSerializer,
+            if (reflection.originalName !== reflection.name) {
+                base.originalName = reflection.originalName;
+            }
 
-    S.DecoratorContainerSerializer,
-    S.ReflectionCategorySerializer,
-    S.ReflectionGroupSerializer
-];
+            for (const key of Object.getOwnPropertyNames(ReflectionFlags.prototype)) {
+                if (reflection.flags[key] === true) {
+                    base.flags[key] = true;
+                }
+            }
 
-function addSerializers(owner: Serializer) {
-    for (const component of serializerComponents) {
-        owner.addSerializer(new component(owner));
-    }
+            if (reflection instanceof ContainerReflection) {
+                const children = serializer.toObjects(reflection.children as SomeReflection[]);
+                // TS isn't quite smart enough to know this is OK.
+                (base as any).children = children;
+            }
+
+            // TS can't validate base is the right type here.
+            return reflection.serialize(serializer, base as any);
+        }
+    })
 }

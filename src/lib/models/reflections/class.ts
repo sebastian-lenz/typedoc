@@ -2,6 +2,7 @@ import { ContainerReflection, ReflectionKind } from './abstract';
 import type { SignatureReflection, MethodReflection } from './signature';
 import type { PropertyReflection } from './property';
 import type { ReferenceType } from '../types';
+import { Serializer, BaseSerialized, Serialized } from '../../serialization';
 
 /**
  * Describes a class.
@@ -53,7 +54,7 @@ export class ClassReflection extends ContainerReflection<MethodReflection | Prop
      * class C extends B {} // extendedType is B
      * ```
      */
-    extendedType?: ClassReflection;
+    extendedType?: ReferenceType;
 
     /**
      * All types implemented by this class. Implementing types can appear in two positions.
@@ -72,4 +73,22 @@ export class ClassReflection extends ContainerReflection<MethodReflection | Prop
         this.constructSignatures = constructSignatures;
         this.implementedTypes = implementedTypes;
     }
+
+    serialize(serializer: Serializer, init: BaseSerialized<ClassReflection>): SerializedClassReflection {
+        const result: SerializedClassReflection = {
+            ...init,
+            signatures: serializer.toObjects(this.signatures),
+            constructSignatures: serializer.toObjects(this.constructSignatures),
+            implementedTypes: serializer.toObjects(this.implementedTypes),
+        }
+
+        if (this.extendedType) {
+            result.extendedType = serializer.toObject(this.extendedType)
+        }
+
+        return result;
+    }
+}
+
+export interface SerializedClassReflection extends Serialized<ClassReflection, 'signatures' | 'constructSignatures' | 'extendedType' | 'implementedTypes'> {
 }

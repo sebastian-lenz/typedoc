@@ -1,4 +1,5 @@
-import { Type } from './abstract';
+import type { Serializer, BaseSerialized, Serialized } from '../../serialization';
+import { Type, TypeKind } from './abstract';
 
 /**
  * Represents an intrinsic type like `string` or `boolean`.
@@ -10,7 +11,7 @@ import { Type } from './abstract';
  */
 export class IntrinsicType extends Type {
     /** @inheritdoc */
-    readonly type = 'intrinsic';
+    readonly kind = TypeKind.Intrinsic;
 
     /**
      * The name of the intrinsic type like `string` or `boolean`.
@@ -31,4 +32,15 @@ export class IntrinsicType extends Type {
     stringify() {
         return this.name;
     }
+
+    /** @inheritdoc */
+    serialize(_serializer: Serializer, init: BaseSerialized<IntrinsicType>): SerializedIntrinsicType {
+        return {
+            ...init,
+            name: this.name
+        };
+    }
+}
+
+export interface SerializedIntrinsicType extends Serialized<IntrinsicType, 'name'> {
 }

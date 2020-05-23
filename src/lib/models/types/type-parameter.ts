@@ -1,6 +1,7 @@
 import * as assert from 'assert';
-import { Type } from './abstract';
-import type { SomeType } from '.';
+import { Type, TypeKind } from './abstract';
+import { Serializer, BaseSerialized, Serialized } from '../../serialization';
+import { SomeType } from '.';
 
 /**
  * Represents a type parameter type.
@@ -15,7 +16,7 @@ import type { SomeType } from '.';
  */
 export class TypeParameterType extends Type {
     /** @inheritdoc */
-    readonly type = 'typeParameter';
+    readonly kind = TypeKind.TypeParameter;
 
     constructor(
         public name: string,
@@ -40,4 +41,25 @@ export class TypeParameterType extends Type {
         const defaultClause = this.defaultValue ? ` = ${this.defaultValue}` : '';
         return this.name + extendsClause + defaultClause;
     }
+
+    /** @inheritdoc */
+    serialize(serializer: Serializer, init: BaseSerialized<TypeParameterType>): SerializedTypeParameterType {
+        const result: SerializedTypeParameterType = {
+            ...init,
+            name: this.name,
+        };
+
+        if (this.constraint) {
+            result.constraint = serializer.toObject(this.constraint);
+        }
+
+        if (this.defaultValue) {
+            result.defaultValue = serializer.toObject(this.defaultValue);
+        }
+
+        return result;
+    }
+}
+
+export interface SerializedTypeParameterType extends Serialized<TypeParameterType, 'name' | 'constraint' | 'defaultValue'> {
 }

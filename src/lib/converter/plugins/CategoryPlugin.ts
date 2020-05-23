@@ -44,11 +44,11 @@ export class CategoryPlugin extends ConverterComponent {
      * Create a new CategoryPlugin instance.
      */
     initialize() {
-        this.listenTo(this.owner, {
-            [Converter.EVENT_BEGIN]:       this.onBegin,
-            [Converter.EVENT_RESOLVE]:     this.onResolve,
-            [Converter.EVENT_RESOLVE_END]: this.onEndResolve
-        }, undefined, -200);
+        // this.listenTo(this.owner, {
+        //     [Converter.EVENT_BEGIN]:       this.onBegin,
+        //     [Converter.EVENT_RESOLVE]:     this.onResolve,
+        //     [Converter.EVENT_RESOLVE_END]: this.onEndResolve
+        // }, undefined, -200);
     }
 
     /**

@@ -15,7 +15,7 @@ export class ImplementsPlugin extends ConverterComponent {
      * Create a new ImplementsPlugin instance.
      */
     initialize() {
-        this.listenTo(this.owner, Converter.EVENT_RESOLVE, this.onResolve, -10);
+        // this.listenTo(this.owner, Converter.EVENT_RESOLVE, this.onResolve, -10);
     }
 
     /**
