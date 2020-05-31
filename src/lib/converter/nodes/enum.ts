@@ -1,54 +1,26 @@
+import * as assert from 'assert';
 import * as ts from 'typescript';
+import type { ReflectionConverter } from './types';
+import { EnumReflection, EnumMemberReflection } from '../../models';
 
-import { Reflection, ReflectionKind } from '../../models/index';
-import { createDeclaration } from '../factories/index';
-import { Context } from '../context';
-import { Component, ConverterNodeComponent } from '../components';
-import { convertDefaultValue } from '../index';
+export const enumConverter: ReflectionConverter<ts.EnumDeclaration, EnumReflection> = {
+    kind: [ts.SyntaxKind.EnumDeclaration],
+    async convert(context, symbol, nodes) {
+        const isConst = (symbol.flags & ts.SymbolFlags.ConstEnum) === ts.SymbolFlags.ConstEnum;
+        const container = new EnumReflection(symbol.name, isConst);
 
-@Component({name: 'node:enum'})
-export class EnumConverter extends ConverterNodeComponent<ts.EnumDeclaration> {
-    /**
-     * List of supported TypeScript syntax kinds.
-     */
-    supports: ts.SyntaxKind[] = [
-        ts.SyntaxKind.EnumDeclaration
-    ];
+        await Promise.all(context.getExportsOfKind(symbol, ts.SyntaxKind.EnumMember)
+            .map(member => context.converter.convertSymbol(member, context.withContainer(container))));
 
-    /**
-     * Analyze the given enumeration declaration node and create a suitable reflection.
-     *
-     * @param context  The context object describing the current state the converter is in.
-     * @param node     The enumeration declaration node that should be analyzed.
-     * @return The resulting reflection or NULL.
-     */
-    convert(context: Context, node: ts.EnumDeclaration): Reflection | undefined {
-        const enumeration = createDeclaration(context, node, ReflectionKind.Enum);
-
-        context.withScope(enumeration, () => {
-            if (node.members) {
-                for (const member of node.members) {
-                    this.convertMember(context, member);
-                }
-            }
-        });
-
-        return enumeration;
+        return container;
     }
+}
 
-    /**
-     * Analyze the given enumeration member node and create a suitable reflection.
-     *
-     * @param context  The context object describing the current state the converter is in.
-     * @param node     The enumeration member node that should be analyzed.
-     * @return The resulting reflection or NULL.
-     */
-    private convertMember(context: Context, node: ts.EnumMember): Reflection | undefined {
-        const member = createDeclaration(context, node, ReflectionKind.EnumMember);
-        if (member) {
-            member.defaultValue = convertDefaultValue(node);
-        }
-
-        return member;
+export const enumMemberConverter: ReflectionConverter<ts.EnumMember, EnumMemberReflection> = {
+    kind: [ts.SyntaxKind.EnumMember],
+    convert(context, symbol, [node]) {
+        const value = context.checker.getConstantValue(node);
+        assert(value !== undefined, 'Failed to get the value of an enum. This is probably a bug.');
+        return new EnumMemberReflection(symbol.name, value);
     }
 }

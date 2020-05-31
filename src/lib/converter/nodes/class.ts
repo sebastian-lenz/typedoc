@@ -1,88 +1,57 @@
+import * as assert from 'assert';
 import * as ts from 'typescript';
-import * as _ts from '../../ts-internal';
+import type { ReflectionConverter } from './types';
+import { ReferenceType, ClassReflection } from '../../models';
+import { convertSignatureDeclaration } from './signature';
+import { convertTypeParameters } from '../utils';
 
-import { Reflection, ReflectionFlag, ReflectionKind, DeclarationReflection } from '../../models/index';
-import { createDeclaration } from '../factories/index';
-import { Context } from '../context';
-import { Component, ConverterNodeComponent } from '../components';
-import { toArray } from 'lodash';
+// TODO: GERRIT This and the interface implementation can be simplified / merged.
 
-@Component({name: 'node:class'})
-export class ClassConverter extends ConverterNodeComponent<ts.ClassDeclaration> {
-    /**
-     * List of supported TypeScript syntax kinds.
-     */
-    supports: ts.SyntaxKind[] = [
-        ts.SyntaxKind.ClassExpression,
-        ts.SyntaxKind.ClassDeclaration
-    ];
+export const classConverter: ReflectionConverter<ts.ClassDeclaration, ClassReflection> = {
+    kind: [ts.SyntaxKind.ClassDeclaration],
+    async convert(context, symbol, [node]) {
+        const signatureSymbol = symbol.members?.get('__call' as ts.__String);
+        const signatures = await Promise.all(signatureSymbol?.getDeclarations()
+            ?.filter(ts.isCallSignatureDeclaration)
+            .map(node => convertSignatureDeclaration(context.converter, '__call', node)) ?? []);
 
-    /**
-     * Analyze the given class declaration node and create a suitable reflection.
-     *
-     * @param context  The context object describing the current state the converter is in.
-     * @param node     The class declaration node that should be analyzed.
-     * @return The resulting reflection or NULL.
-     */
-    convert(context: Context, node: ts.ClassDeclaration): Reflection | undefined {
-        let reflection: DeclarationReflection | undefined;
-        if (context.isInherit && context.inheritParent === node) {
-            reflection = <DeclarationReflection> context.scope;
-        } else {
-            reflection = createDeclaration(context, node, ReflectionKind.Class);
-            // set possible abstract flag here, where node is not the inherited parent
-            if (reflection && node.modifiers && node.modifiers.some( m => m.kind === ts.SyntaxKind.AbstractKeyword )) {
-                reflection.setFlag(ReflectionFlag.Abstract, true);
-            }
-        }
+        const constructSymbol = symbol.members?.get('__new' as ts.__String);
+        const constructSignatures = await Promise.all(constructSymbol?.getDeclarations()
+            ?.filter(ts.isCallSignatureDeclaration)
+            .map(node => convertSignatureDeclaration(context.converter, '__new', node)) ?? []);
 
-        context.withScope(reflection, node.typeParameters, () => {
-            if (node.members) {
-                node.members.forEach((member) => {
-                    const child = this.owner.convertNode(context, member);
-                    // class Foo { #foo = 1 }
-                    if (child && member.name && ts.isPrivateIdentifier(member.name)) {
-                        child.flags.setFlag(ReflectionFlag.Private, true);
-                    }
-                });
-            }
+        const implementsClause = node.heritageClauses?.find(clause => clause.token === ts.SyntaxKind.ImplementsKeyword);
 
-            const extendsClause = toArray(node.heritageClauses).find(h => h.token === ts.SyntaxKind.ExtendsKeyword);
-            if (extendsClause) {
-                const baseType = extendsClause.types[0];
-                const type = context.getTypeAtLocation(baseType);
-                if (!context.isInherit) {
-                    if (!reflection!.extendedTypes) {
-                        reflection!.extendedTypes = [];
-                    }
-                    const convertedType = this.owner.convertType(context, baseType, type);
-                    if (convertedType) {
-                        reflection!.extendedTypes.push(convertedType);
-                    }
-                }
+        const implementedTypes = implementsClause?.types.map(type => {
+            const parent = context.converter.convertType(type);
+            assert(parent instanceof ReferenceType);
+            return parent;
+        }) ?? [];
 
-                if (type) {
-                    const typesToInheritFrom: ts.Type[] = type.isIntersection() ? type.types : [ type ];
+        const extendsClause = node.heritageClauses?.find(clause => clause.token === ts.SyntaxKind.ExtendsKeyword);
+        const extendedType = extendsClause ? context.converter.convertType(extendsClause.types[0]) : undefined;
+        assert(!extendedType || extendedType instanceof ReferenceType);
 
-                    typesToInheritFrom.forEach((typeToInheritFrom: ts.Type) => {
-                        // TODO: The TS declaration file claims that:
-                        // 1. type.symbol is non-nullable
-                        // 2. symbol.declarations is non-nullable
-                        // These are both incorrect, GH#1207 for #2 and existing tests for #1.
-                        // Figure out why this is the case and document.
-                        typeToInheritFrom.symbol?.declarations?.forEach((declaration) => {
-                            context.inherit(declaration, baseType.typeArguments);
-                        });
-                    });
-                }
-            }
-
-            const implementsClause = toArray(node.heritageClauses).find(h => h.token === ts.SyntaxKind.ImplementsKeyword);
-            if (implementsClause) {
-                const implemented = this.owner.convertTypes(context, implementsClause.types);
-                reflection!.implementedTypes = (reflection!.implementedTypes || []).concat(implemented);
+        const typeParameterSymbols: ts.Symbol[] = [];
+        const members: ts.Symbol[] = [];
+        symbol.members?.forEach(member => {
+            if (member.flags & ts.TypeFlags.TypeParameter) {
+                typeParameterSymbols.push(member);
+            // We already took care of signatures and construct signatures.
+            } else if (member.flags & ts.SymbolFlags.FunctionExcludes) {
+                members.push(member);
             }
         });
+
+        const typeParameters = convertTypeParameters(context.converter, typeParameterSymbols.map(symbol => {
+            const param = symbol.getDeclarations()?.[0];
+            assert(param && ts.isTypeParameterDeclaration(param));
+            return param;
+        }));
+
+        const reflection = new ClassReflection(symbol.name, signatures, constructSignatures, typeParameters, implementedTypes, extendedType);
+
+        await Promise.all(members.map(child => context.converter.convertSymbol(child, context.withContainer(reflection))));
 
         return reflection;
     }

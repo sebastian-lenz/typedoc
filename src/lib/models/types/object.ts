@@ -1,8 +1,8 @@
 import * as assert from 'assert';
 import type { Serializer, BaseSerialized, Serialized } from '../../serialization';
 import { Type, TypeKind } from './abstract';
-import type { SignatureType } from './signature';
-import { cloned, wrap } from './utils';
+import type { SignatureType, ConstructorType } from './signature';
+import { cloned } from './utils';
 import { SomeType } from '.';
 
 /**
@@ -17,7 +17,7 @@ export class ObjectType extends Type {
         /** Includes methods, like the TS Type. */
         public properties: PropertyType[],
         public signatures: SignatureType[],
-        public constructSignatures: SignatureType[]
+        public constructSignatures: ConstructorType[]
     ) {
         super();
     }
@@ -37,14 +37,14 @@ export class ObjectType extends Type {
 
         if (!this.properties.length && !this.signatures.length && this.constructSignatures.length === 1) {
             // Single construct signature, display as arrow: new (params) => type
-            return wrap(wrapped, `new ${this.constructSignatures[0].stringify(false, true)}`);
+            return this.constructSignatures[0].stringify(wrapped, true);
         }
 
         // Fall back to an object display, properties, then signatures, then construct signatures.
         const members = [
             ...this.properties.map(prop => prop.stringify(false)),
             ...this.signatures.map(prop => prop.stringify(false)),
-            ...this.constructSignatures.map(prop => `new ${prop.stringify(false)}`)
+            ...this.constructSignatures.map(prop => prop.stringify(false))
         ];
 
         return `{ ${members.join('; ')} }`;

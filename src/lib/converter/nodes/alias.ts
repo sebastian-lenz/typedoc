@@ -1,33 +1,13 @@
 import * as ts from 'typescript';
+import type { ReflectionConverter } from './types';
+import { TypeAliasReflection } from '../../models';
+import { convertTypeParameters } from '../utils';
 
-import { Reflection, ReflectionKind } from '../../models/index';
-import { createDeclaration } from '../factories/index';
-import { Context } from '../context';
-import { Component, ConverterNodeComponent } from '../components';
-
-@Component({name: 'node:alias'})
-export class AliasConverter extends ConverterNodeComponent<ts.TypeAliasDeclaration> {
-    /**
-     * List of supported TypeScript syntax kinds.
-     */
-    supports: ts.SyntaxKind[] = [
-        ts.SyntaxKind.TypeAliasDeclaration
-    ];
-
-    /**
-     * Analyze the given type alias declaration node and create a suitable reflection.
-     *
-     * @param context  The context object describing the current state the converter is in.
-     * @param node     The type alias declaration node that should be analyzed.
-     * @return The resulting reflection or NULL.
-     */
-    convert(context: Context, node: ts.TypeAliasDeclaration): Reflection | undefined {
-        const alias = createDeclaration(context, node, ReflectionKind.TypeAlias);
-
-        context.withScope(alias, node.typeParameters, () => {
-            alias!.type = this.owner.convertType(context, node.type, context.getTypeAtLocation(node.type));
-        });
-
-        return alias;
+export const aliasConverter: ReflectionConverter<ts.TypeAliasDeclaration, TypeAliasReflection> = {
+    kind: [ts.SyntaxKind.TypeAliasDeclaration],
+    async convert(context, symbol, [node]) {
+        return new TypeAliasReflection(symbol.name,
+            await context.converter.convertTypeOrObject(node.type),
+            convertTypeParameters(context.converter, node.typeParameters ?? []));
     }
 }

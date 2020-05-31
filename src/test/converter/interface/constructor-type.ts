@@ -1,4 +1,4 @@
-interface Constructor {
+export interface Constructor {
     // No return type defined. Used the parent one.
     new(x: string, y: string);
 
@@ -9,6 +9,4 @@ interface Constructor {
     new(x: string, y: string): Instance;
 }
 
-interface Instance {}
-
-export {};
+export interface Instance {}

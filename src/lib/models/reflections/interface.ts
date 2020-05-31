@@ -1,8 +1,8 @@
 import { ContainerReflection, ReflectionKind } from './abstract';
 import type { SignatureReflection, MethodReflection } from './signature';
 import type { PropertyReflection } from './property';
-import type { ReferenceType } from '../types';
-import { Serializer, BaseSerialized } from '../../serialization';
+import type { ReferenceType, TypeParameterType } from '../types';
+import type { Serializer, BaseSerialized, Serialized } from '../../serialization';
 
 /**
  * Describes an interface.
@@ -27,6 +27,8 @@ export class InterfaceReflection extends ContainerReflection<MethodReflection | 
 
     constructSignatures: SignatureReflection[];
 
+    typeParameters: TypeParameterType[];
+
     /**
      * References to all parent types.
      * ```ts
@@ -36,10 +38,16 @@ export class InterfaceReflection extends ContainerReflection<MethodReflection | 
      */
     extendedTypes: ReferenceType[];
 
-    constructor(name: string, signatures: SignatureReflection[], constructSignatures: SignatureReflection[], extendedTypes: ReferenceType[]) {
+    constructor(name: string,
+        signatures: SignatureReflection[],
+        constructSignatures: SignatureReflection[],
+        typeParameters: TypeParameterType[],
+        extendedTypes: ReferenceType[]) {
+
         super(name);
         this.signatures = signatures;
         this.constructSignatures = constructSignatures;
+        this.typeParameters = typeParameters;
         this.extendedTypes = extendedTypes;
     }
 
@@ -48,10 +56,11 @@ export class InterfaceReflection extends ContainerReflection<MethodReflection | 
             ...init,
             signatures: serializer.toObjects(this.signatures),
             constructSignatures: serializer.toObjects(this.constructSignatures),
+            typeParameters: serializer.toObjects(this.typeParameters),
             extendedTypes: serializer.toObjects(this.extendedTypes)
         }
     }
 }
 
-export interface SerializedInterfaceReflection extends Serialized<InterfaceReflection, 'signatures' | 'constructSignatures' | 'extendedTypes'> {
+export interface SerializedInterfaceReflection extends Serialized<InterfaceReflection, 'signatures' | 'constructSignatures' | 'typeParameters' | 'extendedTypes'> {
 }

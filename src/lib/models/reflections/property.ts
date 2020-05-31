@@ -1,6 +1,7 @@
-import { ReflectionKind, Reflection } from './abstract';
+import type { BaseSerialized, Serialized, Serializer } from '../../serialization';
 import type { SomeType } from '../types';
-import { Serializer, BaseSerialized, Serialized } from '../../serialization';
+import { Reflection, ReflectionKind } from './abstract';
+import { ObjectReflection } from './object';
 
 /**
  * Describes a property of a {@link ClassReflection} or {@link InterfaceReflection}.
@@ -19,7 +20,7 @@ export class PropertyReflection extends Reflection {
     /**
      * The type of this property.
      */
-    type: SomeType;
+    type: SomeType | ObjectReflection;
 
     /**
      * If the property has an initializer, that initializer as a string.
@@ -33,7 +34,7 @@ export class PropertyReflection extends Reflection {
      */
     defaultValue?: string;
 
-    constructor(name: string, type: SomeType, defaultValue?: string) {
+    constructor(name: string, type: SomeType | ObjectReflection, defaultValue?: string) {
         super(name);
         this.type = type;
         this.defaultValue = defaultValue;
@@ -77,13 +78,13 @@ export interface SerializedPropertyReflection extends Serialized<PropertyReflect
  * }
  * ```
  */
-export class DynamicPropertyReflection extends Reflection {
-    readonly kind = ReflectionKind.DynamicProperty;
+export class AccessorReflection extends Reflection {
+    readonly kind = ReflectionKind.Accessor;
 
     /**
      * The type of this property.
      */
-    type: SomeType;
+    type: SomeType | ObjectReflection;
 
     /**
      * True if this property has a getter.
@@ -95,14 +96,14 @@ export class DynamicPropertyReflection extends Reflection {
      */
     hasSetter: boolean;
 
-    constructor(name: string, type: SomeType, hasGetter: boolean, hasSetter: boolean) {
+    constructor(name: string, type: SomeType | ObjectReflection, hasGetter: boolean, hasSetter: boolean) {
         super(name);
         this.type = type;
         this.hasGetter = hasGetter;
         this.hasSetter = hasSetter;
     }
 
-    serialize(serializer: Serializer, init: BaseSerialized<DynamicPropertyReflection>): SerializedDynamicPropertyReflection {
+    serialize(serializer: Serializer, init: BaseSerialized<AccessorReflection>): SerializedDynamicPropertyReflection {
         return {
             ...init,
             hasGetter: this.hasGetter,
@@ -112,5 +113,5 @@ export class DynamicPropertyReflection extends Reflection {
     }
 }
 
-export interface SerializedDynamicPropertyReflection extends Serialized<DynamicPropertyReflection, 'type' | 'hasGetter' | 'hasSetter'> {
+export interface SerializedDynamicPropertyReflection extends Serialized<AccessorReflection, 'type' | 'hasGetter' | 'hasSetter'> {
 }

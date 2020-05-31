@@ -19,13 +19,14 @@ export enum TypeKind {
     Query = 512,
     Reference = 1024,
     Signature = 2048,
-    SignatureParameter = 4096,
-    StringLiteral = 8192,
-    Tuple = 16384,
-    TypeOperator = 32768,
-    TypeParameter = 65536,
-    Union = 131072,
-    Unknown = 262144
+    Constructor = 4096,
+    SignatureParameter = 8192,
+    Literal = 16384,
+    Tuple = 32768,
+    TypeOperator = 65536,
+    TypeParameter = 131072,
+    Union = 262144,
+    Unknown = 524288
 }
 
 export namespace TypeKind {

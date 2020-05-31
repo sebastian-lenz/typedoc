@@ -1,8 +1,8 @@
 import { ContainerReflection, ReflectionKind } from './abstract';
 import type { SignatureReflection, MethodReflection } from './signature';
 import type { PropertyReflection } from './property';
-import type { ReferenceType } from '../types';
-import { Serializer, BaseSerialized, Serialized } from '../../serialization';
+import type { ReferenceType, TypeParameterType } from '../types';
+import type { Serializer, BaseSerialized, Serialized } from '../../serialization';
 
 /**
  * Describes a class.
@@ -46,6 +46,11 @@ export class ClassReflection extends ContainerReflection<MethodReflection | Prop
     constructSignatures: SignatureReflection[];
 
     /**
+     * Any type parameters present on this class.
+     */
+    typeParameters: TypeParameterType[];
+
+    /**
      * A reference to the parent class, if this class extends another class.
      *
      * ```ts
@@ -67,11 +72,19 @@ export class ClassReflection extends ContainerReflection<MethodReflection | Prop
      */
     implementedTypes: ReferenceType[];
 
-    constructor(name: string, signatures: SignatureReflection[], constructSignatures: SignatureReflection[], implementedTypes: ReferenceType[]) {
+    constructor(name: string,
+        signatures: SignatureReflection[],
+        constructSignatures: SignatureReflection[],
+        typeParameters: TypeParameterType[],
+        implementedTypes: ReferenceType[],
+        extendedType?: ReferenceType) {
+
         super(name);
         this.signatures = signatures;
         this.constructSignatures = constructSignatures;
+        this.typeParameters = typeParameters;
         this.implementedTypes = implementedTypes;
+        this.extendedType = extendedType;
     }
 
     serialize(serializer: Serializer, init: BaseSerialized<ClassReflection>): SerializedClassReflection {
@@ -79,6 +92,7 @@ export class ClassReflection extends ContainerReflection<MethodReflection | Prop
             ...init,
             signatures: serializer.toObjects(this.signatures),
             constructSignatures: serializer.toObjects(this.constructSignatures),
+            typeParameters: serializer.toObjects(this.typeParameters),
             implementedTypes: serializer.toObjects(this.implementedTypes),
         }
 
@@ -90,5 +104,5 @@ export class ClassReflection extends ContainerReflection<MethodReflection | Prop
     }
 }
 
-export interface SerializedClassReflection extends Serialized<ClassReflection, 'signatures' | 'constructSignatures' | 'extendedType' | 'implementedTypes'> {
+export interface SerializedClassReflection extends Serialized<ClassReflection, 'signatures' | 'constructSignatures' | 'extendedType' | 'typeParameters' | 'implementedTypes'> {
 }

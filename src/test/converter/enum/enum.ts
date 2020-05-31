@@ -45,12 +45,12 @@ export module ModuleEnum {
     /**
      * This is a variable appended to an enumeration.
      */
-    let enumValue: string;
+    export let enumValue: string;
 
     /**
      * This is a function appended to an enumeration.
      */
-    function enumFunction() {}
+    export function enumFunction() {}
 }
 
 /**

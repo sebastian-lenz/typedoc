@@ -65,7 +65,7 @@ describe('TypeDoc', function() {
             Assert(!expanded.includes(Path.join(inputFiles, '.dot', 'index.ts')));
             Assert(!expanded.includes(inputFiles));
         });
-        it('Honors the exclude option even if a module is imported', () => {
+        it('Honors the exclude option even if a module is imported', async () => {
             application.options.setValue('exclude', ['**/b.ts']);
             application.options.setValue('module', ModuleKind.CommonJS);
 
@@ -75,7 +75,8 @@ describe('TypeDoc', function() {
                 ]);
             }
             application.converter.once(Converter.EVENT_END, handler);
-            application.convert([ Path.join(__dirname, 'module', 'a.ts')]);
+            application.options.setValue('inputFiles', [ Path.join(__dirname, 'module', 'a.ts')]);
+            await application.convert();
         });
 
         it('supports directory excludes', function() {

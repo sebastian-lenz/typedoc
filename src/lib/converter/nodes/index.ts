@@ -1,16 +1,30 @@
-export { AccessorConverter } from './accessor';
-export { AliasConverter } from './alias';
-export { BlockConverter } from './block';
-export { ClassConverter } from './class';
-export { ConstructorConverter } from './constructor';
-export { EnumConverter } from './enum';
-export { ExportConverter } from './export';
-export { FunctionConverter } from './function';
-export { InterfaceConverter } from './interface';
-export { TypeLiteralConverter } from './literal-type';
-export { ObjectLiteralConverter } from './literal-object';
-export { ModuleConverter } from './module';
-export { SignatureConverter } from './signature-call';
-export { IndexSignatureConverter } from './signature-index';
-export { VariableStatementConverter } from './variable-statement';
-export { VariableConverter } from './variable';
+import type { Converter } from '../converter';
+import { enumMemberConverter, enumConverter } from './enum';
+import { namespaceConverter } from './namespace';
+import { functionConverter } from './function';
+import { variableConverter } from './variable';
+import { aliasConverter } from './alias';
+import { interfaceConverter } from './interface';
+import { propertyConverter, accessorConverter } from './property';
+import { methodConverter } from './method';
+import { classConverter } from './class';
+
+export { ReflectionConverter } from './types'
+
+export function addConverters(converter: Converter) {
+    for (const reflectionConverter of [
+        accessorConverter,
+        aliasConverter,
+        classConverter,
+        enumConverter,
+        enumMemberConverter,
+        interfaceConverter,
+        methodConverter,
+        namespaceConverter,
+        propertyConverter,
+        functionConverter,
+        variableConverter,
+    ]) {
+        converter.addReflectionConverter(reflectionConverter);
+    }
+}

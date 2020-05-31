@@ -22,6 +22,20 @@ app.bootstrap({
     disableSources: true
 });
 
+// TODO GERRIT This should be removable once plugins are working.
+app.converter.on('end', (project) => {
+    /** @type {import('..').SomeReflection[]} */
+    const toVisit = [project];
+
+    while (toVisit.length) {
+        const item = toVisit.pop();
+        if (item instanceof TypeDoc.ContainerReflection) {
+            toVisit.push(...item.children);
+            item.children.sort((a, b) => a.name.localeCompare(b.name));
+        }
+    }
+})
+
 // Note that this uses the test files in dist, not in src, this is important since
 // when running the tests we copy the tests to dist and then convert them.
 const base = path.join(__dirname, '../dist/test/converter');
@@ -54,13 +68,14 @@ const conversions = [
 function rebuildConverterTests(dirs) {
     return Promise.all(dirs.map(fullPath => {
         console.log(fullPath);
-        const src = app.expandInputFiles([fullPath]);
-        return Promise.all(conversions.map(([file, before, after]) => {
+        app.options.setValue('inputFiles', [fullPath]);
+
+        return Promise.all(conversions.map(async ([file, before, after]) => {
             const out = path.join(fullPath, `${file}.json`);
             if (fs.existsSync(out)) {
                 TypeDoc.resetReflectionID();
                 before();
-                const result = app.convert(src);
+                const result = await app.convert();
                 const serialized = app.serializer.toObject(result);
 
                 const data = JSON.stringify(serialized, null, '  ')
@@ -80,7 +95,9 @@ async function rebuildRendererTest() {
 
     await fs.remove(out)
     app.options.setValue('excludeExternals', false);
-    app.generateDocs(app.expandInputFiles([src]), out)
+    app.options.setValue('inputFiles', [src]);
+    const project = await app.convert();
+    await app.generateDocs(project, out);
     app.options.setValue('excludeExternals', true);
 
     /**

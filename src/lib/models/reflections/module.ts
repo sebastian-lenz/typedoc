@@ -1,6 +1,6 @@
 import { ContainerReflection, ReflectionKind } from './abstract';
 import type { TopLevelReflection } from './index';
-import { Serializer, BaseSerialized, Serialized } from '../../serialization';
+import type { Serializer, BaseSerialized, Serialized } from '../../serialization';
 
 /**
  * Describes a module.

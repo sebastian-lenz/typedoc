@@ -1,6 +1,7 @@
 import type { BaseSerialized, Serialized, Serializer } from '../../serialization';
 import type { SomeType } from '../types/index';
 import { Reflection, ReflectionKind } from './abstract';
+import type { ObjectReflection } from './object';
 
 export class ParameterReflection extends Reflection {
     readonly kind = ReflectionKind.Parameter;
@@ -14,9 +15,9 @@ export class ParameterReflection extends Reflection {
      *
      * Themes may choose to not render the type of a parameter if it is `any`.
      */
-    type: SomeType;
+    type: SomeType | ObjectReflection;
 
-    constructor(name: string, type: SomeType, defaultValue?: string) {
+    constructor(name: string, type: SomeType | ObjectReflection, defaultValue?: string) {
         super(name);
         this.type = type;
         this.defaultValue = defaultValue;

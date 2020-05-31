@@ -1,36 +1,36 @@
 import { deepStrictEqual as equal, doesNotThrow } from 'assert';
 import {
     binaryFindPartition,
-    insertPrioritySorted,
+    insertOrderSorted,
     removeIfPresent
 } from '../../lib/utils/array';
 
 describe('Array utils', () => {
-    describe('insertPrioritySorted', () => {
-        const item1 = { priority: 1 };
-        const item2 = { priority: 2 };
-        const item3 = { priority: 3 };
-        const item4 = { priority: 4 };
+    describe('insertOrderSorted', () => {
+        const item1 = { order: 1 };
+        const item2 = { order: 2 };
+        const item3 = { order: 3 };
+        const item4 = { order: 4 };
 
         it('works with an empty array', () => {
-            equal(insertPrioritySorted([], item1), [item1]);
+            equal(insertOrderSorted([], item1), [item1]);
         });
 
         it('inserts at the start', () => {
-            equal(insertPrioritySorted([item2], item1), [item1, item2]);
+            equal(insertOrderSorted([item2], item1), [item1, item2]);
         });
 
         it('inserts in the middle', () => {
-            equal(insertPrioritySorted([item1, item3], item2), [item1, item2, item3]);
+            equal(insertOrderSorted([item1, item3], item2), [item1, item2, item3]);
         });
 
         it('inserts at the end', () => {
-            equal(insertPrioritySorted([item2, item3], item4), [item2, item3, item4]);
+            equal(insertOrderSorted([item2, item3], item4), [item2, item3, item4]);
         });
 
         it('inserts new items first', () => {
-            const item0 = { priority: 1, first: true };
-            equal(insertPrioritySorted([item1], item0), [item0, item1]);
+            const item0 = { order: 1, first: true };
+            equal(insertOrderSorted([item1], item0), [item0, item1]);
         });
     });
 

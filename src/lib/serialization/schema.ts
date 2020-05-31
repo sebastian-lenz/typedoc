@@ -37,22 +37,17 @@ export type ModelToObject<T> = T extends Array<infer U> ? _ModelToObject<U>[] : 
 
 type _ModelToObject<T> = T extends M.SomeType ? M.TypeToSerialized<T>
     : T extends M.SomeReflection ? M.ModelToSerialized<T>
-    : never;
+    : T;
 
 export type Serialized<T extends M.SomeType | M.SomeReflection, K extends keyof T> =
     & BaseSerialized<T>
-    & (T extends M.SomeType ? _SerializedType<T, K> : unknown)
-    & (T extends M.SomeReflection ? _SerializedModel<T, K> : unknown);
+    & (T extends M.SomeType ? _Serialized<T, K> : unknown)
+    & (T extends M.SomeReflection ? _Serialized<T, K> : unknown);
 
-type _SerializedType<T extends M.SomeType, K extends keyof T> = {
-    -readonly [K2 in K]: T[K2] extends Array<infer U> ? M.TypeToSerialized<U>[]
-        : M.TypeToSerialized<T[K2]>
+type _Serialized<T, K extends keyof T> = {
+    -readonly [K2 in K]: ModelToObject<T[K2]>
 }
 
-type _SerializedModel<T extends M.SomeReflection, K extends keyof T> = {
-    -readonly [K2 in K]: T[K2] extends Array<infer U> ? M.ModelToSerialized<U>[]
-        : M.ModelToSerialized<T[K2]>
-}
 
 export type BaseSerialized<T extends M.SomeType | M.SomeReflection> =
     & (T extends M.SomeType ? SerializedType<T> : unknown)
@@ -82,6 +77,7 @@ export interface SerializedType<T extends M.SomeType> {
 }
 
 export interface SerializedReflection<T extends M.SomeReflection> {
+    id: number;
     kind: T['kind'];
     kindString: string;
 
@@ -91,5 +87,5 @@ export interface SerializedReflection<T extends M.SomeReflection> {
 }
 
 export interface SerializedContainerReflection<T extends M.SomeContainerReflection> {
-    children: ModelToObject<T['children']>;
+    // children: ModelToObject<T['children']>;
 }

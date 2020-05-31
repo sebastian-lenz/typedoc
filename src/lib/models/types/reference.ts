@@ -104,7 +104,7 @@ export class ReferenceType extends Type {
         };
 
         if (this.reflection) {
-            result.id = this.reflection.id;
+            result.target = this.reflection.id;
         }
 
         return result;
@@ -112,5 +112,5 @@ export class ReferenceType extends Type {
 }
 
 export interface SerializedReferenceType extends Serialized<ReferenceType, 'name' | 'typeArguments'> {
-    id?: number;
+    target?: number;
 }

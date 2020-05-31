@@ -6,7 +6,7 @@
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
   "bin": {
-    "typedoc": "bin/typedoc"
+    "typedoc": "bin/typedoc.js"
   },
   "license": "Apache-2.0",
   "repository": {

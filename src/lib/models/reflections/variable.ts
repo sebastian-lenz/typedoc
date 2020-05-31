@@ -1,6 +1,7 @@
-import { Reflection, ReflectionKind } from './abstract';
+import type { BaseSerialized, Serialized, Serializer } from '../../serialization';
 import type { SomeType } from '../types';
-import { Serialized, BaseSerialized, Serializer } from '../../serialization';
+import { Reflection, ReflectionKind } from './abstract';
+import type { ObjectReflection } from './object';
 
 /**
  * Describes a variable.
@@ -18,7 +19,7 @@ import { Serialized, BaseSerialized, Serializer } from '../../serialization';
 export class VariableReflection extends Reflection {
     readonly kind = ReflectionKind.Variable;
 
-    type: SomeType;
+    type: SomeType | ObjectReflection;
 
     defaultValue?: string;
 

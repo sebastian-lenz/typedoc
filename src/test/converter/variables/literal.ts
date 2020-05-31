@@ -51,4 +51,4 @@ const callbackReturn = {
     }
 };
 
-export { objectLiteral };
+export { objectLiteral, callbackReturn, typeLiteral, x };

@@ -1,6 +1,7 @@
 import * as ts from 'typescript';
-import * as FS from 'fs';
-import { dirname } from 'path';
+import * as fs from 'fs-extra';
+import { dirname, resolve, join } from 'path';
+import { createMinimatch } from './paths';
 
 /**
  * List of known existent directories. Used to speed up [[directoryExists]].
@@ -50,34 +51,13 @@ export function ensureDirectoriesExist(directoryPath: string) {
 }
 
 /**
- * Write a file to disc.
- *
- * If the containing directory does not exist it will be created.
- *
- * @param fileName  The name of the file that should be written.
- * @param data  The contents of the file.
- * @param writeByteOrderMark  Whether the UTF-8 BOM should be written or not.
- * @param onError  A callback that will be invoked if an error occurs.
- */
-export function writeFile(fileName: string, data: string, writeByteOrderMark: boolean, onError?: (message: string) => void) {
-    try {
-        ensureDirectoriesExist(dirname(normalizePath(fileName)));
-        ts.sys.writeFile(fileName, data, writeByteOrderMark);
-    } catch (e) {
-        if (onError) {
-            onError(e.message);
-        }
-    }
-}
-
-/**
  * Load the given file and return its contents.
  *
  * @param file  The path of the file to read.
  * @returns The files contents.
  */
 export function readFile(file: string): string {
-    const buffer = FS.readFileSync(file);
+    const buffer = fs.readFileSync(file);
     switch (buffer[0]) {
         case 0xFE:
             if (buffer[1] === 0xFF) {
@@ -103,4 +83,52 @@ export function readFile(file: string): string {
     }
 
     return buffer.toString('utf8', 0);
+}
+
+/**
+ * Expand a list of input files and directories to get input files for a program.
+ *
+ * @param inputFiles The list of files that should be expanded.
+ * @param excludePatterns Patterns to test files not in the inputFiles parameter against for exclusion.
+ * @param allowJs Whether or not to include JS files in the result.
+ * @returns The list of input files with expanded directories.
+ */
+export async function expandDirectories(inputFiles: string[], excludePatterns: string[], allowJs: boolean): Promise<string[]> {
+    const files: string[] = [];
+
+    const exclude = createMinimatch(excludePatterns);
+    const supportedFileRegex = allowJs ? /\.[tj]sx?$/ : /\.tsx?$/;
+
+    function isExcluded(fileName: string): boolean {
+        return exclude.some(mm => mm.match(fileName));
+    }
+
+    async function add(file: string, entryPoint: boolean) {
+        let stats: fs.Stats;
+        try {
+            stats = await fs.stat(file);
+        } catch {
+            // No permission or a symbolic link, do not resolve.
+            return;
+        }
+        const fileIsDir = stats.isDirectory();
+        if (fileIsDir && !file.endsWith('/')) {
+            file = `${file}/`;
+        }
+
+        if (!entryPoint && isExcluded(file.replace(/\\/g, '/'))) {
+            return;
+        }
+
+        if (fileIsDir) {
+            const children = await fs.readdir(file);
+            await Promise.all(children.map(child => add(join(file, child), false)))
+        } else if (supportedFileRegex.test(file)) {
+            files.push(file);
+        }
+    }
+
+    await Promise.all(inputFiles.map(file => add(resolve(file), true)));
+
+    return files;
 }

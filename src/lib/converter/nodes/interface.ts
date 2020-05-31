@@ -1,69 +1,51 @@
+import * as assert from 'assert';
 import * as ts from 'typescript';
-import * as _ts from '../../ts-internal';
+import type { ReflectionConverter } from './types';
+import { InterfaceReflection, ReferenceType } from '../../models';
+import { convertSignatureDeclaration } from './signature';
+import { convertTypeParameters } from '../utils';
 
-import { Reflection, ReflectionKind, DeclarationReflection } from '../../models/index';
-import { createDeclaration } from '../factories/index';
-import { Context } from '../context';
-import { Component, ConverterNodeComponent } from '../components';
-import { toArray } from 'lodash';
+export const interfaceConverter: ReflectionConverter<ts.InterfaceDeclaration, InterfaceReflection> = {
+    kind: [ts.SyntaxKind.InterfaceDeclaration],
+    async convert(context, symbol, [node]) {
+        const signatureSymbol = symbol.members?.get('__call' as ts.__String);
+        const signatures = await Promise.all(signatureSymbol?.getDeclarations()
+            ?.filter(ts.isCallSignatureDeclaration)
+            .map(node => convertSignatureDeclaration(context.converter, '__call', node)) ?? []);
 
-@Component({name: 'node:interface'})
-export class InterfaceConverter extends ConverterNodeComponent<ts.InterfaceDeclaration> {
-    /**
-     * List of supported TypeScript syntax kinds.
-     */
-    supports: ts.SyntaxKind[] = [
-        ts.SyntaxKind.InterfaceDeclaration
-    ];
+        const constructSymbol = symbol.members?.get('__new' as ts.__String);
+        const constructSignatures = await Promise.all(constructSymbol?.getDeclarations()
+            ?.filter(ts.isCallSignatureDeclaration)
+            .map(node => convertSignatureDeclaration(context.converter, '__new', node)) ?? []);
 
-    /**
-     * Analyze the given interface declaration node and create a suitable reflection.
-     *
-     * @param context  The context object describing the current state the converter is in.
-     * @param node     The interface declaration node that should be analyzed.
-     * @return The resulting reflection or NULL.
-     */
-    convert(context: Context, node: ts.InterfaceDeclaration): Reflection | undefined {
-        let reflection: DeclarationReflection | undefined;
-        if (context.isInherit && context.inheritParent === node) {
-            reflection = <DeclarationReflection> context.scope;
-        } else {
-            reflection = createDeclaration(context, node, ReflectionKind.Interface);
-        }
+        const extendsClause = node.heritageClauses?.find(clause => clause.token === ts.SyntaxKind.ExtendsKeyword);
 
-        context.withScope(reflection, node.typeParameters, () => {
-            if (node.members) {
-                node.members.forEach((member) => {
-                    this.owner.convertNode(context, member);
-                });
-            }
+        const extendedTypes = extendsClause?.types.map(type => {
+            const parent = context.converter.convertType(type);
+            assert(parent instanceof ReferenceType);
+            return parent;
+        }) ?? [];
 
-            const extendsClause = toArray(node.heritageClauses).find(h => h.token === ts.SyntaxKind.ExtendsKeyword);
-            if (extendsClause) {
-                extendsClause.types.forEach((baseType) => {
-                    const type = context.getTypeAtLocation(baseType);
-                    if (!context.isInherit) {
-                        if (!reflection!.extendedTypes) {
-                            reflection!.extendedTypes = [];
-                        }
-                        const convertedType = this.owner.convertType(context, baseType, type);
-                        if (convertedType) {
-                            reflection!.extendedTypes.push(convertedType);
-                        }
-                    }
-
-                    if (type) {
-                        const typesToInheritFrom: ts.Type[] = type.isIntersection() ? type.types : [ type ];
-
-                        typesToInheritFrom.forEach((typeToInheritFrom: ts.Type) => {
-                            typeToInheritFrom.symbol && typeToInheritFrom.symbol.declarations.forEach((declaration) => {
-                                context.inherit(declaration, baseType.typeArguments);
-                            });
-                        });
-                    }
-                });
+        const typeParameterSymbols: ts.Symbol[] = [];
+        const members: ts.Symbol[] = [];
+        symbol.members?.forEach(member => {
+            if (member.flags & ts.TypeFlags.TypeParameter) {
+                typeParameterSymbols.push(member);
+            // We already took care of signatures and construct signatures.
+            } else if (member.flags & ts.SymbolFlags.FunctionExcludes) {
+                members.push(member);
             }
         });
+
+        const typeParameters = convertTypeParameters(context.converter, typeParameterSymbols.map(symbol => {
+            const param = symbol.getDeclarations()?.[0];
+            assert(param && ts.isTypeParameterDeclaration(param));
+            return param;
+        }));
+
+        const reflection = new InterfaceReflection(symbol.name, signatures, constructSignatures, typeParameters, extendedTypes);
+
+        await Promise.all(members.map(child => context.converter.convertSymbol(child, context.withContainer(reflection))));
 
         return reflection;
     }

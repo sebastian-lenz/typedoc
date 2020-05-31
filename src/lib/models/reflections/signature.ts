@@ -1,8 +1,8 @@
-import { ReflectionKind, Reflection } from './abstract';
+import type { BaseSerialized, Serialized, Serializer } from '../../serialization';
+import type { SomeType, TypeParameterType } from '../types/index';
+import { Reflection, ReflectionKind } from './abstract';
+import type { ObjectReflection } from './object';
 import type { ParameterReflection } from './parameter';
-import type { SomeType } from '../types/index';
-import { TypeParameterType } from '../types/type-parameter';
-import { BaseSerialized, Serializer, Serialized } from '../../serialization';
 
 export abstract class CallableReflection extends Reflection {
     signatures: SignatureReflection[] = [];
@@ -143,9 +143,9 @@ export class SignatureReflection extends Reflection {
     /**
      * The return type of this signature.
      */
-    returnType: SomeType;
+    returnType: SomeType | ObjectReflection;
 
-    constructor(name: string, returnType: SomeType, parameters: ParameterReflection[], typeParameters: TypeParameterType[]) {
+    constructor(name: string, returnType: SomeType | ObjectReflection, parameters: ParameterReflection[], typeParameters: TypeParameterType[]) {
         super(name);
         this.returnType = returnType;
         this.parameters = parameters;

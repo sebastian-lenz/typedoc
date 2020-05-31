@@ -53,6 +53,13 @@ export class TestClass {
      * arrow method
      */
     arrowMethod = () => {};
+
+    get getterOnly() { return 1; }
+
+    get getterSetter() { return 1; }
+    set getterSetter(value: number) {}
+
+    set setterOnly(value: string) {}
 }
 
 export class TestSubClass extends TestClass {
@@ -103,18 +110,6 @@ export module TestSubClass {
      * staticMergedMethod short text.
      */
     export function staticMergedMethod() { }
-}
-
-/**
- * This class will not appear when `excludeNotExported=true`
- */
-abstract class NotExportedClass {
-    /**
-     * Adds two numbers
-     */
-    add(a: number, b: number) {
-        a + b;
-    }
 }
 
 const x = 'literal';

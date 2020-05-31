@@ -17,7 +17,9 @@ export class EnumReflection extends ContainerReflection<EnumMemberReflection> {
 
     constructor(name: string, isConst: boolean) {
         super(name);
-        this.flags.setFlag(ReflectionFlag.Const, isConst);
+        if (isConst) {
+            this.flags.setFlag(ReflectionFlag.Const, true);
+        }
     }
 
     serialize(_serializer: Serializer, init: BaseSerialized<EnumReflection>): SerializedEnumReflection {

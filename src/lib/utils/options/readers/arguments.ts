@@ -7,11 +7,11 @@ import { ParameterType } from '../declaration';
  */
 export class ArgumentsReader implements OptionsReader {
     readonly name = 'arguments';
-    readonly priority: number;
+    readonly order: number;
     private args: string[];
 
-    constructor(priority: number, args = process.argv.slice(2)) {
-        this.priority = priority;
+    constructor(order: number, args = process.argv.slice(2)) {
+        this.order = order;
         this.args = args;
     }
 

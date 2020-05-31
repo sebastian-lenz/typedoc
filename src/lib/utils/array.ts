@@ -1,11 +1,11 @@
 /**
- * Inserts an item into an array sorted by priority. If two items have the same priority,
- * the item will be inserted later will be placed earlier in the array.
+ * Inserts an item into an array sorted by order. If two items have the same order,
+ * the item inserted later will be placed earlier in the array.
  * @param arr modified by inserting item.
  * @param item
  */
-export function insertPrioritySorted<T extends { priority: number }>(arr: T[], item: T): T[] {
-    const index = binaryFindPartition(arr, v => v.priority >= item.priority);
+export function insertOrderSorted<T extends { order?: number }>(arr: T[], item: T): T[] {
+    const index = binaryFindPartition(arr, v => (v.order ?? 0) >= (item.order ?? 0));
     arr.splice(index === -1 ? arr.length : index, 0, item);
     return arr;
 }
@@ -50,4 +50,18 @@ export function removeIfPresent<T>(arr: T[] | undefined, item: T) {
     if (index !== -1) {
         arr.splice(index, 1);
     }
+}
+
+/**
+ * Simple flat map method, we can't use Array.prototype.flatMap until Node 11, which practically means until Node 10 leaves LTS.
+ * This should be removed in April 2021 when we drop support for Node 10.
+ * @param arr
+ * @param fn
+ */
+export function flatMap<T, U>(arr: readonly T[], fn: (item: T, index: number, arr: readonly T[]) => U[]): U[] {
+    const result: U[] = [];
+    for (let index = 0; index < arr.length; index++) {
+        result.push(...fn(arr[index], index, arr));
+    }
+    return result;
 }

@@ -3,10 +3,11 @@ import * as ts from 'typescript';
 
 import { DeclarationOption, ParameterScope, ParameterType, convert, TypeDocOptions, KeyToDeclaration, TypeDocAndTSOptions, TypeDocOptionMap } from './declaration';
 import { Logger } from '../loggers';
-import { insertPrioritySorted } from '../array';
+import { insertOrderSorted } from '../array';
 import { addTSOptions, addTypeDocOptions } from './sources';
 import { Application } from '../../..';
 import { NeverIfInternal } from '..';
+import { getOptionsHelp } from './help';
 
 /**
  * Describes an option reader that discovers user configuration and converts it to the
@@ -14,15 +15,15 @@ import { NeverIfInternal } from '..';
  */
 export interface OptionsReader {
     /**
-     * Readers will be processed according to their priority.
-     * A higher priority indicates that the reader should be called *later* so that
-     * it can override options set by lower priority readers.
+     * Readers will be processed according to their order.
+     * A higher order indicates that the reader should be called *later* so that
+     * it can override options set by lower order readers.
      *
      * Note that to preserve expected behavior, the argv reader must have both the lowest
-     * priority so that it may set the location of config files used by other readers and
-     * the highest priority so that it can override settings from lower priority readers.
+     * order so that it may set the location of config files used by other readers and
+     * the highest order so that it can override settings from lower order readers.
      */
-    priority: number;
+    order: number;
 
     /**
      * The name of this reader so that it may be removed by plugins without the plugin
@@ -105,6 +106,13 @@ export class Options {
     }
 
     /**
+     * Gets a help string to display to the user if the -h flag is passed.
+     */
+    getHelp() {
+        return getOptionsHelp(this);
+    }
+
+    /**
      * Resets the option bag to all default values.
      */
     reset() {
@@ -120,7 +128,7 @@ export class Options {
      * @param reader
      */
     addReader(reader: OptionsReader): void {
-        insertPrioritySorted(this._readers, reader);
+        insertOrderSorted(this._readers, reader);
     }
 
     /**

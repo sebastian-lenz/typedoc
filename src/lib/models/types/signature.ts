@@ -55,6 +55,56 @@ export class SignatureType extends Type {
 export interface SerializedSignatureType extends Serialized<SignatureType, 'typeParameters' | 'parameters' | 'returnType'> {
 }
 
+/**
+ * Type which describes a construct signature.
+ *
+ * ```ts
+ * type T = new () => string
+ * type U = new <A extends new () => String>(arg: A) => String
+ * ```
+ */
+export class ConstructorType extends Type {
+    /** @inheritdoc */
+    readonly kind = TypeKind.Constructor;
+
+    constructor(
+        public typeParameters: TypeParameterType[],
+        public parameters: SignatureParameterType[],
+        public returnType: SomeType
+    ) {
+        super();
+    }
+
+    /** @inheritdoc */
+    clone() {
+        return new SignatureType(
+            cloned(this.typeParameters),
+            cloned(this.parameters),
+            this.returnType.clone());
+    }
+
+    /** @inheritdoc */
+    stringify(wrapped: boolean, useArrow = false): string {
+        const typeParameters = this.typeParameters.map(String).join(', ');
+        const parameters = this.parameters.map(String).join(', ');
+        const returnIndicator = useArrow ? ': ' : ' => ';
+        return wrap(wrapped, 'new ' + (typeParameters ? `<${typeParameters}>` : '') + `(${parameters})${returnIndicator}${this.returnType}`);
+    }
+
+    /** @inheritdoc */
+    serialize(serializer: Serializer, init: BaseSerialized<ConstructorType>): SerializedConstructorType {
+        return {
+            ...init,
+            typeParameters: serializer.toObjects(this.typeParameters),
+            parameters: serializer.toObjects(this.parameters),
+            returnType: serializer.toObject(this.returnType)
+        };
+    }
+}
+
+export interface SerializedConstructorType extends Serialized<ConstructorType, 'typeParameters' | 'parameters' | 'returnType'> {
+}
+
 
 /**
  * Type which describes a parameter of a signature.

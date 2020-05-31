@@ -43,13 +43,14 @@ export enum ReflectionKind {
     Function = 64,
     Class = 128,
     Interface = 256,
-    Property = 512,
-    DynamicProperty = 1024,
-    Method = 2048,
-    Signature = 4096,
-    Parameter = 8192,
-    TypeAlias = 16384,
-    Reference = 32768
+    Object = 512,
+    Property = 1024,
+    Accessor = 2048,
+    Method = 4096,
+    Signature = 8192,
+    Parameter = 16384,
+    TypeAlias = 32768,
+    Reference = 65536
 }
 
 export namespace ReflectionKind {

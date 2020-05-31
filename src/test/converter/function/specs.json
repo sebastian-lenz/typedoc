@@ -1,262 +1,48 @@
 {
   "id": 0,
   "name": "typedoc",
-  "kind": 0,
+  "kind": 1,
+  "kindString": "project",
   "flags": {},
   "children": [
     {
       "id": 1,
-      "name": "\"function\"",
-      "kind": 1,
-      "kindString": "Module",
-      "flags": {
-        "isExported": true
-      },
-      "originalName": "%BASE%/function/function.ts",
+      "name": "%BASE%/function/function.ts",
+      "kind": 2,
+      "kindString": "module",
+      "flags": {},
       "children": [
         {
-          "id": 35,
-          "name": "moduleFunction",
-          "kind": 2,
-          "kindString": "Namespace",
-          "flags": {
-            "isExported": true
-          },
-          "comment": {
-            "shortText": "This is the module extending the function moduleFunction()."
-          },
-          "signatures": [
-            {
-              "id": 36,
-              "name": "moduleFunction",
-              "kind": 4096,
-              "kindString": "Call signature",
-              "flags": {
-                "isExported": true
-              },
-              "comment": {
-                "shortText": "This is a function that is extended by a module."
-              },
-              "parameters": [
-                {
-                  "id": 37,
-                  "name": "arg",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {
-                    "isExported": true
-                  },
-                  "comment": {
-                    "text": "An argument.\n"
-                  },
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "string"
-                  }
-                }
-              ],
-              "type": {
-                "type": "intrinsic",
-                "name": "string"
-              }
-            }
-          ],
-          "children": [
-            {
-              "id": 52,
-              "name": "functionVariable",
-              "kind": 32,
-              "kindString": "Variable",
-              "flags": {
-                "isLet": true
-              },
-              "comment": {
-                "shortText": "This variable is appended to a function."
-              },
-              "type": {
-                "type": "intrinsic",
-                "name": "string"
-              }
-            },
-            {
-              "id": 53,
-              "name": "append",
-              "kind": 64,
-              "kindString": "Function",
-              "flags": {},
-              "signatures": [
-                {
-                  "id": 54,
-                  "name": "append",
-                  "kind": 4096,
-                  "kindString": "Call signature",
-                  "flags": {},
-                  "comment": {
-                    "shortText": "This function is appended to another function."
-                  },
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "void"
-                  }
-                }
-              ]
-            },
-            {
-              "id": 55,
-              "name": "prepend",
-              "kind": 64,
-              "kindString": "Function",
-              "flags": {},
-              "signatures": [
-                {
-                  "id": 56,
-                  "name": "prepend",
-                  "kind": 4096,
-                  "kindString": "Call signature",
-                  "flags": {},
-                  "comment": {
-                    "shortText": "This function is appended to another function."
-                  },
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "void"
-                  }
-                }
-              ]
-            }
-          ],
-          "groups": [
-            {
-              "title": "Variables",
-              "kind": 32,
-              "children": [
-                52
-              ]
-            },
-            {
-              "title": "Functions",
-              "kind": 64,
-              "children": [
-                53,
-                55
-              ]
-            }
-          ]
-        },
-        {
-          "id": 44,
-          "name": "assertIsNonNull",
-          "kind": 64,
-          "kindString": "Function",
-          "flags": {
-            "isExported": true
-          },
-          "signatures": [
-            {
-              "id": 45,
-              "name": "assertIsNonNull",
-              "kind": 4096,
-              "kindString": "Call signature",
-              "flags": {
-                "isExported": true
-              },
-              "comment": {
-                "shortText": "Asserts that an argument is not null."
-              },
-              "typeParameter": [
-                {
-                  "id": 46,
-                  "name": "T",
-                  "kind": 131072,
-                  "kindString": "Type parameter",
-                  "flags": {
-                    "isExported": true
-                  }
-                }
-              ],
-              "parameters": [
-                {
-                  "id": 47,
-                  "name": "arg",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {
-                    "isExported": true
-                  },
-                  "comment": {
-                    "text": "\n"
-                  },
-                  "type": {
-                    "type": "union",
-                    "types": [
-                      {
-                        "type": "typeParameter",
-                        "name": "T"
-                      },
-                      {
-                        "type": "intrinsic",
-                        "name": "null"
-                      },
-                      {
-                        "type": "intrinsic",
-                        "name": "undefined"
-                      }
-                    ]
-                  }
-                }
-              ],
-              "type": {
-                "type": "predicate",
-                "name": "arg",
-                "asserts": true,
-                "targetType": {
-                  "type": "typeParameter",
-                  "name": "T"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "id": 38,
+          "id": 30,
           "name": "assertionFunction",
           "kind": 64,
-          "kindString": "Function",
-          "flags": {
-            "isExported": true
-          },
+          "kindString": "function",
+          "flags": {},
           "signatures": [
             {
-              "id": 39,
+              "id": 32,
               "name": "assertionFunction",
-              "kind": 4096,
-              "kindString": "Call signature",
-              "flags": {
-                "isExported": true
-              },
-              "comment": {
-                "shortText": "This is an assertion function."
-              },
+              "kind": 8192,
+              "kindString": "signature",
+              "flags": {},
               "parameters": [
                 {
-                  "id": 40,
+                  "id": 31,
                   "name": "condition",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {
-                    "isExported": true
-                  },
-                  "comment": {
-                    "text": "The condition that is asserted to be true when this function returns.\n"
-                  },
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "flags": {},
                   "type": {
-                    "type": "intrinsic",
+                    "kind": 32,
+                    "kindString": "intrinsic",
                     "name": "boolean"
                   }
                 }
               ],
-              "type": {
-                "type": "predicate",
+              "typeParameters": [],
+              "returnType": {
+                "kind": 256,
+                "kindString": "predicate",
                 "name": "condition",
                 "asserts": true
               }
@@ -264,49 +50,107 @@
           ]
         },
         {
-          "id": 41,
-          "name": "checkerFunction",
+          "id": 36,
+          "name": "assertIsNonNull",
           "kind": 64,
-          "kindString": "Function",
-          "flags": {
-            "isExported": true
-          },
+          "kindString": "function",
+          "flags": {},
           "signatures": [
             {
-              "id": 42,
-              "name": "checkerFunction",
-              "kind": 4096,
-              "kindString": "Call signature",
-              "flags": {
-                "isExported": true
-              },
-              "comment": {
-                "shortText": "Assertion function with a type."
-              },
+              "id": 38,
+              "name": "assertIsNonNull",
+              "kind": 8192,
+              "kindString": "signature",
+              "flags": {},
               "parameters": [
                 {
-                  "id": 43,
-                  "name": "anything",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {
-                    "isExported": true
-                  },
-                  "comment": {
-                    "text": "\n"
-                  },
+                  "id": 37,
+                  "name": "arg",
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "flags": {},
                   "type": {
-                    "type": "intrinsic",
+                    "kind": 262144,
+                    "kindString": "union",
+                    "types": [
+                      {
+                        "kind": 1024,
+                        "kindString": "reference",
+                        "name": "T",
+                        "typeArguments": []
+                      },
+                      {
+                        "kind": 32,
+                        "kindString": "intrinsic",
+                        "name": "null"
+                      },
+                      {
+                        "kind": 32,
+                        "kindString": "intrinsic",
+                        "name": "undefined"
+                      }
+                    ]
+                  }
+                }
+              ],
+              "typeParameters": [
+                {
+                  "kind": 131072,
+                  "kindString": "typeParameter",
+                  "name": "T"
+                }
+              ],
+              "returnType": {
+                "kind": 256,
+                "kindString": "predicate",
+                "name": "arg",
+                "asserts": true,
+                "targetType": {
+                  "kind": 1024,
+                  "kindString": "reference",
+                  "name": "T",
+                  "typeArguments": []
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": 33,
+          "name": "checkerFunction",
+          "kind": 64,
+          "kindString": "function",
+          "flags": {},
+          "signatures": [
+            {
+              "id": 35,
+              "name": "checkerFunction",
+              "kind": 8192,
+              "kindString": "signature",
+              "flags": {},
+              "parameters": [
+                {
+                  "id": 34,
+                  "name": "anything",
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "flags": {},
+                  "type": {
+                    "kind": 32,
+                    "kindString": "intrinsic",
                     "name": "any"
                   }
                 }
               ],
-              "type": {
-                "type": "predicate",
+              "typeParameters": [],
+              "returnType": {
+                "kind": 256,
+                "kindString": "predicate",
                 "name": "anything",
                 "asserts": false,
                 "targetType": {
-                  "type": "intrinsic",
+                  "kind": 32,
+                  "kindString": "intrinsic",
                   "name": "string"
                 }
               }
@@ -314,1136 +158,717 @@
           ]
         },
         {
-          "id": 4,
+          "id": 2,
           "name": "exportedFunction",
           "kind": 64,
-          "kindString": "Function",
-          "flags": {
-            "isExported": true
-          },
+          "kindString": "function",
+          "flags": {},
           "signatures": [
             {
-              "id": 5,
+              "id": 3,
               "name": "exportedFunction",
-              "kind": 4096,
-              "kindString": "Call signature",
-              "flags": {
-                "isExported": true
-              },
-              "comment": {
-                "shortText": "This is a simple exported function."
-              },
-              "type": {
-                "type": "intrinsic",
+              "kind": 8192,
+              "kindString": "signature",
+              "flags": {},
+              "parameters": [],
+              "typeParameters": [],
+              "returnType": {
+                "kind": 32,
+                "kindString": "intrinsic",
                 "name": "void"
               }
             }
           ]
         },
         {
-          "id": 18,
+          "id": 13,
           "name": "functionWithDefaults",
           "kind": 64,
-          "kindString": "Function",
-          "flags": {
-            "isExported": true
-          },
+          "kindString": "function",
+          "flags": {},
           "signatures": [
             {
               "id": 19,
               "name": "functionWithDefaults",
-              "kind": 4096,
-              "kindString": "Call signature",
-              "flags": {
-                "isExported": true
-              },
-              "comment": {
-                "shortText": "This is a function with a parameter that has a default value.",
-                "returns": "This is the return value of the function.\n"
-              },
+              "kind": 8192,
+              "kindString": "signature",
+              "flags": {},
               "parameters": [
                 {
-                  "id": 20,
+                  "id": 14,
                   "name": "valueA",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {
-                    "isExported": true
-                  },
-                  "comment": {
-                    "text": "A parameter with a default string value."
-                  },
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "flags": {},
                   "type": {
-                    "type": "intrinsic",
+                    "kind": 32,
+                    "kindString": "intrinsic",
                     "name": "string"
-                  },
-                  "defaultValue": "\"defaultValue\""
+                  }
                 },
                 {
-                  "id": 21,
+                  "id": 15,
                   "name": "valueB",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {
-                    "isExported": true
-                  },
-                  "comment": {
-                    "text": "A parameter with a default numeric value."
-                  },
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "flags": {},
                   "type": {
-                    "type": "intrinsic",
+                    "kind": 32,
+                    "kindString": "intrinsic",
                     "name": "number"
-                  },
-                  "defaultValue": "100"
+                  }
                 },
                 {
-                  "id": 22,
+                  "id": 16,
                   "name": "valueC",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {
-                    "isExported": true
-                  },
-                  "comment": {
-                    "text": "A parameter with a default NaN value."
-                  },
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "flags": {},
                   "type": {
-                    "type": "intrinsic",
+                    "kind": 32,
+                    "kindString": "intrinsic",
                     "name": "number"
-                  },
-                  "defaultValue": "Number.NaN"
+                  }
                 },
                 {
-                  "id": 23,
+                  "id": 17,
                   "name": "valueD",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {
-                    "isExported": true
-                  },
-                  "comment": {
-                    "text": "A parameter with a default boolean value."
-                  },
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "flags": {},
                   "type": {
-                    "type": "intrinsic",
+                    "kind": 32,
+                    "kindString": "intrinsic",
                     "name": "boolean"
-                  },
-                  "defaultValue": "true"
+                  }
                 },
                 {
-                  "id": 24,
+                  "id": 18,
                   "name": "valueE",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {
-                    "isExported": true
-                  },
-                  "comment": {
-                    "text": "A parameter with a default null value."
-                  },
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "flags": {},
                   "type": {
-                    "type": "intrinsic",
+                    "kind": 32,
+                    "kindString": "intrinsic",
                     "name": "boolean"
-                  },
-                  "defaultValue": "null"
+                  }
                 }
               ],
-              "type": {
-                "type": "intrinsic",
+              "typeParameters": [],
+              "returnType": {
+                "kind": 32,
+                "kindString": "intrinsic",
                 "name": "string"
               }
             }
           ]
         },
         {
-          "id": 14,
+          "id": 9,
           "name": "functionWithOptionalValue",
           "kind": 64,
-          "kindString": "Function",
-          "flags": {
-            "isExported": true
-          },
+          "kindString": "function",
+          "flags": {},
           "signatures": [
             {
-              "id": 15,
+              "id": 12,
               "name": "functionWithOptionalValue",
-              "kind": 4096,
-              "kindString": "Call signature",
-              "flags": {
-                "isExported": true
-              },
-              "comment": {
-                "shortText": "This is a function with a parameter that is optional."
-              },
+              "kind": 8192,
+              "kindString": "signature",
+              "flags": {},
               "parameters": [
                 {
-                  "id": 16,
+                  "id": 10,
                   "name": "requiredParam",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {
-                    "isExported": true
-                  },
-                  "comment": {
-                    "text": "A normal parameter."
-                  },
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "flags": {},
                   "type": {
-                    "type": "intrinsic",
+                    "kind": 32,
+                    "kindString": "intrinsic",
                     "name": "string"
                   }
                 },
                 {
-                  "id": 17,
+                  "id": 11,
                   "name": "optionalParam",
-                  "kind": 32768,
-                  "kindString": "Parameter",
+                  "kind": 16384,
+                  "kindString": "parameter",
                   "flags": {
-                    "isExported": true,
                     "isOptional": true
                   },
-                  "comment": {
-                    "text": "An optional parameter.\n"
-                  },
                   "type": {
-                    "type": "intrinsic",
+                    "kind": 32,
+                    "kindString": "intrinsic",
                     "name": "string"
                   }
                 }
               ],
-              "type": {
-                "type": "intrinsic",
+              "typeParameters": [],
+              "returnType": {
+                "kind": 32,
+                "kindString": "intrinsic",
                 "name": "void"
               }
             }
           ]
         },
         {
-          "id": 6,
+          "id": 4,
           "name": "functionWithParameters",
           "kind": 64,
-          "kindString": "Function",
-          "flags": {
-            "isExported": true
-          },
+          "kindString": "function",
+          "flags": {},
           "signatures": [
             {
-              "id": 7,
+              "id": 8,
               "name": "functionWithParameters",
-              "kind": 4096,
-              "kindString": "Call signature",
-              "flags": {
-                "isExported": true
-              },
-              "comment": {
-                "shortText": "This is a function with multiple arguments and a return value.",
-                "returns": "This is the return value of the function.\n"
-              },
+              "kind": 8192,
+              "kindString": "signature",
+              "flags": {},
               "parameters": [
                 {
-                  "id": 8,
+                  "id": 5,
                   "name": "paramZ",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {
-                    "isExported": true
-                  },
-                  "comment": {
-                    "text": "This is a string parameter."
-                  },
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "flags": {},
                   "type": {
-                    "type": "intrinsic",
+                    "kind": 32,
+                    "kindString": "intrinsic",
                     "name": "string"
                   }
                 },
                 {
-                  "id": 9,
+                  "id": 6,
                   "name": "paramG",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {
-                    "isExported": true
-                  },
-                  "comment": {
-                    "text": "This is a parameter flagged with any.\n    This sentence is placed in the next line.\n"
-                  },
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "flags": {},
                   "type": {
-                    "type": "intrinsic",
+                    "kind": 32,
+                    "kindString": "intrinsic",
                     "name": "any"
                   }
                 },
                 {
-                  "id": 10,
+                  "id": 7,
                   "name": "paramA",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {
-                    "isExported": true
-                  },
-                  "comment": {
-                    "text": "\n  This is a **parameter** pointing to an interface.\n\n  ~~~\n  const value:BaseClass = new BaseClass('test');\n  functionWithArguments('arg', 0, value);\n  ~~~\n"
-                  },
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "flags": {},
                   "type": {
-                    "type": "reference",
-                    "name": "Object"
+                    "kind": 1024,
+                    "kindString": "reference",
+                    "name": "Object",
+                    "typeArguments": []
                   }
                 }
               ],
-              "type": {
-                "type": "intrinsic",
+              "typeParameters": [],
+              "returnType": {
+                "kind": 32,
+                "kindString": "intrinsic",
                 "name": "number"
               }
             }
           ]
         },
         {
-          "id": 25,
-          "name": "functionWithRest",
-          "kind": 64,
-          "kindString": "Function",
-          "flags": {},
-          "signatures": [
-            {
-              "id": 26,
-              "name": "functionWithRest",
-              "kind": 4096,
-              "kindString": "Call signature",
-              "flags": {},
-              "comment": {
-                "shortText": "This is a function with rest parameter.",
-                "returns": "This is the return value of the function.\n"
-              },
-              "parameters": [
-                {
-                  "id": 27,
-                  "name": "rest",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {
-                    "isRest": true
-                  },
-                  "comment": {
-                    "text": "The rest parameter."
-                  },
-                  "type": {
-                    "type": "array",
-                    "elementType": {
-                      "type": "intrinsic",
-                      "name": "string"
-                    }
-                  }
-                }
-              ],
-              "type": {
-                "type": "intrinsic",
-                "name": "string"
-              }
-            }
-          ]
-        },
-        {
-          "id": 2,
-          "name": "internalFunction",
-          "kind": 64,
-          "kindString": "Function",
-          "flags": {},
-          "signatures": [
-            {
-              "id": 3,
-              "name": "internalFunction",
-              "kind": 4096,
-              "kindString": "Call signature",
-              "flags": {},
-              "comment": {
-                "shortText": "This is an internal function."
-              },
-              "type": {
-                "type": "intrinsic",
-                "name": "void"
-              }
-            }
-          ]
-        },
-        {
-          "id": 48,
+          "id": 39,
           "name": "isNonNull",
           "kind": 64,
-          "kindString": "Function",
-          "flags": {
-            "isExported": true
-          },
+          "kindString": "function",
+          "flags": {},
           "signatures": [
             {
-              "id": 49,
+              "id": 41,
               "name": "isNonNull",
-              "kind": 4096,
-              "kindString": "Call signature",
-              "flags": {
-                "isExported": true
-              },
-              "comment": {
-                "shortText": "Checks that an argument is not null."
-              },
-              "typeParameter": [
-                {
-                  "id": 50,
-                  "name": "T",
-                  "kind": 131072,
-                  "kindString": "Type parameter",
-                  "flags": {
-                    "isExported": true
-                  }
-                }
-              ],
+              "kind": 8192,
+              "kindString": "signature",
+              "flags": {},
               "parameters": [
                 {
-                  "id": 51,
+                  "id": 40,
                   "name": "arg",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {
-                    "isExported": true
-                  },
-                  "comment": {
-                    "text": "\n"
-                  },
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "flags": {},
                   "type": {
-                    "type": "union",
+                    "kind": 262144,
+                    "kindString": "union",
                     "types": [
                       {
-                        "type": "typeParameter",
-                        "name": "T"
+                        "kind": 1024,
+                        "kindString": "reference",
+                        "name": "T",
+                        "typeArguments": []
                       },
                       {
-                        "type": "intrinsic",
+                        "kind": 32,
+                        "kindString": "intrinsic",
                         "name": "null"
                       },
                       {
-                        "type": "intrinsic",
+                        "kind": 32,
+                        "kindString": "intrinsic",
                         "name": "undefined"
                       }
                     ]
                   }
                 }
               ],
-              "type": {
-                "type": "predicate",
+              "typeParameters": [
+                {
+                  "kind": 131072,
+                  "kindString": "typeParameter",
+                  "name": "T"
+                }
+              ],
+              "returnType": {
+                "kind": 256,
+                "kindString": "predicate",
                 "name": "arg",
                 "asserts": false,
                 "targetType": {
-                  "type": "typeParameter",
-                  "name": "T"
+                  "kind": 1024,
+                  "kindString": "reference",
+                  "name": "T",
+                  "typeArguments": []
                 }
               }
             }
           ]
         },
         {
-          "id": 28,
-          "name": "multipleSignatures",
+          "id": 27,
+          "name": "moduleFunction",
+          "kind": 4,
+          "kindString": "namespace",
+          "flags": {},
+          "children": []
+        },
+        {
+          "id": 26,
+          "name": "moduleFunction",
           "kind": 64,
-          "kindString": "Function",
-          "flags": {
-            "isExported": true
-          },
-          "comment": {
-            "shortText": "This is the actual implementation, this comment will not be visible\nin the generated documentation.",
-            "returns": "This is the return value of the function.\n"
-          },
+          "kindString": "function",
+          "flags": {},
           "signatures": [
             {
               "id": 29,
-              "name": "multipleSignatures",
-              "kind": 4096,
-              "kindString": "Call signature",
-              "flags": {
-                "isExported": true
-              },
-              "comment": {
-                "shortText": "This is the first signature of a function with multiple signatures.",
-                "returns": "This is the return value of the function.\n"
-              },
+              "name": "moduleFunction",
+              "kind": 8192,
+              "kindString": "signature",
+              "flags": {},
               "parameters": [
                 {
-                  "id": 30,
-                  "name": "value",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {
-                    "isExported": true
-                  },
-                  "comment": {
-                    "text": "The name value.\n"
-                  },
+                  "id": 28,
+                  "name": "arg",
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "flags": {},
                   "type": {
-                    "type": "intrinsic",
+                    "kind": 32,
+                    "kindString": "intrinsic",
                     "name": "string"
                   }
                 }
               ],
-              "type": {
-                "type": "intrinsic",
+              "typeParameters": [],
+              "returnType": {
+                "kind": 32,
+                "kindString": "intrinsic",
+                "name": "string"
+              }
+            }
+          ]
+        },
+        {
+          "id": 20,
+          "name": "multipleSignatures",
+          "kind": 64,
+          "kindString": "function",
+          "flags": {},
+          "signatures": [
+            {
+              "id": 22,
+              "name": "multipleSignatures",
+              "kind": 8192,
+              "kindString": "signature",
+              "flags": {},
+              "parameters": [
+                {
+                  "id": 21,
+                  "name": "value",
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "flags": {},
+                  "type": {
+                    "kind": 32,
+                    "kindString": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ],
+              "typeParameters": [],
+              "returnType": {
+                "kind": 32,
+                "kindString": "intrinsic",
                 "name": "string"
               }
             },
             {
-              "id": 31,
+              "id": 25,
               "name": "multipleSignatures",
-              "kind": 4096,
-              "kindString": "Call signature",
-              "flags": {
-                "isExported": true
-              },
-              "comment": {
-                "shortText": "This is the second signature of a function with multiple signatures.",
-                "returns": "This is the return value of the function.\n"
-              },
+              "kind": 8192,
+              "kindString": "signature",
+              "flags": {},
               "parameters": [
                 {
-                  "id": 32,
+                  "id": 24,
                   "name": "value",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {
-                    "isExported": true
-                  },
-                  "comment": {
-                    "text": "An object containing the name value."
-                  },
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "flags": {},
                   "type": {
-                    "type": "reflection",
-                    "declaration": {
-                      "id": 33,
-                      "name": "__type",
-                      "kind": 65536,
-                      "kindString": "Type literal",
-                      "flags": {
-                        "isExported": true
-                      },
-                      "children": [
-                        {
-                          "id": 34,
-                          "name": "name",
-                          "kind": 32,
-                          "kindString": "Variable",
-                          "flags": {
-                            "isExported": true
-                          },
-                          "comment": {
-                            "text": "A value of the object.\n"
-                          },
-                          "type": {
-                            "type": "intrinsic",
-                            "name": "string"
-                          }
-                        }
-                      ],
-                      "groups": [
-                        {
-                          "title": "Variables",
-                          "kind": 32,
-                          "children": [
-                            34
-                          ]
-                        }
-                      ]
-                    }
+                    "id": 23,
+                    "name": "TODO",
+                    "kind": 512,
+                    "kindString": "object",
+                    "flags": {},
+                    "children": [],
+                    "signatures": [],
+                    "constructSignatures": [],
+                    "typeParameters": []
                   }
                 }
               ],
-              "type": {
-                "type": "intrinsic",
+              "typeParameters": [],
+              "returnType": {
+                "kind": 32,
+                "kindString": "intrinsic",
                 "name": "string"
               }
             }
           ]
         },
         {
-          "id": 11,
+          "id": 42,
           "name": "variableFunction",
-          "kind": 64,
-          "kindString": "Function",
-          "flags": {
-            "isExported": true,
-            "isConst": true
-          },
-          "comment": {
-            "shortText": "This is a function that is assigned to a variable.",
-            "returns": "This is the return value of the function.\n"
-          },
-          "signatures": [
-            {
-              "id": 12,
-              "name": "variableFunction",
-              "kind": 4096,
-              "kindString": "Call signature",
-              "flags": {
-                "isExported": true
-              },
-              "comment": {
-                "shortText": "This is a function that is assigned to a variable.",
-                "returns": "This is the return value of the function.\n"
-              },
-              "parameters": [
-                {
-                  "id": 13,
-                  "name": "someParam",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {
-                    "isExported": true
-                  },
-                  "comment": {
-                    "shortText": "This is some numeric parameter."
-                  },
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "number"
+          "kind": 32,
+          "kindString": "variable",
+          "flags": {},
+          "type": {
+            "kind": 64,
+            "kindString": "object",
+            "properties": [],
+            "signatures": [
+              {
+                "kind": 2048,
+                "kindString": "signature",
+                "typeParameters": [],
+                "parameters": [
+                  {
+                    "kind": 8192,
+                    "kindString": "signatureParameter",
+                    "name": "someParam",
+                    "isOptional": false,
+                    "isRest": false,
+                    "parameterType": {
+                      "kind": 32,
+                      "kindString": "intrinsic",
+                      "name": "number"
+                    }
                   }
+                ],
+                "returnType": {
+                  "kind": 32,
+                  "kindString": "intrinsic",
+                  "name": "number"
                 }
-              ],
-              "type": {
-                "type": "intrinsic",
-                "name": "number"
               }
-            }
-          ]
-        }
-      ],
-      "groups": [
-        {
-          "title": "Namespaces",
-          "kind": 2,
-          "children": [
-            35
-          ]
-        },
-        {
-          "title": "Functions",
-          "kind": 64,
-          "children": [
-            44,
-            38,
-            41,
-            4,
-            18,
-            14,
-            6,
-            25,
-            2,
-            48,
-            28,
-            11
-          ]
+            ],
+            "constructSignatures": []
+          },
+          "defaultValue": "function(someParam: number): number {\n    return 0;\n}"
         }
       ]
     },
     {
-      "id": 57,
-      "name": "\"generic-function\"",
-      "kind": 1,
-      "kindString": "Module",
-      "flags": {
-        "isExported": true
-      },
-      "originalName": "%BASE%/function/generic-function.ts",
-      "children": [
-        {
-          "id": 62,
-          "name": "functionWithGenericArrayParameter",
-          "kind": 64,
-          "kindString": "Function",
-          "flags": {},
-          "signatures": [
-            {
-              "id": 63,
-              "name": "functionWithGenericArrayParameter",
-              "kind": 4096,
-              "kindString": "Call signature",
-              "flags": {},
-              "comment": {
-                "shortText": "A function with a generic type array parameter.",
-                "returns": "A generic array.\n"
-              },
-              "typeParameter": [
-                {
-                  "id": 64,
-                  "name": "T",
-                  "kind": 131072,
-                  "kindString": "Type parameter",
-                  "flags": {}
-                }
-              ],
-              "parameters": [
-                {
-                  "id": 65,
-                  "name": "param",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {},
-                  "comment": {
-                    "text": "A generic parameter."
-                  },
-                  "type": {
-                    "type": "typeParameter",
-                    "name": "T"
-                  }
-                },
-                {
-                  "id": 66,
-                  "name": "params",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {},
-                  "comment": {
-                    "text": "A generic array parameter."
-                  },
-                  "type": {
-                    "type": "array",
-                    "elementType": {
-                      "type": "typeParameter",
-                      "name": "T"
-                    }
-                  }
-                }
-              ],
-              "type": {
-                "type": "array",
-                "elementType": {
-                  "type": "typeParameter",
-                  "name": "T"
-                }
-              }
-            }
-          ]
-        },
-        {
-          "id": 67,
-          "name": "functionWithTemplate",
-          "kind": 64,
-          "kindString": "Function",
-          "flags": {},
-          "signatures": [
-            {
-              "id": 68,
-              "name": "functionWithTemplate",
-              "kind": 4096,
-              "kindString": "Call signature",
-              "flags": {},
-              "comment": {},
-              "typeParameter": [
-                {
-                  "id": 69,
-                  "name": "T",
-                  "kind": 131072,
-                  "kindString": "Type parameter",
-                  "flags": {},
-                  "comment": {
-                    "text": "this describes T\n"
-                  }
-                }
-              ],
-              "parameters": [
-                {
-                  "id": 70,
-                  "name": "param",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {},
-                  "comment": {
-                    "text": "this describes param"
-                  },
-                  "type": {
-                    "type": "typeParameter",
-                    "name": "T"
-                  }
-                }
-              ],
-              "type": {
-                "type": "typeParameter",
-                "name": "T"
-              }
-            }
-          ]
-        },
-        {
-          "id": 58,
-          "name": "genericFunction",
-          "kind": 64,
-          "kindString": "Function",
-          "flags": {},
-          "signatures": [
-            {
-              "id": 59,
-              "name": "genericFunction",
-              "kind": 4096,
-              "kindString": "Call signature",
-              "flags": {},
-              "comment": {
-                "shortText": "Generic function short text.",
-                "returns": "Generic function return value.\n"
-              },
-              "typeParameter": [
-                {
-                  "id": 60,
-                  "name": "T",
-                  "kind": 131072,
-                  "kindString": "Type parameter",
-                  "flags": {},
-                  "comment": {
-                    "text": "Generic function type parameter."
-                  },
-                  "type": {
-                    "type": "reference",
-                    "name": "Object"
-                  }
-                }
-              ],
-              "parameters": [
-                {
-                  "id": 61,
-                  "name": "value",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {},
-                  "comment": {
-                    "text": "Generic function parameter."
-                  },
-                  "type": {
-                    "type": "typeParameter",
-                    "name": "T",
-                    "constraint": {
-                      "type": "reference",
-                      "name": "Object"
-                    }
-                  }
-                }
-              ],
-              "type": {
-                "type": "typeParameter",
-                "name": "T",
-                "constraint": {
-                  "type": "reference",
-                  "name": "Object"
-                }
-              }
-            }
-          ]
-        }
-      ],
-      "groups": [
-        {
-          "title": "Functions",
-          "kind": 64,
-          "children": [
-            62,
-            67,
-            58
-          ]
-        }
-      ]
+      "id": 43,
+      "name": "%BASE%/function/generic-function.ts",
+      "kind": 2,
+      "kindString": "module",
+      "flags": {},
+      "children": []
     },
     {
-      "id": 71,
-      "name": "\"implicit-types\"",
-      "kind": 1,
-      "kindString": "Module",
-      "flags": {
-        "isExported": true
-      },
-      "originalName": "%BASE%/function/implicit-types.ts",
+      "id": 44,
+      "name": "%BASE%/function/implicit-types.ts",
+      "kind": 2,
+      "kindString": "module",
+      "flags": {},
       "children": [
         {
-          "id": 72,
+          "id": 47,
           "name": "BreakpointRange",
           "kind": 256,
-          "kindString": "Interface",
-          "flags": {
-            "isExported": true
-          },
+          "kindString": "interface",
+          "flags": {},
           "children": [
             {
-              "id": 74,
+              "id": 49,
               "name": "end",
               "kind": 1024,
-              "kindString": "Property",
-              "flags": {
-                "isExported": true
-              },
+              "kindString": "property",
+              "flags": {},
               "type": {
-                "type": "intrinsic",
+                "kind": 32,
+                "kindString": "intrinsic",
                 "name": "number"
               }
             },
             {
-              "id": 73,
+              "id": 48,
               "name": "start",
               "kind": 1024,
-              "kindString": "Property",
-              "flags": {
-                "isExported": true
-              },
+              "kindString": "property",
+              "flags": {},
               "type": {
-                "type": "intrinsic",
+                "kind": 32,
+                "kindString": "intrinsic",
                 "name": "number"
               }
             }
           ],
-          "groups": [
-            {
-              "title": "Properties",
-              "kind": 1024,
-              "children": [
-                74,
-                73
-              ]
-            }
-          ]
+          "signatures": [],
+          "constructSignatures": [],
+          "typeParameters": [],
+          "extendedTypes": []
         },
         {
-          "id": 75,
-          "name": "_breakpoints",
-          "kind": 32,
-          "kindString": "Variable",
-          "flags": {
-            "isLet": true
-          },
-          "type": {
-            "type": "reflection",
-            "declaration": {
-              "id": 76,
-              "name": "__type",
-              "kind": 65536,
-              "kindString": "Type literal",
-              "flags": {},
-              "children": [
-                {
-                  "id": 79,
-                  "name": "large",
-                  "kind": 32,
-                  "kindString": "Variable",
-                  "flags": {},
-                  "type": {
-                    "type": "reference",
-                    "id": 72,
-                    "name": "BreakpointRange"
-                  }
-                },
-                {
-                  "id": 78,
-                  "name": "medium",
-                  "kind": 32,
-                  "kindString": "Variable",
-                  "flags": {},
-                  "type": {
-                    "type": "reference",
-                    "id": 72,
-                    "name": "BreakpointRange"
-                  }
-                },
-                {
-                  "id": 77,
-                  "name": "small",
-                  "kind": 32,
-                  "kindString": "Variable",
-                  "flags": {},
-                  "type": {
-                    "type": "reference",
-                    "id": 72,
-                    "name": "BreakpointRange"
-                  }
-                },
-                {
-                  "id": 80,
-                  "name": "xlarge",
-                  "kind": 32,
-                  "kindString": "Variable",
-                  "flags": {},
-                  "type": {
-                    "type": "reference",
-                    "id": 72,
-                    "name": "BreakpointRange"
-                  }
-                },
-                {
-                  "id": 81,
-                  "name": "xxlarge",
-                  "kind": 32,
-                  "kindString": "Variable",
-                  "flags": {},
-                  "type": {
-                    "type": "reference",
-                    "id": 72,
-                    "name": "BreakpointRange"
-                  }
-                }
-              ],
-              "groups": [
-                {
-                  "title": "Variables",
-                  "kind": 32,
-                  "children": [
-                    79,
-                    78,
-                    77,
-                    80,
-                    81
-                  ]
-                }
-              ]
-            }
-          }
-        },
-        {
-          "id": 82,
+          "id": 45,
           "name": "getBreakpoints",
           "kind": 64,
-          "kindString": "Function",
-          "flags": {
-            "isExported": true
-          },
+          "kindString": "function",
+          "flags": {},
           "signatures": [
             {
-              "id": 83,
+              "id": 46,
               "name": "getBreakpoints",
-              "kind": 4096,
-              "kindString": "Call signature",
-              "flags": {
-                "isExported": true
-              },
-              "type": {
-                "type": "reflection",
-                "declaration": {
-                  "id": 84,
-                  "name": "__type",
-                  "kind": 65536,
-                  "kindString": "Type literal",
-                  "flags": {
-                    "isExported": true
+              "kind": 8192,
+              "kindString": "signature",
+              "flags": {},
+              "parameters": [],
+              "typeParameters": [],
+              "returnType": {
+                "kind": 64,
+                "kindString": "object",
+                "properties": [
+                  {
+                    "kind": 128,
+                    "kindString": "property",
+                    "name": "small",
+                    "isReadonly": false,
+                    "isOptional": false,
+                    "propertyType": {
+                      "kind": 64,
+                      "kindString": "object",
+                      "properties": [
+                        {
+                          "kind": 128,
+                          "kindString": "property",
+                          "name": "start",
+                          "isReadonly": false,
+                          "isOptional": false,
+                          "propertyType": {
+                            "kind": 32,
+                            "kindString": "intrinsic",
+                            "name": "number"
+                          }
+                        },
+                        {
+                          "kind": 128,
+                          "kindString": "property",
+                          "name": "end",
+                          "isReadonly": false,
+                          "isOptional": false,
+                          "propertyType": {
+                            "kind": 32,
+                            "kindString": "intrinsic",
+                            "name": "number"
+                          }
+                        }
+                      ],
+                      "signatures": [],
+                      "constructSignatures": []
+                    }
                   },
-                  "children": [
-                    {
-                      "id": 87,
-                      "name": "large",
-                      "kind": 32,
-                      "kindString": "Variable",
-                      "flags": {
-                        "isExported": true
-                      },
-                      "type": {
-                        "type": "reference",
-                        "id": 72,
-                        "name": "BreakpointRange"
-                      }
-                    },
-                    {
-                      "id": 86,
-                      "name": "medium",
-                      "kind": 32,
-                      "kindString": "Variable",
-                      "flags": {
-                        "isExported": true
-                      },
-                      "type": {
-                        "type": "reference",
-                        "id": 72,
-                        "name": "BreakpointRange"
-                      }
-                    },
-                    {
-                      "id": 85,
-                      "name": "small",
-                      "kind": 32,
-                      "kindString": "Variable",
-                      "flags": {
-                        "isExported": true
-                      },
-                      "type": {
-                        "type": "reference",
-                        "id": 72,
-                        "name": "BreakpointRange"
-                      }
-                    },
-                    {
-                      "id": 88,
-                      "name": "xlarge",
-                      "kind": 32,
-                      "kindString": "Variable",
-                      "flags": {
-                        "isExported": true
-                      },
-                      "type": {
-                        "type": "reference",
-                        "id": 72,
-                        "name": "BreakpointRange"
-                      }
-                    },
-                    {
-                      "id": 89,
-                      "name": "xxlarge",
-                      "kind": 32,
-                      "kindString": "Variable",
-                      "flags": {
-                        "isExported": true
-                      },
-                      "type": {
-                        "type": "reference",
-                        "id": 72,
-                        "name": "BreakpointRange"
-                      }
+                  {
+                    "kind": 128,
+                    "kindString": "property",
+                    "name": "medium",
+                    "isReadonly": false,
+                    "isOptional": false,
+                    "propertyType": {
+                      "kind": 64,
+                      "kindString": "object",
+                      "properties": [
+                        {
+                          "kind": 128,
+                          "kindString": "property",
+                          "name": "start",
+                          "isReadonly": false,
+                          "isOptional": false,
+                          "propertyType": {
+                            "kind": 32,
+                            "kindString": "intrinsic",
+                            "name": "number"
+                          }
+                        },
+                        {
+                          "kind": 128,
+                          "kindString": "property",
+                          "name": "end",
+                          "isReadonly": false,
+                          "isOptional": false,
+                          "propertyType": {
+                            "kind": 32,
+                            "kindString": "intrinsic",
+                            "name": "number"
+                          }
+                        }
+                      ],
+                      "signatures": [],
+                      "constructSignatures": []
                     }
-                  ],
-                  "groups": [
-                    {
-                      "title": "Variables",
-                      "kind": 32,
-                      "children": [
-                        87,
-                        86,
-                        85,
-                        88,
-                        89
-                      ]
+                  },
+                  {
+                    "kind": 128,
+                    "kindString": "property",
+                    "name": "large",
+                    "isReadonly": false,
+                    "isOptional": false,
+                    "propertyType": {
+                      "kind": 64,
+                      "kindString": "object",
+                      "properties": [
+                        {
+                          "kind": 128,
+                          "kindString": "property",
+                          "name": "start",
+                          "isReadonly": false,
+                          "isOptional": false,
+                          "propertyType": {
+                            "kind": 32,
+                            "kindString": "intrinsic",
+                            "name": "number"
+                          }
+                        },
+                        {
+                          "kind": 128,
+                          "kindString": "property",
+                          "name": "end",
+                          "isReadonly": false,
+                          "isOptional": false,
+                          "propertyType": {
+                            "kind": 32,
+                            "kindString": "intrinsic",
+                            "name": "number"
+                          }
+                        }
+                      ],
+                      "signatures": [],
+                      "constructSignatures": []
                     }
-                  ]
-                }
+                  },
+                  {
+                    "kind": 128,
+                    "kindString": "property",
+                    "name": "xlarge",
+                    "isReadonly": false,
+                    "isOptional": false,
+                    "propertyType": {
+                      "kind": 64,
+                      "kindString": "object",
+                      "properties": [
+                        {
+                          "kind": 128,
+                          "kindString": "property",
+                          "name": "start",
+                          "isReadonly": false,
+                          "isOptional": false,
+                          "propertyType": {
+                            "kind": 32,
+                            "kindString": "intrinsic",
+                            "name": "number"
+                          }
+                        },
+                        {
+                          "kind": 128,
+                          "kindString": "property",
+                          "name": "end",
+                          "isReadonly": false,
+                          "isOptional": false,
+                          "propertyType": {
+                            "kind": 32,
+                            "kindString": "intrinsic",
+                            "name": "number"
+                          }
+                        }
+                      ],
+                      "signatures": [],
+                      "constructSignatures": []
+                    }
+                  },
+                  {
+                    "kind": 128,
+                    "kindString": "property",
+                    "name": "xxlarge",
+                    "isReadonly": false,
+                    "isOptional": false,
+                    "propertyType": {
+                      "kind": 64,
+                      "kindString": "object",
+                      "properties": [
+                        {
+                          "kind": 128,
+                          "kindString": "property",
+                          "name": "start",
+                          "isReadonly": false,
+                          "isOptional": false,
+                          "propertyType": {
+                            "kind": 32,
+                            "kindString": "intrinsic",
+                            "name": "number"
+                          }
+                        },
+                        {
+                          "kind": 128,
+                          "kindString": "property",
+                          "name": "end",
+                          "isReadonly": false,
+                          "isOptional": false,
+                          "propertyType": {
+                            "kind": 32,
+                            "kindString": "intrinsic",
+                            "name": "number"
+                          }
+                        }
+                      ],
+                      "signatures": [],
+                      "constructSignatures": []
+                    }
+                  }
+                ],
+                "signatures": [],
+                "constructSignatures": []
               }
             }
           ]
         }
-      ],
-      "groups": [
-        {
-          "title": "Interfaces",
-          "kind": 256,
-          "children": [
-            72
-          ]
-        },
-        {
-          "title": "Variables",
-          "kind": 32,
-          "children": [
-            75
-          ]
-        },
-        {
-          "title": "Functions",
-          "kind": 64,
-          "children": [
-            82
-          ]
-        }
-      ]
-    }
-  ],
-  "groups": [
-    {
-      "title": "Modules",
-      "kind": 1,
-      "children": [
-        1,
-        57,
-        71
       ]
     }
   ]

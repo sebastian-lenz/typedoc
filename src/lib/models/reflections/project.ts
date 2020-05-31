@@ -1,8 +1,8 @@
-import { ReflectionKind, ContainerReflection, Reflection } from './abstract';
-import { ReferenceReflection } from './reference';
-import type { IndependentReflection, ModuleReflection } from '.';
 import type * as ts from 'typescript';
-import { BaseSerialized, Serializer, Serialized } from '../../serialization';
+import type { IndependentReflection, ModuleReflection } from '.';
+import type { BaseSerialized, Serialized, Serializer } from '../../serialization';
+import { ContainerReflection, Reflection, ReflectionKind } from './abstract';
+import { ReferenceReflection } from './reference';
 
 /**
  * A reflection that represents the root of the project.
@@ -94,7 +94,7 @@ export class ProjectReflection extends ContainerReflection<ModuleReflection> {
         return reflections;
     }
 
-    serialize(serializer: Serializer, init: BaseSerialized<ProjectReflection>): SerializedProjectReflection {
+    serialize(_serializer: Serializer, init: BaseSerialized<ProjectReflection>): SerializedProjectReflection {
         return init;
     }
 

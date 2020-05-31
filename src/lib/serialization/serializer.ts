@@ -1,10 +1,10 @@
 import * as assert from 'assert';
 import { ReflectionKind, TypeKind, SomeReflection, SomeType, Reflection, Type, ReflectionFlags, ContainerReflection } from '../models';
 import type { ModelToObject, BaseSerialized } from './schema';
-import { insertPrioritySorted } from '../utils';
+import { insertOrderSorted } from '../utils';
 
 export interface SerializeWorker<T extends Type | Reflection> {
-    priority: number;
+    order: number;
 
     serialize(value: T, serialized: Partial<ModelToObject<T>>): Partial<ModelToObject<T>>;
 }
@@ -24,7 +24,7 @@ export class Serializer {
     addReflectionSerializer(kinds: ReflectionKind, worker: SerializeWorker<SomeReflection>): void {
         for (const kind of ReflectionKind.toKindArray(kinds)) {
             const group = this._reflectionSerializers.get(kind) ?? [];
-            insertPrioritySorted(group, worker);
+            insertOrderSorted(group, worker);
             this._reflectionSerializers.set(kind, group);
         }
     }
@@ -32,7 +32,7 @@ export class Serializer {
     addTypeSerializer(kinds: TypeKind, worker: SerializeWorker<SomeType>): void {
         for (const kind of TypeKind.toKindArray(kinds)) {
             const group = this._typeSerializers.get(kind) ?? [];
-            insertPrioritySorted(group, worker);
+            insertOrderSorted(group, worker);
             this._typeSerializers.set(kind, group);
         }
     }
@@ -58,7 +58,7 @@ export class Serializer {
 
 function addBaseSerializers(serializer: Serializer) {
     serializer.addTypeSerializer(TypeKind.All, {
-        priority: 100,
+        order: -1,
         serialize(type, init): BaseSerialized<SomeType> {
             const base: BaseSerialized<SomeType> = {
                 ...init,
@@ -72,13 +72,14 @@ function addBaseSerializers(serializer: Serializer) {
     })
 
     serializer.addReflectionSerializer(ReflectionKind.All, {
-        priority: 100,
+        order: -1,
         serialize(reflection, init) {
             const base: BaseSerialized<SomeReflection> = {
                 ...init,
+                id: reflection.id,
+                name: reflection.name,
                 kind: reflection.kind,
                 kindString: ReflectionKind.toKindString(reflection.kind),
-                name: reflection.name,
                 flags: {}
             };
 

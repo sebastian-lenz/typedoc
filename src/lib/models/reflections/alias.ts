@@ -1,7 +1,7 @@
 import { Reflection, ReflectionKind } from './abstract';
-import type { TypeParameterReflection } from './parameter';
-import type { SomeType } from '../types';
-import { Serialized, Serializer, BaseSerialized } from '../../serialization';
+import type { SomeType, TypeParameterType } from '../types';
+import type { Serialized, Serializer, BaseSerialized } from '../../serialization';
+import type { ObjectReflection } from './object';
 
 /**
  * Describes a type alias.
@@ -15,11 +15,11 @@ import { Serialized, Serializer, BaseSerialized } from '../../serialization';
 export class TypeAliasReflection extends Reflection {
     readonly kind = ReflectionKind.TypeAlias;
 
-    typeParameters: TypeParameterReflection[];
+    typeParameters: TypeParameterType[];
 
-    type: SomeType;
+    type: SomeType | ObjectReflection;
 
-    constructor(name: string, type: SomeType, typeParameters: TypeParameterReflection[]) {
+    constructor(name: string, type: SomeType | ObjectReflection, typeParameters: TypeParameterType[]) {
         super(name);
         this.type = type;
         this.typeParameters = typeParameters;

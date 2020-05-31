@@ -35,17 +35,21 @@ export {
     ParameterType,
     ParameterHint,
     ParameterScope,
-    BindOption
+    BindOption,
+
+    TypeDocAndTSOptions,
+    TypeDocOptions,
 } from './options';
-export { insertPrioritySorted, removeIfPresent } from './array';
+
+export { insertOrderSorted, removeIfPresent } from './array';
 export { Component, AbstractComponent, ChildableComponent } from './component';
 export { Event, EventDispatcher } from './events';
 export {
     normalizePath,
     directoryExists,
     ensureDirectoriesExist,
-    writeFile,
-    readFile
+    readFile,
+    expandDirectories,
 } from './fs';
 export { Logger, LogLevel, ConsoleLogger, CallbackLogger } from './loggers';
-export { PluginHost } from './plugins';
+export { loadPlugins } from './plugins';

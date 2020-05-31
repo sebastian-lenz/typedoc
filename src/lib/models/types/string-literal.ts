@@ -2,29 +2,43 @@ import { Type, TypeKind } from './abstract';
 import { BaseSerialized, Serialized } from '../../serialization';
 
 /**
- * Represents a string literal type.
+ * BigInt values cannot be passed to JSON.stringify, and are not supported in all
+ * supported Node versions yet.
+ */
+export interface PseudoBigInt {
+    negative: boolean,
+    /** Base 10 */
+    value: string,
+}
+
+/**
+ * Represents a literal type.
  *
- * ```
- * let value: "DIV";
+ * ```ts
+ * type Str = "DIV";
+ * type Num = 1;
+ * type Num2 = -1;
+ * type Bool = true;
+ * type Z = 123n;
  * ```
  */
-export class StringLiteralType extends Type {
+export class LiteralType extends Type {
     /** @inheritdoc */
-    readonly kind = TypeKind.StringLiteral;
+    readonly kind = TypeKind.Literal;
 
     /**
-     * The string literal value.
+     * The literal value.
      */
-    value: string;
+    value: string | number | boolean | PseudoBigInt;
 
-    constructor(value: string) {
+    constructor(value: string | number | boolean | PseudoBigInt) {
         super();
         this.value = value;
     }
 
     /** @inheritdoc */
     clone() {
-        return new StringLiteralType(this.value);
+        return new LiteralType(this.value);
     }
 
     /** @inheritdoc */
@@ -33,7 +47,7 @@ export class StringLiteralType extends Type {
     }
 
     /** @inheritdoc */
-    serialize(serializer: unknown, init: BaseSerialized<StringLiteralType>): SerializedStringLiteralType {
+    serialize(serializer: unknown, init: BaseSerialized<LiteralType>): SerializedLiteralType {
         return {
             ...init,
             value: this.value
@@ -41,5 +55,5 @@ export class StringLiteralType extends Type {
     }
 }
 
-export interface SerializedStringLiteralType extends Serialized<StringLiteralType, 'value'> {
+export interface SerializedLiteralType extends Serialized<LiteralType, 'value'> {
 }
