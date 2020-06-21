@@ -55,4 +55,4 @@ export const classConverter: ReflectionConverter<ts.ClassDeclaration, ClassRefle
 
         return reflection;
     }
-}
+};

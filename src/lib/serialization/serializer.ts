@@ -1,5 +1,5 @@
 import * as assert from 'assert';
-import { ReflectionKind, TypeKind, SomeReflection, SomeType, Reflection, Type, ReflectionFlags, ContainerReflection } from '../models';
+import { ReflectionKind, TypeKind, SomeReflection, SomeType, Reflection, Type } from '../models';
 import type { ModelToObject, BaseSerialized } from './schema';
 import { insertOrderSorted } from '../utils';
 
@@ -69,32 +69,25 @@ function addBaseSerializers(serializer: Serializer) {
             // TS can't validate that `base` is the right type.
             return type.serialize(serializer, base as any);
         }
-    })
+    });
 
     serializer.addReflectionSerializer(ReflectionKind.All, {
         order: -1,
         serialize(reflection, init) {
-            const base: BaseSerialized<SomeReflection> = {
+            const base: Omit<BaseSerialized<SomeReflection>, 'children'> = {
                 ...init,
                 id: reflection.id,
                 name: reflection.name,
                 kind: reflection.kind,
-                kindString: ReflectionKind.toKindString(reflection.kind),
-                flags: {}
+                kindString: ReflectionKind.toKindString(reflection.kind)
             };
 
             if (reflection.originalName !== reflection.name) {
                 base.originalName = reflection.originalName;
             }
 
-            for (const key of Object.getOwnPropertyNames(ReflectionFlags.prototype)) {
-                if (reflection.flags[key] === true) {
-                    base.flags[key] = true;
-                }
-            }
-
-            if (reflection instanceof ContainerReflection) {
-                const children = serializer.toObjects(reflection.children as SomeReflection[]);
+            if (reflection.isContainer()) {
+                const children = serializer.toObjects<SomeReflection>(reflection.children);
                 // TS isn't quite smart enough to know this is OK.
                 (base as any).children = children;
             }
@@ -102,5 +95,5 @@ function addBaseSerializers(serializer: Serializer) {
             // TS can't validate base is the right type here.
             return reflection.serialize(serializer, base as any);
         }
-    })
+    });
 }

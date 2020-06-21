@@ -1,6 +1,6 @@
-import { wrap } from "module";
-import { Type, TypeKind } from ".";
-import { BaseSerialized, Serialized } from "../../serialization";
+import { Type, TypeKind } from '.';
+import { BaseSerialized, Serialized } from '../../serialization';
+import { wrap } from './utils';
 
 /**
  * Represents an inferred type, U in the example below.
@@ -18,12 +18,12 @@ export class InferredType extends Type {
     }
 
     /** @inheritdoc */
-    clone() {
+    clone(): InferredType {
         return new InferredType(this.name);
     }
 
     /** @inheritdoc */
-    stringify(wrapped: boolean) {
+    stringify(wrapped: boolean): string {
         return wrap(wrapped, `infer ${this.name}`);
     }
 

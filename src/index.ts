@@ -1,8 +1,6 @@
 export { Application } from './lib/application';
 
-export { EventDispatcher, Event } from './lib/utils/events';
 export { resetReflectionID } from './lib/models/reflections/abstract';
-export { normalizePath } from './lib/utils/fs';
 export * from './lib/models/reflections';
 
 export {
@@ -36,3 +34,8 @@ export {
 
 import * as TypeScript from 'typescript';
 export { TypeScript };
+
+import * as Preact from 'preact';
+export { Preact };
+import * as PreactRender from 'preact-render-to-string';
+export { PreactRender }

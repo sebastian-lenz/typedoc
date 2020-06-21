@@ -25,12 +25,12 @@ export class TupleType extends Type {
     }
 
     /** @inheritdoc */
-    clone() {
+    clone(): TupleType {
         return new TupleType(cloned(this.elements));
     }
 
     /** @inheritdoc */
-    stringify() {
+    stringify(): string {
         // No need for parenthesis here, each element is distinguishable and the whole type
         // is wrapped with brackets.
         return `[${this.elements.map(type => type.stringify(false)).join(', ')}]`;
@@ -41,7 +41,7 @@ export class TupleType extends Type {
         return {
             ...init,
             elements: serializer.toObjects(this.elements)
-        }
+        };
     }
 }
 

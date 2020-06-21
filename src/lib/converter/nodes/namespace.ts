@@ -12,4 +12,4 @@ export const namespaceConverter: ReflectionConverter<ts.NamespaceDeclaration, Na
 
         return namespace;
     }
-}
+};

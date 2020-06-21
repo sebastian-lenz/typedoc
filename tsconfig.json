@@ -2,19 +2,11 @@
   "compilerOptions": {
     "module": "commonjs",
     "lib": [
-      "es5",
-      "es2015.core",
-      "es2015.collection",
-      "es2015.iterable",
-      "es2016.array.include" // Supported by Node 6+
+        "DOM", // Required for TSX.
+        "es2018", // Fully supported by Node 10.
     ],
-    "target": "es2015",
-    "noImplicitAny": false,
-    "downlevelIteration": true,
-    "strictFunctionTypes": true,
-    "strictNullChecks": true,
-    "strictPropertyInitialization": true,
-    "removeComments": true,
+    "target": "es2018",
+    "strict": true,
     "noUnusedLocals": true,
     "preserveConstEnums": true,
     "declaration": true,
@@ -24,14 +16,17 @@
     "rootDir": "src/",
     "experimentalDecorators": true,
     "newLine": "LF",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "jsx": "react",
+    "jsxFactory": "createElement"
   },
   "include": [
-    "src/**/*.ts"
+    "src"
   ],
   "exclude": [
     "src/test/converter/**/*.ts",
-    "src/test/.dot/**/*.ts",
-    "src/test/module/**/*.ts"
+    "src/lib/output/plugins",
+    "src/lib/converter/plugins"
+    // "src/lib/**/plugins/**/*.ts",
   ]
 }

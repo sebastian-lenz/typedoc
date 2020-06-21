@@ -1,7 +1,7 @@
 /**
  * A model that represents a single comment tag.
  *
- * Tags are stored in the [[Comment.tags]] property.
+ * Tags are stored in the {@link Comment.tags} property.
  */
 export class CommentTag {
     /**
@@ -10,9 +10,9 @@ export class CommentTag {
     tagName: string;
 
     /**
-     * The name of the related parameter when this is a `@param` tag.
+     * The name of the related parameter when this is a `@param` or `@template` tag.
      */
-    paramName: string;
+    paramName?: string;
 
     /**
      * The body text of this tag.
@@ -22,10 +22,10 @@ export class CommentTag {
     /**
      * Create a new CommentTag instance.
      */
-    constructor(tagName: string, paramName?: string, text?: string) {
+    constructor(tagName: string, text?: string, paramName?: string) {
         this.tagName = tagName;
-        this.paramName = paramName || '';
         this.text = text || '';
+        this.paramName = paramName;
     }
 
     /**

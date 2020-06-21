@@ -49,4 +49,4 @@ export const interfaceConverter: ReflectionConverter<ts.InterfaceDeclaration, In
 
         return reflection;
     }
-}
+};

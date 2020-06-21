@@ -38,18 +38,14 @@ export {
     BindOption,
 
     TypeDocAndTSOptions,
-    TypeDocOptions,
+    TypeDocOptions
 } from './options';
 
 export { insertOrderSorted, removeIfPresent } from './array';
-export { Component, AbstractComponent, ChildableComponent } from './component';
-export { Event, EventDispatcher } from './events';
+
 export {
-    normalizePath,
-    directoryExists,
-    ensureDirectoriesExist,
     readFile,
-    expandDirectories,
+    expandDirectories
 } from './fs';
 export { Logger, LogLevel, ConsoleLogger, CallbackLogger } from './loggers';
 export { loadPlugins } from './plugins';

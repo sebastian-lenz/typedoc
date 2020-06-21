@@ -81,7 +81,8 @@ export interface OptionsReader {
 export class Options {
     private _readers: OptionsReader[] = [];
     private _declarations = new Map<string, Readonly<DeclarationOption>>();
-    private _values: Partial<TypeDocOptions> = {};
+    // Converted values, would be TypeDocOptions, but TS doesn't deal with that well.
+    private _values: Record<string, unknown> = {};
     private _compilerOptions: ts.CompilerOptions = {};
     private _logger: Logger;
 

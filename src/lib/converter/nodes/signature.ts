@@ -1,6 +1,6 @@
 import * as assert from 'assert';
 import * as ts from 'typescript';
-import { SignatureReflection, ParameterReflection, TypeParameterType, ReflectionFlag } from '../../models';
+import { SignatureReflection, ParameterReflection, TypeParameterType } from '../../models';
 import { Converter } from '../converter';
 
 export async function convertSignatureDeclaration(converter: Converter, name: string, node: ts.SignatureDeclaration) {
@@ -19,14 +19,11 @@ export async function convertSignatureDeclaration(converter: Converter, name: st
             paramDeclaration.type,
             converter.checker.getTypeOfSymbolAtLocation(param, paramDeclaration));
 
-        const parameter = new ParameterReflection(param.name, paramType);
-
-        if (paramDeclaration.questionToken) {
-            parameter.flags.setFlag(ReflectionFlag.Optional, true);
-        }
-        if (paramDeclaration.dotDotDotToken) {
-            parameter.flags.setFlag(ReflectionFlag.Rest, true);
-        }
+        const parameter = new ParameterReflection(param.name,
+            paramType,
+            paramDeclaration.initializer?.getText(),
+            !!paramDeclaration.questionToken,
+            !!paramDeclaration.dotDotDotToken);
 
         return parameter;
     }));

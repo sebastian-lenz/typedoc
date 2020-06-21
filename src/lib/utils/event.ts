@@ -15,14 +15,14 @@
 export class EventEmitter<T extends Record<keyof T, unknown[]>> {
     // Function is *usually* not a good type to use, but here it lets us specify stricter
     // contracts in the methods while not casting everywhere this is used.
-    private _listeners: Map<keyof T, { listener: Function, once?: boolean }[]> = new Map()
+    private _listeners: Map<keyof T, { listener: Function, once?: boolean }[]> = new Map();
 
     /**
      * Starts listening to an event.
      * @param event the event to listen to.
      * @param listener function to be called when an this event is emitted.
      */
-    on<K extends keyof T>(event: K, listener: (...args: T[K]) => void): void {
+    on<K extends keyof T>(event: K, listener: (...args: T[K]) => void | Promise<void>): void {
         const list = (this._listeners.get(event) || []).slice();
         list.push({ listener });
         this._listeners.set(event, list);
@@ -33,7 +33,7 @@ export class EventEmitter<T extends Record<keyof T, unknown[]>> {
      * @param event the event to listen to.
      * @param listener function to be called when an this event is emitted.
      */
-    once<K extends keyof T>(event: K, listener: (...args: T[K]) => void): void {
+    once<K extends keyof T>(event: K, listener: (...args: T[K]) => void | Promise<void>): void {
         const list = (this._listeners.get(event) || []).slice();
         list.push({ listener });
         this._listeners.set(event, list);
@@ -44,7 +44,7 @@ export class EventEmitter<T extends Record<keyof T, unknown[]>> {
      * @param event the event to stop listening to.
      * @param listener the function to remove from the listener array.
      */
-    off<K extends keyof T>(event: K, listener: (...args: T[K]) => void): void {
+    off<K extends keyof T>(event: K, listener: (...args: T[K]) => void | Promise<void>): void {
         const index = this._listeners.get(event)?.findIndex(lo => lo.listener === listener) ?? -1;
         if (index > -1) {
             this._listeners.get(event)!.splice(index, 1);

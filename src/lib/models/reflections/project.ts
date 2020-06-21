@@ -56,14 +56,14 @@ export class ProjectReflection extends ContainerReflection<ModuleReflection> {
         this.getReferenceGraph().delete(reflection.id);
 
         // Remove children + references to children.
-        if (reflection instanceof ContainerReflection) {
+        if (reflection.isContainer()) {
             for (const child of reflection) {
                 this.removeReflection(child);
             }
         }
 
         // Remove reflection from parent.
-        if (reflection.parent instanceof ContainerReflection) {
+        if (reflection.parent?.isContainer()) {
             // We know reflection is the right type because it is already a child.
             reflection.parent.removeChild(reflection as never);
         }

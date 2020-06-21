@@ -13,7 +13,7 @@ import type { ObjectReflection } from './object';
  * ```
  */
 export class TypeAliasReflection extends Reflection {
-    readonly kind = ReflectionKind.TypeAlias;
+    readonly kind = ReflectionKind.Alias;
 
     typeParameters: TypeParameterType[];
 
@@ -30,7 +30,7 @@ export class TypeAliasReflection extends Reflection {
             ...init,
             typeParameters: serializer.toObjects(this.typeParameters),
             type: serializer.toObject(this.type)
-        }
+        };
     }
 }
 

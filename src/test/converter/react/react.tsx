@@ -1,11 +1,11 @@
-declare const React: unknown;
+import { createElement } from 'preact';
 
-interface DemoProps {
+export interface DemoProps {
     name: string;
     age: number;
 }
 
-class Demo {
+export class Demo {
     private foo: number;
 
     constructor(props: DemoProps) {
@@ -14,7 +14,7 @@ class Demo {
 
     render() {
         return (
-            <div>Hello world!</div>
+            <div>Hello world! {this.foo}</div>
         );
     }
 }

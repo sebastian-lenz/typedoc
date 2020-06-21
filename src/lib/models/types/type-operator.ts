@@ -22,12 +22,12 @@ export class TypeOperatorType extends Type {
     }
 
     /** @inheritdoc */
-    clone() {
+    clone(): TypeOperatorType {
         return new TypeOperatorType(this.target.clone(), this.operator);
     }
 
     /** @inheritdoc */
-    stringify() {
+    stringify(): string {
         return `${this.operator} ${this.target.stringify(false)}`;
     }
 
@@ -36,7 +36,7 @@ export class TypeOperatorType extends Type {
         return {
             ...init,
             operator: this.operator,
-            target: serializer.toObject(this.target),
+            target: serializer.toObject(this.target)
         };
     }
 }

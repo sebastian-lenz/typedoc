@@ -35,45 +35,27 @@ import type * as M from '../models';
  */
 export type ModelToObject<T> = T extends Array<infer U> ? _ModelToObject<U>[] : _ModelToObject<T>;
 
-type _ModelToObject<T> = T extends M.SomeType ? M.TypeToSerialized<T>
-    : T extends M.SomeReflection ? M.ModelToSerialized<T>
-    : T;
+type _ModelToObject<T> =
+    T extends M.SomeType ? M.TypeToSerialized<T> :
+    T extends M.SomeReflection ? M.ModelToSerialized<T> :
+    T;
 
 export type Serialized<T extends M.SomeType | M.SomeReflection, K extends keyof T> =
     & BaseSerialized<T>
-    & (T extends M.SomeType ? _Serialized<T, K> : unknown)
-    & (T extends M.SomeReflection ? _Serialized<T, K> : unknown);
+    & _Serialized<T, K>;
 
 type _Serialized<T, K extends keyof T> = {
     -readonly [K2 in K]: ModelToObject<T[K2]>
-}
-
+};
 
 export type BaseSerialized<T extends M.SomeType | M.SomeReflection> =
-    & (T extends M.SomeType ? SerializedType<T> : unknown)
-    & (T extends M.SomeReflection ? SerializedReflection<T> : unknown)
-    // TODO GERRIT
-    // & (T extends M.SomeContainerReflection ? { c: true } : unknown);
-
-export interface SerializedReflectionFlags {
-    isPrivate?: boolean;
-    isProtected?: boolean;
-    isPublic?: boolean;
-    isStatic?: boolean;
-    isExported?: boolean;
-    isExternal?: boolean;
-    isOptional?: boolean;
-    isRest?: boolean;
-    hasExportAssignment?: boolean;
-    isConstructorProperty?: boolean;
-    isAbstract?: boolean;
-    isConst?: boolean;
-    isLet?: boolean;
-}
+    T extends M.SomeType ? SerializedType<T> :
+    T extends M.SomeContainerReflection ? SerializedContainerReflection<T> :
+    T extends M.SomeReflection ? SerializedReflection<T> : unknown;
 
 export interface SerializedType<T extends M.SomeType> {
     kind: T['kind'];
-    kindString: string
+    kindString: string;
 }
 
 export interface SerializedReflection<T extends M.SomeReflection> {
@@ -83,9 +65,8 @@ export interface SerializedReflection<T extends M.SomeReflection> {
 
     name: string;
     originalName?: string;
-    flags: SerializedReflectionFlags;
 }
 
-export interface SerializedContainerReflection<T extends M.SomeContainerReflection> {
-    // children: ModelToObject<T['children']>;
+export interface SerializedContainerReflection<T extends M.SomeContainerReflection> extends SerializedReflection<T> {
+    children: ModelToObject<T['children']>;
 }

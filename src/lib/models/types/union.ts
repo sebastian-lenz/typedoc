@@ -25,12 +25,12 @@ export class UnionType extends Type {
     }
 
     /** @inheritdoc */
-    clone() {
+    clone(): UnionType {
         return new UnionType(cloned(this.types));
     }
 
     /** @inheritdoc */
-    stringify(wrapped: boolean) {
+    stringify(wrapped: boolean): string {
         return wrap(wrapped, this.types.map(type => type.stringify(true)).join(' | '));
     }
 

@@ -30,12 +30,12 @@ export class TypeParameterType extends Type {
     }
 
     /** @inheritdoc */
-    clone() {
+    clone(): TypeParameterType {
         return new TypeParameterType(this.name, this.constraint?.clone(), this.defaultValue?.clone());
     }
 
     /** @inheritdoc */
-    stringify(wrapped) {
+    stringify(wrapped: boolean): string {
         assert(wrapped === false, 'Type parameters should never be wrapped in another type.');
         const extendsClause = this.constraint ? ` extends ${this.constraint}` : '';
         const defaultClause = this.defaultValue ? ` = ${this.defaultValue}` : '';
@@ -46,7 +46,7 @@ export class TypeParameterType extends Type {
     serialize(serializer: Serializer, init: BaseSerialized<TypeParameterType>): SerializedTypeParameterType {
         const result: SerializedTypeParameterType = {
             ...init,
-            name: this.name,
+            name: this.name
         };
 
         if (this.constraint) {

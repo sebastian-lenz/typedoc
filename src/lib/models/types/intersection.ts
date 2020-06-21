@@ -1,6 +1,6 @@
-import { Type, TypeKind, SomeType } from ".";
-import { cloned, wrap } from "./utils";
-import { Serializer, BaseSerialized, Serialized } from "../../serialization";
+import { Type, TypeKind, SomeType } from '.';
+import { cloned, wrap } from './utils';
+import { Serializer, BaseSerialized, Serialized } from '../../serialization';
 
 /**
  * Represents an intersection type.
@@ -24,12 +24,12 @@ export class IntersectionType extends Type {
     }
 
     /** @inheritdoc */
-    clone() {
+    clone(): IntersectionType {
         return new IntersectionType(cloned(this.types));
     }
 
     /** @inheritdoc */
-    stringify(wrapped: boolean) {
+    stringify(wrapped: boolean): string {
         return wrap(wrapped, this.types.map(type => type.stringify(true)).join(' & '));
     }
 

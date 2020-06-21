@@ -5,6 +5,16 @@ import type { ReferenceType, TypeParameterType } from '../types';
 import type { Serializer, BaseSerialized, Serialized } from '../../serialization';
 
 /**
+ * Class members have visibility, enumeration members are always public, unless modified with a
+ * visibility tag.
+ */
+export const enum Visibility {
+    Public = 'public',
+    Protected = 'protected',
+    Private = 'private'
+}
+
+/**
  * Describes a class.
  *
  * ```ts
@@ -93,11 +103,11 @@ export class ClassReflection extends ContainerReflection<MethodReflection | Prop
             signatures: serializer.toObjects(this.signatures),
             constructSignatures: serializer.toObjects(this.constructSignatures),
             typeParameters: serializer.toObjects(this.typeParameters),
-            implementedTypes: serializer.toObjects(this.implementedTypes),
-        }
+            implementedTypes: serializer.toObjects(this.implementedTypes)
+        };
 
         if (this.extendedType) {
-            result.extendedType = serializer.toObject(this.extendedType)
+            result.extendedType = serializer.toObject(this.extendedType);
         }
 
         return result;

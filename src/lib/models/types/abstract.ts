@@ -49,7 +49,7 @@ export abstract class Type {
     /**
      * Make a deep clone of this type.
      */
-    abstract clone(): SomeType;
+    abstract clone(): Type;
 
     /**
      * Stringifies this type, the `wrapped` parameter is used to determine if complex types should be

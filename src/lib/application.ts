@@ -5,6 +5,10 @@ import { Converter } from './converter/converter';
 import { ProjectReflection } from './models/index';
 import { Serializer } from './serialization';
 import { CallbackLogger, ConsoleLogger, expandDirectories, loadPlugins, Logger, Options, TypeDocAndTSOptions, TypeDocOptions } from './utils';
+import { Renderer } from './renderer';
+
+import { load as loadSources } from './plugins/sources';
+import { load as loadSort } from './plugins/sort';
 
 export class Application {
     /**
@@ -18,6 +22,11 @@ export class Application {
     readonly serializer = new Serializer();
 
     /**
+     * Component used to render reflections into output that is human readable.
+     */
+    readonly renderer = new Renderer(this);
+
+    /**
      * The logger that should be used to output messages.
      */
     logger: Logger = new ConsoleLogger();
@@ -26,12 +35,6 @@ export class Application {
      * Container describing all TypeDoc + TS options.
      */
     readonly options = new Options(this.logger);
-
-    /**
-     * The version number of TypeDoc.
-     */
-    // TODO: We should be able to get rid of this...
-    static VERSION = '{{ VERSION }}';
 
     /**
      * Create a new TypeDoc application instance.
@@ -47,7 +50,7 @@ export class Application {
      *
      * @param options  The desired options to set.
      */
-    bootstrap(options: Partial<TypeDocAndTSOptions> = {}) {
+    bootstrap(options: Partial<TypeDocAndTSOptions> = {}): void {
         for (const [key, val] of Object.entries(options)) {
             try {
                 this.options.setValue(key as keyof TypeDocOptions, val);
@@ -66,6 +69,8 @@ export class Application {
             this.options.setLogger(this.logger);
         }
 
+        loadSources(this);
+        loadSort(this);
         loadPlugins(this, this.options.getValue('plugin'), this.logger);
 
         this.options.reset();
@@ -85,11 +90,12 @@ export class Application {
      * @param src  A list of source that should be compiled and converted.
      * @returns An instance of ProjectReflection on success, undefined otherwise.
      */
-    async convert() {
+    async convert(): Promise<ProjectReflection | undefined> {
         const inputFiles = await expandDirectories(
             this.options.getValue('inputFiles'),
             this.options.getValue('exclude'),
-            !!this.options.getCompilerOptions().allowJs)
+            !!this.options.getCompilerOptions().allowJs,
+            this.options.getValue('includeDeclarations'));
 
         const program = ts.createProgram(inputFiles, this.options.getCompilerOptions());
         const errors = [
@@ -108,20 +114,13 @@ export class Application {
     }
 
     /**
-     * Run the documentation generator for the given set of files.
-     *
-     * @param out The path the documentation should be written to.
+     * Emit rendered documentation for the given project.
+     * @param out the directory to write the rendered documentation to.
      */
-    async generateDocs(project: ProjectReflection, out: string) {
+    async generateDocs(project: ProjectReflection, out: string): Promise<void> {
         out = path.resolve(out);
-        // TODO GERRIT FIX ME
-        throw new Error('GERRIT TODO');
-        // this.renderer.render(project, out);
-        if (this.logger.hasErrors()) {
-            this.logger.error('Documentation could not be generated due to the errors above.');
-        } else {
-            this.logger.success('Documentation generated at %s', out);
-        }
+        await this.renderer.render(project, out);
+        this.logger.success('Documentation generated at %s', out);
     }
 
     /**
@@ -129,18 +128,9 @@ export class Application {
      *
      * @param out The path and file name to write the serialized project to.
      */
-    async generateJson(project: ProjectReflection, out: string) {
+    async generateJson(project: ProjectReflection, out: string): Promise<void> {
         const serialized = this.serializer.toObject(project);
         await fs.writeFile(out, JSON.stringify(serialized, null, '\t'));
         this.logger.success('JSON written to %s', out);
-    }
-
-    toString() {
-        return [
-            '',
-            `TypeDoc ${Application.VERSION}`,
-            `Using TypeScript ${ts.version} from ${path.dirname(require.resolve('typescript'))}`,
-            ''
-        ].join('\n');
     }
 }

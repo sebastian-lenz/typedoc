@@ -24,12 +24,12 @@ export class IntrinsicType extends Type {
     }
 
     /** @inheritdoc */
-    clone() {
+    clone(): IntrinsicType {
         return new IntrinsicType(this.name);
     }
 
     /** @inheritdoc */
-    stringify() {
+    stringify(): string {
         return this.name;
     }
 

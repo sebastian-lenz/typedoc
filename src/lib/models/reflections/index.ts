@@ -1,4 +1,4 @@
-import type { ContainerReflection, ReflectionKind } from './abstract';
+import type { ReflectionKind } from './abstract';
 import type { SerializedTypeAliasReflection, TypeAliasReflection } from './alias';
 import type { ClassReflection, SerializedClassReflection } from './class';
 import type { EnumMemberReflection, EnumReflection, SerializedEnumMemberReflection, SerializedEnumReflection } from './enum';
@@ -15,9 +15,8 @@ import type { SerializedVariableReflection, VariableReflection } from './variabl
 
 export { ContainerReflection, Reflection, ReflectionKind } from './abstract';
 export { TypeAliasReflection } from './alias';
-export { ClassReflection } from './class';
+export { ClassReflection, Visibility } from './class';
 export { EnumMemberReflection, EnumReflection } from './enum';
-export { ReflectionFlag, ReflectionFlags } from './flags';
 export { InterfaceReflection } from './interface';
 export { ModuleReflection } from './module';
 export { NamespaceReflection } from './namespace';
@@ -45,7 +44,7 @@ export interface ReflectionKindToModel {
     [ReflectionKind.Method]: MethodReflection;
     [ReflectionKind.Signature]: SignatureReflection;
     [ReflectionKind.Parameter]: ParameterReflection;
-    [ReflectionKind.TypeAlias]: TypeAliasReflection;
+    [ReflectionKind.Alias]: TypeAliasReflection;
     [ReflectionKind.Reference]: ReferenceReflection;
 }
 
@@ -65,7 +64,7 @@ export interface ReflectionKindToSerialized {
     [ReflectionKind.Method]: SerializedMethodReflection;
     [ReflectionKind.Signature]: SerializedSignatureReflection;
     [ReflectionKind.Parameter]: SerializedParameterReflection;
-    [ReflectionKind.TypeAlias]: SerializedTypeAliasReflection;
+    [ReflectionKind.Alias]: SerializedTypeAliasReflection;
     [ReflectionKind.Reference]: SerializedReferenceReflection;
 }
 
@@ -75,7 +74,16 @@ export interface ReflectionKindToSerialized {
  */
 export type SomeReflection = ReflectionKindToModel[ReflectionKind];
 
-export type SomeContainerReflection = Extract<SomeReflection, ContainerReflection<IndependentReflection>>;
+// Extract<SomeReflection, ContainerReflection<IndependentReflection>> doesn't work due to circularity...
+// Not entirely sure where the circularity comes in. If you manage to fix it, please submit a PR!
+export type SomeContainerReflection =
+    | ProjectReflection
+    | ModuleReflection
+    | NamespaceReflection
+    | EnumReflection
+    | ClassReflection
+    | InterfaceReflection
+    | ObjectReflection
 
 export type ModelToSerialized<T> = T extends SomeReflection ? ReflectionKindToSerialized[T['kind']] : T;
 

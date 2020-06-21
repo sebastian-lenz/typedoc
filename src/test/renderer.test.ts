@@ -4,7 +4,7 @@ import * as Path from 'path';
 import Assert = require('assert');
 import { ScriptTarget, ModuleKind } from 'typescript';
 
-function getFileIndex(base, dir: string = '', results: string[] = []) {
+function getFileIndex(base: string, dir: string = '', results: string[] = []) {
     const files = FS.readdirSync(Path.join(base, dir));
     files.forEach(function(file) {
         file = Path.join(dir, file);
@@ -18,7 +18,7 @@ function getFileIndex(base, dir: string = '', results: string[] = []) {
     return results.sort();
 }
 
-function compareDirectories(a, b) {
+function compareDirectories(a: string, b: string) {
     const aFiles = getFileIndex(a);
     const bFiles = getFileIndex(b);
     Assert.deepEqual(aFiles, bFiles, `Generated files differ. between "${ a }" and "${ b }"`);
@@ -32,13 +32,7 @@ function compareDirectories(a, b) {
             .replace('\r', '')
             .replace(gitHubRegExp, '%GITHUB%');
 
-        if (aSrc !== bSrc) {
-            const err: any = new Error(`File contents of "${file}" differ.`);
-            err.expected = aSrc;
-            err.actual = bSrc;
-            err.showDiff = true;
-            throw err;
-        }
+        Assert.strictEqual(bSrc, aSrc, `File contents of "${file}" differ.`);
     });
 }
 
@@ -68,21 +62,19 @@ describe('Renderer', function() {
         });
     });
 
-    it('converts basic example', function() {
+    it('converts basic example', async function() {
         this.timeout(0);
-        const input = app.expandInputFiles([src]);
-        project = app.convert(input);
+        app.options.setValue('inputFiles', [src]);
+        project = await app.convert();
 
-        Assert(app.logger.errorCount === 0, 'Application.convert returned errors');
+        Assert(!app.logger.hasErrors(), 'Application.convert returned errors');
         Assert(project instanceof ProjectReflection, 'Application.convert did not return a reflection');
     });
 
-    it('renders basic example', function() {
+    it('renders basic example', async function() {
         this.timeout(0);
-        const result = app.generateDocs(project!, out);
-        Assert(result === true, 'Application.generateDocs returned errors');
+        await app.generateDocs(project!, out);
 
-        FS.removeSync(Path.join(out, 'assets'));
         compareDirectories(Path.join(__dirname, 'renderer', 'specs'), out);
     });
 });

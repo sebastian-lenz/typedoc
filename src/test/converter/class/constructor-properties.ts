@@ -1,7 +1,7 @@
 /**
  * A class with constructor properties.
  */
-class Vector2 {
+export class Vector2 {
     /**
      * @param x  X component of the Vector
      * @param y  Y component of the Vector
@@ -15,7 +15,7 @@ class Vector2 {
 /**
  * A class with inherited and overwritten constructor properties.
  */
-class Vector3 extends Vector2 {
+export class Vector3 extends Vector2 {
     /**
      * @param x  X component of the Vector
      * @param y  Y component of the Vector
@@ -27,5 +27,3 @@ class Vector3 extends Vector2 {
         super(x, y, name);
     }
 }
-
-export {};

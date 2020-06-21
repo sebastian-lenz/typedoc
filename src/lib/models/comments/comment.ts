@@ -18,11 +18,6 @@ export class Comment {
     text: string;
 
     /**
-     * The text of the `@returns` tag if present.
-     */
-    returns?: string;
-
-    /**
      * All associated tags.
      */
     tags?: CommentTag[];
@@ -30,18 +25,9 @@ export class Comment {
     /**
      * Creates a new Comment instance.
      */
-    constructor(shortText?: string, text?: string) {
-        this.shortText = shortText || '';
-        this.text = text || '';
-    }
-
-    /**
-     * Has this comment a visible component?
-     *
-     * @returns TRUE when this comment has a visible component.
-     */
-    hasVisibleComponent(): boolean {
-        return !!this.shortText || !!this.text || !!this.tags;
+    constructor(shortText = '', text = '') {
+        this.shortText = shortText;
+        this.text = text;
     }
 
     /**
@@ -71,10 +57,9 @@ export class Comment {
 
     /**
      * Removes all tags with the given tag name from this comment.
-     * @param tagName
      */
-    removeTags(tagName: string) {
-        this.tags = this.tags?.filter(tag => tag.tagName !== tagName);
+    removeTags(...tags: string[]) {
+        this.tags = this.tags?.filter(tag => !tags.includes(tag.tagName));
     }
 
     /**
@@ -82,10 +67,9 @@ export class Comment {
      *
      * @param comment
      */
-    copyFrom(comment: Comment) {
-        this.shortText = comment.shortText;
-        this.text = comment.text;
-        this.returns = comment.returns;
-        this.tags = comment.tags?.map(tag => tag.clone());
+    clone(): Comment {
+        const clone = new Comment(this.shortText, this.text);
+        clone.tags = this.tags?.map(tag => tag.clone());
+        return clone;
     }
 }

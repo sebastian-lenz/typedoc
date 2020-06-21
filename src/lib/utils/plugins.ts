@@ -22,7 +22,6 @@ export function loadPlugins(app: Application, plugins: string[], logger: Logger)
 }
 
 function loadPlugin(app: Application, plugin: string, logger: Logger) {
-    // TODO BUILTIN PLUGINS
     try {
         const instance = require(plugin);
         if (typeof instance.load === 'function') {

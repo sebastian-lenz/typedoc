@@ -1,6 +1,5 @@
 import * as Path from 'path';
 import * as FS from 'fs';
-import { cloneDeep } from 'lodash';
 
 import { OptionsReader } from '..';
 import { Logger } from '../../loggers';
@@ -53,31 +52,22 @@ export class TypeDocReader implements OptionsReader {
 
         const fileContent: unknown = require(file);
 
-        if (typeof fileContent !== 'object' || !fileContent) {
+        if (!isObject(fileContent)) {
             logger.error(`The file ${file} is not an object.`);
             return;
         }
 
         // clone option object to avoid of property changes in re-calling this file
-        const data: object = cloneDeep(fileContent);
+        const { extends: extendedFile, ...options } = fileContent;
 
-        if ('extends' in data) {
-            const extended: string[] = getStringArray(data['extends']);
-            for (const extendedFile of extended) {
+        if (extendedFile != null) {
+            for (const extended of getStringArray(extendedFile)) {
                 // Extends is relative to the file it appears in.
-                this.readFile(Path.resolve(Path.dirname(file), extendedFile), container, logger, seen);
+                this.readFile(Path.resolve(Path.dirname(file), extended), container, logger, seen);
             }
-            delete data['extends'];
         }
 
-        // deprecate: data.src is alias to inputFiles as of 0.16, warn in 0.17, remove in 0.19
-        if ('src' in data && !('inputFiles' in data)) {
-            logger.warn('The `src` configuration option has been deprecated in favor of `inputFiles` and will be removed in a future release.');
-            data['inputFiles'] = getStringArray(data['src']);
-            delete data['src'];
-        }
-
-        for (const [key, val] of Object.entries(data)) {
+        for (const [key, val] of Object.entries(options)) {
             try {
                 container.setValue(key, val);
             } catch (error) {
@@ -107,4 +97,8 @@ export class TypeDocReader implements OptionsReader {
 
 function getStringArray(arg: unknown): string[] {
     return Array.isArray(arg) ? arg.map(String) : [String(arg)];
+}
+
+function isObject(arg: unknown): arg is Record<string, unknown> {
+    return !!arg && typeof arg === 'object';
 }

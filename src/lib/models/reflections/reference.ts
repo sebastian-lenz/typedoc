@@ -55,5 +55,5 @@ export interface SerializedReferenceReflection extends Serialized<ReferenceRefle
     /**
      * If undefined, then the reference is broken.
      */
-    target: number | undefined
+    target: number | undefined;
 }

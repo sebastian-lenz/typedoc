@@ -3,7 +3,7 @@ import { Minimatch, IMinimatch } from 'minimatch';
 
 const unix = Path.sep === '/';
 
-function normalize(pattern: string) {
+function normalize(pattern: string): string {
     if (pattern.startsWith('!') || pattern.startsWith('#')) {
         return pattern[0] + normalize(pattern.substr(1));
     }
@@ -16,7 +16,7 @@ function normalize(pattern: string) {
         pattern = Path.resolve(pattern);
     }
 
-    // On Windows we transform `\` to `/` to unify the way paths are intepreted
+    // On Windows we transform `\` to `/` to unify the way paths are interpreted
     if (!unix) { pattern = pattern.replace(/[\\]/g, '/'); }
 
     return pattern;
@@ -27,6 +27,6 @@ function normalize(pattern: string) {
  *
  * Handle a few Windows-Unix path gotchas.
  */
-export function createMinimatch(patterns: string[]): IMinimatch[] {
+export function createMinimatch(patterns: readonly string[]): IMinimatch[] {
     return patterns.map(pattern => new Minimatch(normalize(pattern), { dot: true }));
 }

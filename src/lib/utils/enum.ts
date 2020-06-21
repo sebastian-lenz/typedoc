@@ -27,5 +27,5 @@ export function makeToKindString(enumObj: Record<number, string | number>): (kin
         const kindString = enumObj[kind];
         assert(typeof kindString === 'string', `Tried to get a kind string for kind ${kind}, but the provided kind does not exist.`);
         return kindString[0].toLowerCase() + kindString.substr(1);
-    }
+    };
 }

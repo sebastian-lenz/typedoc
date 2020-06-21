@@ -17,7 +17,7 @@ export interface ParameterHelp {
 
 function hasHint(parameter: DeclarationOption):
     parameter is StringDeclarationOption & { hint: ParameterHint } {
-    return (parameter.type ?? ParameterType.String) === ParameterType.String && typeof parameter['hint'] !== 'undefined';
+    return (parameter.type ?? ParameterType.String) === ParameterType.String && typeof (parameter as StringDeclarationOption).hint !== 'undefined';
 }
 
 /**

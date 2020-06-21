@@ -58,7 +58,7 @@ export class InterfaceReflection extends ContainerReflection<MethodReflection | 
             constructSignatures: serializer.toObjects(this.constructSignatures),
             typeParameters: serializer.toObjects(this.typeParameters),
             extendedTypes: serializer.toObjects(this.extendedTypes)
-        }
+        };
     }
 }
 

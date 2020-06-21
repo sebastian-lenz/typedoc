@@ -12,10 +12,10 @@ export const functionConverter: ReflectionConverter<ts.FunctionDeclaration, Func
         const skipImplementation = nodes.length > 1;
 
         for (const node of nodes) {
-            if (node.body && skipImplementation) continue;
+            if (node.body && skipImplementation) { continue; }
             container.signatures.push(await convertSignatureDeclaration(context.converter, symbol.name, node));
         }
 
         return container;
     }
-}
+};

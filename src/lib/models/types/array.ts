@@ -25,12 +25,12 @@ export class ArrayType extends Type {
     }
 
     /** @inheritdoc */
-    clone() {
+    clone(): ArrayType {
         return new ArrayType(this.elementType.clone());
     }
 
     /** @inheritdoc */
-    stringify(wrapped: boolean) {
+    stringify(wrapped: boolean): string {
         return this.elementType.stringify(true) + '[]';
     }
 

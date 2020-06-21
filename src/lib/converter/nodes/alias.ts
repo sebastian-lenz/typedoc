@@ -10,4 +10,4 @@ export const aliasConverter: ReflectionConverter<ts.TypeAliasDeclaration, TypeAl
             await context.converter.convertTypeOrObject(node.type),
             convertTypeParameters(context.converter, node.typeParameters ?? []));
     }
-}
+};

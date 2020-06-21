@@ -1,2 +1,5 @@
 [*.html]
 insert_final_newline = false
+
+[*.json]
+indent_size = 2

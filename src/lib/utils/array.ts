@@ -51,17 +51,3 @@ export function removeIfPresent<T>(arr: T[] | undefined, item: T) {
         arr.splice(index, 1);
     }
 }
-
-/**
- * Simple flat map method, we can't use Array.prototype.flatMap until Node 11, which practically means until Node 10 leaves LTS.
- * This should be removed in April 2021 when we drop support for Node 10.
- * @param arr
- * @param fn
- */
-export function flatMap<T, U>(arr: readonly T[], fn: (item: T, index: number, arr: readonly T[]) => U[]): U[] {
-    const result: U[] = [];
-    for (let index = 0; index < arr.length; index++) {
-        result.push(...fn(arr[index], index, arr));
-    }
-    return result;
-}

@@ -26,7 +26,7 @@ export class SignatureType extends Type {
     }
 
     /** @inheritdoc */
-    clone() {
+    clone(): SignatureType {
         return new SignatureType(
             cloned(this.typeParameters),
             cloned(this.parameters),
@@ -76,8 +76,8 @@ export class ConstructorType extends Type {
     }
 
     /** @inheritdoc */
-    clone() {
-        return new SignatureType(
+    clone(): ConstructorType {
+        return new ConstructorType(
             cloned(this.typeParameters),
             cloned(this.parameters),
             this.returnType.clone());
@@ -105,7 +105,6 @@ export class ConstructorType extends Type {
 export interface SerializedConstructorType extends Serialized<ConstructorType, 'typeParameters' | 'parameters' | 'returnType'> {
 }
 
-
 /**
  * Type which describes a parameter of a signature.
  */
@@ -123,7 +122,7 @@ export class SignatureParameterType extends Type {
     }
 
     /** @inheritdoc */
-    clone() {
+    clone(): SignatureParameterType {
         return new SignatureParameterType(this.name, this.isOptional, this.isRest, this.parameterType.clone());
     }
 

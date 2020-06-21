@@ -41,7 +41,7 @@ export function addTypeConverters(converter: Converter) {
         tupleTypeConverter,
         typeParameterConverter,
         unionOrIntersectionConverter,
-        voidTypeConverter,
+        voidTypeConverter
     ]) {
         converter.addTypeConverter(typeConverter);
     }
@@ -51,20 +51,20 @@ const anyTypeConverter: TypeConverter<ts.Type, M.IntrinsicType> = {
     supports(type) {
         return Boolean(type.flags & ts.TypeFlags.Any);
     },
-    convert(_converter, type) {
+    convert(_converter, _type) {
         return new M.IntrinsicType('any');
     }
-}
+};
 
 const arrayTypeConverter: TypeConverter<ts.TypeReference, M.ArrayType> = {
     supports(type, checker) {
         // See Microsoft/TypeScript#37711 for tracking removing the internal annotation on this helper
-        return (checker as any).isArrayType(type)
+        return (checker as any).isArrayType(type);
     },
     convert(converter, type) {
-        return new M.ArrayType(converter.convertType(void 0, type.target))
+        return new M.ArrayType(converter.convertType(void 0, type.target.typeParameters![0]));
     }
-}
+};
 
 const booleanTypeConverter: TypeConverter<ts.Type, M.IntrinsicType> = {
     supports(type) {
@@ -73,7 +73,7 @@ const booleanTypeConverter: TypeConverter<ts.Type, M.IntrinsicType> = {
     convert(_converter, type) {
         return new M.IntrinsicType('boolean');
     }
-}
+};
 
 const conditionalConverter: TypeConverter<ts.ConditionalType, M.ConditionalType> = {
     supports(type) {
@@ -84,10 +84,10 @@ const conditionalConverter: TypeConverter<ts.ConditionalType, M.ConditionalType>
             converter.convertType(void 0, type.checkType),
             converter.convertType(void 0, type.extendsType),
             converter.convertType(void 0, type.resolvedTrueType),
-            converter.convertType(void 0, type.resolvedFalseType),
-        )
+            converter.convertType(void 0, type.resolvedFalseType)
+        );
     }
-}
+};
 
 const literalTypeConverter: TypeConverter<ts.LiteralType, M.LiteralType> = {
     supports(type) {
@@ -99,14 +99,14 @@ const literalTypeConverter: TypeConverter<ts.LiteralType, M.LiteralType> = {
         }
         return new M.LiteralType(type.value);
     }
-}
+};
 
 const objectTypeConverter: TypeConverter<ts.ObjectType, M.ObjectType> = {
     // Almost everything is an object type... but not everything should be converted as one.
     // This needs to run last so we don't end up with an infinite loop.
     order: 100,
     supports(type) {
-        return isObjectType(type)
+        return isObjectType(type);
     },
     convert(converter, type, checker) {
         const properties = type.getProperties().map(symbol => {
@@ -114,24 +114,24 @@ const objectTypeConverter: TypeConverter<ts.ObjectType, M.ObjectType> = {
             return new M.PropertyType(symbol.name,
                 hasReadonlyModifier(symbol.valueDeclaration),
                 Boolean(symbol.flags & ts.SymbolFlags.Optional),
-                converter.convertType(void 0, type))
+                converter.convertType(void 0, type));
         });
 
         const signatures = type.getCallSignatures().map(signature =>
             new M.SignatureType(
                 convertTypeParameters(converter, signature.getTypeParameters() ?? []),
                 convertParameters(converter, signature.getParameters() ?? []),
-                converter.convertType(void 0, signature.getReturnType())))
+                converter.convertType(void 0, signature.getReturnType())));
 
         const constructSignatures = type.getConstructSignatures().map(signature =>
             new M.ConstructorType(
                 convertTypeParameters(converter, signature.getTypeParameters() ?? []),
                 convertParameters(converter, signature.getParameters() ?? []),
-                converter.convertType(void 0, signature.getReturnType())))
+                converter.convertType(void 0, signature.getReturnType())));
 
         return new M.ObjectType(properties, signatures, constructSignatures);
     }
-}
+};
 
 const numberTypeConverter: TypeConverter<ts.Type, M.IntrinsicType> = {
     supports(type) {
@@ -140,9 +140,10 @@ const numberTypeConverter: TypeConverter<ts.Type, M.IntrinsicType> = {
     convert(_converter, type) {
         return new M.IntrinsicType('number');
     }
-}
+};
 
 const referenceTypeConverter: TypeConverter<ts.Type, M.ReferenceType> = {
+    order: 50, // After array.
     supports(type) {
         return !!type.aliasSymbol;
     },
@@ -153,7 +154,7 @@ const referenceTypeConverter: TypeConverter<ts.Type, M.ReferenceType> = {
             false,
             converter.project);
     }
-}
+};
 
 const stringTypeConverter: TypeConverter<ts.Type, M.IntrinsicType> = {
     supports(type) {
@@ -162,7 +163,7 @@ const stringTypeConverter: TypeConverter<ts.Type, M.IntrinsicType> = {
     convert(_converter, type) {
         return new M.IntrinsicType('string');
     }
-}
+};
 
 const tupleTypeConverter: TypeConverter<ts.TupleType, M.TupleType> = {
     supports(type) {
@@ -171,7 +172,7 @@ const tupleTypeConverter: TypeConverter<ts.TupleType, M.TupleType> = {
     convert(converter, type) {
         return new M.TupleType(type.typeArguments?.map(type => converter.convertType(void 0, type)) ?? []);
     }
-}
+};
 
 const typeParameterConverter: TypeConverter<ts.TypeParameter, M.TypeParameterType> = {
     supports(type) {
@@ -180,7 +181,7 @@ const typeParameterConverter: TypeConverter<ts.TypeParameter, M.TypeParameterTyp
     convert(converter, type) {
         return convertTypeParameters(converter, [type])[0];
     }
-}
+};
 
 const unionOrIntersectionConverter: TypeConverter<ts.UnionOrIntersectionType, M.UnionType | M.IntersectionType> = {
     supports(type) {
@@ -190,7 +191,7 @@ const unionOrIntersectionConverter: TypeConverter<ts.UnionOrIntersectionType, M.
         const types = type.types.map(type => converter.convertType(void 0, type));
         return type.isUnion() ? new M.UnionType(types) : new M.IntersectionType(types);
     }
-}
+};
 
 const voidTypeConverter: TypeConverter<ts.Type, M.IntrinsicType> = {
     supports(type) {
@@ -199,7 +200,7 @@ const voidTypeConverter: TypeConverter<ts.Type, M.IntrinsicType> = {
     convert(_converter, type) {
         return new M.IntrinsicType('void');
     }
-}
+};
 
 /// Helpers
 function isObjectType(type: ts.Type): type is ts.ObjectType {
@@ -218,7 +219,7 @@ function convertTypeParameters(converter: Converter, parameters: readonly ts.Typ
     return parameters.map(param => {
         const constraintType = param.getConstraint();
         const constraint = constraintType ? converter.convertType(void 0, constraintType) : undefined;
-        const defaultType = param.getDefault()
+        const defaultType = param.getDefault();
         const defaultValue = defaultType ? converter.convertType(void 0, defaultType) : undefined;
 
         return new M.TypeParameterType(param.symbol.name, constraint, defaultValue);

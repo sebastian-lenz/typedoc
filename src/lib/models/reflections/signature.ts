@@ -3,6 +3,7 @@ import type { SomeType, TypeParameterType } from '../types/index';
 import { Reflection, ReflectionKind } from './abstract';
 import type { ObjectReflection } from './object';
 import type { ParameterReflection } from './parameter';
+import { Visibility } from './class'
 
 export abstract class CallableReflection extends Reflection {
     signatures: SignatureReflection[] = [];
@@ -29,12 +30,18 @@ export class FunctionReflection extends CallableReflection {
 export interface SerializedFunctionReflection extends Serialized<FunctionReflection, 'signatures'> {
 }
 
-
 /**
  * Represents a method on a class or interface.
  */
 export class MethodReflection extends CallableReflection {
     readonly kind = ReflectionKind.Method;
+
+    visibility: Visibility;
+
+    constructor(name: string, visibility: Visibility) {
+        super(name);
+        this.visibility = visibility;
+    }
 
     /**
      * The method on the parent class or interface which this method overwrites.
@@ -104,8 +111,9 @@ export class MethodReflection extends CallableReflection {
     serialize(serializer: Serializer, init: BaseSerialized<MethodReflection>): SerializedMethodReflection {
         const result: SerializedMethodReflection = {
             ...init,
-            signatures: serializer.toObjects(this.signatures),
-        }
+            visibility: this.visibility,
+            signatures: serializer.toObjects(this.signatures)
+        };
 
         if (typeof this._overwrites === 'number') {
             result.overwrites = this._overwrites;
@@ -121,7 +129,7 @@ export class MethodReflection extends CallableReflection {
     }
 }
 
-export interface SerializedMethodReflection extends Serialized<MethodReflection, 'signatures'> {
+export interface SerializedMethodReflection extends Serialized<MethodReflection, 'visibility' | 'signatures'> {
     overwrites?: number;
     inheritedFrom?: number;
     implementationOf?: number;

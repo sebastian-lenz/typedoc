@@ -14,12 +14,12 @@ export class IndexedAccessType extends Type {
     }
 
     /** @inheritdoc */
-    clone() {
+    clone(): IndexedAccessType {
         return new IndexedAccessType(this.objectType.clone(), this.indexType.clone());
     }
 
     /** @inheritdoc */
-    stringify() {
+    stringify(): string {
         // The index type is contained within brackets and does not need parenthesis, even if complex.
         return `${this.objectType.stringify(true)}[${this.indexType.stringify(false)}]`;
     }

@@ -6,9 +6,9 @@ import { BaseSerialized, Serialized } from '../../serialization';
  * supported Node versions yet.
  */
 export interface PseudoBigInt {
-    negative: boolean,
+    negative: boolean;
     /** Base 10 */
-    value: string,
+    value: string;
 }
 
 /**

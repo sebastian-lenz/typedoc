@@ -29,7 +29,7 @@ export function addTypeNodeConverters(converter: Converter) {
         thisTypeNodeConverter,
         tupleTypeNodeConverter,
         typeLiteralConverter,
-        unionTypeNodeConverter,
+        unionTypeNodeConverter
     ]) {
         converter.addTypeNodeConverter(typeNodeConverter);
     }
@@ -41,7 +41,7 @@ const arrayTypeNodeConverter: TypeNodeConverter<ts.ArrayTypeNode, M.ArrayType> =
     convert(converter, node) {
         return new M.ArrayType(converter.convertType(node.elementType));
     }
-}
+};
 
 // Check extends Extends ? True : False
 const conditionalTypeNodeConverter: TypeNodeConverter<ts.ConditionalTypeNode, M.ConditionalType> = {
@@ -53,7 +53,7 @@ const conditionalTypeNodeConverter: TypeNodeConverter<ts.ConditionalTypeNode, M.
             converter.convertType(node.trueType),
             converter.convertType(node.falseType));
     }
-}
+};
 
 const constructorTypeNodeConverter: TypeNodeConverter<ts.ConstructorTypeNode, M.ConstructorType> = {
     kind: [ts.SyntaxKind.ConstructorType],
@@ -61,9 +61,9 @@ const constructorTypeNodeConverter: TypeNodeConverter<ts.ConstructorTypeNode, M.
         return new M.ConstructorType(
             convertTypeParameters(converter, node.typeParameters ?? []),
             convertParameters(converter, node.parameters),
-            converter.convertType(node.type))
+            converter.convertType(node.type));
     }
-}
+};
 
 const exprWithTypeArgsTypeNodeConverter: TypeNodeConverter<ts.ExpressionWithTypeArguments, M.ReferenceType> = {
     kind: [ts.SyntaxKind.ExpressionWithTypeArguments],
@@ -73,7 +73,7 @@ const exprWithTypeArgsTypeNodeConverter: TypeNodeConverter<ts.ExpressionWithType
         const parameters = node.typeArguments?.map(node => converter.convertType(node)) ?? [];
         return new M.ReferenceType(targetSymbol.name, parameters, targetSymbol, false, converter.project);
     }
-}
+};
 
 const functionTypeNodeConverter: TypeNodeConverter<ts.FunctionTypeNode, M.SignatureType> = {
     kind: [ts.SyntaxKind.FunctionType],
@@ -81,9 +81,9 @@ const functionTypeNodeConverter: TypeNodeConverter<ts.FunctionTypeNode, M.Signat
         return new M.SignatureType(
             convertTypeParameters(converter, node.typeParameters ?? []),
             convertParameters(converter, node.parameters),
-            converter.convertType(node.type))
+            converter.convertType(node.type));
     }
-}
+};
 
 // T['a']
 const indexedAccessTypeNodeConverter: TypeNodeConverter<ts.IndexedAccessTypeNode, M.IndexedAccessType> = {
@@ -91,7 +91,7 @@ const indexedAccessTypeNodeConverter: TypeNodeConverter<ts.IndexedAccessTypeNode
     convert(converter, node) {
         return new M.IndexedAccessType(converter.convertType(node.objectType), converter.convertType(node.indexType));
     }
-}
+};
 
 // T extends infer Infer...
 const inferTypeNodeConverter: TypeNodeConverter<ts.InferTypeNode, M.InferredType> = {
@@ -99,7 +99,7 @@ const inferTypeNodeConverter: TypeNodeConverter<ts.InferTypeNode, M.InferredType
     convert(converter, node) {
         return new M.InferredType(node.typeParameter.name.text);
     }
-}
+};
 
 // T & U
 const intersectionTypeNodeConverter: TypeNodeConverter<ts.IntersectionTypeNode, M.IntersectionType> = {
@@ -107,7 +107,7 @@ const intersectionTypeNodeConverter: TypeNodeConverter<ts.IntersectionTypeNode, 
     convert(converter, node) {
         return new M.IntersectionType(node.types.map(node => converter.convertType(node)));
     }
-}
+};
 
 const keywordToTypeName: Record<ts.KeywordTypeNode['kind'], string> = {
     [ts.SyntaxKind.AnyKeyword]: 'any',
@@ -122,34 +122,34 @@ const keywordToTypeName: Record<ts.KeywordTypeNode['kind'], string> = {
     [ts.SyntaxKind.VoidKeyword]: 'void',
     [ts.SyntaxKind.UndefinedKeyword]: 'undefined',
     [ts.SyntaxKind.NullKeyword]: 'null',
-    [ts.SyntaxKind.NeverKeyword]: 'never',
-}
+    [ts.SyntaxKind.NeverKeyword]: 'never'
+};
 
 const keywordTypeNodeConverter: TypeNodeConverter<ts.KeywordTypeNode, M.IntrinsicType> = {
     kind: Object.keys(keywordToTypeName).map(Number),
     convert(_converter, node) {
         return new M.IntrinsicType(keywordToTypeName[node.kind]);
     }
-}
+};
 
 // Note: Literal types are not the same as type literals! SyntaxKind.TypeLiteral is an object.
 const literalTypeNodeConverter: TypeNodeConverter<ts.LiteralTypeNode, M.LiteralType> = {
     kind: [ts.SyntaxKind.LiteralType],
     convert(converter, node) {
-        let value = getLiteralValue(node.literal)
+        let value = getLiteralValue(node.literal);
         if (value === undefined) {
             converter.logger.warn(`Failed to get value of literal with kind: ${ts.SyntaxKind[node.literal.kind]} and text ${node.literal.getText()}. This is a bug.`);
             value = node.literal.getText();
         }
         return new M.LiteralType(value);
     }
-}
+};
 
 const operators = {
     [ts.SyntaxKind.ReadonlyKeyword]: 'readonly',
     [ts.SyntaxKind.KeyOfKeyword]: 'keyof',
-    [ts.SyntaxKind.UniqueKeyword]: 'unique',
-} as const
+    [ts.SyntaxKind.UniqueKeyword]: 'unique'
+} as const;
 
 // keyof T, readonly T, unique symbol
 const operatorTypeNodeConverter: TypeNodeConverter<ts.TypeOperatorNode, M.TypeOperatorType> = {
@@ -157,7 +157,7 @@ const operatorTypeNodeConverter: TypeNodeConverter<ts.TypeOperatorNode, M.TypeOp
     convert(converter, node) {
         return new M.TypeOperatorType(converter.convertType(node.type), operators[node.operator]);
     }
-}
+};
 
 // Just collapse these...
 // type In = ((number))
@@ -166,7 +166,7 @@ const parenthesizedTypeNodeConverter: TypeNodeConverter<ts.ParenthesizedTypeNode
     convert(converter, node) {
         return converter.convertType(node.type);
     }
-}
+};
 
 // function foo(x: any): asserts x is String;
 const predicateTypeNodeConverter: TypeNodeConverter<ts.TypePredicateNode, M.PredicateType> = {
@@ -176,7 +176,7 @@ const predicateTypeNodeConverter: TypeNodeConverter<ts.TypePredicateNode, M.Pred
         const type = node.type ? converter.convertType(node.type) : undefined;
         return new M.PredicateType(node.parameterName.getText(), assertsModifier, type);
     }
-}
+};
 
 // typeof Foo.bar
 const queryTypeNodeConverter: TypeNodeConverter<ts.TypeQueryNode, M.QueryType> = {
@@ -186,7 +186,7 @@ const queryTypeNodeConverter: TypeNodeConverter<ts.TypeQueryNode, M.QueryType> =
         assert(symbol, `Query type failed to get a symbol for: ${node.exprName.getText()}. This is probably a bug.`);
         return new M.QueryType(new M.ReferenceType(symbol.name, [], symbol, true, converter.project));
     }
-}
+};
 
 // Array<Foo>
 const referenceTypeNodeConverter: TypeNodeConverter<ts.TypeReferenceNode, M.ReferenceType> = {
@@ -197,7 +197,7 @@ const referenceTypeNodeConverter: TypeNodeConverter<ts.TypeReferenceNode, M.Refe
         const parameters = node.typeArguments?.map(node => converter.convertType(node)) ?? [];
         return new M.ReferenceType(targetSymbol.name, parameters, targetSymbol, false, converter.project);
     }
-}
+};
 
 // method(): this
 const thisTypeNodeConverter: TypeNodeConverter<ts.ThisTypeNode, M.IntrinsicType> = {
@@ -205,7 +205,7 @@ const thisTypeNodeConverter: TypeNodeConverter<ts.ThisTypeNode, M.IntrinsicType>
     convert(converter, node) {
         return new M.IntrinsicType('this');
     }
-}
+};
 
 // [T, U]
 const tupleTypeNodeConverter: TypeNodeConverter<ts.TupleTypeNode, M.TupleType> = {
@@ -213,7 +213,7 @@ const tupleTypeNodeConverter: TypeNodeConverter<ts.TupleTypeNode, M.TupleType> =
     convert(converter, node) {
         return new M.TupleType(node.elementTypes.map(node => converter.convertType(node)));
     }
-}
+};
 
 // { a: string, (): string, new (): String }
 const typeLiteralConverter: TypeNodeConverter<ts.TypeLiteralNode, M.ObjectType | M.SignatureType | M.ConstructorType> = {
@@ -251,7 +251,7 @@ const typeLiteralConverter: TypeNodeConverter<ts.TypeLiteralNode, M.ObjectType |
 
         return new M.ObjectType(properties, signatures, constructSignatures);
     }
-}
+};
 
 // T | U
 const unionTypeNodeConverter: TypeNodeConverter<ts.UnionTypeNode, M.UnionType> = {
@@ -259,7 +259,7 @@ const unionTypeNodeConverter: TypeNodeConverter<ts.UnionTypeNode, M.UnionType> =
     convert(converter, node) {
         return new M.UnionType(node.types.map(node => converter.convertType(node)));
     }
-}
+};
 
 /// Helpers
 

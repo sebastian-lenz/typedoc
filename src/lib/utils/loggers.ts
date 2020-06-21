@@ -64,7 +64,7 @@ export class Logger {
      * @param args  The arguments that should be printed into the given message.
      */
     public write(text: string, ...args: string[]) {
-        this.log(Util.format.apply(this, arguments), LogLevel.Info);
+        this.log(Util.format(text, ...args), LogLevel.Info);
     }
 
     /**
@@ -74,7 +74,7 @@ export class Logger {
      * @param args  The arguments that should be printed into the given message.
      */
     public writeln(text: string, ...args: string[]) {
-        this.log(Util.format.apply(this, arguments), LogLevel.Info, true);
+        this.log(Util.format(text, ...args), LogLevel.Info, true);
     }
 
     /**
@@ -84,7 +84,7 @@ export class Logger {
      * @param args  The arguments that should be printed into the given message.
      */
     public success(text: string, ...args: string[]) {
-        this.log(Util.format.apply(this, arguments), LogLevel.Success);
+        this.log(Util.format(text, ...args), LogLevel.Success);
     }
 
     /**
@@ -94,7 +94,7 @@ export class Logger {
      * @param args  The arguments that should be printed into the given message.
      */
     public verbose(text: string, ...args: string[]) {
-        this.log(Util.format.apply(this, arguments), LogLevel.Verbose);
+        this.log(Util.format(text, ...args), LogLevel.Verbose);
     }
 
     /**
@@ -104,7 +104,7 @@ export class Logger {
      * @param args  The arguments that should be printed into the given warning.
      */
     public warn(text: string, ...args: string[]) {
-        this.log(Util.format.apply(this, arguments), LogLevel.Warn);
+        this.log(Util.format(text, ...args), LogLevel.Warn);
     }
 
     /**
@@ -114,7 +114,7 @@ export class Logger {
      * @param args  The arguments that should be printed into the given error.
      */
     public error(text: string, ...args: string[]) {
-        this.log(Util.format.apply(this, arguments), LogLevel.Error);
+        this.log(Util.format(text, ...args), LogLevel.Error);
     }
 
     /**
@@ -124,7 +124,7 @@ export class Logger {
      * @param level  The urgency of the log message.
      * @param newLine  Should the logger print a trailing whitespace?
      */
-    public log(message: string, level: LogLevel = LogLevel.Info, newLine?: boolean) {
+    public log(_message: string, level: LogLevel = LogLevel.Info, newLine?: boolean) {
         if (level === LogLevel.Error) {
             this.errorCount += 1;
         }

@@ -1,4 +1,4 @@
-import type * as ts from 'typescript'
+import type * as ts from 'typescript';
 import type { ContainerReflection, IndependentReflection, SomeContainerReflection, ProjectReflection } from '../models';
 import type { Converter } from './converter';
 

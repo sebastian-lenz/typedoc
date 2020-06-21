@@ -1,7 +1,6 @@
 import * as assert from 'assert';
 import { removeIfPresent } from '../../utils';
-import { ReflectionFlags } from './flags';
-import type { SomeReflection, IndependentReflection, ModelToSerialized } from './index';
+import type { SomeReflection, IndependentReflection, ModelToSerialized, SomeContainerReflection } from './index';
 import type { ProjectReflection } from './project';
 import { makeToKindArray, makeToKindString } from '../../utils/enum';
 import type { Serializer, BaseSerialized } from '../../serialization';
@@ -33,7 +32,7 @@ export enum ReflectionKind {
     // It isn't possible to use the bit shifting directly here.
     // The enum doesn't care, but it prevents dynamically using these members
     // as properties elsewhere. Members are assigned powers of two so that
-    // Module or Namespace can be efficiently checked with kind & (Module | Namespace)
+    // Module or Namespace can be efficiently checked with `kind & (Module | Namespace)`
     Project = 1,
     Module = 2,
     Namespace = 4,
@@ -49,7 +48,7 @@ export enum ReflectionKind {
     Method = 4096,
     Signature = 8192,
     Parameter = 16384,
-    TypeAlias = 32768,
+    Alias = 32768,
     Reference = 65536
 }
 
@@ -120,21 +119,14 @@ export abstract class Reflection {
     abstract serialize(serializer: Serializer, init: BaseSerialized<SomeReflection>): ModelToSerialized<SomeReflection>;
 
     /**
-     * Modifier flags for this reflection. Not that not all flags make sense
-     * for each reflection. For example, only parameters may have the `rest`
-     * flag set, while
-     */
-    readonly flags = new ReflectionFlags();
-
-    /**
      * The reflection this reflection is a child of. This is set by the container reflection
      * when a child is added to the reflection.
      */
-    get parent(): SomeReflection | undefined {
+    get parent(): SomeContainerReflection | undefined {
         return this._parent;
     }
 
-    set parent(value: SomeReflection | undefined) {
+    set parent(value: SomeContainerReflection | undefined) {
         this._parent = value;
         this._projectCache = undefined;
     }
@@ -155,7 +147,7 @@ export abstract class Reflection {
 
     private _name: string;
     private _originalName?: string;
-    private _parent?: SomeReflection;
+    private _parent?: SomeContainerReflection;
     private _projectCache?: ProjectReflection;
 
     /**
@@ -169,9 +161,8 @@ export abstract class Reflection {
     /**
      * Test whether this reflection is of the given kind.
      */
-    kindOf(kind: ReflectionKind | ReflectionKind[]): boolean {
-        const kindArray = Array.isArray(kind) ? kind : [kind];
-        return kindArray.some(kind => (this.kind & kind) !== 0);
+    kindOf<K extends ReflectionKind>(...kinds: K[]): this is { kind: K } {
+        return kinds.some(kind => (this.kind & kind) !== 0);
     }
 
     /**
@@ -196,6 +187,15 @@ export abstract class Reflection {
      */
     isProject(): this is ProjectReflection {
         return false;
+    }
+
+    /**
+     * Checks if the current reflection is some container reflection.
+     * Provides a safer check than using `instanceof ContainerReflection` since the latter
+     * will result in the `children` property being typed as `any[]`.
+     */
+    isContainer(): this is ContainerReflection<IndependentReflection> {
+        return this instanceof ContainerReflection;
     }
 }
 
@@ -228,7 +228,7 @@ export abstract class ContainerReflection<Child extends IndependentReflection> e
         // do not add new top level reflections and this can be verified manually.
         // I (GB) believe the unsafety here is worth the improved developer experience gained by
         // providing the type as a discriminated union.
-        child.parent = this as unknown as SomeReflection;
+        child.parent = this as SomeContainerReflection;
     }
 
     /**

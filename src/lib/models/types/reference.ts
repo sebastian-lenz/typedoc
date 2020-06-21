@@ -9,7 +9,7 @@ import { Serializer, BaseSerialized, Serialized } from '../../serialization';
 const TYPE_CONTRIBUTING_KINDS = ReflectionKind.Interface
     | ReflectionKind.Class
     | ReflectionKind.Enum
-    | ReflectionKind.TypeAlias
+    | ReflectionKind.Alias
     | ReflectionKind.Module;
 
 /**
@@ -75,7 +75,7 @@ export class ReferenceType extends Type {
     }
 
     /** @inheritdoc */
-    clone() {
+    clone(): ReferenceType {
         return new ReferenceType(
             this.name,
             cloned(this.typeArguments),
@@ -85,7 +85,7 @@ export class ReferenceType extends Type {
     }
 
     /** @inheritdoc */
-    stringify() {
+    stringify(): string {
         const name = this.reflection?.name ?? this.name;
         let typeArgs = '';
         if (this.typeArguments.length) {
@@ -100,7 +100,7 @@ export class ReferenceType extends Type {
         const result: SerializedReferenceType = {
             ...init,
             name: this.name,
-            typeArguments: serializer.toObjects(this.typeArguments),
+            typeArguments: serializer.toObjects(this.typeArguments)
         };
 
         if (this.reflection) {

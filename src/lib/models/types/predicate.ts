@@ -43,12 +43,12 @@ export class PredicateType extends Type {
     }
 
     /** @inheritdoc */
-    clone() {
+    clone(): PredicateType {
         return new PredicateType(this.name, this.asserts, this.targetType?.clone());
     }
 
     /** @inheritdoc */
-    stringify(wrapped: boolean) {
+    stringify(wrapped: boolean): string {
         assert(wrapped === false, 'Predicate types cannot be wrapped within other types.');
 
         const out = this.asserts ? ['asserts', this.name] : [this.name];
@@ -64,7 +64,7 @@ export class PredicateType extends Type {
         const result: SerializedPredicateType = {
             ...init,
             name: this.name,
-            asserts: this.asserts,
+            asserts: this.asserts
         };
 
         if (this.targetType) {

@@ -27,6 +27,8 @@
     "lunr": "^2.3.8",
     "marked": "1.0.0",
     "minimatch": "^3.0.0",
+    "preact": "^10.4.4",
+    "preact-render-to-string": "^5.1.9",
     "progress": "^2.0.3",
     "shelljs": "^0.8.4",
     "typedoc-default-themes": "^0.10.1"
@@ -41,11 +43,9 @@
     "@types/marked": "^0.7.4",
     "@types/minimatch": "3.0.3",
     "@types/mocha": "^7.0.2",
-    "@types/mockery": "^1.4.29",
     "@types/node": "^14.0.5",
     "@types/shelljs": "^0.8.7",
     "mocha": "^7.1.1",
-    "mockery": "^2.1.0",
     "nyc": "15.0.1",
     "tslint": "^5.20.1",
     "typescript": "^3.8.3"
@@ -63,7 +63,6 @@
     "prerebuild_specs": "npm run pretest",
     "rebuild_specs": "node scripts/rebuild_specs.js",
     "build": "tsc --project .",
-    "postbuild": "node scripts/replace_application_version.js",
     "build_and_test": "npm run build && npm run test",
     "lint": "tslint --project .",
     "prepublishOnly": "node scripts/set_strict.js false && npm run lint && npm run build_and_test",

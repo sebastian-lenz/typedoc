@@ -1,5 +1,7 @@
 import * as assert from 'assert';
 import * as ts from 'typescript';
+import { posix } from 'path';
+
 import { Application } from '../application';
 import { ModuleReflection, ProjectReflection, SomeContainerReflection, SomeReflection, SomeType, UnknownType, IntrinsicType } from '../models/index';
 import { ObjectReflection } from '../models/reflections/object';
@@ -9,9 +11,10 @@ import { Context } from './context';
 import { addConverters, ReflectionConverter } from './nodes';
 import { addTypeNodeConverters, TypeNodeConverter } from './type-nodes';
 import { addTypeConverters, TypeConverter } from './types';
+import { getCommonDirectory } from '../utils/fs'
 
 interface ConverterEventMap {
-    begin: [ProjectReflection];
+    begin: [ProjectReflection, ts.Program];
     reflectionCreated: [SomeReflection, ts.Symbol, ts.Node[]];
     moduleCreated: [ModuleReflection, ts.SourceFile];
     end: [ProjectReflection];
@@ -92,10 +95,11 @@ export class Converter extends EventEmitter<ConverterEventMap> {
     }
 
     async convert(program: ts.Program, inputFiles: string[]) {
+        const compilerOptions = program.getCompilerOptions();
         this._checker = program.getTypeChecker();
 
         const project = this._project = new ProjectReflection(this.options.getValue('name'));
-        await this.emit(Converter.EVENT_BEGIN, project);
+        await this.emit(Converter.EVENT_BEGIN, project, program);
 
         const context = new Context(program, this, project, project);
 
@@ -110,11 +114,14 @@ export class Converter extends EventEmitter<ConverterEventMap> {
                 continue;
             }
 
-            const moduleReflection = new ModuleReflection(file.fileName);
+            const name = posix.relative(compilerOptions.rootDir ?? getCommonDirectory(program.getRootFileNames()), file.fileName)
+                .replace(/(\.d)?\.[tj]sx?$/, '');
+
+            const moduleReflection = new ModuleReflection(name);
             project.addChild(moduleReflection);
             await this.emit(Converter.EVENT_MODULE_CREATED, moduleReflection, file);
             for (const exportSymbol of this.getExportsOfModule(file, program.getTypeChecker())) {
-                await this.convertSymbol(exportSymbol, context.withContainer(moduleReflection))
+                await this.convertSymbol(exportSymbol, context.withContainer(moduleReflection));
             }
         }
 
@@ -143,6 +150,9 @@ export class Converter extends EventEmitter<ConverterEventMap> {
                 return;
             }
             const nodes = symbol.getDeclarations()?.filter(d => d.kind === kind) ?? [];
+            if (kind === ts.SyntaxKind.ClassDeclaration) {
+                nodes.push(...symbol.getDeclarations()?.filter(d => d.kind === ts.SyntaxKind.InterfaceDeclaration) ?? []);
+            }
             const child = await converter.convert(context, symbol, nodes);
             // TS isn't smart enough to know this is safe. The converters are carefully structured so that it is.
             context.container.addChild(child as any);
@@ -193,7 +203,7 @@ export class Converter extends EventEmitter<ConverterEventMap> {
     private getExportsOfModule(file: ts.SourceFile, checker: ts.TypeChecker) {
         const symbol = checker.getSymbolAtLocation(file);
         // TODO: Need to support global symbols, iterate over children, get symbols for each child, dedupe.
-        if (!symbol) return [];
+        if (!symbol) { return []; }
         return checker.getExportsOfModule(symbol);
     }
 }

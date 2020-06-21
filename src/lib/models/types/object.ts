@@ -23,7 +23,7 @@ export class ObjectType extends Type {
     }
 
     /** @inheritdoc */
-    clone() {
+    clone(): ObjectType {
         return new ObjectType(cloned(this.properties), cloned(this.signatures), cloned(this.constructSignatures));
     }
 
@@ -78,7 +78,7 @@ export class PropertyType extends Type {
     }
 
     /** @inheritdoc */
-    clone() {
+    clone(): PropertyType {
         return new PropertyType(this.name, this.isReadonly, this.isOptional, this.propertyType.clone());
     }
 

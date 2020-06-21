@@ -14,7 +14,7 @@ export const enumConverter: ReflectionConverter<ts.EnumDeclaration, EnumReflecti
 
         return container;
     }
-}
+};
 
 export const enumMemberConverter: ReflectionConverter<ts.EnumMember, EnumMemberReflection> = {
     kind: [ts.SyntaxKind.EnumMember],
@@ -23,4 +23,4 @@ export const enumMemberConverter: ReflectionConverter<ts.EnumMember, EnumMemberR
         assert(value !== undefined, 'Failed to get the value of an enum. This is probably a bug.');
         return new EnumMemberReflection(symbol.name, value);
     }
-}
+};

@@ -58,8 +58,8 @@ export class ObjectReflection extends ContainerReflection<MethodReflection | Pro
             ...init,
             signatures: serializer.toObjects(this.signatures),
             constructSignatures: serializer.toObjects(this.constructSignatures),
-            typeParameters: serializer.toObjects(this.typeParameters),
-        }
+            typeParameters: serializer.toObjects(this.typeParameters)
+        };
     }
 }
 

@@ -24,12 +24,12 @@ export class QueryType extends Type {
     }
 
     /** @inheritdoc */
-    clone() {
+    clone(): QueryType {
         return new QueryType(this.queryType.clone());
     }
 
     /** @inheritdoc */
-    stringify() {
+    stringify(): string {
         return `typeof ${this.queryType}`;
     }
 

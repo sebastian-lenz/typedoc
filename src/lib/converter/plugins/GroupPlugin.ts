@@ -23,7 +23,7 @@ export class GroupPlugin extends ConverterComponent {
         ReflectionKind.EnumMember,
         ReflectionKind.Class,
         ReflectionKind.Interface,
-        ReflectionKind.TypeAlias,
+        ReflectionKind.Alias,
 
         ReflectionKind.Constructor,
         ReflectionKind.Event,
@@ -63,7 +63,7 @@ export class GroupPlugin extends ConverterComponent {
         plurals[ReflectionKind.Property]   = 'Properties';
         plurals[ReflectionKind.Enum]       = 'Enumerations';
         plurals[ReflectionKind.EnumMember] = 'Enumeration members';
-        plurals[ReflectionKind.TypeAlias]  = 'Type aliases';
+        plurals[ReflectionKind.Alias]  = 'Type aliases';
         return plurals;
     })();
 

@@ -4,6 +4,9 @@
 const { Application, ArgumentsReader, TypeDocReader, TSConfigReader } = require('..');
 
 async function main() {
+    // Make debugging a bit easier.
+    Error.stackTraceLimit = 20;
+
     const app = new Application();
     app.options.addReader(new ArgumentsReader(0));
     app.options.addReader(new TypeDocReader());
@@ -13,16 +16,23 @@ async function main() {
     app.bootstrap();
 
     if (app.options.getValue('version')) {
-        app.logger.writeln(app.toString());
+        app.logger.writeln(`TypeDoc v${require('../package.json').version}`);
+        return 0;
     }
 
     if (app.options.getValue('help')) {
         app.logger.writeln(app.options.getHelp());
+        return 0;
+    }
+
+    if (app.options.getCompilerOptions().showConfig) {
+        app.logger.writeln(JSON.stringify(app.options.getRawValues(), null, 2))
+        return 0;
     }
 
     if (app.options.getValue('inputFiles').length === 0) {
         app.logger.error('No input files discovered.');
-        process.exit(1);
+        return 1;
     }
 
     const project = await app.convert();
@@ -43,8 +53,7 @@ async function main() {
         await app.generateDocs(project, './docs');
     }
 
-    // Output errors?
-    return app.logger.hasErrors() ? 1 : 0;
+    return 0;
 }
 
 main().catch(err => {

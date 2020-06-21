@@ -24,7 +24,7 @@ export class ConditionalType extends Type {
     }
 
     /** @inheritdoc */
-    clone() {
+    clone(): ConditionalType {
         return new ConditionalType(
             this.checkType.clone(),
             this.extendsType.clone(),
@@ -33,7 +33,7 @@ export class ConditionalType extends Type {
     }
 
     /** @inheritdoc */
-    stringify(wrapped: boolean) {
+    stringify(wrapped: boolean): string {
         return wrap(wrapped, `${
             this.checkType.stringify(true)
         } extends ${
@@ -53,7 +53,7 @@ export class ConditionalType extends Type {
             extendsType: serializer.toObject(this.extendsType),
             trueType: serializer.toObject(this.trueType),
             falseType: serializer.toObject(this.falseType)
-        }
+        };
     }
 }
 

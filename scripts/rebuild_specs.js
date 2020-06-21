@@ -22,20 +22,6 @@ app.bootstrap({
     disableSources: true
 });
 
-// TODO GERRIT This should be removable once plugins are working.
-app.converter.on('end', (project) => {
-    /** @type {import('..').SomeReflection[]} */
-    const toVisit = [project];
-
-    while (toVisit.length) {
-        const item = toVisit.pop();
-        if (item instanceof TypeDoc.ContainerReflection) {
-            toVisit.push(...item.children);
-            item.children.sort((a, b) => a.name.localeCompare(b.name));
-        }
-    }
-})
-
 // Note that this uses the test files in dist, not in src, this is important since
 // when running the tests we copy the tests to dist and then convert them.
 const base = path.join(__dirname, '../dist/test/converter');
@@ -65,12 +51,12 @@ const conversions = [
  * Rebuilds the converter specs for the provided dirs.
  * @param {string[]} dirs
  */
-function rebuildConverterTests(dirs) {
-    return Promise.all(dirs.map(fullPath => {
-        console.log(fullPath);
+async function rebuildConverterTests(dirs) {
+    for (const fullPath of dirs) {
+        console.log(fullPath)
         app.options.setValue('inputFiles', [fullPath]);
 
-        return Promise.all(conversions.map(async ([file, before, after]) => {
+        for (const [file, before, after] of conversions) {
             const out = path.join(fullPath, `${file}.json`);
             if (fs.existsSync(out)) {
                 TypeDoc.resetReflectionID();
@@ -79,13 +65,13 @@ function rebuildConverterTests(dirs) {
                 const serialized = app.serializer.toObject(result);
 
                 const data = JSON.stringify(serialized, null, '  ')
-                    .split(TypeDoc.normalizePath(base))
+                    .split(base.replace(/\\/g, '/'))
                     .join('%BASE%');
                 after();
                 return fs.writeFile(out.replace('dist', 'src'), data);
             }
-        }));
-    }));
+        }
+    }
 }
 
 async function rebuildRendererTest() {

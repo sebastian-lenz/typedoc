@@ -1,4 +1,4 @@
-import { Application, resetReflectionID, normalizePath, ProjectReflection } from '..';
+import { Application, resetReflectionID, ProjectReflection } from '..';
 import * as FS from 'fs';
 import * as Path from 'path';
 import { deepStrictEqual as equal, ok } from 'assert';
@@ -34,6 +34,10 @@ describe('Converter', function() {
         ['specs-with-lump-categories',
             () => app.options.setValue('categorizeByGroup', false),
             () => app.options.setValue('categorizeByGroup', true)
+        ],
+        ['specs-without-undocumented',
+            () => app.options.setValue('excludeNotDocumented', true),
+            () => app.options.setValue('excludeNotDocumented', false)
         ]
     ];
 
@@ -52,10 +56,11 @@ describe('Converter', function() {
 
                 let result: ProjectReflection | undefined;
 
-                it(`[${file}] converts fixtures`, function() {
+                it(`[${file}] converts fixtures`, async function() {
                     before();
                     resetReflectionID();
-                    result = app.convert(app.expandInputFiles([path]));
+                    app.options.setValue('inputFiles', [path]);
+                    result = await app.convert();
                     after();
                     ok(result instanceof ProjectReflection, 'No reflection returned');
                 });
@@ -63,7 +68,7 @@ describe('Converter', function() {
                 it(`[${file}] matches specs`, function() {
                     const specs = JSON.parse(FS.readFileSync(specsFile, 'utf-8'));
                     let data = JSON.stringify(app.serializer.toObject(result!), null, '  ');
-                    data = data.split(normalizePath(base)).join('%BASE%');
+                    data = data.split(base.replace(/\\/g, '/')).join('%BASE%');
 
                     equal(JSON.parse(data), specs);
                 });
@@ -78,39 +83,3 @@ describe('Serializer', () => {
         equal(json, typed);
     });
 });
-
-// describe('Converter with excludeNotDocumented=true', function() {
-//     const base = Path.join(__dirname, 'converter');
-//     const fixtureDir = Path.join(base, 'exclude-not-documented');
-//     let app: Application;
-//
-//     before('constructs', function() {
-//         app = new Application({
-//             mode:   'Modules',
-//             logger: 'none',
-//             target: 'ES5',
-//             module: 'CommonJS',
-//             experimentalDecorators: true,
-//             excludeNotDocumented: true,
-//             jsx: 'react'
-//         });
-//     });
-//
-//     let result: ProjectReflection | undefined;
-//
-//     describe('Exclude not documented symbols', () => {
-//         it('converts fixtures', function() {
-//             resetReflectionID();
-//             result = app.convert(app.expandInputFiles([fixtureDir]));
-//             Assert(result instanceof ProjectReflection, 'No reflection returned');
-//         });
-//
-//         it('matches specs', function() {
-//             const specs = JSON.parse(FS.readFileSync(Path.join(fixtureDir, 'specs-without-undocumented.json')).toString());
-//             let data = JSON.stringify(result!.toObject(), null, '  ');
-//             data = data.split(normalizePath(base)).join('%BASE%');
-//
-//             compareReflections(JSON.parse(data), specs);
-//         });
-//     });
-// });

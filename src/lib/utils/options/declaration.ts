@@ -1,4 +1,3 @@
-import * as _ from 'lodash';
 import { CompilerOptions } from 'typescript';
 import { IgnoredTsOptionKeys } from './sources/typescript';
 

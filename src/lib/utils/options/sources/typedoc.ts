@@ -135,7 +135,8 @@ export function addTypeDocOptions(options: Options) {
     });
     options.addDeclaration({
         name: 'gitRevision',
-        help: 'Use specified revision instead of the last revision for linking to GitHub source files.'
+        help: 'Use specified revision instead of the last revision for linking to GitHub source files.',
+        defaultValue: 'master'
     });
     options.addDeclaration({
         name: 'gitRemote',
