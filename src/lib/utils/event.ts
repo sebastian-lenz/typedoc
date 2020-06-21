@@ -35,7 +35,7 @@ export class EventEmitter<T extends Record<keyof T, unknown[]>> {
      */
     once<K extends keyof T>(event: K, listener: (...args: T[K]) => void | Promise<void>): void {
         const list = (this._listeners.get(event) || []).slice();
-        list.push({ listener });
+        list.push({ listener, once: true });
         this._listeners.set(event, list);
     }
 

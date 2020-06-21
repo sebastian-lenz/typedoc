@@ -73,8 +73,8 @@ describe('EventHooks', () => {
     it('Collects the results of listeners', () => {
         const emitter = new EventHooks<{ a: [] }, number>();
 
-        emitter.on('a', () => 1);
-        emitter.on('a', () => 2);
+        emitter.on('a', () => 1, 1);
+        emitter.on('a', () => 2, 2);
 
         equal(emitter.emit('a'), [1, 2]);
     });
