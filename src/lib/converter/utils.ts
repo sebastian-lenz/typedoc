@@ -1,7 +1,9 @@
+import { join, resolve } from 'path';
+import { readFile, readdir } from 'fs/promises';
 import * as ts from 'typescript';
 import * as M from '../models';
 import type { Converter } from './converter';
-import { Visibility } from '../models'
+import { Visibility } from '../models';
 
 export function convertTypeParameters(converter: Converter, parameters: readonly ts.TypeParameterDeclaration[]): M.TypeParameterType[] {
     return parameters.map(param => {
@@ -24,12 +26,12 @@ export function hasReadonlyModifier(declaration?: ts.Declaration) {
     return declaration?.modifiers?.some(mod => mod.kind === ts.SyntaxKind.ReadonlyKeyword) ?? false;
 }
 
-export function hasQuestionToken(declaration: ts.Declaration): boolean {
-    return !!(declaration as any).questionToken;
+export function hasQuestionToken(declaration: ts.ParameterDeclaration | ts.PropertyDeclaration | ts.PropertySignature): boolean {
+    return !!declaration.questionToken;
 }
 
-export function hasDotDotDotToken(declaration: ts.Declaration): boolean {
-    return !!(declaration as any).dotDotDotToken;
+export function hasDotDotDotToken(declaration: ts.ParameterDeclaration): boolean {
+    return !!declaration.dotDotDotToken;
 }
 
 export function getVisibility(declaration: ts.PropertyLikeDeclaration): Visibility {
@@ -43,4 +45,50 @@ export function getVisibility(declaration: ts.PropertyLikeDeclaration): Visibili
         }
     }
     return Visibility.Public;
+}
+
+/**
+ * Helper to find the project name and readme.
+ */
+export async function discoverProjectInfo(rootDir: string,
+    projectName: string,
+    readmeFile: string,
+    includeVersion: boolean): Promise<{ name: string, readme: string }> {
+
+    // Find package.json to discover the project name.
+    let currentDir = resolve(rootDir)
+    let packageFile = '';
+    const filesFound = () => !!packageFile || !!readmeFile;
+    const reachedTopDirectory = () => currentDir === resolve(join(currentDir, '..'));
+
+    while (!reachedTopDirectory() && !filesFound()) {
+        const files = await readdir(currentDir);
+        for (const file of files) {
+            const lowerFile = file.toLowerCase();
+            if (!readmeFile && lowerFile === 'readme.md') {
+                readmeFile = join(currentDir, file);
+            }
+
+            if (!packageFile && lowerFile === 'package.json') {
+                packageFile = join(currentDir, file);
+            }
+        }
+        currentDir = resolve(join(currentDir, '..'));
+    }
+
+    let name = projectName;
+
+    if (packageFile) {
+        const packageInfo: any = require(packageFile);
+        if (!name) {
+            name = String(packageInfo.name);
+        }
+        if (includeVersion) {
+            name = `${name} - v${packageInfo.version}`;
+        }
+    }
+
+    const readme = readmeFile ? await readFile(readmeFile, 'utf-8') : 'No readme found.';
+
+    return { name, readme }
 }

@@ -50,6 +50,10 @@ export function getCommonDirectory(files: readonly string[]): string {
     }
 
     const roots = files.map(f => f.split(/\\|\//));
+    if (roots.length === 1) {
+        return roots[0].slice(0, -1).join('/');
+    }
+
     let i = 0;
 
     while (new Set(roots.map(part => part[i])).size === 1) {

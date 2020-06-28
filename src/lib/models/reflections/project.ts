@@ -27,6 +27,16 @@ export class ProjectReflection extends ContainerReflection<ModuleReflection> {
     private _reflections = new Map<number, IndependentReflection>();
 
     /**
+     * The contents of the `readme.md` file associated with this project.
+     */
+    readme: string;
+
+    constructor(name: string, readme: string) {
+        super(name);
+        this.readme = readme;
+    }
+
+    /**
      * Registers the given reflection so that it can be quickly looked up by references.
      * Should be called for every independent reflection added to the project.
      */

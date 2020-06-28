@@ -26,7 +26,8 @@ export type TemplateProps<R extends SomeReflection> = {
     reflection: R,
     templates: Templates,
     hooks: EventHooks<TemplateHooks, VNode | null>,
-    router: ThemeRouter
+    router: ThemeRouter,
+    parseMarkdown: (markdown: string, reflection: SomeReflection) => string
 };
 
 /**
@@ -84,27 +85,39 @@ export interface Templates {
     Footer(props: TemplateProps<SomeReflection>): VNode;
 
     /**
+     * Helper template which renders all children of the given reflection that live in this page with
+     * the {@link Reflection} template. Children are not wrapped in any elements.
+     */
+    PageChildren(props: TemplateProps<SomeReflection>): VNode;
+
+    /**
      * You should not need to override this template. It simply delegates to the more specific template
      * based on the `kind` property of the reflection.
      */
     Reflection(props: TemplateProps<SomeReflection>): VNode;
 
-    // These will be delegated to by the Reflection template
+
+    /**
+     * Renders the comment attached to the reflection, if any.
+     */
+    Comment(props: TemplateProps<SomeReflection>): VNode;
+
+    // These will be delegated to by the Reflection template.
     Project(props: TemplateProps<ProjectReflection>): VNode;
-    Module(Props: TemplateProps<ModuleReflection>): VNode;
-    Namespace(Props: TemplateProps<NamespaceReflection>): VNode;
-    Enum(Props: TemplateProps<EnumReflection>): VNode;
-    EnumMember(Props: TemplateProps<EnumMemberReflection>): VNode;
-    Variable(Props: TemplateProps<VariableReflection>): VNode;
-    Function(Props: TemplateProps<FunctionReflection>): VNode;
-    Class(Props: TemplateProps<ClassReflection>): VNode;
-    Interface(Props: TemplateProps<InterfaceReflection>): VNode;
-    Object(Props: TemplateProps<ObjectReflection>): VNode;
-    Property(Props: TemplateProps<PropertyReflection>): VNode;
-    Accessor(Props: TemplateProps<AccessorReflection>): VNode;
-    Method(Props: TemplateProps<MethodReflection>): VNode;
-    Signature(Props: TemplateProps<SignatureReflection>): VNode;
-    Parameter(Props: TemplateProps<ParameterReflection>): VNode;
-    TypeAlias(Props: TemplateProps<TypeAliasReflection>): VNode;
-    Reference(Props: TemplateProps<ReferenceReflection>): VNode;
+    Module(props: TemplateProps<ModuleReflection>): VNode;
+    Namespace(props: TemplateProps<NamespaceReflection>): VNode;
+    Enum(props: TemplateProps<EnumReflection>): VNode;
+    EnumMember(props: TemplateProps<EnumMemberReflection>): VNode;
+    Variable(props: TemplateProps<VariableReflection>): VNode;
+    Function(props: TemplateProps<FunctionReflection>): VNode;
+    Class(props: TemplateProps<ClassReflection>): VNode;
+    Interface(props: TemplateProps<InterfaceReflection>): VNode;
+    Object(props: TemplateProps<ObjectReflection>): VNode;
+    Property(props: TemplateProps<PropertyReflection>): VNode;
+    Accessor(props: TemplateProps<AccessorReflection>): VNode;
+    Method(props: TemplateProps<MethodReflection>): VNode;
+    Signature(props: TemplateProps<SignatureReflection>): VNode;
+    Parameter(props: TemplateProps<ParameterReflection>): VNode;
+    TypeAlias(props: TemplateProps<TypeAliasReflection>): VNode;
+    Reference(props: TemplateProps<ReferenceReflection>): VNode;
 }

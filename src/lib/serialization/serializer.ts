@@ -82,8 +82,21 @@ function addBaseSerializers(serializer: Serializer) {
                 kindString: ReflectionKind.toKindString(reflection.kind)
             };
 
+            if (reflection.parent) {
+                (base as any).parent = reflection.parent.id
+            }
+
             if (reflection.originalName !== reflection.name) {
                 base.originalName = reflection.originalName;
+            }
+
+            if (reflection.comment) {
+                base.comment = {
+                    shortText: reflection.comment.shortText,
+                    text: reflection.comment.text,
+                    tags: reflection.comment.tags?.map(tag =>
+                        ({ tagName: tag.tagName, text: tag.text, paramName: tag.paramName })) ?? []
+                }
             }
 
             if (reflection.isContainer()) {

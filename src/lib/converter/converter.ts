@@ -12,6 +12,8 @@ import { addConverters, ReflectionConverter } from './nodes';
 import { addTypeNodeConverters, TypeNodeConverter } from './type-nodes';
 import { addTypeConverters, TypeConverter } from './types';
 import { getCommonDirectory } from '../utils/fs'
+import { getCommentForNodes } from './comments'
+import { discoverProjectInfo } from './utils'
 
 interface ConverterEventMap {
     begin: [ProjectReflection, ts.Program];
@@ -95,10 +97,16 @@ export class Converter extends EventEmitter<ConverterEventMap> {
     }
 
     async convert(program: ts.Program, inputFiles: string[]) {
+        const start = Date.now();
         const compilerOptions = program.getCompilerOptions();
+        const rootDir = compilerOptions.rootDir ?? getCommonDirectory(program.getRootFileNames());
         this._checker = program.getTypeChecker();
 
-        const project = this._project = new ProjectReflection(this.options.getValue('name'));
+        const { name, readme } = await discoverProjectInfo(rootDir,
+            this.options.getValue('name'),
+            this.options.getValue('readme'),
+            this.options.getValue('includeVersion'));
+        const project = this._project = new ProjectReflection(name, readme);
         await this.emit(Converter.EVENT_BEGIN, project, program);
 
         const context = new Context(program, this, project, project);
@@ -106,7 +114,8 @@ export class Converter extends EventEmitter<ConverterEventMap> {
         // Due to the order juggling necessary to only document each item once, the module
         // converter is not a standard converter.
         for (const entry of inputFiles) {
-            // this.logger.verbose(`First pass: ${entry}`);
+            const entryStart = Date.now();
+            this.logger.verbose(`First pass: ${entry}`);
 
             const file = program.getSourceFile(entry);
             if (!file) {
@@ -114,25 +123,29 @@ export class Converter extends EventEmitter<ConverterEventMap> {
                 continue;
             }
 
-            const name = posix.relative(compilerOptions.rootDir ?? getCommonDirectory(program.getRootFileNames()), file.fileName)
-                .replace(/(\.d)?\.[tj]sx?$/, '');
+            const name = posix.relative(rootDir, file.fileName).replace(/(\.d)?\.[tj]sx?$/, '');
 
             const moduleReflection = new ModuleReflection(name);
+            moduleReflection.comment = getCommentForNodes([file]);
             project.addChild(moduleReflection);
             await this.emit(Converter.EVENT_MODULE_CREATED, moduleReflection, file);
             for (const exportSymbol of this.getExportsOfModule(file, program.getTypeChecker())) {
                 await this.convertSymbol(exportSymbol, context.withContainer(moduleReflection));
             }
+
+            this.logger.verbose(`[Perf] Converting ${name} took ${Date.now() - entryStart}ms`);
         }
 
         await this.emit(Converter.EVENT_END, project);
 
         this._checker = undefined;
         this._project = undefined;
+        this.logger.verbose(`[Perf] Conversion took ${Date.now() - start}ms`);
         return project;
     }
 
     async convertSymbol<U extends SomeContainerReflection>(symbol: ts.Symbol, context: Context<U>) {
+        this.logger.verbose(`Converting symbol: ${symbol.name}`);
         const kinds = new Set(symbol.getDeclarations()?.map(d => d.kind));
         if (kinds.has(ts.SyntaxKind.ClassDeclaration)) {
             // This is the one form of declaration merging we do, merging classes and interfaces.
@@ -154,6 +167,7 @@ export class Converter extends EventEmitter<ConverterEventMap> {
                 nodes.push(...symbol.getDeclarations()?.filter(d => d.kind === ts.SyntaxKind.InterfaceDeclaration) ?? []);
             }
             const child = await converter.convert(context, symbol, nodes);
+            child.comment = getCommentForNodes(nodes);
             // TS isn't smart enough to know this is safe. The converters are carefully structured so that it is.
             context.container.addChild(child as any);
             await this.emit(Converter.EVENT_REFLECTION_CREATED, child, symbol, nodes);

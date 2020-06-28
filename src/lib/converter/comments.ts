@@ -1,28 +1,39 @@
+// Comments parsing could have been implemented as a plugin, but since it provides such a core part of TypeDoc's
+// functionality it was decided that it should instead be implemented directly within the converter.
+// This choice allows plugins to access comments within the `reflectionCreated` event.
+// Though parsing is done before `reflectionCreated`, more work is done to the comment within the `reflectionCreated`
+// event by the comment plugin.
+
 import * as ts from 'typescript';
-import { toArray } from 'lodash';
+import { Comment, CommentTag } from '../models';
 
-import { Comment, CommentTag } from '../../models/comments/index';
+// Future: We really need to switch to TSDoc for parsing.
+export function getCommentForNodes(nodes: readonly ts.Node[]): Comment | undefined {
+    const comments = nodes.map(getRawComment).filter((comment): comment is string => typeof comment === 'string');
 
-/**
- * Return the parsed comment of the given TypeScript node.
- *
- * @param node  The node whose comment should be returned.
- * @return The parsed comment as a [[Comment]] instance or undefined if no comment is present.
- */
-export function createComment(node: ts.Node): Comment | undefined {
-    const comment = getRawComment(node);
-    if (!comment) {
+    if (!comments.length) {
         return;
     }
 
-    return parseComment(comment);
+    if (comments.length === 1) {
+        return parseComment(comments[0])
+    }
+
+    const preferred = comments.find(comment => comment.includes('@preferred'));
+    if (preferred) {
+        return parseComment(preferred);
+    }
+
+    const longest = comments.reduce((comment, other) => comment.length < other.length ? other : comment);
+    return parseComment(longest);
 }
+
 
 /**
  * Check whether the given module declaration is the topmost.
  *
  * This function returns TRUE if there is no trailing module defined, in
- * the following example this would be the case only for module <code>C</code>.
+ * the following example this would be the case only for module `C`.
  *
  * ```
  * module A.B.C { }
@@ -39,7 +50,7 @@ function isTopmostModuleDeclaration(node: ts.ModuleDeclaration): boolean {
  * Return the root module declaration of the given module declaration.
  *
  * In the following example this function would always return module
- * <code>A</code> no matter which of the modules was passed in.
+ * `A` no matter which of the modules was passed in.
  *
  * ```
  * module A.B.C { }
@@ -72,14 +83,15 @@ function getJSDocCommentRanges(node: ts.Node, text: string): ts.CommentRange[] {
         ts.SyntaxKind.ParenthesizedExpression
     ].includes(node.kind);
 
-    let commentRanges = toArray(ts.getLeadingCommentRanges(text, node.pos));
+    let commentRanges = ts.getLeadingCommentRanges(text, node.pos) ?? [];
     if (hasTrailingCommentRanges) {
-        commentRanges = toArray(ts.getTrailingCommentRanges(text, node.pos)).concat(commentRanges);
+        commentRanges = (ts.getTrailingCommentRanges(text, node.pos) ?? []).concat(commentRanges);
     }
 
     // True if the comment starts with '/**' but not if it is '/**/'
     return commentRanges.filter(({ pos }) => text.substr(pos, 3) === '/**' && text[pos + 4] !== '/');
 }
+
 
 /**
  * Return the raw comment string for the given node.
@@ -130,6 +142,8 @@ export function getRawComment(node: ts.Node): string | undefined {
     }
 }
 
+
+
 /**
  * Parse the given doc comment string.
  *
@@ -137,7 +151,8 @@ export function getRawComment(node: ts.Node): string | undefined {
  * @param comment  The [[Models.Comment]] instance the parsed results should be stored into.
  * @returns        A populated [[Models.Comment]] instance.
  */
-export function parseComment(text: string, comment: Comment = new Comment()): Comment {
+function parseComment(text: string): Comment {
+    const comment = new Comment();
     let currentTag: CommentTag;
     let shortText = 0;
 

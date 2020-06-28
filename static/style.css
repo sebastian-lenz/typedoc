@@ -100,13 +100,16 @@ header {
 
 main {
     display: flex;
-    flex-direction: row-reverse;
 }
 
 main,
 .title {
     margin: auto;
     max-width: 1200px;
+}
+
+#main {
+    width: 800px;
 }
 
 main > nav {

@@ -4,6 +4,7 @@ import type { SomeReflection, IndependentReflection, ModelToSerialized, SomeCont
 import type { ProjectReflection } from './project';
 import { makeToKindArray, makeToKindString } from '../../utils/enum';
 import type { Serializer, BaseSerialized } from '../../serialization';
+import { Comment } from '../comments'
 
 /**
  * Current reflection id. This provides a quick way to look up a reference to a reflection.
@@ -70,7 +71,7 @@ export namespace ReflectionKind {
  * as the root for all reflections within the project.
  *
  * Note that several plugins extend this class, dynamically adding properties during conversion.
- * For example, the {@link CommentPlugin} adds the {@link comment} property. Plugins can use declaration
+ * For example, the sources plugin adds the {@link sources} property. Plugins can use declaration
  * merging to add properties to the interface for typechecking.
  *
  * ### Reflection Creation
@@ -83,6 +84,12 @@ export abstract class Reflection {
      * Unique id of this reflection.
      */
     readonly id: number;
+
+    /**
+     * The parsed documentation comment attached to this reflection.
+     * This will be set by the converter and mutated by the comment plugin during the reflectionCreated event.
+     */
+    comment?: Comment;
 
     /**
      * The symbol name of this reflection.

@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 //@ts-check
 
+const start = Date.now();
 const { Application, ArgumentsReader, TypeDocReader, TSConfigReader } = require('..');
 
 async function main() {
+    const mainStart = Date.now();
+
     // Make debugging a bit easier.
     Error.stackTraceLimit = 20;
 
@@ -14,6 +17,8 @@ async function main() {
     app.options.addReader(new ArgumentsReader(300));
 
     app.bootstrap();
+
+    app.logger.verbose(`[Perf] Loading libraries took ${mainStart - start}ms`);
 
     if (app.options.getValue('version')) {
         app.logger.writeln(`TypeDoc v${require('../package.json').version}`);
@@ -52,6 +57,8 @@ async function main() {
     if (!json && !out) {
         await app.generateDocs(project, './docs');
     }
+
+    app.logger.verbose(`[Perf] Run took ${Date.now() - start}ms`);
 
     return 0;
 }

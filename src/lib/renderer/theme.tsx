@@ -8,6 +8,7 @@ import type { ProjectReflection, Reflection, SomeReflection } from '../models';
 import { defaultTemplates } from './default-templates';
 import { MinimalThemeRouter, ThemeRouter, ThemeRouterConstructor } from './router';
 import { Templates } from './templates';
+import { parseMarkdown } from './comment'
 
 const STATIC_DIR = join(__dirname, '../../../static')
 
@@ -25,11 +26,17 @@ export type Theme = (app: Application, project: ProjectReflection, outDir: strin
 
 export function buildTheme(routerCtor: ThemeRouterConstructor, templates?: Partial<Templates>): Theme {
     return async (app, project, outDir) => {
+        const start = Date.now();
         const router = new routerCtor(project);
         const themeTemplates: Templates = { ...defaultTemplates, ...templates };
 
         const pages: Reflection[] = [project];
         const tasks: Promise<void>[] = [];
+
+        // TODO: Media, etc.
+        function boundParseMarkdown(markdown: string, reflection: Reflection) {
+            return parseMarkdown(markdown, reflection, router);
+        }
 
         while (pages.length) {
             const page = pages.shift()!;
@@ -41,6 +48,7 @@ export function buildTheme(routerCtor: ThemeRouterConstructor, templates?: Parti
                 hooks={app.renderer.hooks}
                 reflection={page as SomeReflection}
                 router={router}
+                parseMarkdown={boundParseMarkdown}
                 templates={themeTemplates} />, null, { pretty: true });
             tasks.push(writeFile(join(outDir, path), content));
 
@@ -55,6 +63,7 @@ export function buildTheme(routerCtor: ThemeRouterConstructor, templates?: Parti
             join(outDir, router.getAssetDirectory(), 'style.css')))
 
         await Promise.all(tasks);
+        app.logger.verbose(`[Perf] Theme output took ${Date.now() - start}ms`);
     };
 }
 

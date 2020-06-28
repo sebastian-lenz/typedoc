@@ -97,13 +97,20 @@ export class Application {
             !!this.options.getCompilerOptions().allowJs,
             this.options.getValue('includeDeclarations'));
 
+        const start = Date.now();
         const program = ts.createProgram(inputFiles, this.options.getCompilerOptions());
+
+        const beforeErrors = Date.now();
+        this.logger.verbose(`[Perf] Creating program took ${beforeErrors - start}ms`);
+
         const errors = [
             ...program.getOptionsDiagnostics(),
             ...program.getSyntacticDiagnostics(),
             ...program.getGlobalDiagnostics(),
             ...program.getSemanticDiagnostics()
         ];
+
+        this.logger.verbose(`[Perf] Checking errors took ${Date.now() - beforeErrors}ms`);
 
         if (errors.length) {
             this.logger.diagnostics(errors);

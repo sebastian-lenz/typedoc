@@ -50,9 +50,10 @@ export class Comment {
      * @returns The found tag or undefined.
      */
     getTag(tagName: string, paramName?: string): CommentTag | undefined {
-        return this.tags?.find(tag => {
-            return tag.tagName === tagName && (paramName === void 0 || tag.paramName === paramName);
-        });
+        if (paramName !== undefined) {
+            return this.tags?.find(tag => tag.tagName === tagName && tag.paramName === paramName);
+        }
+        return this.tags?.find(tag => tag.tagName === tagName);
     }
 
     /**

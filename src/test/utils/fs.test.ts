@@ -76,5 +76,7 @@ describe('FS Utils', () => {
         });
 
         it('Works with no paths', () => equal(getCommonDirectory([]), ''));
+
+        it('Works with a single path', () => equal(getCommonDirectory(['/a/b/c/d.ts']), '/a/b/c'));
     })
 });

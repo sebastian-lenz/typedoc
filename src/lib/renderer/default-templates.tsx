@@ -5,6 +5,32 @@ import { ReflectionKind, ReflectionKindToModel, SomeReflection } from '../models
 // See the Templates interface for doc comments.
 // TODO: Lots to do to make this good yet.
 
+// TODO: Color scheme
+// window.matchMedia('(prefers-color-scheme: dark)').matches / .addEventListener
+
+// TODO logging levels
+
+const kindNames: Record<ReflectionKind, string> = {
+    [ReflectionKind.Project]: '', // We just want to display the name.
+    [ReflectionKind.Module]: 'Module',
+    [ReflectionKind.Namespace]: 'Namespace',
+    [ReflectionKind.Enum]: 'Enumeration',
+    [ReflectionKind.EnumMember]: 'Enumeration Member',
+    [ReflectionKind.Variable]: 'Variable',
+    [ReflectionKind.Function]: 'Function',
+    [ReflectionKind.Class]: 'Class',
+    [ReflectionKind.Interface]: 'Interface',
+    [ReflectionKind.Object]: 'Object',
+    [ReflectionKind.Property]: 'Property',
+    [ReflectionKind.Accessor]: 'Accessor',
+    [ReflectionKind.Method]: 'Method',
+    [ReflectionKind.Signature]: 'Signature',
+    [ReflectionKind.Parameter]: 'Parameter',
+    [ReflectionKind.Alias]: 'Type Alias',
+    [ReflectionKind.Reference]: 'Reference',
+}
+
+
 export const defaultTemplates: Templates = {
     Page(props) {
         const { reflection, templates, hooks } = props;
@@ -25,7 +51,7 @@ export const defaultTemplates: Templates = {
                 <script>
                     const loads = +localStorage.getItem('loads') || 0;
                     localStorage.setItem('loads', loads + 1);
-                    if (loads % 2) document.body.classList.add('dark')
+                    if (loads % 2 || true) document.body.classList.add('dark')
                 </script>
                 {hooks.emit('body.begin', reflection)}
                 <templates.Header {...props} />
@@ -49,7 +75,6 @@ export const defaultTemplates: Templates = {
             displayName += `<${reflection.typeParameters.map(param => param.toString()).join(', ')}>`;
         }
 
-        // TODO This needs to have a search bar, among other things.
         return <header>
             <div className='toolbar'>
                 <a href={router.createLink(reflection, reflection.project!)}>{reflection.project!.name}</a>
@@ -57,15 +82,21 @@ export const defaultTemplates: Templates = {
             </div>
             <div className='title'>
                 <templates.Breadcrumbs {...props} />
-                <h1>{displayName}</h1>
+                <h1>{kindNames[reflection.kind]} {displayName}</h1>
             </div>
         </header>;
     },
 
     Navigation({ reflection, router }) {
-        const navMembers: SomeReflection[] = router.hasOwnDocument(reflection) && reflection.isContainer()
-            ? reflection.children
-            : reflection.parent!.children;
+        let navMembers: SomeReflection[];
+        // Special case for use with a single entry point, we go straight from the project to the entry point's members.
+        if (reflection.isProject() && reflection.children.length === 1) {
+            navMembers = reflection.children[0].children
+        } else {
+            navMembers = router.hasOwnDocument(reflection) && reflection.isContainer()
+                ? reflection.children
+                : reflection.parent!.children;
+        }
 
         return <nav>
             <ul>
@@ -96,6 +127,17 @@ export const defaultTemplates: Templates = {
         return <footer>
             <p>Generated using <a href='https://typedoc.org/' target='_blank'>TypeDoc</a></p>
         </footer>;
+    },
+
+    // TODO: This needs to group according to categories.
+    PageChildren(props) {
+        const { router, reflection, templates } = props;
+        return <Fragment>
+            {router.getChildrenInPage(reflection).map(child => <Fragment>
+                <h3>{kindNames[child.kind]} {child.name}</h3>
+                <templates.Reflection {...props} reflection={child} />
+            </Fragment>)}
+        </Fragment>;
     },
 
     Reflection({ reflection, templates, hooks, router, ...extra }) {
@@ -132,7 +174,7 @@ export const defaultTemplates: Templates = {
         // Discriminated unions don't play nicely here... TS infers the required type to be `never`
         return <Fragment>
             {hooks.emit('reflection.before', reflection)}
-            <div className={`reflection ${ReflectionKind.toKindString(reflection.kind)}`}>
+            <div className={`reflection ${ReflectionKind.toKindString(reflection.kind)}`} id={router.createSlug(reflection)}>
                 {hooks.emit('reflection.begin', reflection)}
                 <Template reflection={reflection as never} templates={templates} hooks={hooks} router={router} {...extra} />
                 {hooks.emit('reflection.end', reflection)}
@@ -141,71 +183,142 @@ export const defaultTemplates: Templates = {
         </Fragment>
     },
 
-    Project({ reflection, templates }) {
-        return <div>Project {reflection.name}</div>;
+    Comment({ reflection, parseMarkdown }) {
+        const comment = reflection.comment;
+        if (!comment) {
+            return <Fragment />
+        }
+
+        const parsed = parseMarkdown(`${comment.shortText}\n\n${comment.text}`, reflection);
+        const rendered = <div class='comment markdown' dangerouslySetInnerHTML={{ __html: parsed }} />
+
+        if (comment.tags?.length) {
+            return <Fragment>
+                {rendered}
+                <dl class='comment-tags'>
+                    {comment.tags.map(tag => <Fragment>
+                        <dt>{tag.tagName}</dt>
+                        <dd dangerouslySetInnerHTML={{ __html: parseMarkdown(tag.text, reflection) }}></dd>
+                    </Fragment>)}
+                </dl>
+            </Fragment>
+        }
+
+        return rendered;
     },
 
-    Module({ reflection, templates, hooks }) {
-        return <div>Module {reflection.name}</div>;
+    Project(props) {
+        const { reflection, templates, parseMarkdown } = props;
+
+        return <Fragment>
+            <div class='markdown' dangerouslySetInnerHTML={{ __html: parseMarkdown(reflection.readme, reflection)}} />
+            <templates.PageChildren {...props} />
+        </Fragment>
     },
 
-    Namespace({ reflection, templates, hooks }) {
-        return <div>Namespace {reflection.name}</div>;
-    },
+    Module(props) {
+        const { templates } = props;
 
-    Interface({ reflection }) {
-        return <div>Interface {reflection.name}</div>;
+        // TODO: Index.
+        return <Fragment>
+            <templates.Comment {...props} />
+            <templates.PageChildren {...props} />
+        </Fragment>
     },
+    Namespace(props) {
+        const { templates } = props;
 
-    TypeAlias({ reflection }) {
-        return <div>Interface {reflection.name}</div>;
+        return <Fragment>
+            <templates.Comment {...props} />
+            <templates.PageChildren {...props} />
+        </Fragment>
     },
+    Interface(props) {
+        const { reflection } = props;
 
-    Enum({ reflection }) {
-        return <div>Enum {reflection.name}</div>;
+        return <Fragment>TODO {reflection.name}</Fragment>
     },
+    TypeAlias(props) {
+        const { reflection } = props;
 
-    EnumMember({ reflection }) {
-        return <div>EnumMember {reflection.name}</div>;
+        return <Fragment>TODO {reflection.name}</Fragment>
     },
+    Enum(props) {
+        const { reflection } = props;
 
-    Function({ reflection }) {
-        return <div>Function {reflection.name}</div>;
+        return <Fragment>TODO {reflection.name}</Fragment>
     },
+    EnumMember(props) {
+        const { reflection } = props;
 
-    Class({ reflection }) {
-        return <div>Class {reflection.name}</div>;
+        return <Fragment>TODO {reflection.name}</Fragment>
     },
+    Function(props) {
+        const { reflection, templates } = props;
 
-    Object({ reflection }) {
-        return <div>Object {reflection.name}</div>;
+        return <Fragment>
+            {reflection.signatures.map(s => <templates.Signature {...props} reflection={s} />)}
+        </Fragment>
     },
+    Class(props) {
+        const { reflection } = props;
 
-    Method({ reflection }) {
-        return <div>Method {reflection.name}</div>;
+        return <Fragment>TODO {reflection.name}</Fragment>
     },
+    Object(props) {
+        const { reflection } = props;
 
-    Property({ reflection }) {
-        return <div>Property {reflection.name}</div>;
+        return <Fragment>TODO {reflection.name}</Fragment>
     },
+    Method(props) {
+        const { reflection } = props;
 
-    Accessor({ reflection }) {
-        return <div>Accessor {reflection.name}</div>;
+        return <Fragment>TODO {reflection.name}</Fragment>
     },
+    Property(props) {
+        const { reflection } = props;
 
-    Variable({ reflection }) {
-        return <div>Accessor {reflection.name}</div>;
+        return <Fragment>TODO {reflection.name}</Fragment>
     },
+    Accessor(props) {
+        const { reflection } = props;
 
-    Signature({ reflection }) {
-        return <div>Signature {reflection.name}</div>;
+        return <Fragment>TODO {reflection.name}</Fragment>
     },
+    Variable(props) {
+        const { reflection } = props;
 
-    Parameter({ reflection }) {
-        return <div>Parameter {reflection.name}</div>;
+        return <Fragment>TODO {reflection.name}</Fragment>
     },
+    Signature(props) {
+        const { reflection } = props;
 
-    Reference({ reflection }) {
-        return <div>Reference {reflection.name}</div>;
+        const typeArgs = reflection.typeParameters.length ? <Fragment>
+            &lt;{reflection.typeParameters.map(param => param.toString())}&gt;
+        </Fragment> : <Fragment />
+
+        return <Fragment>
+            {reflection.name}{typeArgs}({
+                reflection.parameters.map(s => <Fragment>{s.name}: {s.type.toString()}</Fragment>)
+            }): {reflection.returnType.toString()}
+        </Fragment>
+    },
+    Parameter(props) {
+        const { reflection } = props;
+        return <Fragment>
+            {reflection.name}: {reflection.type.toString()}
+        </Fragment>
+    },
+    Reference({ reflection, router }) {
+        const referenced = reflection.resolve()
+        if (referenced) {
+            return <Fragment>
+                Re-export <a href={router.createLink(reflection, referenced)}>{reflection.name}</a>
+            </Fragment>
+        }
+
+        return <Fragment>
+            Re-export {reflection.name}
+        </Fragment>
     }
 };

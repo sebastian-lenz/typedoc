@@ -1,7 +1,7 @@
 import * as assert from 'assert';
 import { Slugger } from 'marked';
 import { posix } from 'path';
-import { ProjectReflection, Reflection, ReflectionKind } from '../models';
+import { ProjectReflection, Reflection, ReflectionKind, SomeReflection } from '../models';
 
 /**
  * Type which custom routers must conform to.
@@ -16,6 +16,7 @@ export class ThemeRouter {
      * A map of reflections with pages to their associated slugger instance.
      */
     protected _sluggers = new WeakMap<Reflection, Slugger>();
+    protected _slugs = new WeakMap<Slugger, Map<string, string>>();
 
     constructor(protected project: ProjectReflection) {}
 
@@ -41,7 +42,7 @@ export class ThemeRouter {
         const docReflection = this._getReflectionWithDocument(reflection);
 
         // We have our own page, no anchor required.
-        if (docReflection === reflection) {
+        if (docReflection === reflection && !header) {
             return '';
         }
 
@@ -51,6 +52,7 @@ export class ThemeRouter {
             this._sluggers.set(docReflection, slugger);
         }
 
+        // If this is for a header, always create a new slug.
         if (header) {
             return slugger.slug(header);
         }
@@ -61,7 +63,19 @@ export class ThemeRouter {
             parts.unshift(reflection.name);
             reflection = reflection.parent!;
         }
-        return slugger.slug(parts.join('-'));
+        const name = parts.join('-');
+
+        // We should return the same slug for a given reflection / doc reflection whenever it is requested.
+        let slugs = this._slugs.get(slugger)
+        if (!slugs) {
+            slugs = new Map();
+            this._slugs.set(slugger, slugs);
+        }
+
+        const slug = slugs.get(name) ?? slugger.slug(name);
+        slugs.set(name, slug);
+
+        return slug;
     }
 
     /**
@@ -79,6 +93,23 @@ export class ThemeRouter {
      */
     getAssetDirectory(): string {
         return 'assets';
+    }
+
+    /**
+     * Creates a link from the page for `from` to the specified asset.
+     */
+    createMediaLink(from: Reflection, media: string): string {
+        const docReflection = this._getReflectionWithDocument(from);
+        const reflectionDir = posix.dirname(this.getDocumentName(docReflection));
+        return posix.relative(reflectionDir, posix.join(this.getAssetDirectory(), media));
+    }
+
+    /**
+     * Get the directory to store media in relative to the root theme directory.
+     * Used by {@link createMediaLink} to determine how to link to an asset.
+     */
+    getMediaDirectory(): string {
+        return 'media';
     }
 
     /**
@@ -128,6 +159,7 @@ export class ThemeRouter {
      * Rules:
      * 1. If `false` is returned for a reflection, all children reflections must also return `false`.
      * 2. If `true` is returned for a reflection, its children may return `true` or `false`.
+     * 3. As project reflections are the root level reflection, this must return true if `reflection.isProject()` is true.
      */
     hasOwnDocument(reflection: Reflection): boolean {
         return reflection.kindOf(ReflectionKind.Project
@@ -138,11 +170,19 @@ export class ThemeRouter {
     }
 
     /**
+     * Helper function for templates to get direct children which should be rendered in this page.
+     * @param reflection
+     */
+    getChildrenInPage(reflection: Reflection): SomeReflection[] {
+        return reflection.isContainer() ? reflection.children.filter(child => !this.hasOwnDocument(child)) : [];
+    }
+
+    /**
      * Helper function to find the reflection whose page this reflection will be contained in.
      */
     protected _getReflectionWithDocument(reflection: Reflection): Reflection {
         while (!this.hasOwnDocument(reflection)) {
-            assert(reflection.parent, 'Rendered reflection has no parent with document.');
+            assert(reflection.parent, `Rendered reflection ${reflection.name} has no parent with document.`);
             reflection = reflection.parent;
         }
         return reflection;

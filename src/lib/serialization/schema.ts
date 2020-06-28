@@ -65,8 +65,21 @@ export interface SerializedReflection<T extends M.SomeReflection> {
 
     name: string;
     originalName?: string;
+    comment?: SerializedComment;
 }
 
 export interface SerializedContainerReflection<T extends M.SomeContainerReflection> extends SerializedReflection<T> {
     children: ModelToObject<T['children']>;
+}
+
+export interface SerializedComment {
+    shortText: string;
+    text: string;
+    tags: SerializedCommentTag[];
+}
+
+export interface SerializedCommentTag {
+    tagName: string;
+    text: string;
+    paramName?: string;
 }
