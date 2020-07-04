@@ -5,13 +5,11 @@
 /* Theme colors, you can override these by including a custom style sheet with --style */
 :root {
     --light-border: #eeeeee;
-    --light-background: #fdfdfd;
     --light-text: #222222;
     --light-text-aside: #808080;
     --light-text-link: #4da6ff;
 
     --dark-border: #ffffff;
-    --dark-background: #404040;
     --dark-text: #ffffff;
     --dark-text-aside: #dddddd;
     --dark-text-link: #389fff;
@@ -24,7 +22,6 @@ body {
 
 body {
     --theme-border: var(--light-border);
-    --theme-background: var(--light-background);
     --theme-text: var(--light-text);
     --theme-text-aside: var(--light-text-aside);
     --theme-text-link: var(--light-text-link);
@@ -32,7 +29,6 @@ body {
 
 body.dark {
     --theme-border: var(--dark-border);
-    --theme-background: var(--dark-background);
     --theme-text: var(--dark-text);
     --theme-text-aside: var(--dark-text-aside);
     --theme-text-link: var(--dark-text-link);
@@ -44,7 +40,6 @@ a {
 
 body {
     margin: 0;
-    background: var(--theme-background);
     color: var(--theme-text);
 }
 

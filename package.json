@@ -20,15 +20,14 @@
     "node": ">= 8.0.0"
   },
   "dependencies": {
-    "highlight.js": "^10.0.0",
     "lodash": "^4.17.15",
     "lunr": "^2.3.8",
     "marked": "1.1.0",
     "minimatch": "^3.0.0",
     "preact": "^10.4.4",
     "preact-render-to-string": "^5.1.9",
-    "progress": "^2.0.3",
-    "shelljs": "^0.8.4"
+    "shelljs": "^0.8.4",
+    "shiki": "^0.1.7"
   },
   "peerDependencies": {
     "typescript": ">=3.8.3"

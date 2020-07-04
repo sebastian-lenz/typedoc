@@ -9,6 +9,7 @@ import { defaultTemplates } from './default-templates';
 import { MinimalThemeRouter, ThemeRouter, ThemeRouterConstructor } from './router';
 import { Templates } from './templates';
 import { parseMarkdown } from './comment'
+import { DoubleHighlighter } from './highlight'
 
 const STATIC_DIR = join(__dirname, '../../../static')
 
@@ -29,13 +30,15 @@ export function buildTheme(routerCtor: ThemeRouterConstructor, templates?: Parti
         const start = Date.now();
         const router = new routerCtor(project);
         const themeTemplates: Templates = { ...defaultTemplates, ...templates };
+        // TODO: These ought to be configurable.
+        const highlighter = await DoubleHighlighter.create('light_plus', 'monokai_dimmed');
 
         const pages: Reflection[] = [project];
         const tasks: Promise<void>[] = [];
 
         // TODO: Media, etc.
         function boundParseMarkdown(markdown: string, reflection: Reflection) {
-            return parseMarkdown(markdown, reflection, router);
+            return parseMarkdown(markdown, reflection, router, highlighter);
         }
 
         while (pages.length) {
@@ -61,6 +64,11 @@ export function buildTheme(routerCtor: ThemeRouterConstructor, templates?: Parti
         tasks.push(copyFile(
             join(STATIC_DIR, 'style.css'),
             join(outDir, router.getAssetDirectory(), 'style.css')))
+
+        // Write theme css
+        tasks.push(writeFile(
+            join(outDir, router.getAssetDirectory(), 'theme.css'),
+            highlighter.getStyles()));
 
         await Promise.all(tasks);
         app.logger.verbose(`[Perf] Theme output took ${Date.now() - start}ms`);

@@ -45,13 +45,14 @@ export const defaultTemplates: Templates = {
                     {reflection.isProject() ? reflection.name : `${reflection.name} | ${reflection.project!.name}`}
                 </title>
                 <link rel='stylesheet' href={props.router.createAssetLink(reflection, 'style.css')} />
+                <link rel='stylesheet' href={props.router.createAssetLink(reflection, 'theme.css')} />
                 {hooks.emit('head.end', reflection)}
             </head>
             <body>
                 <script>
                     const loads = +localStorage.getItem('loads') || 0;
                     localStorage.setItem('loads', loads + 1);
-                    if (loads % 2 || true) document.body.classList.add('dark')
+                    if (loads % 2) document.body.classList.add('dark')
                 </script>
                 {hooks.emit('body.begin', reflection)}
                 <templates.Header {...props} />

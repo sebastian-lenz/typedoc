@@ -7,18 +7,21 @@ import * as Marked from 'marked';
 import * as path from 'path';
 import { Logger } from '../utils'
 import { readFileSync, existsSync } from 'fs'
+import { DoubleHighlighter } from './highlight'
 
-// TODO: Syntax highlighting
-// TODO: {@link}, [[link]]
+// TODO: {@link}, [[link]], [[include]], media://
 
-export function parseMarkdown(markdown: string, reflection: Reflection, router: ThemeRouter) {
+export function parseMarkdown(markdown: string, reflection: Reflection, router: ThemeRouter, highlighter: DoubleHighlighter) {
     const renderer = new Marked.Renderer();
     renderer.heading = (text, level, raw) => {
         const slug = router.createSlug(reflection, raw);
         return `<h${level}><a href="#${slug}" id="${slug}">${text}</a></h${level}>`;
     };
 
-    Marked.use({ renderer });
+    Marked.use({
+        renderer,
+        highlight: (code, lang) => highlighter.highlight(code, lang)
+    });
 
     return Marked(markdown);
 }
