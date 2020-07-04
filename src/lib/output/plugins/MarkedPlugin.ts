@@ -1,4 +1,4 @@
-import * as FS from 'fs-extra';
+import * as FS from 'fs/promises';
 import * as Path from 'path';
 import * as Marked from 'marked';
 import * as HighlightJS from 'highlight.js';

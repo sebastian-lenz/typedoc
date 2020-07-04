@@ -9,7 +9,7 @@ const CUTOFF_MS = Date.now() - 1000 * 60 * 60 * 24 * CUTOFF_DAYS;
 const cp = require('child_process');
 const path = require('path');
 const https = require('https');
-const fs = require('fs-extra');
+const fs = require('fs');
 
 /**
  * @param {string} command
@@ -53,10 +53,10 @@ function downloadTarball(url, outDir) {
 }
 
 // Could do this with node... but this works in my environment which is the only place I
-// expect it to be used. If you want to use this,
+// expect it to be used. If you want to use this, somewhere else, feel free to update.
 async function inflate(file) {
     await exec(`gzip -d "${file}"`);
-    await fs.mkdir(file.replace(".tgz", ""));
+    await fs.promises.mkdir(file.replace(".tgz", ""));
     await exec(`tar -C "${file.replace(".tgz", "")}" -xf "${file.replace(".tgz", ".tar")}"`);
 }
 
@@ -67,8 +67,8 @@ async function main(args) {
     console.log(`Found ${plugins.length} plugins updated in the past ${CUTOFF_DAYS} days.`);
     const tarballs = await Promise.all(plugins.map(getTarballUrl));
     console.log(`Downloading tarballs...`);
-    await fs.remove(outDir).catch(() => {});
-    await fs.mkdirp(outDir);
+    await fs.promises.rmdir(outDir, { recursive: true }).catch(() => {});
+    await fs.promises.mkdir(outDir, { recursive: true });
     const tarballFiles = await Promise.all(tarballs.map(tar => downloadTarball(tar, outDir)));
     console.log(`Inflating...`);
     await Promise.all(tarballFiles.map(inflate))

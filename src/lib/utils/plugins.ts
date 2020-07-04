@@ -1,7 +1,6 @@
 import * as fs from 'fs';
 import { join, resolve } from 'path';
 
-import { readFile } from './fs';
 import type { Logger } from './loggers';
 import { Application } from '../application';
 
@@ -89,7 +88,9 @@ function discoverNpmPlugins(logger: Logger) {
      */
     function loadPackageInfo(fileName: string): any {
         try {
-            return JSON.parse(readFile(fileName));
+            // Note: Use `require` here instead of read + JSON.parse since the latter
+            // opens up BOM issues. See GH#1192
+            return require(fileName);
         } catch (error) {
             logger.error('Could not parse %s', fileName);
             return {};

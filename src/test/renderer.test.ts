@@ -1,5 +1,5 @@
 import { Application, ProjectReflection } from '..';
-import * as FS from 'fs-extra';
+import * as FS from 'fs';
 import * as Path from 'path';
 import Assert = require('assert');
 import { ScriptTarget, ModuleKind } from 'typescript';
@@ -42,11 +42,11 @@ describe('Renderer', function() {
     let app: Application, project: ProjectReflection | undefined;
 
     before(function() {
-        FS.removeSync(out);
+        FS.rmdirSync(out, { recursive: true });
     });
 
     after(function() {
-        FS.removeSync(out);
+        FS.rmdirSync(out, { recursive: true });
     });
 
     it('constructs', function() {

@@ -1,42 +1,7 @@
-import * as fs from 'fs-extra';
-import { resolve, join } from 'path';
+import * as fs from 'fs/promises';
+import { resolve, join, dirname } from 'path';
 import { createMinimatch } from './paths';
 import type { Logger } from './loggers'
-
-/**
- * Load the given file and return its contents.
- *
- * @param file  The path of the file to read.
- * @returns The files contents.
- */
-export function readFile(file: string): string {
-    const buffer = fs.readFileSync(file);
-    switch (buffer[0]) {
-        case 0xFE:
-            if (buffer[1] === 0xFF) {
-                let i = 0;
-                while ((i + 1) < buffer.length) {
-                    const temp = buffer[i];
-                    buffer[i] = buffer[i + 1];
-                    buffer[i + 1] = temp;
-                    i += 2;
-                }
-                return buffer.toString('ucs2', 2);
-            }
-            break;
-        case 0xFF:
-            if (buffer[1] === 0xFE) {
-                return buffer.toString('ucs2', 2);
-            }
-            break;
-        case 0xEF:
-            if (buffer[1] === 0xBB) {
-                return buffer.toString('utf8', 3);
-            }
-    }
-
-    return buffer.toString('utf8', 0);
-}
 
 /**
  * Get the longest directory path common to all files.
@@ -93,7 +58,7 @@ export async function expandDirectories(
     }
 
     async function add(file: string, entryPoint: boolean) {
-        let stats: fs.Stats;
+        let stats: import('fs').Stats;
         try {
             stats = await fs.stat(file);
         } catch {
@@ -127,4 +92,21 @@ export async function expandDirectories(
     await Promise.all(inputFiles.map(file => add(resolve(file), true)));
 
     return files;
+}
+
+/**
+ * Copy a file or directory recursively.
+ */
+export async function copy(src: string, dest: string): Promise<void> {
+    const stat = await fs.stat(src)
+
+    if (stat.isDirectory()) {
+        const contained = await fs.readdir(src);
+        await Promise.all(contained.map(file => copy(join(src, file), join(dest, file))));
+    } else if (stat.isFile()) {
+        await fs.mkdir(dirname(dest), { recursive: true });
+        await fs.copyFile(src, dest);
+    } else {
+        // Do nothing for FIFO, special devices.
+    }
 }

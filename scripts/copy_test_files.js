@@ -1,20 +1,21 @@
 // @ts-check
 
-const fs = require('fs-extra');
+const fs = require('fs/promises');
+const { copy } = require('../dist/lib/utils/fs');
 const { join } = require('path');
 
-const copy = [
+const tasks = [
     'test/converter',
     'test/renderer',
     'test/utils/options/readers/data',
 ];
 
-const copies = copy.map(dir => {
+const copies = tasks.map(dir => {
     const source = join(__dirname, '../src', dir);
     const target = join(__dirname, '../dist', dir);
-    return fs.remove(target)
-        .then(() => fs.mkdirp(target))
-        .then(() => fs.copy(source, target));
+    return fs.rmdir(target, { recursive: true })
+        .then(() => fs.mkdir(target, { recursive: true }))
+        .then(() => copy(source, target));
 })
 
 Promise.all(copies).catch(reason => {

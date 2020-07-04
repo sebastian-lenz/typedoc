@@ -1,6 +1,7 @@
 // @ts-check
 
-const fs = require('fs-extra');
+const fs = require('fs/promises');
+const { existsSync, readdirSync, statSync } = require('fs');
 const path = require('path');
 const TypeDoc = require('..');
 const ts = require('typescript');
@@ -58,7 +59,7 @@ async function rebuildConverterTests(dirs) {
 
         for (const [file, before, after] of conversions) {
             const out = path.join(fullPath, `${file}.json`);
-            if (fs.existsSync(out)) {
+            if (existsSync(out)) {
                 TypeDoc.resetReflectionID();
                 before();
                 const result = await app.convert();
@@ -75,11 +76,11 @@ async function rebuildConverterTests(dirs) {
 }
 
 async function rebuildRendererTest() {
-    await fs.remove(path.join(__dirname, '../src/test/renderer/specs'));
+    await fs.rmdir(path.join(__dirname, '../src/test/renderer/specs'), { recursive: true });
     const src = path.join(__dirname, '../examples/basic/src');
     const out = path.join(__dirname, '../src/test/renderer/specs');
 
-    await fs.remove(out)
+    await fs.rmdir(out, { recursive: true })
     app.options.setValue('excludeExternals', false);
     app.options.setValue('inputFiles', [src]);
     const project = await app.convert();
@@ -94,10 +95,10 @@ async function rebuildRendererTest() {
      * @returns {string[]}
      */
     function getFiles(base, dir = '', results = []) {
-        const files = fs.readdirSync(path.join(base, dir));
+        const files = readdirSync(path.join(base, dir));
         for (const file of files) {
             const relativeToBase = path.join(dir, file);
-            if (fs.statSync(path.join(base, relativeToBase)).isDirectory()) {
+            if (statSync(path.join(base, relativeToBase)).isDirectory()) {
                 getFiles(base, relativeToBase, results);
             } else {
                 results.push(relativeToBase);

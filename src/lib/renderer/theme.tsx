@@ -1,5 +1,5 @@
 import * as assert from 'assert';
-import * as fs from 'fs-extra';
+import * as fs from 'fs/promises';
 import { dirname, join } from 'path';
 import { createElement } from 'preact';
 import { render } from 'preact-render-to-string';
@@ -13,12 +13,12 @@ import { parseMarkdown } from './comment'
 const STATIC_DIR = join(__dirname, '../../../static')
 
 const writeFile = async (path: string, content: string) => {
-    await fs.ensureDir(dirname(path));
+    await fs.mkdir(dirname(path), { recursive: true });
     await fs.writeFile(path, content);
 };
 
 const copyFile = async (src: string, dest: string) => {
-    await fs.ensureDir(dirname(dest));
+    await fs.mkdir(dirname(dest), { recursive: true });
     await fs.copyFile(src, dest);
 };
 

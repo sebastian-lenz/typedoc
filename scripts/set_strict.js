@@ -2,7 +2,7 @@
 // Sets the Strict type that TypeDoc uses to enable overloads for consumers only.
 // See the rationale in src/lib/utils/index.ts
 
-const fs = require('fs-extra');
+const fs = require('fs/promises');
 const { join } = require('path');
 
 const file = join(__dirname, '../src/lib/utils/index.ts');

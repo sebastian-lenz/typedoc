@@ -43,9 +43,6 @@ export {
 
 export { insertOrderSorted, removeIfPresent } from './array';
 
-export {
-    readFile,
-    expandDirectories
-} from './fs';
+export { expandDirectories } from './fs';
 export { Logger, LogLevel, ConsoleLogger, CallbackLogger } from './loggers';
 export { loadPlugins } from './plugins';
