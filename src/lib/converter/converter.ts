@@ -215,9 +215,16 @@ export class Converter extends EventEmitter<ConverterEventMap> {
     }
 
     private getExportsOfModule(file: ts.SourceFile, checker: ts.TypeChecker) {
-        const symbol = checker.getSymbolAtLocation(file);
-        // TODO: Need to support global symbols, iterate over children, get symbols for each child, dedupe.
-        if (!symbol) { return []; }
-        return checker.getExportsOfModule(symbol);
+        // If this is a normal TS file using ES2015 modules, use the type checker.
+        let symbol = checker.getSymbolAtLocation(file);
+
+        if (!symbol && file.flags & ts.NodeFlags.JavaScriptFile) {
+            // FIXME: It seems like there really ought to be a way to do this without relying on the internal symbol property.
+            // we need to do this for CommonJS users with module.exports=, exports.foo= https://stackoverflow.com/q/62865648/7186598
+            symbol = (file as any).symbol;
+        }
+
+        // Otherwise this isn't a module it is global and thus has no exports.
+        return symbol ? checker.getExportsOfModule(symbol) : [];
     }
 }

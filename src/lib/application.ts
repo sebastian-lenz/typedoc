@@ -104,13 +104,7 @@ export class Application {
         const beforeErrors = Date.now();
         this.logger.verbose(`[Perf] Creating program took ${beforeErrors - start}ms`);
 
-        const errors = [
-            ...program.getOptionsDiagnostics(),
-            ...program.getSyntacticDiagnostics(),
-            ...program.getGlobalDiagnostics(),
-            ...program.getSemanticDiagnostics()
-        ];
-
+        const errors = ts.getPreEmitDiagnostics(program);
         this.logger.verbose(`[Perf] Checking errors took ${Date.now() - beforeErrors}ms`);
 
         if (errors.length) {
