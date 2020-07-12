@@ -1,5 +1,6 @@
 import { CompilerOptions } from 'typescript';
 import { IgnoredTsOptionKeys } from './sources/typescript';
+import { LogLevel } from '../loggers'
 
 /**
  * An interface describing all TypeDoc specific options options. Generated from a
@@ -9,6 +10,17 @@ import { IgnoredTsOptionKeys } from './sources/typescript';
 export type TypeDocOptions = {
     [K in keyof TypeDocOptionMap]: TypeDocOptionMap[K] extends Record<string, infer U>
         ? Exclude<U, string> | keyof TypeDocOptionMap[K]
+        : TypeDocOptionMap[K];
+};
+
+/**
+ * Describes all TypeDoc specific options as returned by {@link Options.getValue}, this is
+ * slightly more restrictive than the {@link TypeDocOptions} since it does not allow both
+ * keys and values for mapped option types.
+ */
+export type TypeDocOptionValues = {
+    [K in keyof TypeDocOptionMap]: TypeDocOptionMap[K] extends Record<string, infer U>
+        ? Exclude<U, string>
         : TypeDocOptionMap[K];
 };
 
@@ -73,6 +85,7 @@ export interface TypeDocOptionMap {
     version: boolean;
     plugin: string[];
     logger: unknown; // string | Function
+    logLevel: typeof LogLevel;
     listInvalidSymbolLinks: boolean;
 }
 

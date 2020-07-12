@@ -30,6 +30,11 @@ export class Logger {
     warningCount = 0;
 
     /**
+     * The minimum logging level to print.
+     */
+    level = LogLevel.Info
+
+    /**
      * Has an error been raised through the log method?
      */
     public hasErrors(): boolean {
@@ -185,6 +190,9 @@ export class ConsoleLogger extends Logger {
      */
     public log(message: string, level: LogLevel = LogLevel.Info, newLine?: boolean) {
         super.log(message, level, newLine);
+        if (level < this.level) {
+            return;
+        }
 
         let output = '';
         if (level === LogLevel.Error) {

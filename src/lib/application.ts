@@ -68,6 +68,7 @@ export class Application {
             this.logger = new Logger();
             this.options.setLogger(this.logger);
         }
+        this.logger.level = this.options.getValue('logLevel');
 
         loadSources(this);
         loadSort(this);

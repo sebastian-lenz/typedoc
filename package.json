@@ -17,7 +17,7 @@
     "url": "https://github.com/TypeStrong/TypeDoc/issues"
   },
   "engines": {
-    "node": ">= 8.0.0"
+    "node": ">= 10.0.0"
   },
   "dependencies": {
     "lodash": "^4.17.15",

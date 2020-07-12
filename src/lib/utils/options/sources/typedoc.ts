@@ -1,5 +1,6 @@
 import { Options } from '..';
 import { ParameterType, ParameterHint } from '../declaration';
+import { LogLevel } from '../../loggers'
 
 export function addTypeDocOptions(options: Options) {
     options.addDeclaration({
@@ -190,6 +191,13 @@ export function addTypeDocOptions(options: Options) {
         help: "Specify the logger that should be used, 'none' or 'console'",
         defaultValue: 'console',
         type: ParameterType.Mixed
+    });
+    options.addDeclaration({
+        name: 'logLevel',
+        help: 'Specify what level of logging should be used.',
+        type: ParameterType.Map,
+        map: LogLevel,
+        defaultValue: LogLevel.Info
     });
     options.addDeclaration({
         name: 'listInvalidSymbolLinks',
