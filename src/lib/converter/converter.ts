@@ -1,6 +1,6 @@
 import * as assert from 'assert';
 import * as ts from 'typescript';
-import { posix } from 'path';
+import { relative, resolve } from 'path';
 
 import { Application } from '../application';
 import { ModuleReflection, ProjectReflection, SomeContainerReflection, SomeReflection, SomeType, UnknownType, IntrinsicType } from '../models/index';
@@ -99,7 +99,7 @@ export class Converter extends EventEmitter<ConverterEventMap> {
     async convert(program: ts.Program, inputFiles: string[]) {
         const start = Date.now();
         const compilerOptions = program.getCompilerOptions();
-        const rootDir = compilerOptions.rootDir ?? getCommonDirectory(program.getRootFileNames());
+        const rootDir = resolve(compilerOptions.baseUrl ?? compilerOptions.rootDir ?? getCommonDirectory(program.getRootFileNames()));
         this._checker = program.getTypeChecker();
 
         const { name, readme } = await discoverProjectInfo(rootDir,
@@ -123,7 +123,7 @@ export class Converter extends EventEmitter<ConverterEventMap> {
                 continue;
             }
 
-            const name = posix.relative(rootDir, file.fileName).replace(/(\.d)?\.[tj]sx?$/, '');
+            const name = relative(rootDir, file.fileName).replace(/(\.d)?\.[tj]sx?$/, '').replace(/\\/g, '/');
 
             const moduleReflection = new ModuleReflection(name);
             moduleReflection.comment = getCommentForNodes([file]);

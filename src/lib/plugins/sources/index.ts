@@ -1,8 +1,11 @@
-import type { Application } from '../../application';
-import * as ts from 'typescript';
-import * as shell from 'shelljs';
-import { HostLinkResolver } from './hosts';
-import { ReflectionKind, SomeReflection } from '../../models';
+import { relative, resolve } from 'path'
+import * as shell from 'shelljs'
+import * as ts from 'typescript'
+import type { Application } from '../../application'
+import { ReflectionKind, SomeReflection } from '../../models'
+import { getCommonDirectory } from '../../utils/fs'
+import { HostLinkResolver } from './hosts'
+import { Converter } from '../../converter'
 
 /**
  * Represents references of reflections to their defining source files.
@@ -56,15 +59,20 @@ export function load(app: Application) {
 
     shell.config.silent = true;
     let resolver: HostLinkResolver;
+    let rootDir: string;
 
     // At this point options haven't all been set, so wait to check them until we've started conversion.
-    app.converter.on('begin', () => {
+    app.converter.on(Converter.EVENT_BEGIN, (_, program) => {
         if (!shell.which('git')) { return; }
         if (app.options.getValue('disableSources')) { return; }
 
         resolver = new HostLinkResolver(app.options.getValue('gitRemote'), app.options.getValue('gitRevision'));
+        rootDir = resolve(program.getCompilerOptions().baseUrl
+            ?? program.getCompilerOptions().rootDir
+            ?? getCommonDirectory(program.getRootFileNames()));
+        app.logger.verbose(`Root dir is ${rootDir}`)
 
-        app.converter.on('reflectionCreated', (reflection, _, nodes) => {
+        app.converter.on(Converter.EVENT_REFLECTION_CREATED, (reflection, _, nodes) => {
             reflection.sources = nodes.map(getSourceReference);
         });
 
@@ -86,14 +94,13 @@ export function load(app: Application) {
         } else {
             position = ts.getLineAndCharacterOfPosition(node.getSourceFile(), node.pos);
         }
-        // TODO: Relative to rootDir
-        const fileName = node.getSourceFile().fileName;
+        const fileName = relative(rootDir, node.getSourceFile().fileName).replace(/\\/g, '/');
 
         return {
             fileName,
             line: position.line + 1,
             character: position.character,
-            url: resolver.tryGetUrl(fileName, position.line + 1)
+            url: resolver.tryGetUrl(node.getSourceFile().fileName, position.line + 1)
         };
     }
 }
