@@ -148,7 +148,7 @@ export class ThemeRouter {
    * @param reflection
    */
   getDocumentName(reflection: Reflection): string {
-    let parts: string[] = [];
+    const parts: string[] = [];
 
     let docReflection = this._getReflectionWithDocument(reflection);
     const pageReflection = docReflection;

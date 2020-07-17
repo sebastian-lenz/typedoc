@@ -58,7 +58,7 @@ describe("Array utils", () => {
 
     it("works with no partition", () => {
       equal(
-        binaryFindPartition([1, 2, 3], (n) => false),
+        binaryFindPartition([1, 2, 3], () => false),
         -1
       );
     });

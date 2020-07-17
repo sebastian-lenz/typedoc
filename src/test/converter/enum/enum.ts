@@ -41,7 +41,7 @@ export enum ModuleEnum {
 /**
  * This is a module extending an enumeration.
  */
-export module ModuleEnum {
+export namespace ModuleEnum {
   /**
    * This is a variable appended to an enumeration.
    */

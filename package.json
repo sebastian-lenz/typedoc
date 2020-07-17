@@ -60,7 +60,7 @@
     "rebuild_specs": "node scripts/rebuild_specs.js",
     "build": "tsc --project .",
     "build_and_test": "npm run build && npm run test",
-    "lint": "tslint --project .",
+    "lint": "eslint . && prettier -c .",
     "prepublishOnly": "node scripts/set_strict.js false && npm run lint && npm run build_and_test",
     "postpublish": "node scripts/set_strict.js true",
     "prepare": "npm run build",

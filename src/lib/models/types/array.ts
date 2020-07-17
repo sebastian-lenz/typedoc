@@ -34,7 +34,7 @@ export class ArrayType extends Type {
   }
 
   /** @inheritdoc */
-  stringify(wrapped: boolean): string {
+  stringify(_wrapped: boolean): string {
     return this.elementType.stringify(true) + "[]";
   }
 

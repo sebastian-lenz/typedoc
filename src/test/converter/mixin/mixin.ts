@@ -1,5 +1,3 @@
-// tslint:disable:variable-name
-
 /**
  * Any function
  */

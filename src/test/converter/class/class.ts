@@ -108,7 +108,7 @@ export interface TestSubClass {
   mergedMethod();
 }
 
-export module TestSubClass {
+export namespace TestSubClass {
   /**
    * staticMergedMethod short text.
    */

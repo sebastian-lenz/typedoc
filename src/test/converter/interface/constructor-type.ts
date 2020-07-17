@@ -3,6 +3,7 @@ export interface Constructor {
   new (x: string, y: string);
 
   // A return type is defined and is the same as the parent one.
+  // eslint-disable-next-line @typescript-eslint/no-misused-new
   new (x: string, y: string): Constructor;
 
   // A return type is defined and is not the same as the parent one.

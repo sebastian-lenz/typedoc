@@ -42,7 +42,7 @@ export abstract class Host {
  * - git@github.company.com:project/repository.git
  */
 export class GitHubHost extends Host {
-  static HOST_REGEX = /(github(?:\.[a-z]+)*\.com)[:\/]([\w-]+)\/([\w-]+)/;
+  static HOST_REGEX = /(github(?:\.[a-z]+)*\.com)[:/]([\w-]+)\/([\w-]+)/;
 
   private hostname: string;
   private project: string;
@@ -82,7 +82,7 @@ export class GitHubHost extends Host {
  * - https://username@bitbucket.org/project/repository.git
  */
 export class BitbucketHost extends Host {
-  static HOST_REGEX = /@bitbucket.org[\/:]([\w-]+)\/([\w-]+)/;
+  static HOST_REGEX = /@bitbucket.org[/:]([\w-]+)\/([\w-]+)/;
 
   private repository: string;
   private project: string;

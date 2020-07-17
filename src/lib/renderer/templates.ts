@@ -45,8 +45,6 @@ export interface TemplateHooks {
   "reflection.after": [SomeReflection];
 }
 
-// tslint:disable:variable-name
-
 /**
  * Describes the Template contract. Extended users may provide a `Partial<Templates>` to override
  * only some templates.

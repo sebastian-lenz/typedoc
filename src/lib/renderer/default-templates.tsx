@@ -219,7 +219,6 @@ export const defaultTemplates: Templates = {
       [ReflectionKind.Reference]: templates.Reference,
     };
 
-    // tslint:disable-next-line:variable-name
     const Template = templateMap[reflection.kind];
 
     if (!Template) {

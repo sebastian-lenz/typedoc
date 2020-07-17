@@ -50,7 +50,7 @@ export class ReferenceReflection extends Reflection {
   }
 
   serialize(
-    serializer: Serializer,
+    _serializer: Serializer,
     init: BaseSerialized<ReferenceReflection>
   ): SerializedReferenceReflection {
     return {

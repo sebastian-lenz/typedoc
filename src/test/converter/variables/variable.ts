@@ -1,6 +1,9 @@
 export const myConst = 15;
+
+// eslint-disable-next-line
 export let myLet = 15;
-// tslint:disable-next-line:no-var-keyword
+
+// eslint-disable-next-line
 export var myVar = 15;
 
 let x: object;

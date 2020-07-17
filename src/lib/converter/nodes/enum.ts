@@ -8,7 +8,7 @@ export const enumConverter: ReflectionConverter<
   EnumReflection
 > = {
   kind: [ts.SyntaxKind.EnumDeclaration],
-  async convert(context, symbol, nodes) {
+  async convert(context, symbol) {
     const isConst =
       (symbol.flags & ts.SymbolFlags.ConstEnum) === ts.SymbolFlags.ConstEnum;
     const container = new EnumReflection(symbol.name, isConst);

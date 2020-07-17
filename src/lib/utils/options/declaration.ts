@@ -292,7 +292,7 @@ export function convert<T extends DeclarationOption>(
     case undefined:
     case ParameterType.String:
       return value == null ? "" : String(value);
-    case ParameterType.Number:
+    case ParameterType.Number: {
       const numberOption = option as NumberDeclarationOption;
       const numValue = parseInt(String(value), 10) || 0;
       if (
@@ -311,6 +311,7 @@ export function convert<T extends DeclarationOption>(
         );
       }
       return numValue;
+    }
     case ParameterType.Boolean:
       return Boolean(value);
     case ParameterType.Array:
@@ -320,7 +321,7 @@ export function convert<T extends DeclarationOption>(
         return value.split(",");
       }
       return [];
-    case ParameterType.Map:
+    case ParameterType.Map: {
       const optionMap = option as MapDeclarationOption<unknown>;
       const key = String(value).toLowerCase();
       if (optionMap.map instanceof Map) {
@@ -331,7 +332,7 @@ export function convert<T extends DeclarationOption>(
           return value;
         }
       } else {
-        if (optionMap.map.hasOwnProperty(key)) {
+        if (key in optionMap.map) {
           return optionMap.map[key];
         }
         if (Object.values(optionMap.map).includes(value)) {
@@ -341,6 +342,7 @@ export function convert<T extends DeclarationOption>(
       throw new Error(
         optionMap.mapError ?? getMapError(optionMap.map, optionMap.name)
       );
+    }
     case ParameterType.Mixed:
       return value;
   }

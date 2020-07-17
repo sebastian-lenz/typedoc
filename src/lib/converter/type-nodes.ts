@@ -141,7 +141,7 @@ const inferTypeNodeConverter: TypeNodeConverter<
   M.InferredType
 > = {
   kind: [ts.SyntaxKind.InferType],
-  convert(converter, node) {
+  convert(_converter, node) {
     return new M.InferredType(node.typeParameter.name.text);
   },
 };
@@ -299,7 +299,7 @@ const thisTypeNodeConverter: TypeNodeConverter<
   M.IntrinsicType
 > = {
   kind: [ts.SyntaxKind.ThisType],
-  convert(converter, node) {
+  convert() {
     return new M.IntrinsicType("this");
   },
 };
@@ -323,7 +323,7 @@ const typeLiteralConverter: TypeNodeConverter<
   M.ObjectType | M.SignatureType | M.ConstructorType
 > = {
   kind: [ts.SyntaxKind.TypeLiteral],
-  convert(converter, node, type) {
+  convert(converter, node) {
     const properties = node.members
       .filter(ts.isPropertySignature)
       .map(

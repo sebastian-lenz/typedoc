@@ -35,7 +35,7 @@ export function binaryFindPartition<T>(
     high = arr.length - 1;
 
   while (high > low) {
-    let mid = low + Math.floor((high - low) / 2);
+    const mid = low + Math.floor((high - low) / 2);
     if (partition(arr[mid])) {
       high = mid;
     } else {

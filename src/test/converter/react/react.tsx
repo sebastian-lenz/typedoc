@@ -8,7 +8,7 @@ export interface DemoProps {
 export class Demo {
   private foo: number;
 
-  constructor(props: DemoProps) {
+  constructor(_props: DemoProps) {
     this.foo = 42;
   }
 

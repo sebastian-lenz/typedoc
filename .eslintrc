@@ -1,6 +1,10 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
+  "env": {
+    "node": true,
+    "es6": true
+  },
   "plugins": ["@typescript-eslint"],
   "extends": [
     "eslint:recommended",
@@ -8,17 +12,56 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "ignorePatterns": [
-    "src/test/renderer/specs"
+    "src/test/renderer/specs/**",
+    // This goes away when the rest of the plugins are converted
+    "src/lib/converter/plugins/**",
+    "src/lib/output/plugins/**",
+    "examples/**",
+    "dist"
   ],
   "rules": {
     // This rule is factually incorrect. Interfaces which extend some type alias can be used to introduce
     // new type names. This is useful particularly when dealing with mixins.
-    "no-empty-interface": 0,
+    "@typescript-eslint/no-empty-interface": 0,
 
     // We can maybe turn this back on someday...
-    "no-non-null-assertion": 0,
+    "@typescript-eslint/no-non-null-assertion": 0,
 
-    // We're all adults here..
-    "@typescript-eslint/ban-types": 0
-  }
+    // We still use `any` fairly frequently...
+    "@typescript-eslint/ban-types": 0,
+    "@typescript-eslint/no-explicit-any": 0,
+
+    // I agree with this in principle for libraries, but we aren't ready for it yet.
+    "@typescript-eslint/explicit-module-boundary-types": 0,
+
+    // Declaration merging with a namespace is a necessary tool when working with enums.
+    "@typescript-eslint/no-namespace": 0,
+
+    // We use TypeScript for this check because the eslint version is broken with tsx.
+    "@typescript-eslint/no-unused-vars": 0,
+    "@typescript-eslint/no-empty-function": 0
+  },
+  "overrides": [
+    {
+      "files": ["src/test/**"],
+      "rules": {
+        "@typescript-eslint/no-inferrable-types": 0,
+        // TODO: Make this go away.
+        "prefer-const": 0
+      }
+    },
+    {
+      "files": ["scripts/**", "bin/typedoc.js"],
+      "rules": {
+        // We don't depend on a new enough version of node to use imports here...
+        "@typescript-eslint/no-var-requires": 0
+      }
+    },
+    {
+      "files": ["src/test/**"],
+      "env": {
+        "mocha": true
+      }
+    }
+  ]
 }

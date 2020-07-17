@@ -49,7 +49,7 @@ export function replaceIncludes(
   });
 }
 
-const MEDIA_PATTERN = /media:\/\/([^ "\)\]\}]+)/g;
+const MEDIA_PATTERN = /media:\/\/([^ ")\]}]+)/g;
 
 export function replaceMedia(
   mediaDir: string,

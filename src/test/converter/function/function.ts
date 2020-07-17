@@ -105,12 +105,12 @@ export function multipleSignatures(value: { name: string }): string;
  *
  * @return This is the return value of the function.
  */
-export function multipleSignatures(): string {
+export function multipleSignatures(...args: any[]): string {
   if (arguments.length > 0) {
-    if (typeof arguments[0] === "object") {
-      return arguments[0].name;
+    if (typeof args[0] === "object") {
+      return args[0].name;
     } else {
-      return arguments[0];
+      return args[0];
     }
   }
 
@@ -164,19 +164,14 @@ export function isNonNull<T>(arg: T | null | undefined): arg is T {
 /**
  * This is the module extending the function moduleFunction().
  */
-export module moduleFunction {
+export namespace moduleFunction {
   /**
-   * This variable is appended to a function.
+   * This function is appended to another function.
    */
-  let functionVariable: string;
+  export function append() {}
 
   /**
    * This function is appended to another function.
    */
-  function append() {}
-
-  /**
-   * This function is appended to another function.
-   */
-  function prepend() {}
+  export function prepend() {}
 }

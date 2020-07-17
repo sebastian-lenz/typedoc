@@ -132,7 +132,7 @@ export class Logger {
   public log(
     _message: string,
     level: LogLevel = LogLevel.Info,
-    newLine?: boolean
+    _newLine?: boolean
   ) {
     if (level === LogLevel.Error) {
       this.errorCount += 1;

@@ -26,6 +26,8 @@ export function loadPlugins(
 
 function loadPlugin(app: Application, plugin: string, logger: Logger) {
   try {
+    // We can't use import here, we're dynamically importing things...
+    // eslint-disable-next-line
     const instance = require(plugin);
     if (typeof instance.load === "function") {
       instance.load(app);

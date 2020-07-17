@@ -1,3 +1,5 @@
+// 'module' is still a permissable syntax by TS, so we need to test it.
+// eslint-disable-next-line
 export module Forms {
   /**
    * Function signature of an event listener callback

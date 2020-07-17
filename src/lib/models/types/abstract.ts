@@ -32,7 +32,6 @@ export enum TypeKind {
 export namespace TypeKind {
   const LAST_KIND = TypeKind.Unknown;
 
-  // tslint:disable-next-line
   export const All: TypeKind = LAST_KIND * 2 - 1;
 
   export const toKindArray = makeToKindArray(LAST_KIND);

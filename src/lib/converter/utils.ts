@@ -114,6 +114,7 @@ export async function discoverProjectInfo(
   let name = projectName;
 
   if (packageFile) {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
     const packageInfo: any = require(packageFile);
     if (!name) {
       name = String(packageInfo.name);

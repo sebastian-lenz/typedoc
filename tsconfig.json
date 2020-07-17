@@ -7,7 +7,6 @@
     ],
     "target": "es2018",
     "strict": true,
-    "noUnusedLocals": true,
     "preserveConstEnums": true,
     "declaration": true,
     "sourceMap": true,
@@ -18,7 +17,11 @@
     "newLine": "LF",
     "resolveJsonModule": true,
     "jsx": "react",
-    "jsxFactory": "createElement"
+    "jsxFactory": "createElement",
+
+    // These really ought to be checked by a linter, but ESLint doesn't work properly with JSX.
+    "noUnusedParameters": true,
+    "noUnusedLocals": true
   },
   "include": ["src"],
   "exclude": [

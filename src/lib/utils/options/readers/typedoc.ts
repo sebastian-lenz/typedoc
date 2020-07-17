@@ -57,6 +57,7 @@ export class TypeDocReader implements OptionsReader {
     }
     seen.add(file);
 
+    // eslint-disable-next-line
     const fileContent: unknown = require(file);
 
     if (!isObject(fileContent)) {

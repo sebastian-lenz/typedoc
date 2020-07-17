@@ -113,7 +113,7 @@ async function rebuildRendererTest() {
     return results;
   }
 
-  const gitHubRegExp = /https:\/\/github.com\/[A-Za-z0-9\-]+\/typedoc\/blob\/[^\/]*\/examples/g;
+  const gitHubRegExp = /https:\/\/github.com\/[A-Za-z0-9-]+\/typedoc\/blob\/[^/]*\/examples/g;
   return getFiles(out).map((file) => {
     const full = path.join(out, file);
     return fs

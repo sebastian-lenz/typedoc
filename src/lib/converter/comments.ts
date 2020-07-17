@@ -173,8 +173,8 @@ function parseComment(text: string): Comment {
   let shortText = 0;
 
   function consumeTypeData(line: string): string {
-    line = line.replace(/^\{(?!@)[^\}]*\}+/, "");
-    line = line.replace(/^\[[^\[][^\]]*\]+/, "");
+    line = line.replace(/^\{(?!@)[^}]*\}+/, "");
+    line = line.replace(/^\[[^[][^\]]*\]+/, "");
     return line.trim();
   }
 
@@ -215,7 +215,7 @@ function parseComment(text: string): Comment {
         line = line.substr(paramName.length + 1).trim();
       }
       line = consumeTypeData(line);
-      line = line.replace(/^\-\s+/, "");
+      line = line.replace(/^-\s+/, "");
     } else if (tagName === "returns") {
       line = consumeTypeData(line);
     }

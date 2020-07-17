@@ -1,5 +1,3 @@
-// tslint:disable:variable-name
-
 // Note: This is a copy of the mixin test case for the converter.
 
 /**

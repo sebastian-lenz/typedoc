@@ -91,9 +91,9 @@ Once you have cloned TypeDoc, you can lint, build, and test the code from your t
 
 #### Linting
 
-To lint the TypeDoc code, run `npm run lint`. This will start tslint and check all files for stylistic problems. You can also install a tslint plugin for your editor to show most style problems as you type.
+To lint the TypeDoc code, run `npm run lint`. This will use both eslint and prettier to check all files for stylistic problems. You can also install plugins for your editor to show most style problems as you type.
 
-You can automatically fix some style problems by running `npm run lint -- --fix`.
+You can automatically fix some style problems by running `npx prettier --write .`.
 
 #### Building
 

@@ -61,7 +61,6 @@ export enum ReflectionKind {
 export namespace ReflectionKind {
   const LAST_KIND = ReflectionKind.Reference;
 
-  // tslint:disable-next-line
   export const All: ReflectionKind = LAST_KIND * 2 - 1;
 
   export const toKindArray = makeToKindArray(LAST_KIND);

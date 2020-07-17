@@ -48,7 +48,7 @@ export class LiteralType extends Type {
 
   /** @inheritdoc */
   serialize(
-    serializer: unknown,
+    _serializer: unknown,
     init: BaseSerialized<LiteralType>
   ): SerializedLiteralType {
     return {

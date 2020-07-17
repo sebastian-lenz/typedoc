@@ -75,7 +75,7 @@ const booleanTypeConverter: TypeConverter<ts.Type, M.IntrinsicType> = {
   supports(type) {
     return Boolean(type.flags & ts.TypeFlags.Boolean);
   },
-  convert(_converter, type) {
+  convert(_converter) {
     return new M.IntrinsicType("boolean");
   },
 };
@@ -169,7 +169,7 @@ const numberTypeConverter: TypeConverter<ts.Type, M.IntrinsicType> = {
   supports(type) {
     return Boolean(type.flags & ts.TypeFlags.Number);
   },
-  convert(_converter, type) {
+  convert(_converter) {
     return new M.IntrinsicType("number");
   },
 };
@@ -196,7 +196,7 @@ const stringTypeConverter: TypeConverter<ts.Type, M.IntrinsicType> = {
   supports(type) {
     return Boolean(type.flags & ts.TypeFlags.String);
   },
-  convert(_converter, type) {
+  convert(_converter) {
     return new M.IntrinsicType("string");
   },
 };
@@ -246,7 +246,7 @@ const voidTypeConverter: TypeConverter<ts.Type, M.IntrinsicType> = {
   supports(type) {
     return Boolean(type.flags & ts.TypeFlags.Void);
   },
-  convert(_converter, type) {
+  convert(_converter) {
     return new M.IntrinsicType("void");
   },
 };
@@ -286,7 +286,7 @@ function convertParameters(
   converter: Converter,
   parameters: readonly ts.Symbol[]
 ): M.SignatureParameterType[] {
-  return parameters.map((symbol, index) => {
+  return parameters.map((symbol) => {
     const type = converter.convertType(
       void 0,
       converter.checker.getTypeOfSymbolAtLocation(
