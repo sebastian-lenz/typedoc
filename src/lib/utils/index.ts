@@ -41,7 +41,7 @@ export {
     TypeDocOptions
 } from './options';
 
-export { insertOrderSorted, removeIfPresent } from './array';
+export { insertOrderSorted, removeIfPresent, uniq } from './array';
 
 export { expandDirectories } from './fs';
 export { Logger, LogLevel, ConsoleLogger, CallbackLogger } from './loggers';

@@ -20,7 +20,6 @@
     "node": ">= 10.0.0"
   },
   "dependencies": {
-    "lodash": "^4.17.15",
     "lunr": "^2.3.8",
     "marked": "1.1.0",
     "minimatch": "^3.0.0",
@@ -33,7 +32,6 @@
     "typescript": ">=3.8.3"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.150",
     "@types/lunr": "^2.3.3",
     "@types/marked": "^1.1.0",
     "@types/minimatch": "3.0.3",

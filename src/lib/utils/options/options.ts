@@ -1,12 +1,10 @@
-import * as _ from 'lodash';
 import * as ts from 'typescript';
 
 import { DeclarationOption, ParameterScope, ParameterType, convert, TypeDocOptions, KeyToDeclaration, TypeDocAndTSOptions, TypeDocOptionMap, TypeDocOptionValues } from './declaration';
 import { Logger } from '../loggers';
-import { insertOrderSorted } from '../array';
 import { addTSOptions, addTypeDocOptions } from './sources';
 import { Application } from '../../..';
-import { NeverIfInternal } from '..';
+import { NeverIfInternal, uniq, insertOrderSorted } from '..';
 import { getOptionsHelp } from './help';
 
 /**
@@ -223,7 +221,7 @@ export class Options {
      * @param scope
      */
     getDeclarationsByScope(scope: ParameterScope) {
-        return _.uniq(Array.from(this._declarations.values()))
+        return uniq(Array.from(this._declarations.values()))
             .filter(declaration => (declaration.scope ?? ParameterScope.TypeDoc) === scope);
     }
 
@@ -240,9 +238,12 @@ export class Options {
 
     /**
      * Gets all of the TypeDoc option values defined in this option container.
+     * Note that this is a *shallow* clone of the internally defined options. If a plugin defines
+     * object options which contain mutable properties, it is their responsibility to correctly
+     * handle mutability.
      */
     getRawValues(): Partial<TypeDocOptions> {
-        return _.cloneDeep(this._values);
+        return { ...this._values };
     }
 
     /**
@@ -268,7 +269,7 @@ export class Options {
      * Gets the set compiler options.
      */
     getCompilerOptions(): ts.CompilerOptions {
-        return _.cloneDeep(this._compilerOptions);
+        return { ...this._compilerOptions };
     }
 
     /**

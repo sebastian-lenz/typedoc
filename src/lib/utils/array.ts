@@ -51,3 +51,11 @@ export function removeIfPresent<T>(arr: T[] | undefined, item: T) {
         arr.splice(index, 1);
     }
 }
+
+/**
+ * Filters out duplicate values from the array. Order is preserved. Returns
+ * a copy of the input array.
+ */
+export function uniq<T>(arr: readonly T[]): T[] {
+    return Array.from(new Set(arr));
+}

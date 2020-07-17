@@ -1,7 +1,7 @@
 import * as Path from 'path';
 import { Minimatch } from 'minimatch';
 
-import isEqual = require('lodash/isEqual');
+import { isDeepStrictEqual as isEqual } from 'util'
 import Assert = require('assert');
 
 import { createMinimatch } from '../../lib/utils/paths';
