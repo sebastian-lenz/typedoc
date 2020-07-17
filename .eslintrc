@@ -24,9 +24,6 @@
     // new type names. This is useful particularly when dealing with mixins.
     "@typescript-eslint/no-empty-interface": 0,
 
-    // We can maybe turn this back on someday...
-    "@typescript-eslint/no-non-null-assertion": 0,
-
     // We still use `any` fairly frequently...
     "@typescript-eslint/ban-types": 0,
     "@typescript-eslint/no-explicit-any": 0,

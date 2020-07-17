@@ -1,3 +1,4 @@
+import * as assert from "assert";
 import { createElement, VNode, Fragment } from "preact";
 import { Templates, TemplateProps } from "./templates";
 import {
@@ -44,14 +45,14 @@ export const defaultTemplates: Templates = {
           <meta charSet="utf-8" />
           <meta
             name="description"
-            content={`Documentation for ${reflection.project!.name}`}
+            content={`Documentation for ${reflection.project?.name}`}
           />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="generator" content="typedoc" />
           <title>
             {reflection.isProject()
               ? reflection.name
-              : `${reflection.name} | ${reflection.project!.name}`}
+              : `${reflection.name} | ${reflection.project?.name}`}
           </title>
           <link
             rel="stylesheet"
@@ -86,6 +87,7 @@ export const defaultTemplates: Templates = {
 
   Header(props) {
     const { templates, reflection, router } = props;
+    assert(reflection.project);
 
     let displayName = reflection.name;
     if (
@@ -100,8 +102,8 @@ export const defaultTemplates: Templates = {
     return (
       <header>
         <div className="toolbar">
-          <a href={router.createLink(reflection, reflection.project!)}>
-            {reflection.project!.name}
+          <a href={router.createLink(reflection, reflection.project)}>
+            {reflection.project.name}
           </a>
           <input id="search" placeholder="Click or press S for search" />
         </div>
@@ -121,10 +123,11 @@ export const defaultTemplates: Templates = {
     if (reflection.isProject() && reflection.children.length === 1) {
       navMembers = reflection.children[0].children;
     } else {
+      assert(reflection.parent);
       navMembers =
         router.hasOwnDocument(reflection) && reflection.isContainer()
           ? reflection.children
-          : reflection.parent!.children;
+          : reflection.parent.children;
     }
 
     return (

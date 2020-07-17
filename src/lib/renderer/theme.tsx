@@ -55,8 +55,8 @@ export function buildTheme(
       return parseMarkdown(markdown, reflection, router, highlighter);
     }
 
-    while (pages.length) {
-      const page = pages.shift()!;
+    let page = pages.shift();
+    while (page) {
       assert(router.hasOwnDocument(page));
 
       const path = router.getDocumentName(page);
@@ -79,6 +79,8 @@ export function buildTheme(
           ...page.children.filter((child) => router.hasOwnDocument(child))
         );
       }
+
+      page = pages.shift();
     }
 
     // Copy static files

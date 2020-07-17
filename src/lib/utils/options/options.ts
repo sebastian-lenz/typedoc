@@ -250,7 +250,7 @@ export class Options {
     // getValue will throw if the declaration does not exist.
     return (
       this.getValue(name as keyof TypeDocOptions) ===
-      this.getDeclaration(name)!.defaultValue
+      this.getDeclaration(name)?.defaultValue
     );
   }
 

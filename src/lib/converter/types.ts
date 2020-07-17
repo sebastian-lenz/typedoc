@@ -19,6 +19,7 @@ import * as ts from "typescript";
 import * as M from "../models";
 import type { Converter } from "./converter";
 import { hasReadonlyModifier } from "./utils";
+import { ok as assert } from "assert";
 
 export interface TypeConverter<
   T extends ts.Type = ts.Type,
@@ -65,8 +66,9 @@ const arrayTypeConverter: TypeConverter<ts.TypeReference, M.ArrayType> = {
     return (checker as any).isArrayType(type);
   },
   convert(converter, type) {
+    assert(type.target.typeParameters);
     return new M.ArrayType(
-      converter.convertType(void 0, type.target.typeParameters![0])
+      converter.convertType(void 0, type.target.typeParameters[0])
     );
   },
 };

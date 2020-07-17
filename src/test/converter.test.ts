@@ -70,9 +70,10 @@ describe("Converter", function () {
         });
 
         it(`[${file}] matches specs`, function () {
+          ok(result);
           const specs = JSON.parse(FS.readFileSync(specsFile, "utf-8"));
           let data = JSON.stringify(
-            app.serializer.toObject(result!),
+            app.serializer.toObject(result),
             null,
             "  "
           );

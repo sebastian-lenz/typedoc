@@ -54,12 +54,14 @@ export function load(app: Application) {
   app.converter.on("end", (project) => {
     const toVisit: SomeReflection[] = [project];
 
-    while (toVisit.length) {
-      const item = toVisit.pop()!;
+    let item = toVisit.pop();
+    while (item) {
       if (item.isContainer()) {
         toVisit.push(...item.children);
         item.children.sort(sorters.default);
       }
+
+      item = toVisit.pop();
     }
   });
 }

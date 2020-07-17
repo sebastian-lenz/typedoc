@@ -67,11 +67,12 @@ export class EventHooks<T extends Record<keyof T, unknown[]>, R> {
    * @param listener the function to remove from the listener array.
    */
   off<K extends keyof T>(event: K, listener: (...args: T[K]) => R): void {
-    const index =
-      this._listeners.get(event)?.findIndex((lo) => lo.listener === listener) ??
-      -1;
-    if (index > -1) {
-      this._listeners.get(event)!.splice(index, 1);
+    const listeners = this._listeners.get(event);
+    if (listeners) {
+      const index = listeners.findIndex((lo) => lo.listener === listener);
+      if (index > -1) {
+        listeners.splice(index, 1);
+      }
     }
   }
 

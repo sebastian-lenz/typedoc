@@ -70,7 +70,8 @@ export class ThemeRouter {
     const parts: string[] = [];
     while (reflection !== docReflection) {
       parts.unshift(reflection.name);
-      reflection = reflection.parent!;
+      assert(reflection.parent);
+      reflection = reflection.parent;
     }
     const name = parts.join("-");
 

@@ -245,7 +245,8 @@ export class Converter extends EventEmitter<ConverterEventMap> {
       this.logger.verbose("TODO Fix convertTypeOrObject");
       return new ObjectReflection("TODO", [], [], []);
     }
-    return this.convertType(typeNode, type!);
+    assert(type);
+    return this.convertType(typeNode, type);
   }
 
   // Unlike convertSymbol, types aren't immediately interesting without being tied to something.

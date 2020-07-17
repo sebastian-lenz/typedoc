@@ -80,7 +80,8 @@ describe("Renderer", function () {
 
   it("renders basic example", async function () {
     this.timeout(0);
-    await app.generateDocs(project!, out);
+    Assert(project);
+    await app.generateDocs(project, out);
 
     compareDirectories(Path.join(__dirname, "renderer", "specs"), out);
   });
