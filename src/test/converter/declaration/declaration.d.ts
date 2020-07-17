@@ -1,5 +1,5 @@
 declare class Decl {
-    prop: number;
+  prop: number;
 }
 
-declare const x: number
+declare const x: number;

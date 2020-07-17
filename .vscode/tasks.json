@@ -7,17 +7,13 @@
       "label": "build",
       "type": "shell",
       "command": "npm run build",
-      "problemMatcher": [
-        "$tsc"
-      ]
+      "problemMatcher": ["$tsc"]
     },
     {
       "label": "build_and_test",
       "type": "shell",
       "command": "npm run build_and_test",
-      "problemMatcher": [
-        "$tsc"
-      ]
+      "problemMatcher": ["$tsc"]
     }
   ]
 }

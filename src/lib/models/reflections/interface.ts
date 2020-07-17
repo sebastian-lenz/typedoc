@@ -1,8 +1,12 @@
-import { ContainerReflection, ReflectionKind } from './abstract';
-import type { SignatureReflection, MethodReflection } from './signature';
-import type { PropertyReflection } from './property';
-import type { ReferenceType, TypeParameterType } from '../types';
-import type { Serializer, BaseSerialized, Serialized } from '../../serialization';
+import { ContainerReflection, ReflectionKind } from "./abstract";
+import type { SignatureReflection, MethodReflection } from "./signature";
+import type { PropertyReflection } from "./property";
+import type { ReferenceType, TypeParameterType } from "../types";
+import type {
+  Serializer,
+  BaseSerialized,
+  Serialized,
+} from "../../serialization";
 
 /**
  * Describes an interface.
@@ -20,47 +24,56 @@ import type { Serializer, BaseSerialized, Serialized } from '../../serialization
  * }
  * ```
  */
-export class InterfaceReflection extends ContainerReflection<MethodReflection | PropertyReflection> {
-    readonly kind = ReflectionKind.Interface;
+export class InterfaceReflection extends ContainerReflection<
+  MethodReflection | PropertyReflection
+> {
+  readonly kind = ReflectionKind.Interface;
 
-    signatures: SignatureReflection[];
+  signatures: SignatureReflection[];
 
-    constructSignatures: SignatureReflection[];
+  constructSignatures: SignatureReflection[];
 
-    typeParameters: TypeParameterType[];
+  typeParameters: TypeParameterType[];
 
-    /**
-     * References to all parent types.
-     * ```ts
-     * interface A { a: number }
-     * interface B extends A, Readonly<{ b: number }>, Omit<A, 'a'> { }
-     * ```
-     */
-    extendedTypes: ReferenceType[];
+  /**
+   * References to all parent types.
+   * ```ts
+   * interface A { a: number }
+   * interface B extends A, Readonly<{ b: number }>, Omit<A, 'a'> { }
+   * ```
+   */
+  extendedTypes: ReferenceType[];
 
-    constructor(name: string,
-        signatures: SignatureReflection[],
-        constructSignatures: SignatureReflection[],
-        typeParameters: TypeParameterType[],
-        extendedTypes: ReferenceType[]) {
+  constructor(
+    name: string,
+    signatures: SignatureReflection[],
+    constructSignatures: SignatureReflection[],
+    typeParameters: TypeParameterType[],
+    extendedTypes: ReferenceType[]
+  ) {
+    super(name);
+    this.signatures = signatures;
+    this.constructSignatures = constructSignatures;
+    this.typeParameters = typeParameters;
+    this.extendedTypes = extendedTypes;
+  }
 
-        super(name);
-        this.signatures = signatures;
-        this.constructSignatures = constructSignatures;
-        this.typeParameters = typeParameters;
-        this.extendedTypes = extendedTypes;
-    }
-
-    serialize(serializer: Serializer, init: BaseSerialized<InterfaceReflection>): SerializedInterfaceReflection {
-        return {
-            ...init,
-            signatures: serializer.toObjects(this.signatures),
-            constructSignatures: serializer.toObjects(this.constructSignatures),
-            typeParameters: serializer.toObjects(this.typeParameters),
-            extendedTypes: serializer.toObjects(this.extendedTypes)
-        };
-    }
+  serialize(
+    serializer: Serializer,
+    init: BaseSerialized<InterfaceReflection>
+  ): SerializedInterfaceReflection {
+    return {
+      ...init,
+      signatures: serializer.toObjects(this.signatures),
+      constructSignatures: serializer.toObjects(this.constructSignatures),
+      typeParameters: serializer.toObjects(this.typeParameters),
+      extendedTypes: serializer.toObjects(this.extendedTypes),
+    };
+  }
 }
 
-export interface SerializedInterfaceReflection extends Serialized<InterfaceReflection, 'signatures' | 'constructSignatures' | 'typeParameters' | 'extendedTypes'> {
-}
+export interface SerializedInterfaceReflection
+  extends Serialized<
+    InterfaceReflection,
+    "signatures" | "constructSignatures" | "typeParameters" | "extendedTypes"
+  > {}

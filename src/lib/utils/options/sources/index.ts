@@ -1,2 +1,2 @@
-export { addTSOptions } from './typescript';
-export { addTypeDocOptions } from './typedoc';
+export { addTSOptions } from "./typescript";
+export { addTypeDocOptions } from "./typedoc";

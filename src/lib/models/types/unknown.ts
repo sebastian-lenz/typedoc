@@ -1,5 +1,5 @@
-import { Type, TypeKind } from './abstract';
-import { BaseSerialized, Serialized } from '../../serialization';
+import { Type, TypeKind } from "./abstract";
+import { BaseSerialized, Serialized } from "../../serialization";
 
 /**
  * Represents all unknown types.
@@ -9,42 +9,45 @@ import { BaseSerialized, Serialized } from '../../serialization';
  * know how to convert yet.
  */
 export class UnknownType extends Type {
-    /** @inheritdoc */
-    readonly kind = TypeKind.Unknown;
+  /** @inheritdoc */
+  readonly kind = TypeKind.Unknown;
 
-    /**
-     * A string representation of the type as returned from TypeScript compiler.
-     */
-    name: string;
+  /**
+   * A string representation of the type as returned from TypeScript compiler.
+   */
+  name: string;
 
-    /**
-     * Create a new instance of UnknownType.
-     *
-     * @param name A string representation of the type as returned from TypeScript compiler.
-     */
-    constructor(name: string) {
-        super();
-        this.name = name;
-    }
+  /**
+   * Create a new instance of UnknownType.
+   *
+   * @param name A string representation of the type as returned from TypeScript compiler.
+   */
+  constructor(name: string) {
+    super();
+    this.name = name;
+  }
 
-    /** @inheritdoc */
-    clone() {
-        return new UnknownType(this.name);
-    }
+  /** @inheritdoc */
+  clone() {
+    return new UnknownType(this.name);
+  }
 
-    /** @inheritdoc */
-    stringify() {
-        return this.name;
-    }
+  /** @inheritdoc */
+  stringify() {
+    return this.name;
+  }
 
-    /** @inheritdoc */
-    serialize(_serializer: unknown, init: BaseSerialized<UnknownType>): SerializedUnknownType {
-        return {
-            ...init,
-            name: this.name
-        };
-    }
+  /** @inheritdoc */
+  serialize(
+    _serializer: unknown,
+    init: BaseSerialized<UnknownType>
+  ): SerializedUnknownType {
+    return {
+      ...init,
+      name: this.name,
+    };
+  }
 }
 
-export interface SerializedUnknownType extends Serialized<UnknownType, 'name'> {
-}
+export interface SerializedUnknownType
+  extends Serialized<UnknownType, "name"> {}

@@ -5,15 +5,19 @@ labels: bug
 ---
 
 ## Search terms
+
 <!-- Include keywords that might help others with the same problem find this issue -->
 
 ## Expected Behavior
+
 <!-- How did you expect Typedoc to work? -->
 
 ## Actual Behavior
+
 <!-- What does Typedoc fail to do? -->
 
 ## Steps to reproduce the bug
+
 <!--
 If possible, please create a *minimal* repo reproducing your problem and link it.
 
@@ -25,6 +29,7 @@ If this is not possible, include at least:
 -->
 
 ## Environment
+
 - Typedoc version:
 - TypeScript version:
 - Node.js version:

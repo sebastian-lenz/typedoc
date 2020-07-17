@@ -7,6 +7,7 @@
 [![Chat on Gitter](https://badges.gitter.im/TypeStrong/typedoc.svg)](https://gitter.im/TypeStrong/typedoc?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Documentation
+
 Visit our website for more complete documentation and example API documentation:<br>
 [https://typedoc.org](https://typedoc.org).
 
@@ -25,7 +26,7 @@ $ npm install typedoc --save-dev
 ```
 
 Like the TypeScript compiler, TypeDoc comes with a binary that can be called from anywhere
-if you install TypeDoc as a global module. The name of the executable is ``typedoc``.
+if you install TypeDoc as a global module. The name of the executable is `typedoc`.
 
 ```bash
 $ npm install typedoc --global
@@ -48,47 +49,51 @@ $ typedoc --out path/to/documentation/ path/to/typescript/project/
 
 For a complete list of the command line arguments run `typedoc --help` or visit [our website](https://typedoc.org/guides/options/).
 
-* `--out <path/to/documentation/>`<br>
+- `--out <path/to/documentation/>`<br>
   Specifies the location the documentation should be written to. Defaults to `./docs`
-* `--mode <file|modules>`<br>
+- `--mode <file|modules>`<br>
   Specifies the output mode the project is used to be compiled with.
-* `--options`<br>
+- `--options`<br>
   Specify a json option file that should be loaded. If not specified TypeDoc will look for 'typedoc.json' in the current directory.
-* `--json <path/to/output.json>`<br>
+- `--json <path/to/output.json>`<br>
   Specifies the location and file name a json file describing the project is written to. When specified no documentation will be generated.
-* `--ignoreCompilerErrors`<br>
+- `--ignoreCompilerErrors`<br>
   Allows TypeDoc to still generate documentation pages even after the compiler has returned errors.
 
 #### Source file handling
-* `--exclude <pattern>`<br>
+
+- `--exclude <pattern>`<br>
   Exclude files by the given pattern when a path is provided as source. Supports standard minimatch patterns (see [#170](https://github.com/TypeStrong/typedoc/issues/170))
-* `--includeDeclarations`<br>
+- `--includeDeclarations`<br>
   Turn on parsing of .d.ts declaration files.
-* `--excludeExternals`<br>
+- `--excludeExternals`<br>
   Do not document external files, highly recommended if turning on `--includeDeclarations`.
-* `--excludeNotDocumented`<br>
+- `--excludeNotDocumented`<br>
   Do not include the code symbols, that don't have doc comments. This option is useful,
   if you want to document only small part of your symbols and do not show the remaining ones in the documentation.
 
 #### TypeScript compiler
-* `--tsconfig <path/to/tsconfig.json>`<br>
+
+- `--tsconfig <path/to/tsconfig.json>`<br>
   Specify a typescript config file that should be loaded. If not specified TypeDoc will look for 'tsconfig.json' in the current directory.
 
 #### Theming
-* `--theme <default|minimal|path/to/theme>`<br>
+
+- `--theme <default|minimal|path/to/theme>`<br>
   Specify the path to the theme that should be used.
-* `--name <Documentation title>`<br>
+- `--name <Documentation title>`<br>
   Set the name of the project that will be used in the header of the template.
-* `--readme <path/to/readme|none>`<br>
+- `--readme <path/to/readme|none>`<br>
   Path to the readme file that should be displayed on the index page. Pass `none` to disable the index page
   and start the documentation on the globals page.
 
 #### Miscellaneous
-* `--listInvalidSymbolLinks`<br>
+
+- `--listInvalidSymbolLinks`<br>
   Display the list of links that don't point to actual code symbols.
-* `--version`<br>
+- `--version`<br>
   Display the version number of TypeDoc.
-* `--help`<br>
+- `--help`<br>
   Display all TypeDoc options.
 
 ## Contributing
@@ -98,7 +103,6 @@ You can find TypeDoc on GitHub; feel free to start an issue or create a pull req
 [https://github.com/TypeStrong/typedoc](https://github.com/TypeStrong/typedoc)
 
 For more information, read the [contribution guide](https://github.com/TypeStrong/typedoc/blob/master/CONTRIBUTING.md).
-
 
 ## License
 

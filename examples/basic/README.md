@@ -10,7 +10,7 @@ Example install
 $ npm install examples --save-dev
 ```
 
-Example executable: ``examples``. 
+Example executable: `examples`.
 
 ## Usage
 
@@ -24,9 +24,8 @@ $ examples --out path/to/documentation/ path/to/example/project/
 
 ### Arguments
 
-* `--example <project>`<br>
+- `--example <project>`<br>
   Example explanation.
-
 
 ## Example with Cyrillic
 

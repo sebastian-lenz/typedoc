@@ -4,10 +4,16 @@
  * @param arr modified by inserting item.
  * @param item
  */
-export function insertOrderSorted<T extends { order?: number }>(arr: T[], item: T): T[] {
-    const index = binaryFindPartition(arr, v => (v.order ?? 0) >= (item.order ?? 0));
-    arr.splice(index === -1 ? arr.length : index, 0, item);
-    return arr;
+export function insertOrderSorted<T extends { order?: number }>(
+  arr: T[],
+  item: T
+): T[] {
+  const index = binaryFindPartition(
+    arr,
+    (v) => (v.order ?? 0) >= (item.order ?? 0)
+  );
+  arr.splice(index === -1 ? arr.length : index, 0, item);
+  return arr;
 }
 
 /**
@@ -17,23 +23,27 @@ export function insertOrderSorted<T extends { order?: number }>(arr: T[], item: 
  * @param arr
  * @param partition should return true while less than the partition point.
  */
-export function binaryFindPartition<T>(arr: readonly T[], partition: (item: T) => boolean): number {
-    if (arr.length === 0) {
-        return -1;
+export function binaryFindPartition<T>(
+  arr: readonly T[],
+  partition: (item: T) => boolean
+): number {
+  if (arr.length === 0) {
+    return -1;
+  }
+
+  let low = 0,
+    high = arr.length - 1;
+
+  while (high > low) {
+    let mid = low + Math.floor((high - low) / 2);
+    if (partition(arr[mid])) {
+      high = mid;
+    } else {
+      low = mid + 1;
     }
+  }
 
-    let low = 0, high = arr.length - 1;
-
-    while (high > low) {
-        let mid = low + Math.floor((high - low) / 2);
-        if (partition(arr[mid])) {
-            high = mid;
-        } else {
-            low = mid + 1;
-        }
-    }
-
-    return partition(arr[low]) ? low : -1;
+  return partition(arr[low]) ? low : -1;
 }
 
 /**
@@ -43,13 +53,13 @@ export function binaryFindPartition<T>(arr: readonly T[], partition: (item: T) =
  * @param item
  */
 export function removeIfPresent<T>(arr: T[] | undefined, item: T) {
-    if (!arr) {
-        return;
-    }
-    const index = arr.indexOf(item);
-    if (index !== -1) {
-        arr.splice(index, 1);
-    }
+  if (!arr) {
+    return;
+  }
+  const index = arr.indexOf(item);
+  if (index !== -1) {
+    arr.splice(index, 1);
+  }
 }
 
 /**
@@ -57,5 +67,5 @@ export function removeIfPresent<T>(arr: T[] | undefined, item: T) {
  * a copy of the input array.
  */
 export function uniq<T>(arr: readonly T[]): T[] {
-    return Array.from(new Set(arr));
+  return Array.from(new Set(arr));
 }

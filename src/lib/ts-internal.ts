@@ -1,4 +1,4 @@
-import * as ts from 'typescript';
+import * as ts from "typescript";
 const tsany = ts as any;
 
 // If TypeDoc dropped support for allowing all of tsc's cli flags, this can all go.
@@ -15,7 +15,13 @@ export interface CommandLineOptionBase {
   /**
    * a value of a primitive type, or an object literal mapping named values to actual values
    */
-  type: 'string' | 'number' | 'boolean' | 'object' | 'list' | Map<number | string, any>;
+  type:
+    | "string"
+    | "number"
+    | "boolean"
+    | "object"
+    | "list"
+    | Map<number | string, any>;
   /**
    * True if option value is a path or fileName
    */
@@ -39,21 +45,26 @@ export interface CommandLineOptionBase {
   isTSConfigOnly?: boolean;
 }
 
-export interface CommandLineOptionOfPrimitiveType extends CommandLineOptionBase {
-  type: 'string' | 'number' | 'boolean';
+export interface CommandLineOptionOfPrimitiveType
+  extends CommandLineOptionBase {
+  type: "string" | "number" | "boolean";
 }
 
 export interface CommandLineOptionOfCustomType extends CommandLineOptionBase {
-  type: Map<number | string, any>;  // an object literal mapping named values to actual values
+  type: Map<number | string, any>; // an object literal mapping named values to actual values
 }
 
 export interface TsConfigOnlyOption extends CommandLineOptionBase {
-  type: 'object';
+  type: "object";
 }
 
 export interface CommandLineOptionOfListType extends CommandLineOptionBase {
-  type: 'list';
+  type: "list";
   element: CommandLineOptionOfCustomType | CommandLineOptionOfPrimitiveType;
 }
 
-export type CommandLineOption = CommandLineOptionOfCustomType | CommandLineOptionOfPrimitiveType | TsConfigOnlyOption | CommandLineOptionOfListType;
+export type CommandLineOption =
+  | CommandLineOptionOfCustomType
+  | CommandLineOptionOfPrimitiveType
+  | TsConfigOnlyOption
+  | CommandLineOptionOfListType;

@@ -1,0 +1,24 @@
+{
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "ignorePatterns": [
+    "src/test/renderer/specs"
+  ],
+  "rules": {
+    // This rule is factually incorrect. Interfaces which extend some type alias can be used to introduce
+    // new type names. This is useful particularly when dealing with mixins.
+    "no-empty-interface": 0,
+
+    // We can maybe turn this back on someday...
+    "no-non-null-assertion": 0,
+
+    // We're all adults here..
+    "@typescript-eslint/ban-types": 0
+  }
+}

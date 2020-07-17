@@ -1,8 +1,12 @@
-import type { BaseSerialized, Serialized, Serializer } from '../../serialization';
-import type { SomeType } from '../types';
-import { Reflection, ReflectionKind } from './abstract';
-import { ObjectReflection } from './object';
-import { Visibility } from './class'
+import type {
+  BaseSerialized,
+  Serialized,
+  Serializer,
+} from "../../serialization";
+import type { SomeType } from "../types";
+import { Reflection, ReflectionKind } from "./abstract";
+import { ObjectReflection } from "./object";
+import { Visibility } from "./class";
 
 /**
  * Describes a property of a {@link ClassReflection} or {@link InterfaceReflection}.
@@ -16,54 +20,65 @@ import { Visibility } from './class'
  * ```
  */
 export class PropertyReflection extends Reflection {
-    readonly kind = ReflectionKind.Property;
+  readonly kind = ReflectionKind.Property;
 
-    /**
-     * The type of this property.
-     */
-    type: SomeType | ObjectReflection;
+  /**
+   * The type of this property.
+   */
+  type: SomeType | ObjectReflection;
 
-    /**
-     * The access level of this property.
-     */
-    visibility: Visibility;
+  /**
+   * The access level of this property.
+   */
+  visibility: Visibility;
 
-    /**
-     * If the property has an initializer, that initializer as a string.
-     *
-     * For the `bar` property of the following class, this would be set to `'bar'`.
-     * ```ts
-     * class Foo {
-     *   bar = 'bar';
-     * }
-     * ```
-     */
-    defaultValue?: string;
+  /**
+   * If the property has an initializer, that initializer as a string.
+   *
+   * For the `bar` property of the following class, this would be set to `'bar'`.
+   * ```ts
+   * class Foo {
+   *   bar = 'bar';
+   * }
+   * ```
+   */
+  defaultValue?: string;
 
-    constructor(name: string, type: SomeType | ObjectReflection, visibility: Visibility, defaultValue?: string) {
-        super(name);
-        this.type = type;
-        this.visibility = visibility;
-        this.defaultValue = defaultValue;
+  constructor(
+    name: string,
+    type: SomeType | ObjectReflection,
+    visibility: Visibility,
+    defaultValue?: string
+  ) {
+    super(name);
+    this.type = type;
+    this.visibility = visibility;
+    this.defaultValue = defaultValue;
+  }
+
+  serialize(
+    serializer: Serializer,
+    init: BaseSerialized<PropertyReflection>
+  ): SerializedPropertyReflection {
+    const result: SerializedPropertyReflection = {
+      ...init,
+      type: serializer.toObject(this.type),
+      visibility: this.visibility,
+    };
+
+    if (typeof this.defaultValue === "string") {
+      result.defaultValue = this.defaultValue;
     }
 
-    serialize(serializer: Serializer, init: BaseSerialized<PropertyReflection>): SerializedPropertyReflection {
-        const result: SerializedPropertyReflection = {
-            ...init,
-            type: serializer.toObject(this.type),
-            visibility: this.visibility
-        };
-
-        if (typeof this.defaultValue === 'string') {
-            result.defaultValue = this.defaultValue;
-        }
-
-        return result;
-    }
+    return result;
+  }
 }
 
-export interface SerializedPropertyReflection extends Serialized<PropertyReflection, 'type' | 'visibility' | 'defaultValue'> {
-}
+export interface SerializedPropertyReflection
+  extends Serialized<
+    PropertyReflection,
+    "type" | "visibility" | "defaultValue"
+  > {}
 
 /**
  * Describes a dynamic getter or setter property of a {@link ClassReflection}
@@ -86,46 +101,58 @@ export interface SerializedPropertyReflection extends Serialized<PropertyReflect
  * ```
  */
 export class AccessorReflection extends Reflection {
-    readonly kind = ReflectionKind.Accessor;
+  readonly kind = ReflectionKind.Accessor;
 
-    /**
-     * The type of this property.
-     */
-    type: SomeType | ObjectReflection;
+  /**
+   * The type of this property.
+   */
+  type: SomeType | ObjectReflection;
 
-    /**
-     * The access level of this property.
-     */
-    visibility: Visibility;
+  /**
+   * The access level of this property.
+   */
+  visibility: Visibility;
 
-    /**
-     * True if this property has a getter.
-     */
-    hasGetter: boolean;
+  /**
+   * True if this property has a getter.
+   */
+  hasGetter: boolean;
 
-    /**
-     * True if this property has a setter.
-     */
-    hasSetter: boolean;
+  /**
+   * True if this property has a setter.
+   */
+  hasSetter: boolean;
 
-    constructor(name: string, type: SomeType | ObjectReflection, visibility: Visibility, hasGetter: boolean, hasSetter: boolean) {
-        super(name);
-        this.type = type;
-        this.visibility = visibility;
-        this.hasGetter = hasGetter;
-        this.hasSetter = hasSetter;
-    }
+  constructor(
+    name: string,
+    type: SomeType | ObjectReflection,
+    visibility: Visibility,
+    hasGetter: boolean,
+    hasSetter: boolean
+  ) {
+    super(name);
+    this.type = type;
+    this.visibility = visibility;
+    this.hasGetter = hasGetter;
+    this.hasSetter = hasSetter;
+  }
 
-    serialize(serializer: Serializer, init: BaseSerialized<AccessorReflection>): SerializedDynamicPropertyReflection {
-        return {
-            ...init,
-            visibility: this.visibility,
-            hasGetter: this.hasGetter,
-            hasSetter: this.hasSetter,
-            type: serializer.toObject(this.type)
-        };
-    }
+  serialize(
+    serializer: Serializer,
+    init: BaseSerialized<AccessorReflection>
+  ): SerializedDynamicPropertyReflection {
+    return {
+      ...init,
+      visibility: this.visibility,
+      hasGetter: this.hasGetter,
+      hasSetter: this.hasSetter,
+      type: serializer.toObject(this.type),
+    };
+  }
 }
 
-export interface SerializedDynamicPropertyReflection extends Serialized<AccessorReflection, 'type' | 'visibility' | 'hasGetter' | 'hasSetter'> {
-}
+export interface SerializedDynamicPropertyReflection
+  extends Serialized<
+    AccessorReflection,
+    "type" | "visibility" | "hasGetter" | "hasSetter"
+  > {}

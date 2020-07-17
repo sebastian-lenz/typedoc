@@ -3,8 +3,7 @@
  * Note that this **does not** merge with the global Array type.
  * As such, `Array` instances denoted with `Array<T>` in this file **are not** actually arrays.
  */
-export interface Array<T> {
-}
+export interface Array<T> {}
 
 /**
  * A const of a complex type.

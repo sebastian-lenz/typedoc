@@ -2,20 +2,13 @@ sudo: false
 language: node_js
 
 node_js:
-  - 8
   - 10
   - 12
+  - 14
 
 before_install:
- - npm install --global npm@
-before_install: >
-  node_version=$(node -v);
-  if  [ ${node_version:1:1} = 6 ]; then
-      npm install --global npm@^4
-    else
-      npm install --global npm@latest
-  fi
+  - npm install --global npm@latest
 
 script:
- - npm run build_and_test
- - npm run lint
+  - npm run build_and_test
+  - npm run lint

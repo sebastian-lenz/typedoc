@@ -6,7 +6,7 @@
  * @returns A generic return value.
  */
 function testFunction<T>(value: T): T {
-    return value;
+  return value;
 }
 
 /**
@@ -15,12 +15,12 @@ function testFunction<T>(value: T): T {
  * @param T  The generic type parameter.
  */
 interface A<T> {
-    /**
-     * A generic member function.
-     *
-     * @return  A generic return value.
-     */
-    getT(): T;
+  /**
+   * A generic member function.
+   *
+   * @return  A generic return value.
+   */
+  getT(): T;
 }
 
 /**
@@ -30,19 +30,19 @@ interface A<T> {
  * @param <C>  The second generic type parameter.
  */
 interface B<T, C> {
-    /**
-     * A generic member function.
-     *
-     * @param value  A generic parameter.
-     */
-    setT(value: T): void;
+  /**
+   * A generic member function.
+   *
+   * @param value  A generic parameter.
+   */
+  setT(value: T): void;
 
-    /**
-     * A generic member function.
-     *
-     * @return  A generic return value.
-     */
-    getC(): C;
+  /**
+   * A generic member function.
+   *
+   * @return  A generic return value.
+   */
+  getC(): C;
 }
 
 /**
@@ -69,21 +69,32 @@ interface ABNumber extends AB<number> {}
  * @return The return value with type arguments.
  */
 function getGenericArray(): Array<string> {
-    return [''];
+  return [""];
 }
 
 /**
  * Conditional type with infer
  */
-type PopFront<T extends any[]> = ((...args: T) => any) extends ((a: any, ...r: infer R) => any) ? R : never;
+type PopFront<T extends any[]> = ((...args: T) => any) extends (
+  a: any,
+  ...r: infer R
+) => any
+  ? R
+  : never;
 
 /**
  * See GH#1150. Calling typeChecker.typeToString on this type will send TS into an infinite
  * loop, which is undesirable.
  */
-type HorribleRecursiveTypeThatShouldNotBeUsedByAnyone<T extends any[], R = {}> = {
-    0: R,
-    1: HorribleRecursiveTypeThatShouldNotBeUsedByAnyone<PopFront<T>, {
-        [K in keyof R | keyof T[0]]: K extends keyof R ? R[K] : T[0][K]
-    }>
-}[T['length'] extends 0 ? 0 : 1];
+type HorribleRecursiveTypeThatShouldNotBeUsedByAnyone<
+  T extends any[],
+  R = {}
+> = {
+  0: R;
+  1: HorribleRecursiveTypeThatShouldNotBeUsedByAnyone<
+    PopFront<T>,
+    {
+      [K in keyof R | keyof T[0]]: K extends keyof R ? R[K] : T[0][K];
+    }
+  >;
+}[T["length"] extends 0 ? 0 : 1];

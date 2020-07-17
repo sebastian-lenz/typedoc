@@ -28,58 +28,69 @@
  * @packageDocumentation
  */
 
-import type * as M from '../models';
+import type * as M from "../models";
 
 /**
  * Describes the mapping from Model types to the corresponding JSON output type.
  */
-export type ModelToObject<T> = T extends Array<infer U> ? _ModelToObject<U>[] : _ModelToObject<T>;
+export type ModelToObject<T> = T extends Array<infer U>
+  ? _ModelToObject<U>[]
+  : _ModelToObject<T>;
 
-type _ModelToObject<T> =
-    T extends M.SomeType ? M.TypeToSerialized<T> :
-    T extends M.SomeReflection ? M.ModelToSerialized<T> :
-    T;
+type _ModelToObject<T> = T extends M.SomeType
+  ? M.TypeToSerialized<T>
+  : T extends M.SomeReflection
+  ? M.ModelToSerialized<T>
+  : T;
 
-export type Serialized<T extends M.SomeType | M.SomeReflection, K extends keyof T> =
-    & BaseSerialized<T>
-    & _Serialized<T, K>;
+export type Serialized<
+  T extends M.SomeType | M.SomeReflection,
+  K extends keyof T
+> = BaseSerialized<T> & _Serialized<T, K>;
 
 type _Serialized<T, K extends keyof T> = {
-    -readonly [K2 in K]: ModelToObject<T[K2]>
+  -readonly [K2 in K]: ModelToObject<T[K2]>;
 };
 
-export type BaseSerialized<T extends M.SomeType | M.SomeReflection> =
-    T extends M.SomeType ? SerializedType<T> :
-    T extends M.SomeContainerReflection ? SerializedContainerReflection<T> :
-    T extends M.SomeReflection ? SerializedReflection<T> : unknown;
+export type BaseSerialized<
+  T extends M.SomeType | M.SomeReflection
+> = T extends M.SomeType
+  ? SerializedType<T>
+  : T extends M.SomeContainerReflection
+  ? SerializedContainerReflection<T>
+  : T extends M.SomeReflection
+  ? SerializedReflection<T>
+  : unknown;
 
 export interface SerializedType<T extends M.SomeType> {
-    kind: T['kind'];
-    kindString: string;
+  kind: T["kind"];
+  kindString: string;
 }
 
 export interface SerializedReflection<T extends M.SomeReflection> {
-    id: number;
-    kind: T['kind'];
-    kindString: string;
+  id: number;
+  kind: T["kind"];
+  kindString: string;
 
-    name: string;
-    originalName?: string;
-    comment?: SerializedComment;
+  name: string;
+  originalName?: string;
+  comment?: SerializedComment;
 }
 
-export interface SerializedContainerReflection<T extends M.SomeContainerReflection> extends SerializedReflection<T> {
-    children: ModelToObject<T['children']>;
+export interface SerializedContainerReflection<
+  T extends M.SomeContainerReflection
+> extends SerializedReflection<T> {
+  children: ModelToObject<T["children"]>;
 }
 
 export interface SerializedComment {
-    shortText: string;
-    text: string;
-    tags: SerializedCommentTag[];
+  shortText: string;
+  text: string;
+  tags: SerializedCommentTag[];
 }
 
 export interface SerializedCommentTag {
-    tagName: string;
-    text: string;
-    paramName?: string;
+  tagName: string;
+  text: string;
+  paramName?: string;
 }

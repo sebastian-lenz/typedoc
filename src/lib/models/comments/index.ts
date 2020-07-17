@@ -1,2 +1,2 @@
-export { Comment } from './comment';
-export { CommentTag } from './tag';
+export { Comment } from "./comment";
+export { CommentTag } from "./tag";

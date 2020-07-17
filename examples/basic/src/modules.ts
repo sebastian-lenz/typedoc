@@ -9,33 +9,33 @@
  * This is a module.
  */
 export module MyModule {
+  /**
+   * This is an object literal.
+   */
+  export let object = {
     /**
-     * This is an object literal.
+     * An object literal value.
      */
-    export let object = {
-        /**
-         * An object literal value.
-         */
-        name: 'Test',
-
-        /**
-         * An object literal function.
-         */
-        print: function(value: string) { }
-    };
+    name: "Test",
 
     /**
-     * This is a submodule.
+     * An object literal function.
      */
-    export module MySubmodule {
-        let a: string;
-    }
+    print: function (value: string) {},
+  };
 
-    export let exportedModuleVariable = 'foo';
+  /**
+   * This is a submodule.
+   */
+  export module MySubmodule {
+    let a: string;
+  }
 
-    let moduleVariable = [100, 200];
+  export let exportedModuleVariable = "foo";
 
-    let moduleVariable2: number[];
+  let moduleVariable = [100, 200];
+
+  let moduleVariable2: number[];
 }
 
 /**
@@ -43,43 +43,47 @@ export module MyModule {
  * @preferred
  */
 export module MyModule.MySubmodule {
-    let b: string;
+  let b: string;
 }
 
 /**
  * An exported global variable.
  */
-export let exportedGlobalVariable = 'foo';
+export let exportedGlobalVariable = "foo";
 
 /**
  * A non-exported global variable.
  */
-let globalVariable = 'foo';
+let globalVariable = "foo";
 
 /**
  * An object literal.
  */
 let objectLiteral = {
-    valueZ: 'foo',
-    valueY: function() { return 'foo'; },
-    valueX: {
-        valueZ: 'foo',
-        valueY: (z: string) => { return {a: 'test', b: z}; },
-        valueA: [100, 200, 300]
+  valueZ: "foo",
+  valueY: function () {
+    return "foo";
+  },
+  valueX: {
+    valueZ: "foo",
+    valueY: (z: string) => {
+      return { a: "test", b: z };
     },
-    valueA: 100,
-    valueB: true
+    valueA: [100, 200, 300],
+  },
+  valueA: 100,
+  valueB: true,
 };
 
 let typeLiteral: {
-    (): string;
+  (): string;
+  valueZ: string;
+  valueY: { (): string };
+  valueX: {
     valueZ: string;
-    valueY: {(): string; };
-    valueX: {
-        valueZ: string;
-        valueY: {(z: string): {a: string; b: string}; };
-        valueA: number[];
-    };
-    valueA?: number;
-    valueB?: boolean;
+    valueY: { (z: string): { a: string; b: string } };
+    valueA: number[];
+  };
+  valueA?: number;
+  valueB?: boolean;
 };

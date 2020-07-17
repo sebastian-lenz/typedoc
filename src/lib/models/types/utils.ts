@@ -1,4 +1,3 @@
-
 /**
  * Helper function to wrap stringified types with parenthesis.
  * @param wrapped
@@ -6,7 +5,7 @@
  * @internal
  */
 export function wrap(wrapped: boolean, text: string) {
-    return wrapped ? `(${text})` : text;
+  return wrapped ? `(${text})` : text;
 }
 
 /**
@@ -14,5 +13,5 @@ export function wrap(wrapped: boolean, text: string) {
  * @param arr
  */
 export function cloned<T extends { clone(): T }>(arr: T[]) {
-    return arr.map(item => item.clone());
+  return arr.map((item) => item.clone());
 }

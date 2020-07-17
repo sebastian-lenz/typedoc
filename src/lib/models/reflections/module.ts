@@ -1,6 +1,10 @@
-import { ContainerReflection, ReflectionKind } from './abstract';
-import type { TopLevelReflection } from './index';
-import type { Serializer, BaseSerialized, Serialized } from '../../serialization';
+import { ContainerReflection, ReflectionKind } from "./abstract";
+import type { TopLevelReflection } from "./index";
+import type {
+  Serializer,
+  BaseSerialized,
+  Serialized,
+} from "../../serialization";
 
 /**
  * Describes a module.
@@ -13,12 +17,15 @@ import type { Serializer, BaseSerialized, Serialized } from '../../serialization
  * ```
  */
 export class ModuleReflection extends ContainerReflection<TopLevelReflection> {
-    readonly kind = ReflectionKind.Module;
+  readonly kind = ReflectionKind.Module;
 
-    serialize(_serializer: Serializer, init: BaseSerialized<ModuleReflection>): SerializedModuleReflection {
-        return init;
-    }
+  serialize(
+    _serializer: Serializer,
+    init: BaseSerialized<ModuleReflection>
+  ): SerializedModuleReflection {
+    return init;
+  }
 }
 
-export interface SerializedModuleReflection extends Serialized<ModuleReflection, never> {
-}
+export interface SerializedModuleReflection
+  extends Serialized<ModuleReflection, never> {}

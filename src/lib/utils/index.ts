@@ -31,18 +31,17 @@ export type IfInternal<T, F> = InternalOnly extends true ? T : F;
 export type NeverIfInternal<T> = IfInternal<never, T>;
 
 export {
-    Options,
-    ParameterType,
-    ParameterHint,
-    ParameterScope,
-    BindOption,
+  Options,
+  ParameterType,
+  ParameterHint,
+  ParameterScope,
+  BindOption,
+  TypeDocAndTSOptions,
+  TypeDocOptions,
+} from "./options";
 
-    TypeDocAndTSOptions,
-    TypeDocOptions
-} from './options';
+export { insertOrderSorted, removeIfPresent, uniq } from "./array";
 
-export { insertOrderSorted, removeIfPresent, uniq } from './array';
-
-export { expandDirectories } from './fs';
-export { Logger, LogLevel, ConsoleLogger, CallbackLogger } from './loggers';
-export { loadPlugins } from './plugins';
+export { expandDirectories } from "./fs";
+export { Logger, LogLevel, ConsoleLogger, CallbackLogger } from "./loggers";
+export { loadPlugins } from "./plugins";

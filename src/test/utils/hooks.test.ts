@@ -1,90 +1,102 @@
-import { deepStrictEqual as equal } from 'assert';
-import { EventHooks } from '../../lib/utils/hooks';
+import { deepStrictEqual as equal } from "assert";
+import { EventHooks } from "../../lib/utils/hooks";
 
-describe('EventHooks', () => {
-    it('Works in simple cases', () => {
-        const emitter = new EventHooks<{ a: [] }, void>();
+describe("EventHooks", () => {
+  it("Works in simple cases", () => {
+    const emitter = new EventHooks<{ a: [] }, void>();
 
-        let calls = 0;
-        emitter.on('a', () => { calls++; });
-        equal(calls, 0);
-
-        emitter.emit('a');
-        equal(calls, 1);
-        emitter.emit('a');
-        equal(calls, 2);
+    let calls = 0;
+    emitter.on("a", () => {
+      calls++;
     });
+    equal(calls, 0);
 
-    it('Works with once', () => {
-        const emitter = new EventHooks<{ a: [] }, void>();
+    emitter.emit("a");
+    equal(calls, 1);
+    emitter.emit("a");
+    equal(calls, 2);
+  });
 
-        let calls = 0;
-        emitter.once('a', () => { calls++; });
-        equal(calls, 0);
+  it("Works with once", () => {
+    const emitter = new EventHooks<{ a: [] }, void>();
 
-        emitter.emit('a');
-        equal(calls, 1);
-        emitter.emit('a');
-        equal(calls, 1);
+    let calls = 0;
+    emitter.once("a", () => {
+      calls++;
     });
+    equal(calls, 0);
 
-    it('Allows removing listeners', () => {
-        const emitter = new EventHooks<{ a: [] }, void>();
+    emitter.emit("a");
+    equal(calls, 1);
+    emitter.emit("a");
+    equal(calls, 1);
+  });
 
-        let calls = 0;
-        const listener = () => { calls++; };
-        emitter.once('a', listener);
-        emitter.off('a', listener);
-        equal(calls, 0);
+  it("Allows removing listeners", () => {
+    const emitter = new EventHooks<{ a: [] }, void>();
 
-        emitter.emit('a');
-        equal(calls, 0);
+    let calls = 0;
+    const listener = () => {
+      calls++;
+    };
+    emitter.once("a", listener);
+    emitter.off("a", listener);
+    equal(calls, 0);
+
+    emitter.emit("a");
+    equal(calls, 0);
+  });
+
+  it("Works correctly with missing listeners", () => {
+    const emitter = new EventHooks<{ a: [] }, void>();
+
+    let calls = 0;
+    const listener = () => {
+      calls++;
+    };
+    emitter.on("a", () => {
+      calls++;
     });
+    emitter.off("a", listener);
 
-    it('Works correctly with missing listeners', () => {
-        const emitter = new EventHooks<{ a: [] }, void>();
+    emitter.emit("a");
+    equal(calls, 1);
+  });
 
-        let calls = 0;
-        const listener = () => { calls++; };
-        emitter.on('a', () => { calls++; });
-        emitter.off('a', listener);
+  it("Works if a listener is removed while emitting", () => {
+    const emitter = new EventHooks<{ a: [] }, void>();
 
-        emitter.emit('a');
-        equal(calls, 1);
+    let calls = 0;
+    emitter.on("a", function rem() {
+      calls++;
+      emitter.off("a", rem);
     });
-
-    it('Works if a listener is removed while emitting', () => {
-        const emitter = new EventHooks<{ a: [] }, void>();
-
-        let calls = 0;
-        emitter.on('a', function rem() {
-            calls++;
-            emitter.off('a', rem);
-        });
-        emitter.on('a', () => { calls++; });
-        equal(calls, 0);
-
-        emitter.emit('a');
-        equal(calls, 2);
-        emitter.emit('a');
-        equal(calls, 3);
+    emitter.on("a", () => {
+      calls++;
     });
+    equal(calls, 0);
 
-    it('Collects the results of listeners', () => {
-        const emitter = new EventHooks<{ a: [] }, number>();
+    emitter.emit("a");
+    equal(calls, 2);
+    emitter.emit("a");
+    equal(calls, 3);
+  });
 
-        emitter.on('a', () => 1, 1);
-        emitter.on('a', () => 2, 2);
+  it("Collects the results of listeners", () => {
+    const emitter = new EventHooks<{ a: [] }, number>();
 
-        equal(emitter.emit('a'), [1, 2]);
-    });
+    emitter.on("a", () => 1, 1);
+    emitter.on("a", () => 2, 2);
 
-    it('Calls listeners in order', () => {
-        const emitter = new EventHooks<{ a: [] }, number>();
+    equal(emitter.emit("a"), [1, 2]);
+  });
 
-        emitter.on('a', () => 1, 100);
-        emitter.on('a', () => 2);
+  it("Calls listeners in order", () => {
+    const emitter = new EventHooks<{ a: [] }, number>();
 
-        equal(emitter.emit('a'), [2, 1]);
-    });
+    emitter.on("a", () => 1, 100);
+    emitter.on("a", () => 2);
+
+    equal(emitter.emit("a"), [2, 1]);
+  });
 });

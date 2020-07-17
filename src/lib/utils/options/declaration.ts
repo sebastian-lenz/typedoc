@@ -1,6 +1,6 @@
-import { CompilerOptions } from 'typescript';
-import { IgnoredTsOptionKeys } from './sources/typescript';
-import { LogLevel } from '../loggers'
+import { CompilerOptions } from "typescript";
+import { IgnoredTsOptionKeys } from "./sources/typescript";
+import { LogLevel } from "../loggers";
 
 /**
  * An interface describing all TypeDoc specific options options. Generated from a
@@ -8,9 +8,12 @@ import { LogLevel } from '../loggers'
  * defining said options.
  */
 export type TypeDocOptions = {
-    [K in keyof TypeDocOptionMap]: TypeDocOptionMap[K] extends Record<string, infer U>
-        ? Exclude<U, string> | keyof TypeDocOptionMap[K]
-        : TypeDocOptionMap[K];
+  [K in keyof TypeDocOptionMap]: TypeDocOptionMap[K] extends Record<
+    string,
+    infer U
+  >
+    ? Exclude<U, string> | keyof TypeDocOptionMap[K]
+    : TypeDocOptionMap[K];
 };
 
 /**
@@ -19,9 +22,12 @@ export type TypeDocOptions = {
  * keys and values for mapped option types.
  */
 export type TypeDocOptionValues = {
-    [K in keyof TypeDocOptionMap]: TypeDocOptionMap[K] extends Record<string, infer U>
-        ? Exclude<U, string>
-        : TypeDocOptionMap[K];
+  [K in keyof TypeDocOptionMap]: TypeDocOptionMap[K] extends Record<
+    string,
+    infer U
+  >
+    ? Exclude<U, string>
+    : TypeDocOptionMap[K];
 };
 
 /**
@@ -31,221 +37,240 @@ export type TypeDocOptionValues = {
  * @see https://github.com/Microsoft/TypeScript/issues/25987#issuecomment-408339599
  */
 type KnownKeys<T> = {
-    [K in keyof T]: string extends K ? never : number extends K ? never : K
-} extends {[_ in keyof T]: infer U} ? U : never;
+  [K in keyof T]: string extends K ? never : number extends K ? never : K;
+} extends { [_ in keyof T]: infer U }
+  ? U
+  : never;
 
 /**
  * All supported options, includes both TypeDoc and TypeScript options.
  */
-export type TypeDocAndTSOptions = TypeDocOptions
-    & Pick<CompilerOptions, Exclude<KnownKeys<CompilerOptions>, IgnoredTsOptionKeys>>;
+export type TypeDocAndTSOptions = TypeDocOptions &
+  Pick<
+    CompilerOptions,
+    Exclude<KnownKeys<CompilerOptions>, IgnoredTsOptionKeys>
+  >;
 
 /**
  * Describes all TypeDoc options. Used internally to provide better types when fetching options.
  * External consumers should likely use either [[TypeDocAndTSOptions]] or [[TypeDocOptions]].
  */
 export interface TypeDocOptionMap {
-    options: string;
-    tsconfig: string;
+  options: string;
+  tsconfig: string;
 
-    inputFiles: string[];
-    includeDeclarations: boolean;
-    entryPoint: string;
-    exclude: string[];
-    externalPattern: string[];
-    excludeExternals: boolean;
-    excludeNotExported: boolean;
-    excludePrivate: boolean;
-    excludeProtected: boolean;
-    excludeNotDocumented: boolean;
-    disableSources: boolean;
-    includes: string;
-    media: string;
+  inputFiles: string[];
+  includeDeclarations: boolean;
+  entryPoint: string;
+  exclude: string[];
+  externalPattern: string[];
+  excludeExternals: boolean;
+  excludeNotExported: boolean;
+  excludePrivate: boolean;
+  excludeProtected: boolean;
+  excludeNotDocumented: boolean;
+  disableSources: boolean;
+  includes: string;
+  media: string;
 
-    out: string;
-    json: string;
+  out: string;
+  json: string;
 
-    theme: string;
-    name: string;
-    includeVersion: boolean;
-    excludeTags: string[];
-    readme: string;
-    defaultCategory: string;
-    categoryOrder: string[];
-    categorizeByGroup: boolean;
-    gitRevision: string;
-    gitRemote: string;
-    gaID: string;
-    gaSite: string;
-    hideGenerator: boolean;
-    toc: string[];
-    disableOutputCheck: boolean;
+  theme: string;
+  name: string;
+  includeVersion: boolean;
+  excludeTags: string[];
+  readme: string;
+  defaultCategory: string;
+  categoryOrder: string[];
+  categorizeByGroup: boolean;
+  gitRevision: string;
+  gitRemote: string;
+  gaID: string;
+  gaSite: string;
+  hideGenerator: boolean;
+  toc: string[];
+  disableOutputCheck: boolean;
 
-    help: boolean;
-    version: boolean;
-    plugin: string[];
-    logger: unknown; // string | Function
-    logLevel: typeof LogLevel;
-    listInvalidSymbolLinks: boolean;
+  help: boolean;
+  version: boolean;
+  plugin: string[];
+  logger: unknown; // string | Function
+  logLevel: typeof LogLevel;
+  listInvalidSymbolLinks: boolean;
 }
 
 /**
  * Converts a given TypeDoc option key to the type of the declaration expected.
  */
-export type KeyToDeclaration<K extends keyof TypeDocOptionMap> =
-    TypeDocOptionMap[K] extends boolean ? BooleanDeclarationOption :
-    TypeDocOptionMap[K] extends string ? StringDeclarationOption :
-    TypeDocOptionMap[K] extends number ? NumberDeclarationOption :
-    TypeDocOptionMap[K] extends string[] ? ArrayDeclarationOption :
-    unknown extends TypeDocOptionMap[K] ? MixedDeclarationOption :
-    TypeDocOptionMap[K] extends Record<string | number, infer U> ? MapDeclarationOption<U> :
-    never;
+export type KeyToDeclaration<
+  K extends keyof TypeDocOptionMap
+> = TypeDocOptionMap[K] extends boolean
+  ? BooleanDeclarationOption
+  : TypeDocOptionMap[K] extends string
+  ? StringDeclarationOption
+  : TypeDocOptionMap[K] extends number
+  ? NumberDeclarationOption
+  : TypeDocOptionMap[K] extends string[]
+  ? ArrayDeclarationOption
+  : unknown extends TypeDocOptionMap[K]
+  ? MixedDeclarationOption
+  : TypeDocOptionMap[K] extends Record<string | number, infer U>
+  ? MapDeclarationOption<U>
+  : never;
 
 export enum ParameterHint {
-    File,
-    Directory
+  File,
+  Directory,
 }
 
 export enum ParameterType {
-    String,
-    Number,
-    Boolean,
-    Map,
-    Mixed,
-    Array
+  String,
+  Number,
+  Boolean,
+  Map,
+  Mixed,
+  Array,
 }
 
 export enum ParameterScope {
-    TypeDoc,
-    TypeScript
+  TypeDoc,
+  TypeScript,
 }
 
 export interface DeclarationOptionBase {
-    /**
-     * The option name.
-     */
-    name: string;
+  /**
+   * The option name.
+   */
+  name: string;
 
-    /**
-     * An optional short name for the option.
-     */
-    short?: string;
+  /**
+   * An optional short name for the option.
+   */
+  short?: string;
 
-    /**
-     * The help text to be displayed to the user when --help is passed.
-     */
-    help: string;
+  /**
+   * The help text to be displayed to the user when --help is passed.
+   */
+  help: string;
 
-    /**
-     * The parameter type, used to convert user configuration values into the expected type.
-     * If not set, the type will be a string.
-     */
-    type?: ParameterType;
+  /**
+   * The parameter type, used to convert user configuration values into the expected type.
+   * If not set, the type will be a string.
+   */
+  type?: ParameterType;
 
-    /**
-     * Whether the option belongs to TypeDoc or TypeScript.
-     * If not specified will be defaulted to TypeDoc.
-     */
-    scope?: ParameterScope;
+  /**
+   * Whether the option belongs to TypeDoc or TypeScript.
+   * If not specified will be defaulted to TypeDoc.
+   */
+  scope?: ParameterScope;
 }
 
 export interface StringDeclarationOption extends DeclarationOptionBase {
-    type?: ParameterType.String;
+  type?: ParameterType.String;
 
-    /**
-     * If not specified defaults to the empty string.
-     */
-    defaultValue?: string;
+  /**
+   * If not specified defaults to the empty string.
+   */
+  defaultValue?: string;
 
-    /**
-     * An optional hint for the type of input expected, will be displayed in the help output.
-     */
-    hint?: ParameterHint;
+  /**
+   * An optional hint for the type of input expected, will be displayed in the help output.
+   */
+  hint?: ParameterHint;
 }
 
 export interface NumberDeclarationOption extends DeclarationOptionBase {
-    type: ParameterType.Number;
+  type: ParameterType.Number;
 
-    /**
-     * Lowest possible value.
-     */
-    minValue?: number;
+  /**
+   * Lowest possible value.
+   */
+  minValue?: number;
 
-    /**
-     * Highest possible value.
-     */
-    maxValue?: number;
+  /**
+   * Highest possible value.
+   */
+  maxValue?: number;
 
-    /**
-     * If not specified defaults to 0.
-     */
-    defaultValue?: number;
+  /**
+   * If not specified defaults to 0.
+   */
+  defaultValue?: number;
 }
 
 export interface BooleanDeclarationOption extends DeclarationOptionBase {
-    type: ParameterType.Boolean;
+  type: ParameterType.Boolean;
 
-    /**
-     * If not specified defaults to false.
-     */
-    defaultValue?: boolean;
+  /**
+   * If not specified defaults to false.
+   */
+  defaultValue?: boolean;
 }
 
 export interface ArrayDeclarationOption extends DeclarationOptionBase {
-    type: ParameterType.Array;
+  type: ParameterType.Array;
 
-    /**
-     * If not specified defaults to an empty array.
-     */
-    defaultValue?: string[];
+  /**
+   * If not specified defaults to an empty array.
+   */
+  defaultValue?: string[];
 }
 
 export interface MixedDeclarationOption extends DeclarationOptionBase {
-    type: ParameterType.Mixed;
+  type: ParameterType.Mixed;
 
-    /**
-     * If not specified defaults to undefined.
-     */
-    defaultValue?: unknown;
+  /**
+   * If not specified defaults to undefined.
+   */
+  defaultValue?: unknown;
 }
 
 export interface MapDeclarationOption<T> extends DeclarationOptionBase {
-    type: ParameterType.Map;
-    /**
-     * Maps a given value to the option type. The map type may be a TypeScript enum.
-     * In that case, when generating an error message for a mismatched key, the numeric
-     * keys will not be listed.
-     */
-    map: Map<string, T> | Record<string | number, T>;
+  type: ParameterType.Map;
+  /**
+   * Maps a given value to the option type. The map type may be a TypeScript enum.
+   * In that case, when generating an error message for a mismatched key, the numeric
+   * keys will not be listed.
+   */
+  map: Map<string, T> | Record<string | number, T>;
 
-    /**
-     * Unlike the rest of the option types, there is no sensible generic default for mapped option types.
-     * The default value for a mapped type must be specified.
-     */
-    defaultValue: T;
+  /**
+   * Unlike the rest of the option types, there is no sensible generic default for mapped option types.
+   * The default value for a mapped type must be specified.
+   */
+  defaultValue: T;
 
-    /**
-     * Optional override for the error reported when an invalid key is provided.
-     */
-    mapError?: string;
+  /**
+   * Optional override for the error reported when an invalid key is provided.
+   */
+  mapError?: string;
 }
 
 export type DeclarationOption =
-    | StringDeclarationOption
-    | NumberDeclarationOption
-    | BooleanDeclarationOption
-    | MixedDeclarationOption
-    | MapDeclarationOption<unknown>
-    | ArrayDeclarationOption;
+  | StringDeclarationOption
+  | NumberDeclarationOption
+  | BooleanDeclarationOption
+  | MixedDeclarationOption
+  | MapDeclarationOption<unknown>
+  | ArrayDeclarationOption;
 
-export type DeclarationOptionToOptionType<T extends DeclarationOption> =
-    T extends StringDeclarationOption ? string :
-    T extends NumberDeclarationOption ? number :
-    T extends BooleanDeclarationOption ? boolean :
-    T extends MixedDeclarationOption ? unknown :
-    T extends MapDeclarationOption<infer U> ? U :
-    T extends ArrayDeclarationOption ? string[] :
-    never;
+export type DeclarationOptionToOptionType<
+  T extends DeclarationOption
+> = T extends StringDeclarationOption
+  ? string
+  : T extends NumberDeclarationOption
+  ? number
+  : T extends BooleanDeclarationOption
+  ? boolean
+  : T extends MixedDeclarationOption
+  ? unknown
+  : T extends MapDeclarationOption<infer U>
+  ? U
+  : T extends ArrayDeclarationOption
+  ? string[]
+  : never;
 
 /**
  * The default conversion function used by the Options container. Readers may
@@ -255,50 +280,70 @@ export type DeclarationOptionToOptionType<T extends DeclarationOption> =
  * @param option The option for which the value should be converted.
  * @returns The result of the conversion. Might be the value or an error.
  */
-export function convert<T extends DeclarationOption>(value: unknown, option: T): DeclarationOptionToOptionType<T>;
-export function convert<T extends DeclarationOption>(value: unknown, option: T): unknown {
-    switch (option.type) {
-        case undefined:
-        case ParameterType.String:
-            return value == null ? '' : String(value);
-        case ParameterType.Number:
-            const numberOption = option as NumberDeclarationOption;
-            const numValue = parseInt(String(value), 10) || 0;
-            if (!valueIsWithinBounds(numValue, numberOption.minValue, numberOption.maxValue)) {
-                throw new Error(getBoundsError(numberOption.name, numberOption.minValue, numberOption.maxValue));
-            }
-            return numValue;
-        case ParameterType.Boolean:
-            return Boolean(value);
-        case ParameterType.Array:
-            if (Array.isArray(value)) {
-                return value.map(String);
-            } else if (typeof value === 'string') {
-                return value.split(',');
-            }
-            return [];
-        case ParameterType.Map:
-            const optionMap = option as MapDeclarationOption<unknown>;
-            const key = String(value).toLowerCase();
-            if (optionMap.map instanceof Map) {
-                if (optionMap.map.has(key)) {
-                    return optionMap.map.get(key);
-                }
-                if ([...optionMap.map.values()].includes(value)) {
-                    return value;
-                }
-            } else {
-                if (optionMap.map.hasOwnProperty(key)) {
-                    return optionMap.map[key];
-                }
-                if (Object.values(optionMap.map).includes(value)) {
-                    return value;
-                }
-            }
-            throw new Error(optionMap.mapError ?? getMapError(optionMap.map, optionMap.name));
-        case ParameterType.Mixed:
-            return value;
-    }
+export function convert<T extends DeclarationOption>(
+  value: unknown,
+  option: T
+): DeclarationOptionToOptionType<T>;
+export function convert<T extends DeclarationOption>(
+  value: unknown,
+  option: T
+): unknown {
+  switch (option.type) {
+    case undefined:
+    case ParameterType.String:
+      return value == null ? "" : String(value);
+    case ParameterType.Number:
+      const numberOption = option as NumberDeclarationOption;
+      const numValue = parseInt(String(value), 10) || 0;
+      if (
+        !valueIsWithinBounds(
+          numValue,
+          numberOption.minValue,
+          numberOption.maxValue
+        )
+      ) {
+        throw new Error(
+          getBoundsError(
+            numberOption.name,
+            numberOption.minValue,
+            numberOption.maxValue
+          )
+        );
+      }
+      return numValue;
+    case ParameterType.Boolean:
+      return Boolean(value);
+    case ParameterType.Array:
+      if (Array.isArray(value)) {
+        return value.map(String);
+      } else if (typeof value === "string") {
+        return value.split(",");
+      }
+      return [];
+    case ParameterType.Map:
+      const optionMap = option as MapDeclarationOption<unknown>;
+      const key = String(value).toLowerCase();
+      if (optionMap.map instanceof Map) {
+        if (optionMap.map.has(key)) {
+          return optionMap.map.get(key);
+        }
+        if ([...optionMap.map.values()].includes(value)) {
+          return value;
+        }
+      } else {
+        if (optionMap.map.hasOwnProperty(key)) {
+          return optionMap.map[key];
+        }
+        if (Object.values(optionMap.map).includes(value)) {
+          return value;
+        }
+      }
+      throw new Error(
+        optionMap.mapError ?? getMapError(optionMap.map, optionMap.name)
+      );
+    case ParameterType.Mixed:
+      return value;
+  }
 }
 
 /**
@@ -307,18 +352,25 @@ export function convert<T extends DeclarationOption>(value: unknown, option: T):
  * @param name The name of the option.
  * @returns The error message.
  */
-function getMapError(map: MapDeclarationOption<unknown>['map'], name: string): string {
-    let keys = map instanceof Map ? [...map.keys()] : Object.keys(map);
-    const getString = (key: string) => String(map instanceof Map ? map.get(key) : map[key]);
+function getMapError(
+  map: MapDeclarationOption<unknown>["map"],
+  name: string
+): string {
+  let keys = map instanceof Map ? [...map.keys()] : Object.keys(map);
+  const getString = (key: string) =>
+    String(map instanceof Map ? map.get(key) : map[key]);
 
-    // If the map is a TS numeric enum we need to filter out the numeric keys.
-    // TS numeric enums have the property that every key maps to a value, which maps back to that key.
-    if (!(map instanceof Map) && keys.every(key => getString(getString(key)) === key)) {
-        // This works because TS enum keys may not be numeric.
-        keys = keys.filter(key => Number.isNaN(parseInt(key, 10)));
-    }
+  // If the map is a TS numeric enum we need to filter out the numeric keys.
+  // TS numeric enums have the property that every key maps to a value, which maps back to that key.
+  if (
+    !(map instanceof Map) &&
+    keys.every((key) => getString(getString(key)) === key)
+  ) {
+    // This works because TS enum keys may not be numeric.
+    keys = keys.filter((key) => Number.isNaN(parseInt(key, 10)));
+  }
 
-    return `${name} must be one of ${keys.join(', ')}`;
+  return `${name} must be one of ${keys.join(", ")}`;
 }
 
 /**
@@ -328,15 +380,19 @@ function getMapError(map: MapDeclarationOption<unknown>['map'], name: string): s
  * @param maxValue The upper bound of the range of allowed values.
  * @returns The error message.
  */
-function getBoundsError(name: string, minValue?: number, maxValue?: number): string {
-    if (isFiniteNumber(minValue) && isFiniteNumber(maxValue)) {
-        return `${name} must be between ${minValue} and ${maxValue}`;
-    } else if (isFiniteNumber(minValue)) {
-        return `${name} must be >= ${minValue}`;
-    } else if (isFiniteNumber(maxValue)) {
-        return `${name} must be <= ${maxValue}`;
-    }
-    throw new Error('Unreachable');
+function getBoundsError(
+  name: string,
+  minValue?: number,
+  maxValue?: number
+): string {
+  if (isFiniteNumber(minValue) && isFiniteNumber(maxValue)) {
+    return `${name} must be between ${minValue} and ${maxValue}`;
+  } else if (isFiniteNumber(minValue)) {
+    return `${name} must be >= ${minValue}`;
+  } else if (isFiniteNumber(maxValue)) {
+    return `${name} must be <= ${maxValue}`;
+  }
+  throw new Error("Unreachable");
 }
 
 /**
@@ -347,7 +403,7 @@ function getBoundsError(name: string, minValue?: number, maxValue?: number): str
  * @returns True, if the value is a finite number, otherwise false.
  */
 function isFiniteNumber(value?: unknown): value is number {
-    return typeof value === 'number' && isFinite(value);
+  return typeof value === "number" && isFinite(value);
 }
 
 /**
@@ -357,14 +413,18 @@ function isFiniteNumber(value?: unknown): value is number {
  * @param maxValue The upper bound of the range of allowed values.
  * @returns True, if the value is within the given bounds, otherwise false.
  */
-function valueIsWithinBounds(value: number, minValue?: number, maxValue?: number): boolean {
-    if (isFiniteNumber(minValue) && isFiniteNumber(maxValue)) {
-        return minValue <= value && value <= maxValue;
-    } else if (isFiniteNumber(minValue)) {
-        return minValue <= value;
-    } else if (isFiniteNumber(maxValue)) {
-        return value <= maxValue;
-    } else {
-        return true;
-    }
+function valueIsWithinBounds(
+  value: number,
+  minValue?: number,
+  maxValue?: number
+): boolean {
+  if (isFiniteNumber(minValue) && isFiniteNumber(maxValue)) {
+    return minValue <= value && value <= maxValue;
+  } else if (isFiniteNumber(minValue)) {
+    return minValue <= value;
+  } else if (isFiniteNumber(maxValue)) {
+    return value <= maxValue;
+  } else {
+    return true;
+  }
 }

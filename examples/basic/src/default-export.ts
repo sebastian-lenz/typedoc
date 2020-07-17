@@ -7,22 +7,22 @@
  * ```
  */
 class NotExportedClassName {
-    /**
-     * Property of NotExportedClassName class.
-     */
-    public notExportedProperty: string;
+  /**
+   * Property of NotExportedClassName class.
+   */
+  public notExportedProperty: string;
 
-    /**
-     * This is the constructor of the NotExportedClassName class.
-     */
-    constructor() { }
+  /**
+   * This is the constructor of the NotExportedClassName class.
+   */
+  constructor() {}
 
-    /**
-     * Method of NotExportedClassName class.
-     */
-    public getNotExportedProperty(): string {
-        return this.notExportedProperty;
-    }
+  /**
+   * Method of NotExportedClassName class.
+   */
+  public getNotExportedProperty(): string {
+    return this.notExportedProperty;
+  }
 }
 
 /**
@@ -33,22 +33,22 @@ class NotExportedClassName {
  * ```
  */
 export default class DefaultExportedClass {
-    /**
-     * Property of default exported class.
-     */
-    public exportedProperty: string;
+  /**
+   * Property of default exported class.
+   */
+  public exportedProperty: string;
 
-    /**
-     * This is the constructor of the default exported class.
-     */
-    constructor() { }
+  /**
+   * This is the constructor of the default exported class.
+   */
+  constructor() {}
 
-    /**
-     * Method of default exported class.
-     */
-    public getExportedProperty(): string {
-        return this.exportedProperty;
-    }
+  /**
+   * Method of default exported class.
+   */
+  public getExportedProperty(): string {
+    return this.exportedProperty;
+  }
 }
 
 // Rename class on export

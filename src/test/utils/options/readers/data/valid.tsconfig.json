@@ -1,8 +1,8 @@
 {
-    "compilerOptions": {
-        "target": "ESNext"
-    },
-    "typedocOptions": {
-        "help": true
-    }
+  "compilerOptions": {
+    "target": "ESNext"
+  },
+  "typedocOptions": {
+    "help": true
+  }
 }

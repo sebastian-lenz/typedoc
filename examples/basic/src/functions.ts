@@ -1,14 +1,14 @@
-import classes = require('./classes');
+import classes = require("./classes");
 
 /**
  * This is an internal function.
  */
-function internalFunction(): void { }
+function internalFunction(): void {}
 
 /**
  * This is a simple exported function.
  */
-export function exportedFunction(): void { }
+export function exportedFunction(): void {}
 
 /**
  * This is a function with multiple arguments and a return value.
@@ -25,8 +25,12 @@ export function exportedFunction(): void { }
  * ~~~
  *
  */
-let variableFunction = function(paramZ: string, paramG: any, paramA: classes.NameInterface): number {
-    return 0;
+let variableFunction = function (
+  paramZ: string,
+  paramG: any,
+  paramA: classes.NameInterface
+): number {
+  return 0;
 };
 
 /**
@@ -44,8 +48,12 @@ let variableFunction = function(paramZ: string, paramG: any, paramA: classes.Nam
  * ~~~
  *
  */
-export function functionWithArguments(paramZ: string, paramG: any, paramA: classes.NameInterface): number {
-    return 0;
+export function functionWithArguments(
+  paramZ: string,
+  paramG: any,
+  paramA: classes.NameInterface
+): number {
+  return 0;
 }
 
 /**
@@ -54,7 +62,10 @@ export function functionWithArguments(paramZ: string, paramG: any, paramA: class
  * @param requiredParam  A normal parameter.
  * @param optionalParam  An optional parameter.
  */
-export function functionWithOptionalValue(requiredParam: string, optionalParam?: string) { }
+export function functionWithOptionalValue(
+  requiredParam: string,
+  optionalParam?: string
+) {}
 
 /**
  * This is a function with a parameter that has a default value.
@@ -63,13 +74,13 @@ export function functionWithOptionalValue(requiredParam: string, optionalParam?:
  * @returns The input value or the default value.
  */
 export function functionWithDefaults(
-    valueA: string = 'defaultValue',
-    valueB: number = 100,
-    valueC: number = Number.NaN,
-    valueD: boolean = true,
-    valueE: boolean = false
+  valueA: string = "defaultValue",
+  valueB: number = 100,
+  valueC: number = Number.NaN,
+  valueD: boolean = true,
+  valueE: boolean = false
 ): string {
-    return valueA;
+  return valueA;
 }
 
 /**
@@ -79,7 +90,7 @@ export function functionWithDefaults(
  * @returns The combined string.
  */
 function functionWithRest(...rest: string[]): string {
-    return rest.join(', ');
+  return rest.join(", ");
 }
 
 /**
@@ -95,22 +106,22 @@ export function multipleSignatures(value: string): string;
  * @param value       An object containing the name value.
  * @param value.name  A value of the object.
  */
-export function multipleSignatures(value: {name: string}): string;
+export function multipleSignatures(value: { name: string }): string;
 
 /**
  * This is the actual implementation, this comment will not be visible
  * in the generated documentation.
  */
 export function multipleSignatures(): string {
-    if (arguments.length > 0) {
-        if (typeof arguments[0] === 'object') {
-            return arguments[0].name;
-        } else {
-            return arguments[0];
-        }
+  if (arguments.length > 0) {
+    if (typeof arguments[0] === "object") {
+      return arguments[0].name;
+    } else {
+      return arguments[0];
     }
+  }
 
-    return '';
+  return "";
 }
 
 /**
@@ -121,7 +132,7 @@ export function multipleSignatures(): string {
  * @return  Returns the typed value.
  */
 export function genericFunction<T>(value: T): T {
-    return value;
+  return value;
 }
 
 /**
@@ -129,30 +140,28 @@ export function genericFunction<T>(value: T): T {
  *
  * @param arg An argument.
  */
-export function moduleFunction(arg: string): string { return ''; }
+export function moduleFunction(arg: string): string {
+  return "";
+}
 
 /**
  * This is the module extending the function moduleFunction().
  */
 export module moduleFunction {
-    /**
-     * This variable is appended to a function.
-     */
-    let functionVariable: string;
+  /**
+   * This variable is appended to a function.
+   */
+  let functionVariable: string;
 
-    /**
-     * This function is appended to another function.
-     */
-    function append() {
+  /**
+   * This function is appended to another function.
+   */
+  function append() {}
 
-    }
-
-    /**
-     * This function is appended to another function.
-     */
-    function prepend() {
-
-    }
+  /**
+   * This function is appended to another function.
+   */
+  function prepend() {}
 }
 
 /**
@@ -160,11 +169,11 @@ export module moduleFunction {
  * Also no type information is given, the object should be correctly reflected.
  */
 export function createSomething() {
-    return {
-        foo: 'bar',
-        doSomething: (a: number) => a + 1,
-        doAnotherThing: () => {}
-    };
+  return {
+    foo: "bar",
+    doSomething: (a: number) => a + 1,
+    doAnotherThing: () => {},
+  };
 }
 
 /**
@@ -174,4 +183,4 @@ export function createSomething() {
  *
  * Taken from http://usejsdoc.org/tags-inline-link.html.
  */
-export function functionWithDocLink(): void { }
+export function functionWithDocLink(): void {}

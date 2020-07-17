@@ -1,6 +1,6 @@
-import { Type, TypeKind } from './abstract';
-import type { ReferenceType } from './reference';
-import { Serializer, BaseSerialized, Serialized } from '../../serialization';
+import { Type, TypeKind } from "./abstract";
+import type { ReferenceType } from "./reference";
+import { Serializer, BaseSerialized, Serialized } from "../../serialization";
 
 /**
  * Represents a type that is constructed by querying the type of a reflection.
@@ -10,37 +10,40 @@ import { Serializer, BaseSerialized, Serialized } from '../../serialization';
  * ```
  */
 export class QueryType extends Type {
-    /** @inheritdoc */
-    readonly kind = TypeKind.Query;
+  /** @inheritdoc */
+  readonly kind = TypeKind.Query;
 
-    /**
-     * A reference to the reflection whose type is being queried.
-     */
-    queryType: ReferenceType;
+  /**
+   * A reference to the reflection whose type is being queried.
+   */
+  queryType: ReferenceType;
 
-    constructor(reference: ReferenceType) {
-        super();
-        this.queryType = reference;
-    }
+  constructor(reference: ReferenceType) {
+    super();
+    this.queryType = reference;
+  }
 
-    /** @inheritdoc */
-    clone(): QueryType {
-        return new QueryType(this.queryType.clone());
-    }
+  /** @inheritdoc */
+  clone(): QueryType {
+    return new QueryType(this.queryType.clone());
+  }
 
-    /** @inheritdoc */
-    stringify(): string {
-        return `typeof ${this.queryType}`;
-    }
+  /** @inheritdoc */
+  stringify(): string {
+    return `typeof ${this.queryType}`;
+  }
 
-    /** @inheritdoc */
-    serialize(serializer: Serializer, init: BaseSerialized<QueryType>): SerializedQueryType {
-        return {
-            ...init,
-            queryType: serializer.toObject(this.queryType)
-        };
-    }
+  /** @inheritdoc */
+  serialize(
+    serializer: Serializer,
+    init: BaseSerialized<QueryType>
+  ): SerializedQueryType {
+    return {
+      ...init,
+      queryType: serializer.toObject(this.queryType),
+    };
+  }
 }
 
-export interface SerializedQueryType extends Serialized<QueryType, 'queryType'> {
-}
+export interface SerializedQueryType
+  extends Serialized<QueryType, "queryType"> {}

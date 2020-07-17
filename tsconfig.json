@@ -2,8 +2,8 @@
   "compilerOptions": {
     "module": "commonjs",
     "lib": [
-        "DOM", // Required for TSX.
-        "es2018", // Fully supported by Node 10.
+      "DOM", // Required for TSX.
+      "es2018" // Fully supported by Node 10.
     ],
     "target": "es2018",
     "strict": true,
@@ -20,13 +20,10 @@
     "jsx": "react",
     "jsxFactory": "createElement"
   },
-  "include": [
-    "src"
-  ],
+  "include": ["src"],
   "exclude": [
     "src/test/converter/**/*.ts",
     "src/lib/output/plugins",
     "src/lib/converter/plugins"
-    // "src/lib/**/plugins/**/*.ts",
   ]
 }

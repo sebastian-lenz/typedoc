@@ -2,13 +2,13 @@
  * A variable that is made private via comment.
  * @private
  */
-export const fakePrivateVariable = 'test';
+export const fakePrivateVariable = "test";
 
 /**
  * A variable that is made protected via comment.
  * @protected
  */
-export const fakeProtectedVariable = 'test';
+export const fakeProtectedVariable = "test";
 
 /**
  * A function that is made private via comment.
@@ -27,27 +27,27 @@ export function fakeProtectedFunction() {}
  * @private
  */
 export class PrivateClass {
-    /**
-     * A variable that is made private via comment.
-     * @private
-     */
-    fakePrivateVariable: string;
+  /**
+   * A variable that is made private via comment.
+   * @private
+   */
+  fakePrivateVariable: string;
 
-    /**
-     * A variable that is made protected via comment.
-     * @protected
-     */
-    fakeProtectedVariable: string;
+  /**
+   * A variable that is made protected via comment.
+   * @protected
+   */
+  fakeProtectedVariable: string;
 
-    /**
-     * A function that is made private via comment.
-     * @private
-     */
-    fakePrivateFunction() {}
+  /**
+   * A function that is made private via comment.
+   * @private
+   */
+  fakePrivateFunction() {}
 
-    /**
-     * A function that is made protected via comment.
-     * @protected
-     */
-    fakeProtectedFunction() {}
+  /**
+   * A function that is made protected via comment.
+   * @protected
+   */
+  fakeProtectedFunction() {}
 }

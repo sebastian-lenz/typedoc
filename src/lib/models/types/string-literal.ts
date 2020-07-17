@@ -1,14 +1,14 @@
-import { Type, TypeKind } from './abstract';
-import { BaseSerialized, Serialized } from '../../serialization';
+import { Type, TypeKind } from "./abstract";
+import { BaseSerialized, Serialized } from "../../serialization";
 
 /**
  * BigInt values cannot be passed to JSON.stringify, and are not supported in all
  * supported Node versions yet.
  */
 export interface PseudoBigInt {
-    negative: boolean;
-    /** Base 10 */
-    value: string;
+  negative: boolean;
+  /** Base 10 */
+  value: string;
 }
 
 /**
@@ -23,37 +23,40 @@ export interface PseudoBigInt {
  * ```
  */
 export class LiteralType extends Type {
-    /** @inheritdoc */
-    readonly kind = TypeKind.Literal;
+  /** @inheritdoc */
+  readonly kind = TypeKind.Literal;
 
-    /**
-     * The literal value.
-     */
-    value: string | number | boolean | PseudoBigInt;
+  /**
+   * The literal value.
+   */
+  value: string | number | boolean | PseudoBigInt;
 
-    constructor(value: string | number | boolean | PseudoBigInt) {
-        super();
-        this.value = value;
-    }
+  constructor(value: string | number | boolean | PseudoBigInt) {
+    super();
+    this.value = value;
+  }
 
-    /** @inheritdoc */
-    clone() {
-        return new LiteralType(this.value);
-    }
+  /** @inheritdoc */
+  clone() {
+    return new LiteralType(this.value);
+  }
 
-    /** @inheritdoc */
-    stringify(): string {
-        return JSON.stringify(this.value);
-    }
+  /** @inheritdoc */
+  stringify(): string {
+    return JSON.stringify(this.value);
+  }
 
-    /** @inheritdoc */
-    serialize(serializer: unknown, init: BaseSerialized<LiteralType>): SerializedLiteralType {
-        return {
-            ...init,
-            value: this.value
-        };
-    }
+  /** @inheritdoc */
+  serialize(
+    serializer: unknown,
+    init: BaseSerialized<LiteralType>
+  ): SerializedLiteralType {
+    return {
+      ...init,
+      value: this.value,
+    };
+  }
 }
 
-export interface SerializedLiteralType extends Serialized<LiteralType, 'value'> {
-}
+export interface SerializedLiteralType
+  extends Serialized<LiteralType, "value"> {}

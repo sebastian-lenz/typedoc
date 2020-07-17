@@ -1,6 +1,10 @@
-import type { SomeType } from '.';
-import type { Serializer, BaseSerialized, Serialized } from '../../serialization';
-import { Type, TypeKind } from './abstract';
+import type { SomeType } from ".";
+import type {
+  Serializer,
+  BaseSerialized,
+  Serialized,
+} from "../../serialization";
+import { Type, TypeKind } from "./abstract";
 
 /**
  * Represents an array type.
@@ -11,37 +15,40 @@ import { Type, TypeKind } from './abstract';
  * ```
  */
 export class ArrayType extends Type {
-    /** @inheritdoc */
-    readonly kind = TypeKind.Array;
+  /** @inheritdoc */
+  readonly kind = TypeKind.Array;
 
-    /**
-     * The type of the array elements.
-     */
-    elementType: SomeType;
+  /**
+   * The type of the array elements.
+   */
+  elementType: SomeType;
 
-    constructor(elementType: SomeType) {
-        super();
-        this.elementType = elementType;
-    }
+  constructor(elementType: SomeType) {
+    super();
+    this.elementType = elementType;
+  }
 
-    /** @inheritdoc */
-    clone(): ArrayType {
-        return new ArrayType(this.elementType.clone());
-    }
+  /** @inheritdoc */
+  clone(): ArrayType {
+    return new ArrayType(this.elementType.clone());
+  }
 
-    /** @inheritdoc */
-    stringify(wrapped: boolean): string {
-        return this.elementType.stringify(true) + '[]';
-    }
+  /** @inheritdoc */
+  stringify(wrapped: boolean): string {
+    return this.elementType.stringify(true) + "[]";
+  }
 
-    /** @inheritdoc */
-    serialize(serializer: Serializer, init: BaseSerialized<ArrayType>): SerializedArrayType {
-        return {
-            ...init,
-            elementType: serializer.toObject(this.elementType)
-        };
-    }
+  /** @inheritdoc */
+  serialize(
+    serializer: Serializer,
+    init: BaseSerialized<ArrayType>
+  ): SerializedArrayType {
+    return {
+      ...init,
+      elementType: serializer.toObject(this.elementType),
+    };
+  }
 }
 
-export interface SerializedArrayType extends Serialized<ArrayType, 'elementType'> {
-}
+export interface SerializedArrayType
+  extends Serialized<ArrayType, "elementType"> {}

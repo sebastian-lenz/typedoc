@@ -1,6 +1,10 @@
-import { ContainerReflection, ReflectionKind } from './abstract';
-import type { TopLevelReflection } from './index';
-import type { Serialized, Serializer, BaseSerialized } from '../../serialization';
+import { ContainerReflection, ReflectionKind } from "./abstract";
+import type { TopLevelReflection } from "./index";
+import type {
+  Serialized,
+  Serializer,
+  BaseSerialized,
+} from "../../serialization";
 
 /**
  * Describes a namespace.
@@ -12,13 +16,18 @@ import type { Serialized, Serializer, BaseSerialized } from '../../serialization
  * module 'foo' {}
  * ```
  */
-export class NamespaceReflection extends ContainerReflection<TopLevelReflection> {
-    readonly kind = ReflectionKind.Namespace;
+export class NamespaceReflection extends ContainerReflection<
+  TopLevelReflection
+> {
+  readonly kind = ReflectionKind.Namespace;
 
-    serialize(_serializer: Serializer, init: BaseSerialized<NamespaceReflection>): SerializedNamespaceReflection {
-        return init;
-    }
+  serialize(
+    _serializer: Serializer,
+    init: BaseSerialized<NamespaceReflection>
+  ): SerializedNamespaceReflection {
+    return init;
+  }
 }
 
-export interface SerializedNamespaceReflection extends Serialized<NamespaceReflection, never> {
-}
+export interface SerializedNamespaceReflection
+  extends Serialized<NamespaceReflection, never> {}

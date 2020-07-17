@@ -2,7 +2,7 @@
  * This is a module doc comment with legacy behavior.
  */
 /** dummy comment */
-import './comment2';
+import "./comment2";
 
 /**
  * A Comment for a class
@@ -89,5 +89,5 @@ export class CommentedClass {
  *  @returns Test description.
  */
 export function gh1164(scope: string) {
-    return scope;
+  return scope;
 }

@@ -1,4 +1,4 @@
-export * from './mod';
+export * from "./mod";
 
 /**
  * Will be exported from mod2, unlike the default function in mod

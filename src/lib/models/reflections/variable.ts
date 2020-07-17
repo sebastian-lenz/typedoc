@@ -1,7 +1,11 @@
-import type { BaseSerialized, Serialized, Serializer } from '../../serialization';
-import type { SomeType } from '../types';
-import { Reflection, ReflectionKind } from './abstract';
-import type { ObjectReflection } from './object';
+import type {
+  BaseSerialized,
+  Serialized,
+  Serializer,
+} from "../../serialization";
+import type { SomeType } from "../types";
+import { Reflection, ReflectionKind } from "./abstract";
+import type { ObjectReflection } from "./object";
 
 /**
  * Describes a variable.
@@ -17,31 +21,34 @@ import type { ObjectReflection } from './object';
  * ```
  */
 export class VariableReflection extends Reflection {
-    readonly kind = ReflectionKind.Variable;
+  readonly kind = ReflectionKind.Variable;
 
-    type: SomeType | ObjectReflection;
+  type: SomeType | ObjectReflection;
 
-    defaultValue?: string;
+  defaultValue?: string;
 
-    constructor(name: string, type: SomeType, defaultValue?: string) {
-        super(name);
-        this.type = type;
-        this.defaultValue = defaultValue;
+  constructor(name: string, type: SomeType, defaultValue?: string) {
+    super(name);
+    this.type = type;
+    this.defaultValue = defaultValue;
+  }
+
+  serialize(
+    serializer: Serializer,
+    init: BaseSerialized<VariableReflection>
+  ): SerializedVariableReflection {
+    const result: SerializedVariableReflection = {
+      ...init,
+      type: serializer.toObject(this.type),
+    };
+
+    if (typeof this.defaultValue === "string") {
+      result.defaultValue = this.defaultValue;
     }
 
-    serialize(serializer: Serializer, init: BaseSerialized<VariableReflection>): SerializedVariableReflection {
-        const result: SerializedVariableReflection = {
-            ...init,
-            type: serializer.toObject(this.type)
-        };
-
-        if (typeof this.defaultValue === 'string') {
-            result.defaultValue = this.defaultValue;
-        }
-
-        return result;
-    }
+    return result;
+  }
 }
 
-export interface SerializedVariableReflection extends Serialized<VariableReflection, 'type' | 'defaultValue'> {
-}
+export interface SerializedVariableReflection
+  extends Serialized<VariableReflection, "type" | "defaultValue"> {}

@@ -1,4 +1,4 @@
 {
-    "extends": "./src.json",
-    "name": "extends"
+  "extends": "./src.json",
+  "name": "extends"
 }

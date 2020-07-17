@@ -4,109 +4,109 @@
 
 /* Theme colors, you can override these by including a custom style sheet with --style */
 :root {
-    --light-border: #eeeeee;
-    --light-text: #222222;
-    --light-text-aside: #808080;
-    --light-text-link: #4da6ff;
+  --light-border: #eeeeee;
+  --light-text: #222222;
+  --light-text-aside: #808080;
+  --light-text-link: #4da6ff;
 
-    --dark-border: #ffffff;
-    --dark-text: #ffffff;
-    --dark-text-aside: #dddddd;
-    --dark-text-link: #389fff;
+  --dark-border: #ffffff;
+  --dark-text: #ffffff;
+  --dark-text-aside: #dddddd;
+  --dark-text-link: #389fff;
 }
 
 html,
 body {
-    height: 100%;
+  height: 100%;
 }
 
 body {
-    --theme-border: var(--light-border);
-    --theme-text: var(--light-text);
-    --theme-text-aside: var(--light-text-aside);
-    --theme-text-link: var(--light-text-link);
+  --theme-border: var(--light-border);
+  --theme-text: var(--light-text);
+  --theme-text-aside: var(--light-text-aside);
+  --theme-text-link: var(--light-text-link);
 }
 
 body.dark {
-    --theme-border: var(--dark-border);
-    --theme-text: var(--dark-text);
-    --theme-text-aside: var(--dark-text-aside);
-    --theme-text-link: var(--dark-text-link);
+  --theme-border: var(--dark-border);
+  --theme-text: var(--dark-text);
+  --theme-text-aside: var(--dark-text-aside);
+  --theme-text-link: var(--dark-text-link);
 }
 
 a {
-    color: var(--theme-text-link);
+  color: var(--theme-text-link);
 }
 
 body {
-    margin: 0;
-    color: var(--theme-text);
+  margin: 0;
+  color: var(--theme-text);
 }
 
 header {
-    border-bottom: 1px solid var(--theme-border);
+  border-bottom: 1px solid var(--theme-border);
 }
 
 .toolbar {
-    display: flex;
-    border-bottom: 1px solid var(--theme-border);
+  display: flex;
+  border-bottom: 1px solid var(--theme-border);
 }
 
 .toolbar a {
-    padding: 1em;
-    text-decoration: none;
+  padding: 1em;
+  text-decoration: none;
 }
 
 #search {
-    flex-grow: 1;
-    padding: 1em;
-    border: 1px solid var(--theme-border);
-    border-bottom: 0;
+  flex-grow: 1;
+  padding: 1em;
+  border: 1px solid var(--theme-border);
+  border-bottom: 0;
 }
 
 .breadcrumbs {
-    padding: 0;
-    margin-bottom: 0;
-    list-style-type: none;
+  padding: 0;
+  margin-bottom: 0;
+  list-style-type: none;
 }
 .breadcrumbs li {
-    display: inline;
+  display: inline;
 }
 .breadcrumbs li::after {
-    content: " / ";
+  content: " / ";
 }
 .breadcrumbs a,
 .breadcrumbs a:visited {
-    color: var(--theme-text-aside);
-    text-decoration: none;
+  color: var(--theme-text-aside);
+  text-decoration: none;
 }
 .breadcrumbs a:hover {
-    text-decoration: underline;
+  text-decoration: underline;
 }
 
 .title h1 {
-    margin: 0;
-    margin-bottom: 0.4em;
+  margin: 0;
+  margin-bottom: 0.4em;
 }
 /* No breadcrumbs */
 .title h1:first-child {
-    margin-top: 0.4em;
+  margin-top: 0.4em;
 }
 
 main {
-    display: flex;
+  display: flex;
 }
 
 main,
 .title {
-    margin: auto;
-    max-width: 1200px;
+  margin: auto;
+  max-width: 1200px;
 }
 
 #main {
-    width: 800px;
+  width: 800px;
 }
 
 main > nav {
-    min-width: 200px;
+  min-width: 200px;
 }

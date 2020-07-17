@@ -1,6 +1,12 @@
-import { Application } from '../../application'
-import { ReflectionKind, PropertyReflection, MethodReflection, Visibility, SomeReflection } from '../../models'
-import { AccessorReflection } from '../../models/reflections/property'
+import { Application } from "../../application";
+import {
+  ReflectionKind,
+  PropertyReflection,
+  MethodReflection,
+  Visibility,
+  SomeReflection,
+} from "../../models";
+import { AccessorReflection } from "../../models/reflections/property";
 
 // TODO: @event
 
@@ -15,61 +21,77 @@ import { AccessorReflection } from '../../models/reflections/property'
  * provide useful information for documentation.
  */
 const TAG_BLACKLIST = [
-    'augments',
-    'callback',
-    'class',
-    'constructor',
-    'enum',
-    'extends',
-    'this',
-    'type',
-    'typedef'
+  "augments",
+  "callback",
+  "class",
+  "constructor",
+  "enum",
+  "extends",
+  "this",
+  "type",
+  "typedef",
 ];
 
 export function load(app: Application) {
-    app.converter.on('reflectionCreated', reflection => {
-        if (isHidden(reflection, Boolean(app.options.getCompilerOptions().stripInternal))) {
-            reflection.project?.removeReflection(reflection);
-            return;
-        }
+  app.converter.on("reflectionCreated", (reflection) => {
+    if (
+      isHidden(
+        reflection,
+        Boolean(app.options.getCompilerOptions().stripInternal)
+      )
+    ) {
+      reflection.project?.removeReflection(reflection);
+      return;
+    }
 
-        reflection.comment?.removeTags(...TAG_BLACKLIST, ...app.options.getValue('excludeTags'));
+    reflection.comment?.removeTags(
+      ...TAG_BLACKLIST,
+      ...app.options.getValue("excludeTags")
+    );
 
-        if (reflection.kindOf(ReflectionKind.Property, ReflectionKind.Accessor, ReflectionKind.Method)) {
-            applyVisibilityModifiers(reflection);
-        }
+    if (
+      reflection.kindOf(
+        ReflectionKind.Property,
+        ReflectionKind.Accessor,
+        ReflectionKind.Method
+      )
+    ) {
+      applyVisibilityModifiers(reflection);
+    }
 
-        if (reflection.kindOf(ReflectionKind.Module)) {
-            reflection.comment?.removeTags('packageDocumentation');
-        }
-    })
+    if (reflection.kindOf(ReflectionKind.Module)) {
+      reflection.comment?.removeTags("packageDocumentation");
+    }
+  });
 }
 
-function applyVisibilityModifiers(reflection: PropertyReflection | AccessorReflection | MethodReflection) {
-    const comment = reflection.comment;
-    if (!comment) return;
+function applyVisibilityModifiers(
+  reflection: PropertyReflection | AccessorReflection | MethodReflection
+) {
+  const comment = reflection.comment;
+  if (!comment) return;
 
-    if (comment.hasTag('private')) {
-        reflection.visibility = Visibility.Private;
-    }
-    if (comment.hasTag('protected')) {
-        reflection.visibility = Visibility.Protected;
-    }
-    if (comment.hasTag('public')) {
-        reflection.visibility = Visibility.Public;
-    }
+  if (comment.hasTag("private")) {
+    reflection.visibility = Visibility.Private;
+  }
+  if (comment.hasTag("protected")) {
+    reflection.visibility = Visibility.Protected;
+  }
+  if (comment.hasTag("public")) {
+    reflection.visibility = Visibility.Public;
+  }
 
-    comment.removeTags('private', 'protected', 'public');
+  comment.removeTags("private", "protected", "public");
 }
 
 function isHidden(reflection: SomeReflection, stripInternal: boolean) {
-    if (!reflection.comment) {
-        return false;
-    }
+  if (!reflection.comment) {
+    return false;
+  }
 
-    return (
-        reflection.comment.hasTag('hidden')
-        || reflection.comment.hasTag('ignore')
-        || (stripInternal && reflection.comment.hasTag('internal'))
-    );
+  return (
+    reflection.comment.hasTag("hidden") ||
+    reflection.comment.hasTag("ignore") ||
+    (stripInternal && reflection.comment.hasTag("internal"))
+  );
 }

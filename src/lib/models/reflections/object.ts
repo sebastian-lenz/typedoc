@@ -1,8 +1,12 @@
-import { ContainerReflection, ReflectionKind } from './abstract';
-import type { SignatureReflection, MethodReflection } from './signature';
-import type { PropertyReflection } from './property';
-import type { TypeParameterType } from '../types';
-import type { Serializer, BaseSerialized, Serialized } from '../../serialization';
+import { ContainerReflection, ReflectionKind } from "./abstract";
+import type { SignatureReflection, MethodReflection } from "./signature";
+import type { PropertyReflection } from "./property";
+import type { TypeParameterType } from "../types";
+import type {
+  Serializer,
+  BaseSerialized,
+  Serialized,
+} from "../../serialization";
 
 /**
  * Describes an object type.
@@ -33,35 +37,44 @@ import type { Serializer, BaseSerialized, Serialized } from '../../serialization
  * }
  * ```
  */
-export class ObjectReflection extends ContainerReflection<MethodReflection | PropertyReflection> {
-    readonly kind = ReflectionKind.Object;
+export class ObjectReflection extends ContainerReflection<
+  MethodReflection | PropertyReflection
+> {
+  readonly kind = ReflectionKind.Object;
 
-    signatures: SignatureReflection[];
+  signatures: SignatureReflection[];
 
-    constructSignatures: SignatureReflection[];
+  constructSignatures: SignatureReflection[];
 
-    typeParameters: TypeParameterType[];
+  typeParameters: TypeParameterType[];
 
-    constructor(name: string,
-        signatures: SignatureReflection[],
-        constructSignatures: SignatureReflection[],
-        typeParameters: TypeParameterType[]) {
+  constructor(
+    name: string,
+    signatures: SignatureReflection[],
+    constructSignatures: SignatureReflection[],
+    typeParameters: TypeParameterType[]
+  ) {
+    super(name);
+    this.signatures = signatures;
+    this.constructSignatures = constructSignatures;
+    this.typeParameters = typeParameters;
+  }
 
-        super(name);
-        this.signatures = signatures;
-        this.constructSignatures = constructSignatures;
-        this.typeParameters = typeParameters;
-    }
-
-    serialize(serializer: Serializer, init: BaseSerialized<ObjectReflection>): SerializedObjectReflection {
-        return {
-            ...init,
-            signatures: serializer.toObjects(this.signatures),
-            constructSignatures: serializer.toObjects(this.constructSignatures),
-            typeParameters: serializer.toObjects(this.typeParameters)
-        };
-    }
+  serialize(
+    serializer: Serializer,
+    init: BaseSerialized<ObjectReflection>
+  ): SerializedObjectReflection {
+    return {
+      ...init,
+      signatures: serializer.toObjects(this.signatures),
+      constructSignatures: serializer.toObjects(this.constructSignatures),
+      typeParameters: serializer.toObjects(this.typeParameters),
+    };
+  }
 }
 
-export interface SerializedObjectReflection extends Serialized<ObjectReflection, 'signatures' | 'constructSignatures' | 'typeParameters'> {
-}
+export interface SerializedObjectReflection
+  extends Serialized<
+    ObjectReflection,
+    "signatures" | "constructSignatures" | "typeParameters"
+  > {}

@@ -1,5 +1,5 @@
-import { ReflectionKind, ContainerReflection, Reflection } from './abstract';
-import { Serializer, BaseSerialized, Serialized } from '../../serialization';
+import { ReflectionKind, ContainerReflection, Reflection } from "./abstract";
+import { Serializer, BaseSerialized, Serialized } from "../../serialization";
 
 /**
  * Describes an enum which may contain enum members.
@@ -11,25 +11,28 @@ import { Serializer, BaseSerialized, Serialized } from '../../serialization';
  * ```
  */
 export class EnumReflection extends ContainerReflection<EnumMemberReflection> {
-    readonly kind = ReflectionKind.Enum;
+  readonly kind = ReflectionKind.Enum;
 
-    isConst: boolean;
+  isConst: boolean;
 
-    constructor(name: string, isConst: boolean) {
-        super(name);
-        this.isConst = isConst;
-    }
+  constructor(name: string, isConst: boolean) {
+    super(name);
+    this.isConst = isConst;
+  }
 
-    serialize(_serializer: Serializer, init: BaseSerialized<EnumReflection>): SerializedEnumReflection {
-        return {
-            ...init,
-            isConst: this.isConst
-        };
-    }
+  serialize(
+    _serializer: Serializer,
+    init: BaseSerialized<EnumReflection>
+  ): SerializedEnumReflection {
+    return {
+      ...init,
+      isConst: this.isConst,
+    };
+  }
 }
 
-export interface SerializedEnumReflection extends Serialized<EnumReflection, 'isConst'> {
-}
+export interface SerializedEnumReflection
+  extends Serialized<EnumReflection, "isConst"> {}
 
 /**
  * Describes an enum member. Members may have either a string or
@@ -43,22 +46,25 @@ export interface SerializedEnumReflection extends Serialized<EnumReflection, 'is
  * ```
  */
 export class EnumMemberReflection extends Reflection {
-    readonly kind = ReflectionKind.EnumMember;
+  readonly kind = ReflectionKind.EnumMember;
 
-    value: string | number;
+  value: string | number;
 
-    constructor(name: string, value: string | number) {
-        super(name);
-        this.value = value;
-    }
+  constructor(name: string, value: string | number) {
+    super(name);
+    this.value = value;
+  }
 
-    serialize(_serializer: Serializer, init: BaseSerialized<EnumMemberReflection>): SerializedEnumMemberReflection {
-        return {
-            ...init,
-            value: this.value
-        };
-    }
+  serialize(
+    _serializer: Serializer,
+    init: BaseSerialized<EnumMemberReflection>
+  ): SerializedEnumMemberReflection {
+    return {
+      ...init,
+      value: this.value,
+    };
+  }
 }
 
-export interface SerializedEnumMemberReflection extends Serialized<EnumMemberReflection, 'value'> {
-}
+export interface SerializedEnumMemberReflection
+  extends Serialized<EnumMemberReflection, "value"> {}

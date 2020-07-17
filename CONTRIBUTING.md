@@ -16,7 +16,6 @@ This document includes a set of guidelines for contributing to TypeDoc. These ar
 1. [Pull Requests](#pull-requests)
 1. [Updating Your Branch](#updating-your-branch)
 
-
 ## How Can I Contribute?
 
 ### Bug Reports
@@ -84,7 +83,7 @@ If you don't already have [Git] installed, install it first. You will need it to
    ```bash
    npm install
    ```
-1. Open the typedoc folder in your favorite editor. If you don't have one, try [Visual Studio Code][VSCode] or [Atom]
+1. Open the typedoc folder in your favorite editor. If you don't have one, try [Visual Studio Code][vscode] or [Atom]
 
 ## Linting, Building, and Testing
 
@@ -122,10 +121,9 @@ If the TypeDoc repository has changed since you originally forked it, you will n
 [suggestions]: https://github.com/TypeStrong/typedoc/labels/enhancement
 [good-first-issue]: https://github.com/TypeStrong/typedoc/labels/good%20first%20issue
 [help-wanted]: https://github.com/TypeStrong/typedoc/labels/help%20wanted
-
-[Gitter]: https://gitter.im/TypeStrong/typedoc
-[GitHub]: https://github.com
-[Git]: https://git-scm.com
-[Node]: https://nodejs.org/en/
-[VSCode]: https://code.visualstudio.com/
-[Atom]: https://atom.io/
+[gitter]: https://gitter.im/TypeStrong/typedoc
+[github]: https://github.com
+[git]: https://git-scm.com
+[node]: https://nodejs.org/en/
+[vscode]: https://code.visualstudio.com/
+[atom]: https://atom.io/
