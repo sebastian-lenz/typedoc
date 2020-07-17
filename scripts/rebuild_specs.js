@@ -29,7 +29,15 @@ const base = path.join(__dirname, "../dist/test/converter");
 
 /** @type {[string, () => void, () => void][]} */
 const conversions = [
-  ["specs", () => {}, () => {}],
+  [
+    "specs",
+    () => {
+      // empty
+    },
+    () => {
+      // empty
+    },
+  ],
   [
     "specs.d",
     () => app.options.setValue("includeDeclarations", true),
