@@ -36,7 +36,7 @@
   },
   "overrides": [
     {
-      "files": ["src/test/**"],
+      "files": ["src/test/converter/**"],
       "rules": {
         "@typescript-eslint/no-inferrable-types": 0,
         "@typescript-eslint/explicit-module-boundary-types": 0,
