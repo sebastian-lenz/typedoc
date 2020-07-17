@@ -12,7 +12,7 @@ import {
   ThemeRouterConstructor,
 } from "./router";
 import { Templates } from "./templates";
-import { parseMarkdown } from "./comment";
+import { parseMarkdown, replaceMedia, replaceIncludes } from "./comment";
 import { DoubleHighlighter } from "./highlight";
 
 const STATIC_DIR = join(__dirname, "../../../static");
@@ -52,7 +52,20 @@ export function buildTheme(
 
     // TODO: Media, etc.
     function boundParseMarkdown(markdown: string, reflection: Reflection) {
-      return parseMarkdown(markdown, reflection, router, highlighter);
+      let result = replaceIncludes(
+        app.options.getValue("includes"),
+        markdown,
+        app.logger
+      );
+      result = replaceMedia(
+        app.options.getValue("media"),
+        result,
+        app.logger,
+        reflection,
+        router
+      );
+      result = parseMarkdown(markdown, reflection, router, highlighter);
+      return result;
     }
 
     let page = pages.shift();

@@ -13,8 +13,6 @@ import {
 // TODO: Color scheme
 // window.matchMedia('(prefers-color-scheme: dark)').matches / .addEventListener
 
-// TODO logging levels
-
 const kindNames: Record<ReflectionKind, string> = {
   [ReflectionKind.Project]: "", // We just want to display the name.
   [ReflectionKind.Module]: "Module",

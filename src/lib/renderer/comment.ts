@@ -38,6 +38,10 @@ export function replaceIncludes(
   text: string,
   logger: Logger
 ): string {
+  if (includesDir === "") {
+    return text;
+  }
+
   return text.replace(INCLUDE_PATTERN, (match, file) => {
     const resolved = path.join(includesDir, file.trim());
     try {
@@ -58,6 +62,10 @@ export function replaceMedia(
   reflection: Reflection,
   router: ThemeRouter
 ): string {
+  if (mediaDir === "") {
+    return text;
+  }
+
   return text.replace(MEDIA_PATTERN, (match, file) => {
     const resolved = path.join(mediaDir, file.trim());
     if (existsSync(resolved)) {
