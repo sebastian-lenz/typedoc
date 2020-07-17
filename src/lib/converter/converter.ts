@@ -13,7 +13,7 @@ import {
   IntrinsicType,
 } from "../models/index";
 import { ObjectReflection } from "../models/reflections/object";
-import { insertOrderSorted } from "../utils";
+import { insertOrderSorted, Options, Logger } from "../utils";
 import { EventEmitter } from "../utils/event";
 import { Context } from "./context";
 import { addConverters, ReflectionConverter } from "./nodes";
@@ -53,15 +53,15 @@ export class Converter extends EventEmitter<ConverterEventMap> {
   /** @event */
   static readonly EVENT_MODULE_CREATED = "moduleCreated";
 
-  get options() {
+  get options(): Options {
     return this.application.options;
   }
 
-  get logger() {
+  get logger(): Logger {
     return this.application.logger;
   }
 
-  get checker() {
+  get checker(): ts.TypeChecker {
     assert(
       this._checker,
       "type checker may only be accessed while conversion is in progress."
@@ -69,7 +69,7 @@ export class Converter extends EventEmitter<ConverterEventMap> {
     return this._checker;
   }
 
-  get project() {
+  get project(): ProjectReflection {
     assert(
       this._project,
       "project may only be accessed while conversion is in progress."
@@ -90,7 +90,7 @@ export class Converter extends EventEmitter<ConverterEventMap> {
     addTypeConverters(this);
   }
 
-  addReflectionConverter(converter: ReflectionConverter) {
+  addReflectionConverter(converter: ReflectionConverter): void {
     for (const kind of converter.kind) {
       assert(
         !this._reflectionConverters.has(kind),
@@ -100,7 +100,7 @@ export class Converter extends EventEmitter<ConverterEventMap> {
     }
   }
 
-  addTypeNodeConverter(converter: TypeNodeConverter) {
+  addTypeNodeConverter(converter: TypeNodeConverter): void {
     for (const kind of converter.kind) {
       assert(
         !this._reflectionConverters.has(kind),
@@ -110,11 +110,14 @@ export class Converter extends EventEmitter<ConverterEventMap> {
     }
   }
 
-  addTypeConverter(converter: TypeConverter) {
+  addTypeConverter(converter: TypeConverter): void {
     insertOrderSorted(this._typeConverters, converter);
   }
 
-  async convert(program: ts.Program, inputFiles: string[]) {
+  async convert(
+    program: ts.Program,
+    inputFiles: string[]
+  ): Promise<ProjectReflection> {
     const start = Date.now();
     const compilerOptions = program.getCompilerOptions();
     const rootDir = resolve(
@@ -183,7 +186,7 @@ export class Converter extends EventEmitter<ConverterEventMap> {
   async convertSymbol<U extends SomeContainerReflection>(
     symbol: ts.Symbol,
     context: Context<U>
-  ) {
+  ): Promise<void> {
     this.logger.verbose(`Converting symbol: ${symbol.name}`);
     const kinds = new Set(symbol.getDeclarations()?.map((d) => d.kind));
     if (kinds.has(ts.SyntaxKind.ClassDeclaration)) {

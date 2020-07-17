@@ -50,7 +50,7 @@ const sorters: Record<
 };
 
 // Plugin which sorts reflections for display.
-export function load(app: Application) {
+export function load(app: Application): void {
   app.converter.on("end", (project) => {
     const toVisit: SomeReflection[] = [project];
 

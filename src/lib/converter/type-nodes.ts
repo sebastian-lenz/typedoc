@@ -17,7 +17,7 @@ export interface TypeNodeConverter<
   convert(converter: Converter, node: T, type: ts.Type): O;
 }
 
-export function addTypeNodeConverters(converter: Converter) {
+export function addTypeNodeConverters(converter: Converter): void {
   for (const typeNodeConverter of [
     arrayTypeNodeConverter,
     conditionalTypeNodeConverter,

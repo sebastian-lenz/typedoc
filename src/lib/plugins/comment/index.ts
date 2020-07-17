@@ -32,7 +32,7 @@ const TAG_BLACKLIST = [
   "typedef",
 ];
 
-export function load(app: Application) {
+export function load(app: Application): void {
   app.converter.on("reflectionCreated", (reflection) => {
     if (
       isHidden(

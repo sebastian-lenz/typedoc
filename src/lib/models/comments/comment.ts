@@ -61,7 +61,7 @@ export class Comment {
   /**
    * Removes all tags with the given tag name from this comment.
    */
-  removeTags(...tags: string[]) {
+  removeTags(...tags: string[]): void {
     this.tags = this.tags?.filter((tag) => !tags.includes(tag.tagName));
   }
 

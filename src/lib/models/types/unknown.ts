@@ -28,12 +28,12 @@ export class UnknownType extends Type {
   }
 
   /** @inheritdoc */
-  clone() {
+  clone(): UnknownType {
     return new UnknownType(this.name);
   }
 
   /** @inheritdoc */
-  stringify() {
+  stringify(): string {
     return this.name;
   }
 

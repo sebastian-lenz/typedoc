@@ -28,9 +28,6 @@
     "@typescript-eslint/ban-types": 0,
     "@typescript-eslint/no-explicit-any": 0,
 
-    // I agree with this in principle for libraries, but we aren't ready for it yet.
-    "@typescript-eslint/explicit-module-boundary-types": 0,
-
     // Declaration merging with a namespace is a necessary tool when working with enums.
     "@typescript-eslint/no-namespace": 0,
 
@@ -43,6 +40,7 @@
       "files": ["src/test/**"],
       "rules": {
         "@typescript-eslint/no-inferrable-types": 0,
+        "@typescript-eslint/explicit-module-boundary-types": 0,
         // TODO: Make this go away.
         "prefer-const": 0
       }

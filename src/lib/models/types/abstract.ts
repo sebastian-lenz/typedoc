@@ -68,7 +68,7 @@ export abstract class Type {
   /**
    * Return a string representation of this type.
    */
-  toString() {
+  toString(): string {
     return this.stringify(false);
   }
 }

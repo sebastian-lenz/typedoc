@@ -41,7 +41,7 @@ export const IGNORED: ReadonlySet<string> = new Set(IGNORED_OPTIONS);
  * TypeDoc accepts many of the same options as TypeScript itself, so they must be parsed
  * from TypeScript's metadata and declared on TypeDoc's Option parser.
  */
-export function addTSOptions(container: Options) {
+export function addTSOptions(container: Options): void {
   container.addDeclarations(
     _ts.optionDeclarations
       .filter((decl) => !IGNORED.has(decl.name))

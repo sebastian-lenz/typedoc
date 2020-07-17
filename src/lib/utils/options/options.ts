@@ -102,14 +102,14 @@ export class Options {
    * Sets the logger used when an option declaration fails to be added.
    * @param logger
    */
-  setLogger(logger: Logger) {
+  setLogger(logger: Logger): void {
     this._logger = logger;
   }
 
   /**
    * Adds the option declarations declared by the TypeDoc and all supported TypeScript declarations.
    */
-  addDefaultDeclarations() {
+  addDefaultDeclarations(): void {
     addTSOptions(this);
     addTypeDocOptions(this);
   }
@@ -117,14 +117,14 @@ export class Options {
   /**
    * Gets a help string to display to the user if the -h flag is passed.
    */
-  getHelp() {
+  getHelp(): string {
     return getOptionsHelp(this);
   }
 
   /**
    * Resets the option bag to all default values.
    */
-  reset() {
+  reset(): void {
     for (const declaration of this._declarations.values()) {
       this.setOptionValueToDefault(declaration);
     }
@@ -148,7 +148,7 @@ export class Options {
     this._readers = this._readers.filter((reader) => reader.name !== name);
   }
 
-  read(logger: Logger) {
+  read(logger: Logger): void {
     for (const reader of this._readers) {
       reader.read(this, logger);
     }
@@ -234,7 +234,7 @@ export class Options {
    * Gets all declarations in the options with a given scope.
    * @param scope
    */
-  getDeclarationsByScope(scope: ParameterScope) {
+  getDeclarationsByScope(scope: ParameterScope): DeclarationOption[] {
     return uniq(Array.from(this._declarations.values())).filter(
       (declaration) => (declaration.scope ?? ParameterScope.TypeDoc) === scope
     );
@@ -390,7 +390,7 @@ export function BindOption(name: string) {
   return function (
     target: { application: Application } | { options: Options },
     key: PropertyKey
-  ) {
+  ): void {
     Object.defineProperty(target, key, {
       get(this: { application: Application } | { options: Options }) {
         if ("options" in this) {

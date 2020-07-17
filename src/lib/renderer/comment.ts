@@ -16,7 +16,7 @@ export function parseMarkdown(
   reflection: Reflection,
   router: ThemeRouter,
   highlighter: DoubleHighlighter
-) {
+): string {
   const renderer = new Marked.Renderer();
   renderer.heading = (text, level, raw) => {
     const slug = router.createSlug(reflection, raw);
@@ -37,7 +37,7 @@ export function replaceIncludes(
   includesDir: string,
   text: string,
   logger: Logger
-) {
+): string {
   return text.replace(INCLUDE_PATTERN, (match, file) => {
     const resolved = path.join(includesDir, file.trim());
     try {
@@ -57,7 +57,7 @@ export function replaceMedia(
   logger: Logger,
   reflection: Reflection,
   router: ThemeRouter
-) {
+): string {
   return text.replace(MEDIA_PATTERN, (match, file) => {
     const resolved = path.join(mediaDir, file.trim());
     if (existsSync(resolved)) {

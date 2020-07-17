@@ -28,7 +28,10 @@ export class DoubleHighlighter {
   // class => [light, dark]
   private reverseSchemes = new Map<string, [string?, string?]>();
 
-  static async create(lightTheme: TTheme, darkTheme: TTheme) {
+  static async create(
+    lightTheme: TTheme,
+    darkTheme: TTheme
+  ): Promise<DoubleHighlighter> {
     const light = getTheme(lightTheme).bg;
     const dark = getTheme(darkTheme).bg;
     const [lightHl, darkHl] = await Promise.all([
@@ -45,7 +48,7 @@ export class DoubleHighlighter {
     readonly darkBg: string
   ) {}
 
-  highlight(code: string, lang: string) {
+  highlight(code: string, lang: string): string {
     // We don't know what this language is... just return the text.
     if (!supportedLanguages.has(lang)) {
       return code;
@@ -113,7 +116,7 @@ export class DoubleHighlighter {
     return render(<Fragment>{docEls}</Fragment>);
   }
 
-  getStyles() {
+  getStyles(): string {
     let styles = Array.from(
       this.reverseSchemes.values(),
       ([light, dark], i) => {

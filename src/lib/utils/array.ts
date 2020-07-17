@@ -52,7 +52,7 @@ export function binaryFindPartition<T>(
  * @param arr
  * @param item
  */
-export function removeIfPresent<T>(arr: T[] | undefined, item: T) {
+export function removeIfPresent<T>(arr: T[] | undefined, item: T): void {
   if (!arr) {
     return;
   }

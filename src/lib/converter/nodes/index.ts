@@ -15,7 +15,7 @@ import { classConverter } from "./class";
 
 export { ReflectionConverter } from "./types";
 
-export function addConverters(converter: Converter) {
+export function addConverters(converter: Converter): void {
   for (const reflectionConverter of [
     accessorConverter,
     aliasConverter,

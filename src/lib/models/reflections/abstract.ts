@@ -27,7 +27,7 @@ let REFLECTION_ID = 0;
  * If you use this function, you must ensure that reflections created in one run are not mixed
  * with reflections created in another run.
  */
-export function resetReflectionID() {
+export function resetReflectionID(): void {
   REFLECTION_ID = 0;
 }
 
@@ -235,7 +235,7 @@ export abstract class ContainerReflection<
    * Adds the given child to this container and sets the parent link.
    * @param child
    */
-  addChild(child: Child) {
+  addChild(child: Child): void {
     assert.strictEqual(
       child.parent,
       undefined,
@@ -257,7 +257,7 @@ export abstract class ContainerReflection<
    *
    * @param child
    */
-  removeChild(child: Child) {
+  removeChild(child: Child): void {
     assert.strictEqual(
       child.parent,
       this,

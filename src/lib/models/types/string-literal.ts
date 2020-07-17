@@ -37,7 +37,7 @@ export class LiteralType extends Type {
   }
 
   /** @inheritdoc */
-  clone() {
+  clone(): LiteralType {
     return new LiteralType(this.value);
   }
 

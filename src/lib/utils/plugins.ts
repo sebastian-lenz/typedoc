@@ -8,7 +8,7 @@ export function loadPlugins(
   app: Application,
   plugins: string[],
   logger: Logger
-) {
+): void {
   if (plugins.some((plugin) => plugin.toLowerCase() === "none")) {
     return;
   }

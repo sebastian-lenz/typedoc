@@ -4,7 +4,7 @@
  * @param text
  * @internal
  */
-export function wrap(wrapped: boolean, text: string) {
+export function wrap(wrapped: boolean, text: string): string {
   return wrapped ? `(${text})` : text;
 }
 
@@ -12,6 +12,6 @@ export function wrap(wrapped: boolean, text: string) {
  * Helper to clone all types in an array.
  * @param arr
  */
-export function cloned<T extends { clone(): T }>(arr: T[]) {
+export function cloned<T extends { clone(): T }>(arr: T[]): T[] {
   return arr.map((item) => item.clone());
 }

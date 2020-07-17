@@ -31,7 +31,7 @@ export interface TypeConverter<
   convert(converter: Converter, type: T, checker: ts.TypeChecker): O;
 }
 
-export function addTypeConverters(converter: Converter) {
+export function addTypeConverters(converter: Converter): void {
   for (const typeConverter of [
     anyTypeConverter,
     arrayTypeConverter,

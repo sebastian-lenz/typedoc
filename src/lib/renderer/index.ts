@@ -13,7 +13,7 @@ export class Renderer {
 
   constructor(readonly application: Application) {}
 
-  async render(project: ProjectReflection, out: string) {
+  async render(project: ProjectReflection, out: string): Promise<void> {
     await defaultTheme(this.application, project, out);
   }
 }

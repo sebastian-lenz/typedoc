@@ -2,7 +2,7 @@ import { Options } from "..";
 import { ParameterType, ParameterHint } from "../declaration";
 import { LogLevel } from "../../loggers";
 
-export function addTypeDocOptions(options: Options) {
+export function addTypeDocOptions(options: Options): void {
   options.addDeclaration({
     name: "options",
     help:

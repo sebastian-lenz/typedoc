@@ -53,7 +53,7 @@ declare module "../../serialization/schema" {
 }
 
 // Plugins specify a `load` function which will be called by TypeDoc to enable setting up event listeners.
-export function load(app: Application) {
+export function load(app: Application): void {
   // 3rd party plugins should add options to app here.
   // app.options.addDeclaration(...)
 

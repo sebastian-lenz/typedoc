@@ -11,7 +11,7 @@ export async function convertSignatureDeclaration(
   converter: Converter,
   name: string,
   node: ts.SignatureDeclaration
-) {
+): Promise<SignatureReflection> {
   const signature = converter.checker.getSignatureFromDeclaration(node);
   assert(
     signature,

@@ -44,7 +44,10 @@ export class ProjectReflection extends ContainerReflection<ModuleReflection> {
    * Registers the given reflection so that it can be quickly looked up by references.
    * Should be called for every independent reflection added to the project.
    */
-  registerReflection(reflection: IndependentReflection, symbol?: ts.Symbol) {
+  registerReflection(
+    reflection: IndependentReflection,
+    symbol?: ts.Symbol
+  ): void {
     this._referenceGraph = undefined;
     this._reflections.set(reflection.id, reflection);
     if (symbol) {
@@ -59,7 +62,7 @@ export class ProjectReflection extends ContainerReflection<ModuleReflection> {
    * out of the generated documentation. Has no effect if the reflection is not present in the
    * project.
    */
-  removeReflection(reflection: Reflection) {
+  removeReflection(reflection: Reflection): void {
     // First cleanup references
     for (const id of this.getReferenceGraph().get(reflection.id) ?? []) {
       const ref = this.getReflectionById(id);
@@ -116,7 +119,7 @@ export class ProjectReflection extends ContainerReflection<ModuleReflection> {
   }
 
   /** @inheritdoc */
-  isProject() {
+  isProject(): boolean {
     return true;
   }
 

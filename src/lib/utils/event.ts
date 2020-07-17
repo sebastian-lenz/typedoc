@@ -71,7 +71,7 @@ export class EventEmitter<T extends Record<keyof T, unknown[]>> {
    * @param event the event to emit.
    * @param args any arguments required for the event.
    */
-  async emit<K extends keyof T>(event: K, ...args: T[K]) {
+  async emit<K extends keyof T>(event: K, ...args: T[K]): Promise<void> {
     const listeners = this._listeners.get(event)?.slice() || [];
     this._listeners.set(
       event,

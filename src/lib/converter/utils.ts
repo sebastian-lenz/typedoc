@@ -42,7 +42,7 @@ export function convertParameters(
   });
 }
 
-export function hasReadonlyModifier(declaration?: ts.Declaration) {
+export function hasReadonlyModifier(declaration?: ts.Declaration): boolean {
   return (
     declaration?.modifiers?.some(
       (mod) => mod.kind === ts.SyntaxKind.ReadonlyKeyword

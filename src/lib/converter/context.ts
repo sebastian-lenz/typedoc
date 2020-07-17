@@ -10,11 +10,14 @@ import type { Converter } from "./converter";
 export class Context<
   Container extends ContainerReflection<IndependentReflection>
 > {
-  get checker() {
+  get checker(): ts.TypeChecker {
     return this.program.getTypeChecker();
   }
 
-  getExportsOfKind(symbol: ts.Symbol, kind: ts.SyntaxKind | ts.SyntaxKind[]) {
+  getExportsOfKind(
+    symbol: ts.Symbol,
+    kind: ts.SyntaxKind | ts.SyntaxKind[]
+  ): ts.Symbol[] {
     const kinds = Array.isArray(kind) ? kind : [kind];
     const result: ts.Symbol[] = [];
     symbol.exports?.forEach((child) => {
@@ -25,7 +28,7 @@ export class Context<
     return result;
   }
 
-  getExportsWithFlag(symbol: ts.Symbol, flag: ts.SymbolFlags) {
+  getExportsWithFlag(symbol: ts.Symbol, flag: ts.SymbolFlags): ts.Symbol[] {
     const result: ts.Symbol[] = [];
     symbol.exports?.forEach((child) => {
       if (child.flags & flag) {
@@ -35,7 +38,7 @@ export class Context<
     return result;
   }
 
-  withContainer<U extends SomeContainerReflection>(container: U) {
+  withContainer<U extends SomeContainerReflection>(container: U): Context<U> {
     return new Context(this.program, this.converter, this.project, container);
   }
 
