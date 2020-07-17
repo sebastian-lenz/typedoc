@@ -9,7 +9,7 @@ import { Logger } from "../utils";
 import { readFileSync, existsSync } from "fs";
 import { DoubleHighlighter } from "./highlight";
 
-// TODO: {@link}, [[link]], [[include]], media://
+// TODO: {@link}, [[link]]
 
 export function parseMarkdown(
   markdown: string,

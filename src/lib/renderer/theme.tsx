@@ -14,6 +14,7 @@ import {
 import { Templates } from "./templates";
 import { parseMarkdown, replaceMedia, replaceIncludes } from "./comment";
 import { DoubleHighlighter } from "./highlight";
+import { copy } from "../utils/fs";
 
 const STATIC_DIR = join(__dirname, "../../../static");
 
@@ -50,7 +51,6 @@ export function buildTheme(
     const pages: Reflection[] = [project];
     const tasks: Promise<void>[] = [];
 
-    // TODO: Media, etc.
     function boundParseMarkdown(markdown: string, reflection: Reflection) {
       let result = replaceIncludes(
         app.options.getValue("includes"),
@@ -111,6 +111,15 @@ export function buildTheme(
         highlighter.getStyles()
       )
     );
+
+    if (app.options.getValue("media")) {
+      tasks.push(
+        copy(
+          app.options.getValue("media"),
+          join(outDir, router.getMediaDirectory())
+        )
+      );
+    }
 
     await Promise.all(tasks);
     app.logger.verbose(`[Perf] Theme output took ${Date.now() - start}ms`);
