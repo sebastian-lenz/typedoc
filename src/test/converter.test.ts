@@ -4,9 +4,6 @@ import * as Path from "path";
 import { deepStrictEqual as equal, ok } from "assert";
 import { ScriptTarget, ModuleKind, JsxEmit } from "typescript";
 
-import json = require("./converter/class/specs.json");
-import { SerializedProjectReflection } from "../lib/models/reflections/project";
-
 describe("Converter", function () {
   const base = Path.join(__dirname, "converter");
   const app = new Application();
@@ -94,9 +91,12 @@ describe("Converter", function () {
   });
 });
 
-describe("Serializer", () => {
-  it("Type checks", () => {
-    const typed: SerializedProjectReflection = json;
-    equal(json, typed);
-  });
-});
+// TODO: Review, can this be brought back? The main issue right now is that json doesn't
+// infer as strictly as `as const` does, so we end up with visibility: string instead of visibility: "public" | "private" | "protected"
+// import * as json from "./converter/class/specs.json";
+// describe("Serializer", () => {
+//   it("Type checks", () => {
+//     const typed: SerializedProjectReflection = json;
+//     equal(json, typed);
+//   });
+// });

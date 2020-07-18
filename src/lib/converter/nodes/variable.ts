@@ -10,6 +10,7 @@ export const variableConverter: ReflectionConverter<
   async convert(context, symbol, [node]) {
     const defaultValue = node.initializer?.getText();
 
+    // TODO: Possibly convert as a function.
     return new VariableReflection(
       symbol.name,
       context.converter.convertType(

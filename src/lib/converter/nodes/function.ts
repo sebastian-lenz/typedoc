@@ -12,15 +12,20 @@ export const functionConverter: ReflectionConverter<
     const container = new FunctionReflection(symbol.name);
 
     // With overloads, only the signatures without an implementation are real
-    const skipImplementation = nodes.length > 1;
+    const includeImplementation = nodes.length === 1;
 
-    for (const node of nodes) {
-      if (node.body && skipImplementation) {
-        continue;
-      }
-      container.signatures.push(
-        await convertSignatureDeclaration(context.converter, symbol.name, node)
-      );
+    const realNodes = nodes.filter(
+      (node) => Boolean(node.body) === includeImplementation
+    );
+
+    const signatures = await Promise.all(
+      realNodes.map(
+        convertSignatureDeclaration.bind(null, context.converter, symbol.name)
+      )
+    );
+
+    for (const signature of signatures) {
+      container.addChild(signature);
     }
 
     return container;

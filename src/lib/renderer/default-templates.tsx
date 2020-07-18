@@ -99,13 +99,13 @@ export const defaultTemplates: Templates = {
 
     return (
       <header>
-        <div className="toolbar">
+        <div class="toolbar">
           <a href={router.createLink(reflection, reflection.project)}>
             {reflection.project.name}
           </a>
           <input id="search" placeholder="Click or press S for search" />
         </div>
-        <div className="title">
+        <div class="title">
           <templates.Breadcrumbs {...props} />
           <h1>
             {kindNames[reflection.kind]} {displayName}
@@ -120,12 +120,11 @@ export const defaultTemplates: Templates = {
     // Special case for use with a single entry point, we go straight from the project to the entry point's members.
     if (reflection.isProject() && reflection.children.length === 1) {
       navMembers = reflection.children[0].children;
+    } else if (router.hasOwnDocument(reflection) && reflection.isContainer()) {
+      navMembers = reflection.children;
     } else {
-      assert(reflection.parent);
-      navMembers =
-        router.hasOwnDocument(reflection) && reflection.isContainer()
-          ? reflection.children
-          : reflection.parent.children;
+      assert(reflection.parent && reflection.parent.isContainer());
+      navMembers = reflection.parent.children;
     }
 
     return (
@@ -154,7 +153,7 @@ export const defaultTemplates: Templates = {
     }
 
     return (
-      <ul className="breadcrumbs">
+      <ul class="breadcrumbs">
         {path.map((refl) => (
           <li>
             <a href={router.createLink(reflection, refl)}>{refl.name}</a>
@@ -195,7 +194,9 @@ export const defaultTemplates: Templates = {
     );
   },
 
-  Reflection({ reflection, templates, hooks, router, ...extra }) {
+  Reflection(props) {
+    const { reflection, templates, hooks, router } = props;
+
     const templateMap: {
       [K in ReflectionKind]: (
         props: TemplateProps<ReflectionKindToModel[K]>
@@ -232,23 +233,20 @@ export const defaultTemplates: Templates = {
       );
     }
 
-    // Discriminated unions don't play nicely here... TS infers the required type to be `never`
     return (
       <Fragment>
         {hooks.emit("reflection.before", reflection)}
         <div
-          className={`reflection ${ReflectionKind.toKindString(
+          class={`reflection reflection-${ReflectionKind.toKindString(
             reflection.kind
           )}`}
-          id={router.createSlug(reflection)}
+          id={router.createSlug(reflection) || "#"} // Empty ID isn't valid HTML, and the slugger won't produce a `#`
         >
           {hooks.emit("reflection.begin", reflection)}
           <Template
+            {...props}
+            // Discriminated unions don't play nicely here... TS infers the required type to be `never`
             reflection={reflection as never}
-            templates={templates}
-            hooks={hooks}
-            router={router}
-            {...extra}
           />
           {hooks.emit("reflection.end", reflection)}
         </div>
@@ -359,9 +357,9 @@ export const defaultTemplates: Templates = {
 
     return (
       <Fragment>
-        {reflection.signatures.map((s) => (
-          <templates.Signature {...props} reflection={s} />
-        ))}
+        {reflection.children.map((s) => {
+          return <templates.Reflection {...props} reflection={s} />;
+        })}
       </Fragment>
     );
   },
@@ -396,35 +394,51 @@ export const defaultTemplates: Templates = {
     return <Fragment>TODO {reflection.name}</Fragment>;
   },
   Signature(props) {
-    const { reflection } = props;
+    const { reflection, templates } = props;
 
-    const typeArgs = reflection.typeParameters.length ? (
+    const typeArgs = reflection.typeParameters.length
+      ? `<${reflection.typeParameters.map((param) => param.toString())}>`
+      : "";
+
+    const parameters = reflection.parameters
+      .map((s) => {
+        const rest = s.isRest ? "..." : "";
+        const sep = s.isOptional ? "?: " : ": ";
+        const init = s.defaultValue == null ? "" : ` = ${s.defaultValue}`;
+        return rest + s.name + sep + s.type.toString() + init;
+      })
+      .join(", ");
+
+    const signature = `${reflection.name}${typeArgs}(${parameters}): ${reflection.returnType}`;
+
+    const renderedParameters = reflection.parameters.length && (
       <Fragment>
-        &lt;{reflection.typeParameters.map((param) => param.toString())}
-        &gt;
+        <h4>Parameters</h4>
+        <ul>
+          {reflection.parameters.map((p) => (
+            <li>
+              <templates.Reflection {...props} reflection={p} />
+            </li>
+          ))}
+        </ul>
       </Fragment>
-    ) : (
-      <Fragment />
     );
 
     return (
       <Fragment>
-        {reflection.name}
-        {typeArgs}(
-        {reflection.parameters.map((s) => (
-          <Fragment>
-            {s.name}: {s.type.toString()}
-          </Fragment>
-        ))}
-        ): {reflection.returnType.toString()}
+        <div class="signature">{signature}</div>
+        <templates.Comment {...props} />
+        {renderedParameters}
       </Fragment>
     );
   },
   Parameter(props) {
-    const { reflection } = props;
+    const { reflection, templates } = props;
     return (
       <Fragment>
-        {reflection.name}: {reflection.type.toString()}
+        <b>{reflection.name}</b>: {reflection.type.toString()}
+        <br />
+        <templates.Comment {...props} />
       </Fragment>
     );
   },

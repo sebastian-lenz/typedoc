@@ -4,14 +4,10 @@ import type {
   Serializer,
 } from "../../serialization";
 import type { SomeType, TypeParameterType } from "../types/index";
-import { Reflection, ReflectionKind } from "./abstract";
+import { Reflection, ReflectionKind, ContainerReflection } from "./abstract";
 import type { ObjectReflection } from "./object";
 import type { ParameterReflection } from "./parameter";
 import { Visibility } from "./class";
-
-export abstract class CallableReflection extends Reflection {
-  signatures: SignatureReflection[] = [];
-}
 
 /**
  * Represents a function exported from a module or namespace.
@@ -20,27 +16,26 @@ export abstract class CallableReflection extends Reflection {
  * Both arrow functions (`export const a = () => 1`) and function expressions
  * (`export const a = function(){}`) are converted to a function reflection.
  */
-export class FunctionReflection extends CallableReflection {
+export class FunctionReflection extends ContainerReflection<
+  SignatureReflection
+> {
   readonly kind = ReflectionKind.Function;
 
   serialize(
-    serializer: Serializer,
-    init: BaseSerialized<FunctionReflection>
+    _serializer: Serializer,
+    base: BaseSerialized<FunctionReflection>
   ): SerializedFunctionReflection {
-    return {
-      ...init,
-      signatures: serializer.toObjects(this.signatures),
-    };
+    return base;
   }
 }
 
 export interface SerializedFunctionReflection
-  extends Serialized<FunctionReflection, "signatures"> {}
+  extends Serialized<FunctionReflection, never> {}
 
 /**
  * Represents a method on a class or interface.
  */
-export class MethodReflection extends CallableReflection {
+export class MethodReflection extends ContainerReflection<SignatureReflection> {
   readonly kind = ReflectionKind.Method;
 
   visibility: Visibility;
@@ -122,13 +117,12 @@ export class MethodReflection extends CallableReflection {
   private _implementationOf?: number;
 
   serialize(
-    serializer: Serializer,
+    _serializer: Serializer,
     init: BaseSerialized<MethodReflection>
   ): SerializedMethodReflection {
     const result: SerializedMethodReflection = {
       ...init,
       visibility: this.visibility,
-      signatures: serializer.toObjects(this.signatures),
     };
 
     if (typeof this._overwrites === "number") {
@@ -146,7 +140,7 @@ export class MethodReflection extends CallableReflection {
 }
 
 export interface SerializedMethodReflection
-  extends Serialized<MethodReflection, "visibility" | "signatures"> {
+  extends Serialized<MethodReflection, "visibility"> {
   overwrites?: number;
   inheritedFrom?: number;
   implementationOf?: number;

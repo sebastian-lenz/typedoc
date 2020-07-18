@@ -74,17 +74,19 @@ export function buildTheme(
 
       const path = router.getDocumentName(page);
       app.logger.verbose(`${page.getFullName()} ===> ${path}`);
-      const content = render(
-        <themeTemplates.Page
-          hooks={app.renderer.hooks}
-          reflection={page as SomeReflection}
-          router={router}
-          parseMarkdown={boundParseMarkdown}
-          templates={themeTemplates}
-        />,
-        null,
-        { pretty: true }
-      );
+      const content =
+        "<!DOCTYPE html>\n" +
+        render(
+          <themeTemplates.Page
+            hooks={app.renderer.hooks}
+            reflection={page as SomeReflection}
+            router={router}
+            parseMarkdown={boundParseMarkdown}
+            templates={themeTemplates}
+          />,
+          null,
+          { pretty: true }
+        );
       tasks.push(writeFile(join(outDir, path), content));
 
       if (page.isContainer()) {

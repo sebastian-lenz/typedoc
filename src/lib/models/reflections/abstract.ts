@@ -136,11 +136,11 @@ export abstract class Reflection {
    * The reflection this reflection is a child of. This is set by the container reflection
    * when a child is added to the reflection.
    */
-  get parent(): SomeContainerReflection | undefined {
+  get parent(): SomeReflection | undefined {
     return this._parent;
   }
 
-  set parent(value: SomeContainerReflection | undefined) {
+  set parent(value: SomeReflection | undefined) {
     this._parent = value;
     this._projectCache = undefined;
   }
@@ -161,7 +161,7 @@ export abstract class Reflection {
 
   private _name: string;
   private _originalName?: string;
-  private _parent?: SomeContainerReflection;
+  private _parent?: SomeReflection;
   private _projectCache?: ProjectReflection;
 
   /**

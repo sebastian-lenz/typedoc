@@ -63,7 +63,6 @@ export {
 } from "./property";
 export { ReferenceReflection } from "./reference";
 export {
-  CallableReflection,
   FunctionReflection,
   MethodReflection,
   SignatureReflection,
@@ -126,7 +125,9 @@ export type SomeContainerReflection =
   | EnumReflection
   | ClassReflection
   | InterfaceReflection
-  | ObjectReflection;
+  | ObjectReflection
+  | FunctionReflection
+  | MethodReflection;
 
 export type ModelToSerialized<T> = T extends SomeReflection
   ? ReflectionKindToSerialized[T["kind"]]

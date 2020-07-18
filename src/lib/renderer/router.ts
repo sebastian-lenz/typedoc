@@ -23,7 +23,7 @@ export class ThemeRouter {
    * A map of reflections with pages to their associated slugger instance.
    */
   protected _sluggers = new WeakMap<Reflection, Slugger>();
-  protected _slugs = new WeakMap<Slugger, Map<string, string>>();
+  protected _slugs = new WeakMap<Slugger, WeakMap<Reflection, string>>();
 
   constructor(protected project: ProjectReflection) {}
 
@@ -48,6 +48,7 @@ export class ThemeRouter {
    * @param reflection
    */
   createSlug(reflection: Reflection, header?: string): string {
+    const targetReflection = reflection;
     const docReflection = this._getReflectionWithDocument(reflection);
 
     // We have our own page, no anchor required.
@@ -58,6 +59,10 @@ export class ThemeRouter {
     let slugger = this._sluggers.get(docReflection);
     if (!slugger) {
       slugger = new Slugger();
+      // These ids are used in the default page, register them now so that reflections
+      // named this don't cause duplicate ids.
+      slugger.slug("main");
+      slugger.slug("search");
       this._sluggers.set(docReflection, slugger);
     }
 
@@ -69,7 +74,10 @@ export class ThemeRouter {
     // Include the hierarchy within the anchor.
     const parts: string[] = [];
     while (reflection !== docReflection) {
-      parts.unshift(reflection.name);
+      // These always have the same name as their parent...
+      if (!reflection.kindOf(ReflectionKind.Signature)) {
+        parts.unshift(reflection.name);
+      }
       assert(reflection.parent);
       reflection = reflection.parent;
     }
@@ -82,8 +90,8 @@ export class ThemeRouter {
       this._slugs.set(slugger, slugs);
     }
 
-    const slug = slugs.get(name) ?? slugger.slug(name);
-    slugs.set(name, slug);
+    const slug = slugs.get(targetReflection) ?? slugger.slug(name);
+    slugs.set(targetReflection, slug);
 
     return slug;
   }

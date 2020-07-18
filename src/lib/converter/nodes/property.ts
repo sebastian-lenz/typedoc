@@ -18,7 +18,7 @@ export const propertyConverter: ReflectionConverter<
     // class Foo { bar = () => this.something }
     if (node.initializer && ts.isArrowFunction(node.initializer)) {
       const container = new MethodReflection(symbol.name, getVisibility(node));
-      container.signatures.push(
+      container.addChild(
         await convertSignatureDeclaration(
           context.converter,
           symbol.name,

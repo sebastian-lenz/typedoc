@@ -6,6 +6,7 @@ import {
   TypeParameterType,
 } from "../../models";
 import { Converter } from "../converter";
+import { getCommentForNodes } from "../comments";
 
 export async function convertSignatureDeclaration(
   converter: Converter,
@@ -15,7 +16,7 @@ export async function convertSignatureDeclaration(
   const signature = converter.checker.getSignatureFromDeclaration(node);
   assert(
     signature,
-    `Failed to get a signature for ${name}. This likely a bug.`
+    `Failed to get a signature for ${name}. This is likely a bug.`
   );
 
   const returnType = await converter.convertTypeOrObject(
@@ -37,9 +38,10 @@ export async function convertSignatureDeclaration(
         param.name,
         paramType,
         paramDeclaration.initializer?.getText(),
-        !!paramDeclaration.questionToken,
+        !!paramDeclaration.questionToken || !!paramDeclaration.initializer,
         !!paramDeclaration.dotDotDotToken
       );
+      parameter.comment = getCommentForNodes([paramDeclaration]);
 
       return parameter;
     })
@@ -52,5 +54,15 @@ export async function convertSignatureDeclaration(
       return type;
     }) ?? [];
 
-  return new SignatureReflection(name, returnType, parameters, typeParameters);
+  const reflection = new SignatureReflection(
+    name,
+    returnType,
+    parameters,
+    typeParameters
+  );
+  reflection.parameters.forEach((param) => (param.parent = reflection));
+  // Since we don't go through the converter, we have to set our own comment.
+  reflection.comment = getCommentForNodes([node]);
+
+  return reflection;
 }
