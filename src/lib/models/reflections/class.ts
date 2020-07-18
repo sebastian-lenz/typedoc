@@ -1,7 +1,7 @@
 import { ContainerReflection, ReflectionKind } from "./abstract";
 import type { SignatureReflection, MethodReflection } from "./signature";
 import type { PropertyReflection } from "./property";
-import type { ReferenceType, TypeParameterType } from "../types";
+import type { ReferenceType, TypeParameterType, SomeType } from "../types";
 import type {
   Serializer,
   BaseSerialized,
@@ -74,8 +74,11 @@ export class ClassReflection extends ContainerReflection<
    * class B extends A {} // extendedType is A
    * class C extends B {} // extendedType is B
    * ```
+   *
+   * Note that this will usually, but not always, be a reference type. Mixins
+   * may result in an intersection type appearing instead.
    */
-  extendedType?: ReferenceType;
+  extendedType?: SomeType;
 
   /**
    * All types implemented by this class. Implementing types can appear in two positions.
@@ -94,7 +97,7 @@ export class ClassReflection extends ContainerReflection<
     constructSignatures: SignatureReflection[],
     typeParameters: TypeParameterType[],
     implementedTypes: ReferenceType[],
-    extendedType?: ReferenceType
+    extendedType?: SomeType
   ) {
     super(name);
     this.signatures = signatures;

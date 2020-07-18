@@ -9,18 +9,43 @@
       "name": "access",
       "kind": 2,
       "kindString": "module",
+      "parent": 0,
       "children": [
         {
           "id": 8,
           "name": "PrivateClass",
           "kind": 128,
           "kindString": "class",
+          "parent": 1,
+          "comment": {
+            "shortText": "A class that is documented as being private.",
+            "text": "",
+            "tags": [
+              {
+                "tagName": "private",
+                "text": "\n",
+                "paramName": ""
+              }
+            ]
+          },
           "children": [
             {
               "id": 11,
               "name": "fakePrivateVariable",
               "kind": 1024,
               "kindString": "property",
+              "parent": 8,
+              "comment": {
+                "shortText": "A variable that is made private via comment.",
+                "text": "",
+                "tags": [
+                  {
+                    "tagName": "private",
+                    "text": "\n",
+                    "paramName": ""
+                  }
+                ]
+              },
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -33,6 +58,18 @@
               "name": "fakeProtectedVariable",
               "kind": 1024,
               "kindString": "property",
+              "parent": 8,
+              "comment": {
+                "shortText": "A variable that is made protected via comment.",
+                "text": "",
+                "tags": [
+                  {
+                    "tagName": "protected",
+                    "text": "\n",
+                    "paramName": ""
+                  }
+                ]
+              },
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -45,13 +82,36 @@
               "name": "fakePrivateFunction",
               "kind": 4096,
               "kindString": "method",
-              "visibility": "public",
-              "signatures": [
+              "parent": 8,
+              "comment": {
+                "shortText": "A function that is made private via comment.",
+                "text": "",
+                "tags": [
+                  {
+                    "tagName": "private",
+                    "text": "\n",
+                    "paramName": ""
+                  }
+                ]
+              },
+              "children": [
                 {
                   "id": 13,
                   "name": "fakePrivateFunction",
                   "kind": 8192,
                   "kindString": "signature",
+                  "parent": 9,
+                  "comment": {
+                    "shortText": "A function that is made private via comment.",
+                    "text": "",
+                    "tags": [
+                      {
+                        "tagName": "private",
+                        "text": "\n",
+                        "paramName": ""
+                      }
+                    ]
+                  },
                   "parameters": [],
                   "typeParameters": [],
                   "returnType": {
@@ -60,20 +120,44 @@
                     "name": "void"
                   }
                 }
-              ]
+              ],
+              "visibility": "public"
             },
             {
               "id": 10,
               "name": "fakeProtectedFunction",
               "kind": 4096,
               "kindString": "method",
-              "visibility": "public",
-              "signatures": [
+              "parent": 8,
+              "comment": {
+                "shortText": "A function that is made protected via comment.",
+                "text": "",
+                "tags": [
+                  {
+                    "tagName": "protected",
+                    "text": "\n",
+                    "paramName": ""
+                  }
+                ]
+              },
+              "children": [
                 {
                   "id": 14,
                   "name": "fakeProtectedFunction",
                   "kind": 8192,
                   "kindString": "signature",
+                  "parent": 10,
+                  "comment": {
+                    "shortText": "A function that is made protected via comment.",
+                    "text": "",
+                    "tags": [
+                      {
+                        "tagName": "protected",
+                        "text": "\n",
+                        "paramName": ""
+                      }
+                    ]
+                  },
                   "parameters": [],
                   "typeParameters": [],
                   "returnType": {
@@ -82,7 +166,8 @@
                     "name": "void"
                   }
                 }
-              ]
+              ],
+              "visibility": "public"
             }
           ],
           "signatures": [],
@@ -95,36 +180,84 @@
           "name": "fakePrivateVariable",
           "kind": 32,
           "kindString": "variable",
+          "parent": 1,
+          "comment": {
+            "shortText": "A variable that is made private via comment.",
+            "text": "",
+            "tags": [
+              {
+                "tagName": "private",
+                "text": "\n",
+                "paramName": ""
+              }
+            ]
+          },
           "type": {
             "kind": 16384,
             "kindString": "literal",
             "value": "test"
           },
-          "defaultValue": "'test'"
+          "defaultValue": "\"test\""
         },
         {
           "id": 7,
           "name": "fakeProtectedVariable",
           "kind": 32,
           "kindString": "variable",
+          "parent": 1,
+          "comment": {
+            "shortText": "A variable that is made protected via comment.",
+            "text": "",
+            "tags": [
+              {
+                "tagName": "protected",
+                "text": "\n",
+                "paramName": ""
+              }
+            ]
+          },
           "type": {
             "kind": 16384,
             "kindString": "literal",
             "value": "test"
           },
-          "defaultValue": "'test'"
+          "defaultValue": "\"test\""
         },
         {
           "id": 2,
           "name": "fakePrivateFunction",
           "kind": 64,
           "kindString": "function",
-          "signatures": [
+          "parent": 1,
+          "comment": {
+            "shortText": "A function that is made private via comment.",
+            "text": "",
+            "tags": [
+              {
+                "tagName": "private",
+                "text": "\n",
+                "paramName": ""
+              }
+            ]
+          },
+          "children": [
             {
               "id": 3,
               "name": "fakePrivateFunction",
               "kind": 8192,
               "kindString": "signature",
+              "parent": 2,
+              "comment": {
+                "shortText": "A function that is made private via comment.",
+                "text": "",
+                "tags": [
+                  {
+                    "tagName": "private",
+                    "text": "\n",
+                    "paramName": ""
+                  }
+                ]
+              },
               "parameters": [],
               "typeParameters": [],
               "returnType": {
@@ -140,12 +273,36 @@
           "name": "fakeProtectedFunction",
           "kind": 64,
           "kindString": "function",
-          "signatures": [
+          "parent": 1,
+          "comment": {
+            "shortText": "A function that is made protected via comment.",
+            "text": "",
+            "tags": [
+              {
+                "tagName": "protected",
+                "text": "\n",
+                "paramName": ""
+              }
+            ]
+          },
+          "children": [
             {
               "id": 5,
               "name": "fakeProtectedFunction",
               "kind": 8192,
               "kindString": "signature",
+              "parent": 4,
+              "comment": {
+                "shortText": "A function that is made protected via comment.",
+                "text": "",
+                "tags": [
+                  {
+                    "tagName": "protected",
+                    "text": "\n",
+                    "paramName": ""
+                  }
+                ]
+              },
               "parameters": [],
               "typeParameters": [],
               "returnType": {
@@ -163,24 +320,38 @@
       "name": "class",
       "kind": 2,
       "kindString": "module",
+      "parent": 0,
       "children": [
         {
           "id": 30,
           "name": "TestSubClass",
           "kind": 4,
           "kindString": "namespace",
+          "parent": 15,
           "children": [
             {
               "id": 31,
               "name": "staticMergedMethod",
               "kind": 64,
               "kindString": "function",
-              "signatures": [
+              "parent": 30,
+              "comment": {
+                "shortText": "staticMergedMethod short text.",
+                "text": "",
+                "tags": []
+              },
+              "children": [
                 {
                   "id": 36,
                   "name": "staticMergedMethod",
                   "kind": 8192,
                   "kindString": "signature",
+                  "parent": 31,
+                  "comment": {
+                    "shortText": "staticMergedMethod short text.",
+                    "text": "",
+                    "tags": []
+                  },
                   "parameters": [],
                   "typeParameters": [],
                   "returnType": {
@@ -194,16 +365,18 @@
           ]
         },
         {
-          "id": 51,
+          "id": 49,
           "name": "ComputedNames",
           "kind": 128,
           "kindString": "class",
+          "parent": 15,
           "children": [
             {
-              "id": 52,
+              "id": 50,
               "name": "__@toStringTag",
               "kind": 1024,
               "kindString": "property",
+              "parent": 49,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -212,10 +385,11 @@
               "visibility": "public"
             },
             {
-              "id": 53,
+              "id": 51,
               "name": "literal2",
               "kind": 1024,
               "kindString": "property",
+              "parent": 49,
               "type": {
                 "kind": 262144,
                 "kindString": "union",
@@ -233,10 +407,11 @@
               "visibility": "public"
             },
             {
-              "id": 54,
+              "id": 52,
               "name": "y",
               "kind": 1024,
               "kindString": "property",
+              "parent": 49,
               "type": {
                 "kind": 262144,
                 "kindString": "union",
@@ -260,16 +435,18 @@
           "implementedTypes": []
         },
         {
-          "id": 43,
+          "id": 42,
           "name": "TestAbstractClass",
           "kind": 128,
           "kindString": "class",
+          "parent": 15,
           "children": [
             {
-              "id": 45,
+              "id": 44,
               "name": "myAbstractProperty",
               "kind": 1024,
               "kindString": "property",
+              "parent": 42,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -278,26 +455,13 @@
               "visibility": "public"
             },
             {
-              "id": 44,
+              "id": 43,
               "name": "myAbstractMethod",
               "kind": 4096,
               "kindString": "method",
-              "visibility": "protected",
-              "signatures": [
-                {
-                  "id": 46,
-                  "name": "myAbstractMethod",
-                  "kind": 8192,
-                  "kindString": "signature",
-                  "parameters": [],
-                  "typeParameters": [],
-                  "returnType": {
-                    "kind": 32,
-                    "kindString": "intrinsic",
-                    "name": "void"
-                  }
-                }
-              ]
+              "parent": 42,
+              "children": [],
+              "visibility": "protected"
             }
           ],
           "signatures": [],
@@ -306,16 +470,18 @@
           "implementedTypes": []
         },
         {
-          "id": 47,
+          "id": 45,
           "name": "TestAbstractClassImplementation",
           "kind": 128,
           "kindString": "class",
+          "parent": 15,
           "children": [
             {
-              "id": 49,
+              "id": 47,
               "name": "myAbstractProperty",
               "kind": 1024,
               "kindString": "property",
+              "parent": 45,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -324,17 +490,18 @@
               "visibility": "public"
             },
             {
-              "id": 48,
+              "id": 46,
               "name": "myAbstractMethod",
               "kind": 4096,
               "kindString": "method",
-              "visibility": "protected",
-              "signatures": [
+              "parent": 45,
+              "children": [
                 {
-                  "id": 50,
+                  "id": 48,
                   "name": "myAbstractMethod",
                   "kind": 8192,
                   "kindString": "signature",
+                  "parent": 46,
                   "parameters": [],
                   "typeParameters": [],
                   "returnType": {
@@ -343,7 +510,8 @@
                     "name": "void"
                   }
                 }
-              ]
+              ],
+              "visibility": "protected"
             }
           ],
           "signatures": [],
@@ -362,12 +530,30 @@
           "name": "TestClass",
           "kind": 128,
           "kindString": "class",
+          "parent": 15,
+          "comment": {
+            "shortText": "TestClass comment short text.",
+            "text": "TestClass comment text.\n",
+            "tags": [
+              {
+                "tagName": "see",
+                "text": "\n",
+                "paramName": "[[TestClass]] @ fixtures"
+              }
+            ]
+          },
           "children": [
             {
               "id": 22,
               "name": "privateProperty",
               "kind": 1024,
               "kindString": "property",
+              "parent": 16,
+              "comment": {
+                "shortText": "privateProperty short text.",
+                "text": "",
+                "tags": []
+              },
               "type": {
                 "kind": 1,
                 "kindString": "array",
@@ -384,6 +570,12 @@
               "name": "publicProperty",
               "kind": 1024,
               "kindString": "property",
+              "parent": 16,
+              "comment": {
+                "shortText": "publicProperty short text.",
+                "text": "",
+                "tags": []
+              },
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -396,6 +588,7 @@
               "name": "getterOnly",
               "kind": 2048,
               "kindString": "accessor",
+              "parent": 16,
               "visibility": "public",
               "hasGetter": true,
               "hasSetter": false,
@@ -410,6 +603,7 @@
               "name": "getterSetter",
               "kind": 2048,
               "kindString": "accessor",
+              "parent": 16,
               "visibility": "public",
               "hasGetter": true,
               "hasSetter": true,
@@ -424,6 +618,7 @@
               "name": "setterOnly",
               "kind": 2048,
               "kindString": "accessor",
+              "parent": 16,
               "visibility": "public",
               "hasGetter": false,
               "hasSetter": true,
@@ -438,13 +633,19 @@
               "name": "arrowMethod",
               "kind": 4096,
               "kindString": "method",
-              "visibility": "public",
-              "signatures": [
+              "parent": 16,
+              "comment": {
+                "shortText": "arrow method",
+                "text": "",
+                "tags": []
+              },
+              "children": [
                 {
                   "id": 29,
                   "name": "arrowMethod",
                   "kind": 8192,
                   "kindString": "signature",
+                  "parent": 20,
                   "parameters": [],
                   "typeParameters": [],
                   "returnType": {
@@ -453,20 +654,32 @@
                     "name": "void"
                   }
                 }
-              ]
+              ],
+              "visibility": "public"
             },
             {
               "id": 19,
               "name": "privateMethod",
               "kind": 4096,
               "kindString": "method",
-              "visibility": "private",
-              "signatures": [
+              "parent": 16,
+              "comment": {
+                "shortText": "privateMethod short text.",
+                "text": "",
+                "tags": []
+              },
+              "children": [
                 {
                   "id": 28,
                   "name": "privateMethod",
                   "kind": 8192,
                   "kindString": "signature",
+                  "parent": 19,
+                  "comment": {
+                    "shortText": "privateMethod short text.",
+                    "text": "",
+                    "tags": []
+                  },
                   "parameters": [],
                   "typeParameters": [],
                   "returnType": {
@@ -475,20 +688,44 @@
                     "name": "void"
                   }
                 }
-              ]
+              ],
+              "visibility": "private"
             },
             {
               "id": 18,
               "name": "protectedMethod",
               "kind": 4096,
               "kindString": "method",
-              "visibility": "protected",
-              "signatures": [
+              "parent": 16,
+              "comment": {
+                "shortText": "protectedMethod short text.",
+                "text": "",
+                "tags": [
+                  {
+                    "tagName": "category",
+                    "text": "\n",
+                    "paramName": "Test"
+                  }
+                ]
+              },
+              "children": [
                 {
                   "id": 27,
                   "name": "protectedMethod",
                   "kind": 8192,
                   "kindString": "signature",
+                  "parent": 18,
+                  "comment": {
+                    "shortText": "protectedMethod short text.",
+                    "text": "",
+                    "tags": [
+                      {
+                        "tagName": "category",
+                        "text": "\n",
+                        "paramName": "Test"
+                      }
+                    ]
+                  },
                   "parameters": [],
                   "typeParameters": [],
                   "returnType": {
@@ -497,20 +734,44 @@
                     "name": "void"
                   }
                 }
-              ]
+              ],
+              "visibility": "protected"
             },
             {
               "id": 17,
               "name": "publicMethod",
               "kind": 4096,
               "kindString": "method",
-              "visibility": "public",
-              "signatures": [
+              "parent": 16,
+              "comment": {
+                "shortText": "publicMethod short text.",
+                "text": "",
+                "tags": [
+                  {
+                    "tagName": "category",
+                    "text": "\n",
+                    "paramName": "Test"
+                  }
+                ]
+              },
+              "children": [
                 {
                   "id": 26,
                   "name": "publicMethod",
                   "kind": 8192,
                   "kindString": "signature",
+                  "parent": 17,
+                  "comment": {
+                    "shortText": "publicMethod short text.",
+                    "text": "",
+                    "tags": [
+                      {
+                        "tagName": "category",
+                        "text": "\n",
+                        "paramName": "Test"
+                      }
+                    ]
+                  },
                   "parameters": [],
                   "typeParameters": [],
                   "returnType": {
@@ -519,7 +780,8 @@
                     "name": "void"
                   }
                 }
-              ]
+              ],
+              "visibility": "public"
             }
           ],
           "signatures": [],
@@ -532,12 +794,14 @@
           "name": "TestSubClass",
           "kind": 128,
           "kindString": "class",
+          "parent": 15,
           "children": [
             {
               "id": 37,
               "name": "p2",
               "kind": 1024,
               "kindString": "property",
+              "parent": 32,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -550,6 +814,7 @@
               "name": "p3",
               "kind": 1024,
               "kindString": "property",
+              "parent": 32,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -562,6 +827,7 @@
               "name": "p4",
               "kind": 1024,
               "kindString": "property",
+              "parent": 32,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -574,35 +840,38 @@
               "name": "mergedMethod",
               "kind": 4096,
               "kindString": "method",
-              "visibility": "public",
-              "signatures": [
-                {
-                  "id": 42,
-                  "name": "mergedMethod",
-                  "kind": 8192,
-                  "kindString": "signature",
-                  "parameters": [],
-                  "typeParameters": [],
-                  "returnType": {
-                    "kind": 32,
-                    "kindString": "intrinsic",
-                    "name": "any"
-                  }
-                }
-              ]
+              "parent": 32,
+              "comment": {
+                "shortText": "mergedMethod short text.",
+                "text": "",
+                "tags": []
+              },
+              "children": [],
+              "visibility": "public"
             },
             {
               "id": 34,
               "name": "protectedMethod",
               "kind": 4096,
               "kindString": "method",
-              "visibility": "protected",
-              "signatures": [
+              "parent": 32,
+              "comment": {
+                "shortText": "protectedMethod short text.",
+                "text": "",
+                "tags": []
+              },
+              "children": [
                 {
                   "id": 41,
                   "name": "protectedMethod",
                   "kind": 8192,
                   "kindString": "signature",
+                  "parent": 34,
+                  "comment": {
+                    "shortText": "protectedMethod short text.",
+                    "text": "",
+                    "tags": []
+                  },
                   "parameters": [],
                   "typeParameters": [],
                   "returnType": {
@@ -611,20 +880,32 @@
                     "name": "void"
                   }
                 }
-              ]
+              ],
+              "visibility": "protected"
             },
             {
               "id": 33,
               "name": "publicMethod",
               "kind": 4096,
               "kindString": "method",
-              "visibility": "public",
-              "signatures": [
+              "parent": 32,
+              "comment": {
+                "shortText": "publicMethod short text.",
+                "text": "",
+                "tags": []
+              },
+              "children": [
                 {
                   "id": 40,
                   "name": "publicMethod",
                   "kind": 8192,
                   "kindString": "signature",
+                  "parent": 33,
+                  "comment": {
+                    "shortText": "publicMethod short text.",
+                    "text": "",
+                    "tags": []
+                  },
                   "parameters": [],
                   "typeParameters": [],
                   "returnType": {
@@ -633,7 +914,8 @@
                     "name": "void"
                   }
                 }
-              ]
+              ],
+              "visibility": "public"
             }
           ],
           "signatures": [],
@@ -648,16 +930,23 @@
           }
         },
         {
-          "id": 55,
+          "id": 53,
           "name": "Ts38PrivateFields",
           "kind": 128,
           "kindString": "class",
+          "parent": 15,
           "children": [
             {
-              "id": 56,
+              "id": 54,
               "name": "#foo",
               "kind": 1024,
               "kindString": "property",
+              "parent": 53,
+              "comment": {
+                "shortText": "Docs",
+                "text": "",
+                "tags": []
+              },
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -674,22 +963,25 @@
       ]
     },
     {
-      "id": 57,
+      "id": 55,
       "name": "clodule-with-subclass",
       "kind": 2,
       "kindString": "module",
+      "parent": 0,
       "children": [
         {
-          "id": 58,
+          "id": 56,
           "name": "Foo",
           "kind": 4,
           "kindString": "namespace",
+          "parent": 55,
           "children": [
             {
-              "id": 59,
+              "id": 57,
               "name": "x",
               "kind": 32,
               "kindString": "variable",
+              "parent": 56,
               "type": {
                 "kind": 16384,
                 "kindString": "literal",
@@ -700,10 +992,11 @@
           ]
         },
         {
-          "id": 61,
+          "id": 59,
           "name": "Bar",
           "kind": 128,
           "kindString": "class",
+          "parent": 55,
           "children": [],
           "signatures": [],
           "constructSignatures": [],
@@ -717,10 +1010,11 @@
           }
         },
         {
-          "id": 60,
+          "id": 58,
           "name": "Foo",
           "kind": 128,
           "kindString": "class",
+          "parent": 55,
           "children": [],
           "signatures": [],
           "constructSignatures": [],
@@ -730,71 +1024,216 @@
       ]
     },
     {
-      "id": 62,
+      "id": 61,
       "name": "constructor-properties",
       "kind": 2,
       "kindString": "module",
-      "children": []
+      "parent": 0,
+      "children": [
+        {
+          "id": 62,
+          "name": "Vector2",
+          "kind": 128,
+          "kindString": "class",
+          "parent": 61,
+          "comment": {
+            "shortText": "A class with constructor properties.",
+            "text": "",
+            "tags": []
+          },
+          "children": [
+            {
+              "id": 65,
+              "name": "name",
+              "kind": 1024,
+              "kindString": "property",
+              "parent": 62,
+              "type": {
+                "kind": 32,
+                "kindString": "intrinsic",
+                "name": "string"
+              },
+              "visibility": "public"
+            },
+            {
+              "id": 63,
+              "name": "x",
+              "kind": 1024,
+              "kindString": "property",
+              "parent": 62,
+              "type": {
+                "kind": 32,
+                "kindString": "intrinsic",
+                "name": "number"
+              },
+              "visibility": "public"
+            },
+            {
+              "id": 64,
+              "name": "y",
+              "kind": 1024,
+              "kindString": "property",
+              "parent": 62,
+              "type": {
+                "kind": 32,
+                "kindString": "intrinsic",
+                "name": "number"
+              },
+              "visibility": "public"
+            }
+          ],
+          "signatures": [],
+          "constructSignatures": [],
+          "typeParameters": [],
+          "implementedTypes": []
+        },
+        {
+          "id": 66,
+          "name": "Vector3",
+          "kind": 128,
+          "kindString": "class",
+          "parent": 61,
+          "comment": {
+            "shortText": "A class with inherited and overwritten constructor properties.",
+            "text": "",
+            "tags": []
+          },
+          "children": [
+            {
+              "id": 69,
+              "name": "name",
+              "kind": 1024,
+              "kindString": "property",
+              "parent": 66,
+              "type": {
+                "kind": 32,
+                "kindString": "intrinsic",
+                "name": "string"
+              },
+              "visibility": "public"
+            },
+            {
+              "id": 67,
+              "name": "y",
+              "kind": 1024,
+              "kindString": "property",
+              "parent": 66,
+              "type": {
+                "kind": 32,
+                "kindString": "intrinsic",
+                "name": "number"
+              },
+              "visibility": "public"
+            },
+            {
+              "id": 68,
+              "name": "z",
+              "kind": 1024,
+              "kindString": "property",
+              "parent": 66,
+              "type": {
+                "kind": 32,
+                "kindString": "intrinsic",
+                "name": "number"
+              },
+              "visibility": "public"
+            }
+          ],
+          "signatures": [],
+          "constructSignatures": [],
+          "typeParameters": [],
+          "implementedTypes": [],
+          "extendedType": {
+            "kind": 1024,
+            "kindString": "reference",
+            "name": "Vector2",
+            "typeArguments": []
+          }
+        }
+      ]
     },
     {
-      "id": 63,
+      "id": 60,
       "name": "decorators",
       "kind": 2,
       "kindString": "module",
+      "parent": 0,
       "children": []
     },
     {
-      "id": 65,
+      "id": 71,
       "name": "events",
       "kind": 2,
       "kindString": "module",
+      "parent": 0,
       "children": []
     },
     {
-      "id": 64,
+      "id": 70,
       "name": "events-overloads",
       "kind": 2,
       "kindString": "module",
+      "parent": 0,
       "children": []
     },
     {
-      "id": 66,
+      "id": 72,
       "name": "generic-class",
       "kind": 2,
       "kindString": "module",
+      "parent": 0,
       "children": []
     },
     {
-      "id": 67,
+      "id": 73,
       "name": "getter-setter",
       "kind": 2,
       "kindString": "module",
+      "parent": 0,
       "children": []
     },
     {
-      "id": 68,
+      "id": 74,
       "name": "this",
       "kind": 2,
       "kindString": "module",
+      "parent": 0,
       "children": [
         {
-          "id": 69,
+          "id": 75,
           "name": "ChainClass",
           "kind": 128,
           "kindString": "class",
+          "parent": 74,
+          "comment": {
+            "shortText": "ChainClass comment short text.",
+            "text": "ChainClass comment text.\n",
+            "tags": []
+          },
           "children": [
             {
-              "id": 70,
+              "id": 76,
               "name": "chain",
               "kind": 4096,
               "kindString": "method",
-              "visibility": "public",
-              "signatures": [
+              "parent": 75,
+              "comment": {
+                "shortText": "Chain method that returns this.",
+                "text": "",
+                "tags": []
+              },
+              "children": [
                 {
-                  "id": 71,
+                  "id": 77,
                   "name": "chain",
                   "kind": 8192,
                   "kindString": "signature",
+                  "parent": 76,
+                  "comment": {
+                    "shortText": "Chain method that returns this.",
+                    "text": "",
+                    "tags": []
+                  },
                   "parameters": [],
                   "typeParameters": [],
                   "returnType": {
@@ -803,7 +1242,8 @@
                     "name": "this"
                   }
                 }
-              ]
+              ],
+              "visibility": "public"
             }
           ],
           "signatures": [],
@@ -814,22 +1254,25 @@
       ]
     },
     {
-      "id": 72,
+      "id": 78,
       "name": "type-operator",
       "kind": 2,
       "kindString": "module",
+      "parent": 0,
       "children": [
         {
-          "id": 76,
+          "id": 82,
           "name": "GenericClass",
           "kind": 128,
           "kindString": "class",
+          "parent": 78,
           "children": [
             {
-              "id": 77,
+              "id": 83,
               "name": "c",
               "kind": 1024,
               "kindString": "property",
+              "parent": 82,
               "type": {
                 "kind": 1024,
                 "kindString": "reference",
@@ -862,16 +1305,29 @@
           "implementedTypes": []
         },
         {
-          "id": 73,
+          "id": 79,
           "name": "TestClass",
           "kind": 128,
           "kindString": "class",
+          "parent": 78,
+          "comment": {
+            "shortText": "TestClass comment short text.",
+            "text": "TestClass comment text.\n",
+            "tags": [
+              {
+                "tagName": "see",
+                "text": "\n",
+                "paramName": "[[TestClass]] @ fixtures"
+              }
+            ]
+          },
           "children": [
             {
-              "id": 74,
+              "id": 80,
               "name": "a",
               "kind": 1024,
               "kindString": "property",
+              "parent": 79,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -880,10 +1336,11 @@
               "visibility": "public"
             },
             {
-              "id": 75,
+              "id": 81,
               "name": "b",
               "kind": 1024,
               "kindString": "property",
+              "parent": 79,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",

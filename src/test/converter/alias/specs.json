@@ -3,21 +3,25 @@
   "name": "typedoc",
   "kind": 1,
   "kindString": "project",
-  "flags": {},
   "children": [
     {
       "id": 1,
-      "name": "%BASE%/alias/alias.ts",
+      "name": "alias",
       "kind": 2,
       "kindString": "module",
-      "flags": {},
+      "parent": 0,
       "children": [
         {
           "id": 7,
           "name": "HorribleRecursiveTypeThatShouldNotBeUsedByAnyone",
           "kind": 32768,
-          "kindString": "typeAlias",
-          "flags": {},
+          "kindString": "alias",
+          "parent": 1,
+          "comment": {
+            "shortText": "See GH#1150. Calling typeChecker.typeToString on this type will send TS into an infinite\nloop, which is undesirable.",
+            "text": "",
+            "tags": []
+          },
           "typeParameters": [
             {
               "kind": 131072,
@@ -144,8 +148,13 @@
           "id": 4,
           "name": "IsString",
           "kind": 32768,
-          "kindString": "typeAlias",
-          "flags": {},
+          "kindString": "alias",
+          "parent": 1,
+          "comment": {
+            "shortText": "Conditional types from TS2.8",
+            "text": "",
+            "tags": []
+          },
           "typeParameters": [
             {
               "kind": 131072,
@@ -183,8 +192,13 @@
           "id": 6,
           "name": "PopFront",
           "kind": 32768,
-          "kindString": "typeAlias",
-          "flags": {},
+          "kindString": "alias",
+          "parent": 1,
+          "comment": {
+            "shortText": "Conditional type with infer",
+            "text": "",
+            "tags": []
+          },
           "typeParameters": [
             {
               "kind": 131072,
@@ -282,8 +296,13 @@
           "id": 5,
           "name": "PromiseType",
           "kind": 32768,
-          "kindString": "typeAlias",
-          "flags": {},
+          "kindString": "alias",
+          "parent": 1,
+          "comment": {
+            "shortText": "Extracts the type of a promise.",
+            "text": "",
+            "tags": []
+          },
           "typeParameters": [
             {
               "kind": 131072,
@@ -330,8 +349,13 @@
           "id": 2,
           "name": "TCompareFunction",
           "kind": 32768,
-          "kindString": "typeAlias",
-          "flags": {},
+          "kindString": "alias",
+          "parent": 1,
+          "comment": {
+            "shortText": "A type that describes a compare function, e.g. for array.sort().",
+            "text": "",
+            "tags": []
+          },
           "typeParameters": [
             {
               "kind": 131072,
@@ -382,8 +406,13 @@
           "id": 3,
           "name": "TId",
           "kind": 32768,
-          "kindString": "typeAlias",
-          "flags": {},
+          "kindString": "alias",
+          "parent": 1,
+          "comment": {
+            "shortText": "A type for IDs.",
+            "text": "",
+            "tags": []
+          },
           "typeParameters": [],
           "type": {
             "kind": 262144,

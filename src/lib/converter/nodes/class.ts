@@ -50,7 +50,6 @@ export const classConverter: ReflectionConverter<
     const extendedType = extendsClause
       ? context.converter.convertType(extendsClause.types[0])
       : undefined;
-    assert(!extendedType || extendedType instanceof ReferenceType);
 
     const typeParameterSymbols: ts.Symbol[] = [];
     const members: ts.Symbol[] = [];

@@ -1,282 +1,596 @@
 {
   "id": 0,
   "name": "typedoc",
-  "kind": 0,
-  "flags": {},
+  "kind": 1,
+  "kindString": "project",
   "children": [
     {
-      "id": 6,
-      "name": "\"comment\"",
-      "kind": 1,
-      "kindString": "Module",
-      "flags": {
-        "isExported": true
-      },
-      "originalName": "%BASE%/comment/comment.ts",
+      "id": 1,
+      "name": "comment",
+      "kind": 2,
+      "kindString": "module",
+      "parent": 0,
       "comment": {
-        "shortText": "This is a module doc comment with legacy behavior."
+        "shortText": "This is a module doc comment with legacy behavior.",
+        "text": "",
+        "tags": []
       },
       "children": [
         {
-          "id": 7,
+          "id": 5,
           "name": "CommentedClass",
           "kind": 128,
-          "kindString": "Class",
-          "flags": {
-            "isExported": true
-          },
+          "kindString": "class",
+          "parent": 1,
           "comment": {
             "shortText": "A Comment for a class",
             "text": "## Some Markup\n**with more markup**\n\nAn example with decorators that should not parse to tag\n```\n@myDecorator\n@FactoryDecorator('a', 'b', 'c')\nexport class CommentedClass {\n  myProp: string = 'myProp';\n\n  @PropDecorator() decoratedProp: string;\n\n  constructor(@ParamDecorator public param: string) { }\n\n  myMethod() { }\n}\n```",
             "tags": [
               {
-                "tag": "deprecated",
-                "text": ""
+                "tagName": "deprecated",
+                "text": "",
+                "paramName": ""
               },
               {
-                "tag": "todo",
-                "text": "something\n"
+                "tagName": "todo",
+                "text": "\n",
+                "paramName": "something"
+              },
+              {
+                "tagName": "class",
+                "text": "",
+                "paramName": "will be removed"
+              },
+              {
+                "tagName": "type",
+                "text": "\n",
+                "paramName": "{Data<object>} will also be removed"
               }
             ]
           },
           "children": [
             {
-              "id": 8,
-              "name": "prop",
+              "id": 11,
+              "name": "hiddenprop",
               "kind": 1024,
-              "kindString": "Property",
-              "flags": {
-                "isExported": true
-              },
+              "kindString": "property",
+              "parent": 5,
               "comment": {
-                "shortText": "The main prop"
+                "shortText": "",
+                "text": "",
+                "tags": [
+                  {
+                    "tagName": "hidden",
+                    "text": "\n",
+                    "paramName": ""
+                  }
+                ]
               },
               "type": {
-                "type": "intrinsic",
+                "kind": 32,
+                "kindString": "intrinsic",
                 "name": "string"
-              }
+              },
+              "visibility": "public"
             },
             {
-              "id": 22,
-              "name": "mixedHidden",
-              "kind": 2048,
-              "kindString": "Method",
-              "flags": {
-                "isExported": true
+              "id": 12,
+              "name": "ignoredprop",
+              "kind": 1024,
+              "kindString": "property",
+              "parent": 5,
+              "comment": {
+                "shortText": "",
+                "text": "",
+                "tags": [
+                  {
+                    "tagName": "ignore",
+                    "text": "\n",
+                    "paramName": ""
+                  }
+                ]
               },
-              "signatures": [
+              "type": {
+                "kind": 32,
+                "kindString": "intrinsic",
+                "name": "string"
+              },
+              "visibility": "public"
+            },
+            {
+              "id": 10,
+              "name": "prop",
+              "kind": 1024,
+              "kindString": "property",
+              "parent": 5,
+              "comment": {
+                "shortText": "The main prop",
+                "text": "",
+                "tags": []
+              },
+              "type": {
+                "kind": 32,
+                "kindString": "intrinsic",
+                "name": "string"
+              },
+              "visibility": "public"
+            },
+            {
+              "id": 6,
+              "name": "hidden",
+              "kind": 4096,
+              "kindString": "method",
+              "parent": 5,
+              "comment": {
+                "shortText": "Hidden function",
+                "text": "",
+                "tags": [
+                  {
+                    "tagName": "hidden",
+                    "text": "\n",
+                    "paramName": ""
+                  }
+                ]
+              },
+              "children": [
                 {
-                  "id": 25,
-                  "name": "mixedHidden",
-                  "kind": 4096,
-                  "kindString": "Call signature",
-                  "flags": {
-                    "isExported": true
-                  },
+                  "id": 21,
+                  "name": "hidden",
+                  "kind": 8192,
+                  "kindString": "signature",
+                  "parent": 6,
                   "comment": {
-                    "shortText": "Mixed hidden 2"
+                    "shortText": "Hidden function",
+                    "text": "",
+                    "tags": [
+                      {
+                        "tagName": "hidden",
+                        "text": "\n",
+                        "paramName": ""
+                      }
+                    ]
                   },
                   "parameters": [
                     {
-                      "id": 26,
-                      "name": "arg1",
-                      "kind": 32768,
-                      "kindString": "Parameter",
-                      "flags": {
-                        "isExported": true
-                      },
+                      "id": 13,
+                      "name": "args",
+                      "kind": 16384,
+                      "kindString": "parameter",
+                      "parent": 21,
                       "type": {
-                        "type": "intrinsic",
-                        "name": "any"
+                        "kind": 1,
+                        "kindString": "array",
+                        "elementType": {
+                          "kind": 32,
+                          "kindString": "intrinsic",
+                          "name": "any"
+                        }
                       }
-                    },
+                    }
+                  ],
+                  "typeParameters": [],
+                  "returnType": {
+                    "kind": 32,
+                    "kindString": "intrinsic",
+                    "name": "void"
+                  }
+                }
+              ],
+              "visibility": "public"
+            },
+            {
+              "id": 7,
+              "name": "hiddenWithImplementation",
+              "kind": 4096,
+              "kindString": "method",
+              "parent": 5,
+              "comment": {
+                "shortText": "Single hidden signature",
+                "text": "",
+                "tags": [
+                  {
+                    "tagName": "hidden",
+                    "text": "\n",
+                    "paramName": ""
+                  }
+                ]
+              },
+              "children": [
+                {
+                  "id": 22,
+                  "name": "hiddenWithImplementation",
+                  "kind": 8192,
+                  "kindString": "signature",
+                  "parent": 7,
+                  "comment": {
+                    "shortText": "Single hidden signature",
+                    "text": "",
+                    "tags": [
+                      {
+                        "tagName": "hidden",
+                        "text": "\n",
+                        "paramName": ""
+                      }
+                    ]
+                  },
+                  "parameters": [
                     {
-                      "id": 27,
-                      "name": "arg2",
-                      "kind": 32768,
-                      "kindString": "Parameter",
-                      "flags": {
-                        "isExported": true
-                      },
+                      "id": 14,
+                      "name": "arg",
+                      "kind": 16384,
+                      "kindString": "parameter",
+                      "parent": 22,
                       "type": {
-                        "type": "intrinsic",
+                        "kind": 32,
+                        "kindString": "intrinsic",
                         "name": "any"
                       }
                     }
                   ],
-                  "type": {
-                    "type": "intrinsic",
+                  "typeParameters": [],
+                  "returnType": {
+                    "kind": 32,
+                    "kindString": "intrinsic",
                     "name": "any"
                   }
                 }
-              ]
-            }
-          ],
-          "groups": [
-            {
-              "title": "Properties",
-              "kind": 1024,
-              "children": [
-                8
-              ]
+              ],
+              "visibility": "public"
             },
             {
-              "title": "Methods",
-              "kind": 2048,
+              "id": 9,
+              "name": "mixedHidden",
+              "kind": 4096,
+              "kindString": "method",
+              "parent": 5,
+              "comment": {
+                "shortText": "Mixed hidden 1",
+                "text": "",
+                "tags": [
+                  {
+                    "tagName": "hidden",
+                    "text": "\n",
+                    "paramName": ""
+                  }
+                ]
+              },
               "children": [
-                22
-              ]
+                {
+                  "id": 25,
+                  "name": "mixedHidden",
+                  "kind": 8192,
+                  "kindString": "signature",
+                  "parent": 9,
+                  "comment": {
+                    "shortText": "Mixed hidden 1",
+                    "text": "",
+                    "tags": [
+                      {
+                        "tagName": "hidden",
+                        "text": "\n",
+                        "paramName": ""
+                      }
+                    ]
+                  },
+                  "parameters": [
+                    {
+                      "id": 18,
+                      "name": "arg",
+                      "kind": 16384,
+                      "kindString": "parameter",
+                      "parent": 25,
+                      "type": {
+                        "kind": 32,
+                        "kindString": "intrinsic",
+                        "name": "any"
+                      }
+                    }
+                  ],
+                  "typeParameters": [],
+                  "returnType": {
+                    "kind": 32,
+                    "kindString": "intrinsic",
+                    "name": "any"
+                  }
+                },
+                {
+                  "id": 26,
+                  "name": "mixedHidden",
+                  "kind": 8192,
+                  "kindString": "signature",
+                  "parent": 9,
+                  "comment": {
+                    "shortText": "Mixed hidden 2",
+                    "text": "",
+                    "tags": []
+                  },
+                  "parameters": [
+                    {
+                      "id": 19,
+                      "name": "arg1",
+                      "kind": 16384,
+                      "kindString": "parameter",
+                      "parent": 26,
+                      "type": {
+                        "kind": 32,
+                        "kindString": "intrinsic",
+                        "name": "any"
+                      }
+                    },
+                    {
+                      "id": 20,
+                      "name": "arg2",
+                      "kind": 16384,
+                      "kindString": "parameter",
+                      "parent": 26,
+                      "type": {
+                        "kind": 32,
+                        "kindString": "intrinsic",
+                        "name": "any"
+                      }
+                    }
+                  ],
+                  "typeParameters": [],
+                  "returnType": {
+                    "kind": 32,
+                    "kindString": "intrinsic",
+                    "name": "any"
+                  }
+                }
+              ],
+              "visibility": "public"
+            },
+            {
+              "id": 8,
+              "name": "multipleHidden",
+              "kind": 4096,
+              "kindString": "method",
+              "parent": 5,
+              "comment": {
+                "shortText": "Multiple hidden 1",
+                "text": "",
+                "tags": [
+                  {
+                    "tagName": "hidden",
+                    "text": "\n",
+                    "paramName": ""
+                  }
+                ]
+              },
+              "children": [
+                {
+                  "id": 23,
+                  "name": "multipleHidden",
+                  "kind": 8192,
+                  "kindString": "signature",
+                  "parent": 8,
+                  "comment": {
+                    "shortText": "Multiple hidden 1",
+                    "text": "",
+                    "tags": [
+                      {
+                        "tagName": "hidden",
+                        "text": "\n",
+                        "paramName": ""
+                      }
+                    ]
+                  },
+                  "parameters": [
+                    {
+                      "id": 15,
+                      "name": "arg",
+                      "kind": 16384,
+                      "kindString": "parameter",
+                      "parent": 23,
+                      "type": {
+                        "kind": 32,
+                        "kindString": "intrinsic",
+                        "name": "any"
+                      }
+                    }
+                  ],
+                  "typeParameters": [],
+                  "returnType": {
+                    "kind": 32,
+                    "kindString": "intrinsic",
+                    "name": "any"
+                  }
+                },
+                {
+                  "id": 24,
+                  "name": "multipleHidden",
+                  "kind": 8192,
+                  "kindString": "signature",
+                  "parent": 8,
+                  "comment": {
+                    "shortText": "Multiple hidden 2",
+                    "text": "",
+                    "tags": [
+                      {
+                        "tagName": "hidden",
+                        "text": "\n",
+                        "paramName": ""
+                      }
+                    ]
+                  },
+                  "parameters": [
+                    {
+                      "id": 16,
+                      "name": "arg1",
+                      "kind": 16384,
+                      "kindString": "parameter",
+                      "parent": 24,
+                      "type": {
+                        "kind": 32,
+                        "kindString": "intrinsic",
+                        "name": "any"
+                      }
+                    },
+                    {
+                      "id": 17,
+                      "name": "arg2",
+                      "kind": 16384,
+                      "kindString": "parameter",
+                      "parent": 24,
+                      "type": {
+                        "kind": 32,
+                        "kindString": "intrinsic",
+                        "name": "any"
+                      }
+                    }
+                  ],
+                  "typeParameters": [],
+                  "returnType": {
+                    "kind": 32,
+                    "kindString": "intrinsic",
+                    "name": "any"
+                  }
+                }
+              ],
+              "visibility": "public"
             }
-          ]
+          ],
+          "signatures": [],
+          "constructSignatures": [],
+          "typeParameters": [],
+          "implementedTypes": []
         },
         {
-          "id": 29,
+          "id": 2,
           "name": "gh1164",
           "kind": 64,
-          "kindString": "Function",
-          "flags": {
-            "isExported": true
-          },
-          "signatures": [
-            {
-              "id": 30,
-              "name": "gh1164",
-              "kind": 4096,
-              "kindString": "Call signature",
-              "flags": {
-                "isExported": true
+          "kindString": "function",
+          "parent": 1,
+          "comment": {
+            "shortText": "Function description",
+            "text": "",
+            "tags": [
+              {
+                "tagName": "param",
+                "text": "scope",
+                "paramName": "{@link CommentedClass} Test description."
               },
+              {
+                "tagName": "returns",
+                "text": "\n",
+                "paramName": "Test description."
+              }
+            ]
+          },
+          "children": [
+            {
+              "id": 4,
+              "name": "gh1164",
+              "kind": 8192,
+              "kindString": "signature",
+              "parent": 2,
               "comment": {
                 "shortText": "Function description",
-                "returns": "Test description.\n"
+                "text": "",
+                "tags": [
+                  {
+                    "tagName": "param",
+                    "text": "scope",
+                    "paramName": "{@link CommentedClass} Test description."
+                  },
+                  {
+                    "tagName": "returns",
+                    "text": "\n",
+                    "paramName": "Test description."
+                  }
+                ]
               },
               "parameters": [
                 {
-                  "id": 31,
+                  "id": 3,
                   "name": "scope",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {
-                    "isExported": true
-                  },
-                  "comment": {
-                    "text": "{@link CommentedClass} Test description."
-                  },
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "parent": 4,
                   "type": {
-                    "type": "intrinsic",
+                    "kind": 32,
+                    "kindString": "intrinsic",
                     "name": "string"
                   }
                 }
               ],
-              "type": {
-                "type": "intrinsic",
+              "typeParameters": [],
+              "returnType": {
+                "kind": 32,
+                "kindString": "intrinsic",
                 "name": "string"
               }
             }
-          ]
-        }
-      ],
-      "groups": [
-        {
-          "title": "Classes",
-          "kind": 128,
-          "children": [
-            7
-          ]
-        },
-        {
-          "title": "Functions",
-          "kind": 64,
-          "children": [
-            29
           ]
         }
       ]
     },
     {
-      "id": 1,
-      "name": "\"comment2\"",
-      "kind": 1,
-      "kindString": "Module",
-      "flags": {
-        "isExported": true
-      },
-      "originalName": "%BASE%/comment/comment2.ts",
+      "id": 27,
+      "name": "comment2",
+      "kind": 2,
+      "kindString": "module",
+      "parent": 0,
       "comment": {
-        "shortText": "This is a module doc with the packageDocumentation tag to mark it as documentation\nfor the whole module. It is *not* documentation for the `multiply` function."
+        "shortText": "This is a module doc with the packageDocumentation tag to mark it as documentation\nfor the whole module. It is *not* documentation for the `multiply` function.",
+        "text": "",
+        "tags": [
+          {
+            "tagName": "packagedocumentation",
+            "text": "\n",
+            "paramName": ""
+          }
+        ]
       },
       "children": [
         {
-          "id": 2,
+          "id": 28,
           "name": "multiply",
           "kind": 64,
-          "kindString": "Function",
-          "flags": {
-            "isExported": true
-          },
-          "signatures": [
+          "kindString": "function",
+          "parent": 27,
+          "children": [
             {
-              "id": 3,
+              "id": 31,
               "name": "multiply",
-              "kind": 4096,
-              "kindString": "Call signature",
-              "flags": {
-                "isExported": true
-              },
+              "kind": 8192,
+              "kindString": "signature",
+              "parent": 28,
               "parameters": [
                 {
-                  "id": 4,
+                  "id": 29,
                   "name": "a",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {
-                    "isExported": true
-                  },
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "parent": 31,
                   "type": {
-                    "type": "intrinsic",
+                    "kind": 32,
+                    "kindString": "intrinsic",
                     "name": "number"
                   }
                 },
                 {
-                  "id": 5,
+                  "id": 30,
                   "name": "b",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {
-                    "isExported": true
-                  },
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "parent": 31,
                   "type": {
-                    "type": "intrinsic",
+                    "kind": 32,
+                    "kindString": "intrinsic",
                     "name": "number"
                   }
                 }
               ],
-              "type": {
-                "type": "intrinsic",
+              "typeParameters": [],
+              "returnType": {
+                "kind": 32,
+                "kindString": "intrinsic",
                 "name": "number"
               }
             }
           ]
         }
-      ],
-      "groups": [
-        {
-          "title": "Functions",
-          "kind": 64,
-          "children": [
-            2
-          ]
-        }
-      ]
-    }
-  ],
-  "groups": [
-    {
-      "title": "Modules",
-      "kind": 1,
-      "children": [
-        6,
-        1
       ]
     }
   ]

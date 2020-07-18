@@ -1,6 +1,6 @@
 // @ts-check
 
-const fs = require("fs/promises");
+const fs = require("fs").promises;
 const { existsSync, readdirSync, statSync } = require("fs");
 const path = require("path");
 const TypeDoc = require("..");
@@ -12,6 +12,7 @@ app.bootstrap({
   module: ts.ModuleKind.CommonJS,
   experimentalDecorators: true,
   jsx: ts.JsxEmit.React,
+  jsxFactory: 'createElement',
   lib: [
     "lib.dom.d.ts",
     "lib.es5.d.ts",
@@ -81,7 +82,7 @@ async function rebuildConverterTests(dirs) {
           .split(base.replace(/\\/g, "/"))
           .join("%BASE%");
         after();
-        return fs.writeFile(out.replace("dist", "src"), data);
+        await fs.writeFile(out.replace("dist", "src"), data);
       }
     }
   }

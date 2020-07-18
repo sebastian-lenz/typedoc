@@ -1,555 +1,262 @@
 {
   "id": 0,
   "name": "typedoc",
-  "kind": 0,
-  "flags": {},
+  "kind": 1,
+  "kindString": "project",
   "children": [
     {
-      "id": 27,
-      "name": "\"export\"",
-      "kind": 1,
-      "kindString": "Module",
-      "flags": {
-        "isExported": true
-      },
-      "originalName": "%BASE%/exports/export.ts",
+      "id": 14,
+      "name": "export",
+      "kind": 2,
+      "kindString": "module",
+      "parent": 0,
       "children": [
         {
-          "id": 32,
-          "name": "ThisModule",
-          "kind": 16777216,
-          "kindString": "Reference",
-          "flags": {
-            "isExported": true
-          },
-          "target": 19
-        },
-        {
-          "id": 28,
+          "id": 18,
           "name": "a",
-          "kind": 16777216,
-          "kindString": "Reference",
-          "flags": {
-            "isExported": true
+          "kind": 32,
+          "kindString": "variable",
+          "parent": 14,
+          "comment": {
+            "shortText": "A simple named export that will be exported from export.ts",
+            "text": "",
+            "tags": []
           },
-          "target": 20
+          "type": {
+            "kind": 16384,
+            "kindString": "literal",
+            "value": 1
+          },
+          "defaultValue": "1"
         },
         {
-          "id": 29,
-          "name": "b",
-          "kind": 16777216,
-          "kindString": "Reference",
-          "flags": {
-            "isExported": true
-          },
-          "target": 20
-        },
-        {
-          "id": 30,
-          "name": "c",
-          "kind": 16777216,
-          "kindString": "Reference",
-          "flags": {
-            "isExported": true
-          },
-          "target": 20
-        },
-        {
-          "id": 33,
-          "name": "c",
-          "kind": 16777216,
-          "kindString": "Reference",
-          "flags": {
-            "isExported": true
-          },
-          "target": 20
-        },
-        {
-          "id": 34,
-          "name": "add",
-          "kind": 64,
-          "kindString": "Function",
-          "flags": {
-            "isExported": true
-          },
-          "signatures": [
-            {
-              "id": 35,
-              "name": "add",
-              "kind": 4096,
-              "kindString": "Call signature",
-              "flags": {
-                "isExported": true
-              },
-              "parameters": [
-                {
-                  "id": 36,
-                  "name": "x",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {
-                    "isExported": true
-                  },
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "number"
-                  }
-                },
-                {
-                  "id": 37,
-                  "name": "y",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {
-                    "isExported": true
-                  },
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "number"
-                  }
-                }
-              ],
-              "type": {
-                "type": "intrinsic",
-                "name": "number"
+          "id": 19,
+          "name": "hidden",
+          "kind": 32,
+          "kindString": "variable",
+          "parent": 14,
+          "comment": {
+            "shortText": "This is annotated with the hidden tag and will therefore not be included in the generated documentation.\nThis *would* cause a broken link since it is also re-exported from export.ts, but the CommentPlugin removes\nbroken links caused by hidden/ignore/internal tags.",
+            "text": "",
+            "tags": [
+              {
+                "tagName": "hidden",
+                "text": "\n",
+                "paramName": ""
               }
-            }
-          ]
+            ]
+          },
+          "type": {
+            "kind": 16384,
+            "kindString": "literal"
+          },
+          "defaultValue": "true"
         },
         {
-          "id": 38,
+          "id": 15,
           "name": "default",
           "kind": 64,
-          "kindString": "Function",
-          "flags": {},
-          "signatures": [
+          "kindString": "function",
+          "parent": 14,
+          "children": [
             {
-              "id": 39,
+              "id": 17,
               "name": "default",
-              "kind": 4096,
-              "kindString": "Call signature",
-              "flags": {},
+              "kind": 8192,
+              "kindString": "signature",
+              "parent": 15,
               "parameters": [
                 {
-                  "id": 40,
+                  "id": 16,
                   "name": "a",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {},
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "parent": 17,
                   "type": {
-                    "type": "intrinsic",
+                    "kind": 32,
+                    "kindString": "intrinsic",
                     "name": "number"
                   }
                 }
               ],
-              "type": {
-                "type": "intrinsic",
+              "typeParameters": [],
+              "returnType": {
+                "kind": 32,
+                "kindString": "intrinsic",
                 "name": "void"
               }
             }
-          ]
-        }
-      ],
-      "groups": [
-        {
-          "title": "References",
-          "kind": 16777216,
-          "children": [
-            32,
-            28,
-            29,
-            30,
-            33
-          ]
-        },
-        {
-          "title": "Functions",
-          "kind": 64,
-          "children": [
-            34,
-            38
           ]
         }
       ]
     },
     {
       "id": 1,
-      "name": "\"export-assignment\"",
-      "kind": 1,
-      "kindString": "Module",
-      "flags": {
-        "isExported": true
-      },
-      "originalName": "%BASE%/exports/export-assignment.ts",
+      "name": "export-assignment",
+      "kind": 2,
+      "kindString": "module",
+      "parent": 0,
+      "children": []
+    },
+    {
+      "id": 2,
+      "name": "export-default",
+      "kind": 2,
+      "kindString": "module",
+      "parent": 0,
+      "children": []
+    },
+    {
+      "id": 3,
+      "name": "export-with-local",
+      "kind": 2,
+      "kindString": "module",
+      "parent": 0,
       "children": [
         {
-          "id": 2,
+          "id": 8,
+          "name": "x",
+          "kind": 32,
+          "kindString": "variable",
+          "parent": 3,
+          "type": {
+            "kind": 16384,
+            "kindString": "literal",
+            "value": 5
+          },
+          "defaultValue": "5"
+        },
+        {
+          "id": 4,
           "name": "add",
           "kind": 64,
-          "kindString": "Function",
-          "flags": {
-            "isExported": true,
-            "hasExportAssignment": true
-          },
-          "signatures": [
+          "kindString": "function",
+          "parent": 3,
+          "children": [
             {
-              "id": 3,
+              "id": 7,
               "name": "add",
-              "kind": 4096,
-              "kindString": "Call signature",
-              "flags": {},
+              "kind": 8192,
+              "kindString": "signature",
+              "parent": 4,
               "parameters": [
-                {
-                  "id": 4,
-                  "name": "x",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {},
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "number"
-                  }
-                },
                 {
                   "id": 5,
-                  "name": "y",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {},
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "number"
-                  }
-                }
-              ],
-              "type": {
-                "type": "intrinsic",
-                "name": "number"
-              }
-            }
-          ]
-        }
-      ],
-      "groups": [
-        {
-          "title": "Functions",
-          "kind": 64,
-          "children": [
-            2
-          ]
-        }
-      ]
-    },
-    {
-      "id": 6,
-      "name": "\"export-default\"",
-      "kind": 1,
-      "kindString": "Module",
-      "flags": {
-        "isExported": true
-      },
-      "originalName": "%BASE%/exports/export-default.ts",
-      "children": [
-        {
-          "id": 7,
-          "name": "x",
-          "kind": 32,
-          "kindString": "Variable",
-          "flags": {
-            "isExported": true,
-            "isConst": true
-          },
-          "type": {
-            "type": "unknown",
-            "name": "5"
-          },
-          "defaultValue": "5"
-        }
-      ],
-      "groups": [
-        {
-          "title": "Variables",
-          "kind": 32,
-          "children": [
-            7
-          ]
-        }
-      ]
-    },
-    {
-      "id": 8,
-      "name": "\"export-with-local\"",
-      "kind": 1,
-      "kindString": "Module",
-      "flags": {
-        "isExported": true
-      },
-      "originalName": "%BASE%/exports/export-with-local.ts",
-      "children": [
-        {
-          "id": 14,
-          "name": "localVar",
-          "kind": 32,
-          "kindString": "Variable",
-          "flags": {
-            "isLet": true
-          },
-          "type": {
-            "type": "intrinsic",
-            "name": "string"
-          },
-          "defaultValue": "\"local\""
-        },
-        {
-          "id": 9,
-          "name": "x",
-          "kind": 32,
-          "kindString": "Variable",
-          "flags": {
-            "isExported": true,
-            "isConst": true
-          },
-          "type": {
-            "type": "unknown",
-            "name": "5"
-          },
-          "defaultValue": "5"
-        },
-        {
-          "id": 10,
-          "name": "add",
-          "kind": 64,
-          "kindString": "Function",
-          "flags": {
-            "isExported": true
-          },
-          "signatures": [
-            {
-              "id": 11,
-              "name": "add",
-              "kind": 4096,
-              "kindString": "Call signature",
-              "flags": {
-                "isExported": true
-              },
-              "parameters": [
-                {
-                  "id": 12,
                   "name": "x",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {
-                    "isExported": true
-                  },
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "parent": 7,
                   "type": {
-                    "type": "intrinsic",
+                    "kind": 32,
+                    "kindString": "intrinsic",
                     "name": "number"
                   }
                 },
                 {
-                  "id": 13,
+                  "id": 6,
                   "name": "y",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {
-                    "isExported": true
-                  },
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "parent": 7,
                   "type": {
-                    "type": "intrinsic",
+                    "kind": 32,
+                    "kindString": "intrinsic",
                     "name": "number"
                   }
                 }
               ],
-              "type": {
-                "type": "intrinsic",
+              "typeParameters": [],
+              "returnType": {
+                "kind": 32,
+                "kindString": "intrinsic",
                 "name": "number"
               }
             }
-          ]
-        },
-        {
-          "id": 15,
-          "name": "times",
-          "kind": 64,
-          "kindString": "Function",
-          "flags": {},
-          "signatures": [
-            {
-              "id": 16,
-              "name": "times",
-              "kind": 4096,
-              "kindString": "Call signature",
-              "flags": {},
-              "parameters": [
-                {
-                  "id": 17,
-                  "name": "x",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {},
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "number"
-                  }
-                },
-                {
-                  "id": 18,
-                  "name": "y",
-                  "kind": 32768,
-                  "kindString": "Parameter",
-                  "flags": {},
-                  "type": {
-                    "type": "intrinsic",
-                    "name": "number"
-                  }
-                }
-              ],
-              "type": {
-                "type": "intrinsic",
-                "name": "number"
-              }
-            }
-          ]
-        }
-      ],
-      "groups": [
-        {
-          "title": "Variables",
-          "kind": 32,
-          "children": [
-            14,
-            9
-          ]
-        },
-        {
-          "title": "Functions",
-          "kind": 64,
-          "children": [
-            10,
-            15
           ]
         }
       ]
     },
     {
-      "id": 19,
-      "name": "\"mod\"",
-      "kind": 1,
-      "kindString": "Module",
-      "flags": {
-        "isExported": true
-      },
-      "originalName": "%BASE%/exports/mod.ts",
+      "id": 9,
+      "name": "mod",
+      "kind": 2,
+      "kindString": "module",
+      "parent": 0,
       "children": [
         {
-          "id": 26,
-          "name": "ThisModule",
-          "kind": 16777216,
-          "kindString": "Reference",
-          "flags": {
-            "isExported": true
-          },
-          "target": 19
-        },
-        {
-          "id": 21,
-          "name": "b",
-          "kind": 16777216,
-          "kindString": "Reference",
-          "flags": {
-            "isExported": true
-          },
-          "target": 20
-        },
-        {
-          "id": 22,
-          "name": "c",
-          "kind": 16777216,
-          "kindString": "Reference",
-          "flags": {
-            "isExported": true
-          },
-          "target": 20
-        },
-        {
-          "id": 20,
+          "id": 12,
           "name": "a",
           "kind": 32,
-          "kindString": "Variable",
-          "flags": {
-            "isExported": true,
-            "isConst": true
-          },
+          "kindString": "variable",
+          "parent": 9,
           "comment": {
-            "shortText": "A simple named export that will be exported from export.ts"
+            "shortText": "A simple named export that will be exported from export.ts",
+            "text": "",
+            "tags": []
           },
           "type": {
-            "type": "unknown",
-            "name": "1"
+            "kind": 16384,
+            "kindString": "literal",
+            "value": 1
           },
           "defaultValue": "1"
         },
         {
-          "id": 23,
+          "id": 13,
+          "name": "hidden",
+          "kind": 32,
+          "kindString": "variable",
+          "parent": 9,
+          "comment": {
+            "shortText": "This is annotated with the hidden tag and will therefore not be included in the generated documentation.\nThis *would* cause a broken link since it is also re-exported from export.ts, but the CommentPlugin removes\nbroken links caused by hidden/ignore/internal tags.",
+            "text": "",
+            "tags": [
+              {
+                "tagName": "hidden",
+                "text": "\n",
+                "paramName": ""
+              }
+            ]
+          },
+          "type": {
+            "kind": 16384,
+            "kindString": "literal"
+          },
+          "defaultValue": "true"
+        },
+        {
+          "id": 10,
           "name": "default",
           "kind": 64,
-          "kindString": "Function",
-          "flags": {},
-          "signatures": [
+          "kindString": "function",
+          "parent": 9,
+          "comment": {
+            "shortText": "Will not be re-exported from export.ts using export * from...",
+            "text": "",
+            "tags": []
+          },
+          "children": [
             {
-              "id": 24,
+              "id": 11,
               "name": "default",
-              "kind": 4096,
-              "kindString": "Call signature",
-              "flags": {},
+              "kind": 8192,
+              "kindString": "signature",
+              "parent": 10,
               "comment": {
-                "shortText": "Will not be re-exported from export.ts using export * from..."
+                "shortText": "Will not be re-exported from export.ts using export * from...",
+                "text": "",
+                "tags": []
               },
-              "type": {
-                "type": "intrinsic",
+              "parameters": [],
+              "typeParameters": [],
+              "returnType": {
+                "kind": 32,
+                "kindString": "intrinsic",
                 "name": "void"
               }
             }
           ]
         }
-      ],
-      "groups": [
-        {
-          "title": "References",
-          "kind": 16777216,
-          "children": [
-            26,
-            21,
-            22
-          ]
-        },
-        {
-          "title": "Variables",
-          "kind": 32,
-          "children": [
-            20
-          ]
-        },
-        {
-          "title": "Functions",
-          "kind": 64,
-          "children": [
-            23
-          ]
-        }
-      ]
-    }
-  ],
-  "groups": [
-    {
-      "title": "Modules",
-      "kind": 1,
-      "children": [
-        27,
-        1,
-        6,
-        8,
-        19
       ]
     }
   ]

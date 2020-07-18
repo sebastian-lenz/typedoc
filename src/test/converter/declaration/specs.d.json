@@ -1,132 +1,48 @@
 {
   "id": 0,
   "name": "typedoc",
-  "kind": 0,
-  "flags": {},
+  "kind": 1,
+  "kindString": "project",
   "children": [
     {
       "id": 1,
-      "name": "\"declaration.d\"",
-      "kind": 1,
-      "kindString": "Module",
-      "flags": {
-        "isExported": true
-      },
-      "originalName": "%BASE%/declaration/declaration.d.ts",
+      "name": "declaration",
+      "kind": 2,
+      "kindString": "module",
+      "parent": 0,
+      "children": []
+    },
+    {
+      "id": 2,
+      "name": "export-declaration",
+      "kind": 2,
+      "kindString": "module",
+      "parent": 0,
       "children": [
         {
-          "id": 2,
-          "name": "Decl",
+          "id": 3,
+          "name": "Exported",
           "kind": 128,
-          "kindString": "Class",
-          "flags": {
-            "isExported": true
-          },
-          "children": [
-            {
-              "id": 3,
-              "name": "prop",
-              "kind": 1024,
-              "kindString": "Property",
-              "flags": {
-                "isExported": true
-              },
-              "type": {
-                "type": "intrinsic",
-                "name": "number"
-              }
-            }
-          ],
-          "groups": [
-            {
-              "title": "Properties",
-              "kind": 1024,
-              "children": [
-                3
-              ]
-            }
-          ]
+          "kindString": "class",
+          "parent": 2,
+          "children": [],
+          "signatures": [],
+          "constructSignatures": [],
+          "typeParameters": [],
+          "implementedTypes": []
         },
         {
           "id": 4,
-          "name": "x",
-          "kind": 32,
-          "kindString": "Variable",
-          "flags": {
-            "isExported": true,
-            "isConst": true
-          },
-          "type": {
-            "type": "intrinsic",
-            "name": "number"
-          }
-        }
-      ],
-      "groups": [
-        {
-          "title": "Classes",
-          "kind": 128,
-          "children": [
-            2
-          ]
-        },
-        {
-          "title": "Variables",
-          "kind": 32,
-          "children": [
-            4
-          ]
-        }
-      ]
-    },
-    {
-      "id": 5,
-      "name": "\"export-declaration.d\"",
-      "kind": 1,
-      "kindString": "Module",
-      "flags": {
-        "isExported": true
-      },
-      "originalName": "%BASE%/declaration/export-declaration.d.ts",
-      "children": [
-        {
-          "id": 6,
-          "name": "Exported",
-          "kind": 128,
-          "kindString": "Class",
-          "flags": {
-            "isExported": true
-          }
-        },
-        {
-          "id": 7,
           "name": "NotExported",
           "kind": 128,
-          "kindString": "Class",
-          "flags": {
-            "isExported": true
-          }
+          "kindString": "class",
+          "parent": 2,
+          "children": [],
+          "signatures": [],
+          "constructSignatures": [],
+          "typeParameters": [],
+          "implementedTypes": []
         }
-      ],
-      "groups": [
-        {
-          "title": "Classes",
-          "kind": 128,
-          "children": [
-            6,
-            7
-          ]
-        }
-      ]
-    }
-  ],
-  "groups": [
-    {
-      "title": "Modules",
-      "kind": 1,
-      "children": [
-        1,
-        5
       ]
     }
   ]

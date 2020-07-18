@@ -1,6 +1,6 @@
 // @ts-check
 
-const fs = require("fs/promises");
+const fs = require("fs").promises;
 const { copy } = require("../dist/lib/utils/fs");
 const { join } = require("path");
 

@@ -5,6 +5,18 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "name": "Debug rebuild_specs",
+      "program": "${workspaceFolder}/scripts/rebuild_specs.js",
+      "args": [
+        "converter",
+        "mixin"
+      ],
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "pwa-node",
+      "outputCapture": "console"
+    },
+    {
       "type": "node",
       "request": "launch",
       "name": "Debug self run",

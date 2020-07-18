@@ -33,11 +33,13 @@ export interface TypeConverter<
 
 export function addTypeConverters(converter: Converter): void {
   for (const typeConverter of [
+    aliasTypeConverter,
     anyTypeConverter,
     arrayTypeConverter,
     booleanTypeConverter,
     conditionalConverter,
     literalTypeConverter,
+    nonPrimitiveTypeConverter,
     numberTypeConverter,
     objectTypeConverter,
     referenceTypeConverter,
@@ -50,6 +52,24 @@ export function addTypeConverters(converter: Converter): void {
     converter.addTypeConverter(typeConverter);
   }
 }
+
+const aliasTypeConverter: TypeConverter<ts.Type, M.ReferenceType> = {
+  order: 50, // After array.
+  supports(type) {
+    return !!type.aliasSymbol;
+  },
+  convert(converter, type: ts.Type & { aliasSymbol: ts.Symbol }) {
+    return new M.ReferenceType(
+      type.aliasSymbol.name,
+      type.aliasTypeArguments?.map((arg) =>
+        converter.convertType(void 0, arg)
+      ) ?? [],
+      type.aliasSymbol,
+      false,
+      converter.project
+    );
+  },
+};
 
 const anyTypeConverter: TypeConverter<ts.Type, M.IntrinsicType> = {
   supports(type) {
@@ -118,7 +138,7 @@ const objectTypeConverter: TypeConverter<ts.ObjectType, M.ObjectType> = {
   // Almost everything is an object type... but not everything should be converted as one.
   // This needs to run last so we don't end up with an infinite loop.
   order: 100,
-  supports(type) {
+  supports(type, checker) {
     return isObjectType(type);
   },
   convert(converter, type, checker) {
@@ -167,30 +187,45 @@ const objectTypeConverter: TypeConverter<ts.ObjectType, M.ObjectType> = {
   },
 };
 
+const nonPrimitiveTypeConverter: TypeConverter<ts.Type, M.IntrinsicType> = {
+  supports(type) {
+    return Boolean(type.flags & ts.TypeFlags.NonPrimitive);
+  },
+  convert() {
+    return new M.IntrinsicType("object");
+  },
+};
+
 const numberTypeConverter: TypeConverter<ts.Type, M.IntrinsicType> = {
   supports(type) {
     return Boolean(type.flags & ts.TypeFlags.Number);
   },
-  convert(_converter) {
+  convert() {
     return new M.IntrinsicType("number");
   },
 };
 
-const referenceTypeConverter: TypeConverter<ts.Type, M.ReferenceType> = {
+const referenceTypeConverter: TypeConverter<ts.Type, M.SomeType> = {
   order: 50, // After array.
   supports(type) {
-    return !!type.aliasSymbol;
-  },
-  convert(converter, type: ts.Type & { aliasSymbol: ts.Symbol }) {
-    return new M.ReferenceType(
-      type.aliasSymbol.name,
-      type.aliasTypeArguments?.map((arg) =>
-        converter.convertType(void 0, arg)
-      ) ?? [],
-      type.aliasSymbol,
-      false,
-      converter.project
+    return (
+      isObjectType(type) && Boolean(type.objectFlags & ts.ObjectFlags.Reference)
     );
+  },
+  convert(converter, type: ts.TypeReference) {
+    if (type.symbol) {
+      return new M.ReferenceType(
+        type.symbol.name,
+        type.typeArguments?.map((type) =>
+          converter.convertType(void 0, type)
+        ) ?? [],
+        type.symbol,
+        false,
+        converter.project
+      );
+    }
+    console.log("hi");
+    return converter.convertType(type.target.node, type.target);
   },
 };
 

@@ -1,5 +1,5 @@
 import { join, resolve } from "path";
-import { readFile, readdir } from "fs/promises";
+import { promises as fs } from "fs";
 import * as ts from "typescript";
 import * as M from "../models";
 import type { Converter } from "./converter";
@@ -97,7 +97,7 @@ export async function discoverProjectInfo(
     currentDir === resolve(join(currentDir, ".."));
 
   while (!reachedTopDirectory() && !filesFound()) {
-    const files = await readdir(currentDir);
+    const files = await fs.readdir(currentDir);
     for (const file of files) {
       const lowerFile = file.toLowerCase();
       if (!readmeFile && lowerFile === "readme.md") {
@@ -125,7 +125,7 @@ export async function discoverProjectInfo(
   }
 
   const readme = readmeFile
-    ? await readFile(readmeFile, "utf-8")
+    ? await fs.readFile(readmeFile, "utf-8")
     : "No readme found.";
 
   return { name, readme };

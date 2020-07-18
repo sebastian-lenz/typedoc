@@ -248,7 +248,6 @@ export class Converter extends EventEmitter<ConverterEventMap> {
       this.logger.verbose("TODO Fix convertTypeOrObject");
       return new ObjectReflection("TODO", [], [], []);
     }
-    assert(type);
     return this.convertType(typeNode, type);
   }
 
@@ -262,6 +261,10 @@ export class Converter extends EventEmitter<ConverterEventMap> {
 
     if (!typeNode && !type) {
       return new IntrinsicType("any");
+    }
+
+    if (!typeNode) {
+      typeNode = this._checker.typeToTypeNode(type!);
     }
 
     if (typeNode) {

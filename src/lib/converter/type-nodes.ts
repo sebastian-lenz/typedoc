@@ -86,15 +86,18 @@ const constructorTypeNodeConverter: TypeNodeConverter<
 
 const exprWithTypeArgsTypeNodeConverter: TypeNodeConverter<
   ts.ExpressionWithTypeArguments,
-  M.ReferenceType
+  M.SomeType
 > = {
   kind: [ts.SyntaxKind.ExpressionWithTypeArguments],
   convert(converter, node) {
     const targetSymbol = converter.checker.getSymbolAtLocation(node.expression);
-    assert(
-      targetSymbol,
-      `Reference type failed to get a symbol for ${node.expression.getText()}. This is probably a bug.`
-    );
+    // Mixins... we might not have a symbol here.
+    if (!targetSymbol) {
+      return converter.convertType(
+        undefined,
+        converter.checker.getTypeAtLocation(node)
+      );
+    }
     const parameters =
       node.typeArguments?.map((node) => converter.convertType(node)) ?? [];
     return new M.ReferenceType(

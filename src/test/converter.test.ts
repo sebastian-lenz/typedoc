@@ -13,6 +13,7 @@ describe("Converter", function () {
     module: ModuleKind.CommonJS,
     experimentalDecorators: true,
     jsx: JsxEmit.React,
+    jsxFactory: "createElement",
     name: "typedoc",
     excludeExternals: true,
     disableSources: true,

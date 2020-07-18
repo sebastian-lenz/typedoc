@@ -1,4 +1,4 @@
-import * as fs from "fs/promises";
+import { promises as fs } from "fs";
 import { resolve, join, dirname } from "path";
 import { createMinimatch } from "./paths";
 import type { Logger } from "./loggers";

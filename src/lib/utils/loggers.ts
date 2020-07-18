@@ -1,5 +1,8 @@
 import * as ts from "typescript";
 import * as Util from "util";
+import { url } from "inspector";
+
+const isDebugging = () => Boolean(url());
 
 /**
  * List of known log levels. Used to specify the urgency of a log message.
@@ -208,7 +211,7 @@ export class ConsoleLogger extends Logger {
     newLine?: boolean
   ): void {
     super.log(message, level, newLine);
-    if (level < this.level) {
+    if (level < this.level && !isDebugging()) {
       return;
     }
 

@@ -3,35 +3,192 @@
   "name": "typedoc",
   "kind": 1,
   "kindString": "project",
-  "flags": {},
   "children": [
     {
       "id": 1,
-      "name": "%BASE%/function/function.ts",
+      "name": "function",
       "kind": 2,
       "kindString": "module",
-      "flags": {},
+      "parent": 0,
       "children": [
         {
-          "id": 30,
+          "id": 27,
+          "name": "moduleFunction",
+          "kind": 4,
+          "kindString": "namespace",
+          "parent": 1,
+          "comment": {
+            "shortText": "This is the module extending the function moduleFunction().",
+            "text": "",
+            "tags": []
+          },
+          "children": [
+            {
+              "id": 28,
+              "name": "append",
+              "kind": 64,
+              "kindString": "function",
+              "parent": 27,
+              "comment": {
+                "shortText": "This function is appended to another function.",
+                "text": "",
+                "tags": []
+              },
+              "children": [
+                {
+                  "id": 31,
+                  "name": "append",
+                  "kind": 8192,
+                  "kindString": "signature",
+                  "parent": 28,
+                  "comment": {
+                    "shortText": "This function is appended to another function.",
+                    "text": "",
+                    "tags": []
+                  },
+                  "parameters": [],
+                  "typeParameters": [],
+                  "returnType": {
+                    "kind": 32,
+                    "kindString": "intrinsic",
+                    "name": "void"
+                  }
+                }
+              ]
+            },
+            {
+              "id": 29,
+              "name": "prepend",
+              "kind": 64,
+              "kindString": "function",
+              "parent": 27,
+              "comment": {
+                "shortText": "This function is appended to another function.",
+                "text": "",
+                "tags": []
+              },
+              "children": [
+                {
+                  "id": 32,
+                  "name": "prepend",
+                  "kind": 8192,
+                  "kindString": "signature",
+                  "parent": 29,
+                  "comment": {
+                    "shortText": "This function is appended to another function.",
+                    "text": "",
+                    "tags": []
+                  },
+                  "parameters": [],
+                  "typeParameters": [],
+                  "returnType": {
+                    "kind": 32,
+                    "kindString": "intrinsic",
+                    "name": "void"
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": 46,
+          "name": "variableFunction",
+          "kind": 32,
+          "kindString": "variable",
+          "parent": 1,
+          "comment": {
+            "shortText": "This is a function that is assigned to a variable.",
+            "text": "",
+            "tags": [
+              {
+                "tagName": "param",
+                "text": "someParam",
+                "paramName": "This is some numeric parameter."
+              },
+              {
+                "tagName": "returns",
+                "text": "\n",
+                "paramName": "This is the return value of the function."
+              }
+            ]
+          },
+          "type": {
+            "kind": 64,
+            "kindString": "object",
+            "properties": [],
+            "signatures": [
+              {
+                "kind": 2048,
+                "kindString": "signature",
+                "typeParameters": [],
+                "parameters": [
+                  {
+                    "kind": 8192,
+                    "kindString": "signatureParameter",
+                    "name": "someParam",
+                    "isOptional": false,
+                    "isRest": false,
+                    "parameterType": {
+                      "kind": 32,
+                      "kindString": "intrinsic",
+                      "name": "number"
+                    }
+                  }
+                ],
+                "returnType": {
+                  "kind": 32,
+                  "kindString": "intrinsic",
+                  "name": "number"
+                }
+              }
+            ],
+            "constructSignatures": []
+          },
+          "defaultValue": "function (someParam: number): number {\n  return 0;\n}"
+        },
+        {
+          "id": 34,
           "name": "assertionFunction",
           "kind": 64,
           "kindString": "function",
-          "flags": {},
-          "signatures": [
+          "parent": 1,
+          "comment": {
+            "shortText": "This is an assertion function.",
+            "text": "",
+            "tags": [
+              {
+                "tagName": "param",
+                "text": "condition\n",
+                "paramName": "The condition that is asserted to be true when this function returns."
+              }
+            ]
+          },
+          "children": [
             {
-              "id": 32,
+              "id": 36,
               "name": "assertionFunction",
               "kind": 8192,
               "kindString": "signature",
-              "flags": {},
+              "parent": 34,
+              "comment": {
+                "shortText": "This is an assertion function.",
+                "text": "",
+                "tags": [
+                  {
+                    "tagName": "param",
+                    "text": "condition\n",
+                    "paramName": "The condition that is asserted to be true when this function returns."
+                  }
+                ]
+              },
               "parameters": [
                 {
-                  "id": 31,
+                  "id": 35,
                   "name": "condition",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "flags": {},
+                  "parent": 36,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
@@ -50,25 +207,47 @@
           ]
         },
         {
-          "id": 36,
+          "id": 40,
           "name": "assertIsNonNull",
           "kind": 64,
           "kindString": "function",
-          "flags": {},
-          "signatures": [
+          "parent": 1,
+          "comment": {
+            "shortText": "Asserts that an argument is not null.",
+            "text": "",
+            "tags": [
+              {
+                "tagName": "param",
+                "text": "arg\n",
+                "paramName": ""
+              }
+            ]
+          },
+          "children": [
             {
-              "id": 38,
+              "id": 42,
               "name": "assertIsNonNull",
               "kind": 8192,
               "kindString": "signature",
-              "flags": {},
+              "parent": 40,
+              "comment": {
+                "shortText": "Asserts that an argument is not null.",
+                "text": "",
+                "tags": [
+                  {
+                    "tagName": "param",
+                    "text": "arg\n",
+                    "paramName": ""
+                  }
+                ]
+              },
               "parameters": [
                 {
-                  "id": 37,
+                  "id": 41,
                   "name": "arg",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "flags": {},
+                  "parent": 42,
                   "type": {
                     "kind": 262144,
                     "kindString": "union",
@@ -116,25 +295,47 @@
           ]
         },
         {
-          "id": 33,
+          "id": 37,
           "name": "checkerFunction",
           "kind": 64,
           "kindString": "function",
-          "flags": {},
-          "signatures": [
+          "parent": 1,
+          "comment": {
+            "shortText": "Assertion function with a type.",
+            "text": "",
+            "tags": [
+              {
+                "tagName": "param",
+                "text": "anything\n",
+                "paramName": ""
+              }
+            ]
+          },
+          "children": [
             {
-              "id": 35,
+              "id": 39,
               "name": "checkerFunction",
               "kind": 8192,
               "kindString": "signature",
-              "flags": {},
+              "parent": 37,
+              "comment": {
+                "shortText": "Assertion function with a type.",
+                "text": "",
+                "tags": [
+                  {
+                    "tagName": "param",
+                    "text": "anything\n",
+                    "paramName": ""
+                  }
+                ]
+              },
               "parameters": [
                 {
-                  "id": 34,
+                  "id": 38,
                   "name": "anything",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "flags": {},
+                  "parent": 39,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
@@ -162,14 +363,24 @@
           "name": "exportedFunction",
           "kind": 64,
           "kindString": "function",
-          "flags": {},
-          "signatures": [
+          "parent": 1,
+          "comment": {
+            "shortText": "This is a simple exported function.",
+            "text": "",
+            "tags": []
+          },
+          "children": [
             {
               "id": 3,
               "name": "exportedFunction",
               "kind": 8192,
               "kindString": "signature",
-              "flags": {},
+              "parent": 2,
+              "comment": {
+                "shortText": "This is a simple exported function.",
+                "text": "",
+                "tags": []
+              },
               "parameters": [],
               "typeParameters": [],
               "returnType": {
@@ -185,74 +396,151 @@
           "name": "functionWithDefaults",
           "kind": 64,
           "kindString": "function",
-          "flags": {},
-          "signatures": [
+          "parent": 1,
+          "comment": {
+            "shortText": "This is a function with a parameter that has a default value.",
+            "text": "",
+            "tags": [
+              {
+                "tagName": "param",
+                "text": "valueA",
+                "paramName": "A parameter with a default string value."
+              },
+              {
+                "tagName": "param",
+                "text": "valueB",
+                "paramName": "A parameter with a default numeric value."
+              },
+              {
+                "tagName": "param",
+                "text": "valueC",
+                "paramName": "A parameter with a default NaN value."
+              },
+              {
+                "tagName": "param",
+                "text": "valueD",
+                "paramName": "A parameter with a default boolean value."
+              },
+              {
+                "tagName": "param",
+                "text": "valueE",
+                "paramName": "A parameter with a default null value."
+              },
+              {
+                "tagName": "returns",
+                "text": "\n",
+                "paramName": "This is the return value of the function."
+              }
+            ]
+          },
+          "children": [
             {
               "id": 19,
               "name": "functionWithDefaults",
               "kind": 8192,
               "kindString": "signature",
-              "flags": {},
+              "parent": 13,
+              "comment": {
+                "shortText": "This is a function with a parameter that has a default value.",
+                "text": "",
+                "tags": [
+                  {
+                    "tagName": "param",
+                    "text": "valueA",
+                    "paramName": "A parameter with a default string value."
+                  },
+                  {
+                    "tagName": "param",
+                    "text": "valueB",
+                    "paramName": "A parameter with a default numeric value."
+                  },
+                  {
+                    "tagName": "param",
+                    "text": "valueC",
+                    "paramName": "A parameter with a default NaN value."
+                  },
+                  {
+                    "tagName": "param",
+                    "text": "valueD",
+                    "paramName": "A parameter with a default boolean value."
+                  },
+                  {
+                    "tagName": "param",
+                    "text": "valueE",
+                    "paramName": "A parameter with a default null value."
+                  },
+                  {
+                    "tagName": "returns",
+                    "text": "\n",
+                    "paramName": "This is the return value of the function."
+                  }
+                ]
+              },
               "parameters": [
                 {
                   "id": 14,
                   "name": "valueA",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "flags": {},
+                  "parent": 19,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
                     "name": "string"
-                  }
+                  },
+                  "defaultValue": "\"defaultValue\""
                 },
                 {
                   "id": 15,
                   "name": "valueB",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "flags": {},
+                  "parent": 19,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
                     "name": "number"
-                  }
+                  },
+                  "defaultValue": "100"
                 },
                 {
                   "id": 16,
                   "name": "valueC",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "flags": {},
+                  "parent": 19,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
                     "name": "number"
-                  }
+                  },
+                  "defaultValue": "Number.NaN"
                 },
                 {
                   "id": 17,
                   "name": "valueD",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "flags": {},
+                  "parent": 19,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
                     "name": "boolean"
-                  }
+                  },
+                  "defaultValue": "true"
                 },
                 {
                   "id": 18,
                   "name": "valueE",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "flags": {},
+                  "parent": 19,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
                     "name": "boolean"
-                  }
+                  },
+                  "defaultValue": "null"
                 }
               ],
               "typeParameters": [],
@@ -269,21 +557,53 @@
           "name": "functionWithOptionalValue",
           "kind": 64,
           "kindString": "function",
-          "flags": {},
-          "signatures": [
+          "parent": 1,
+          "comment": {
+            "shortText": "This is a function with a parameter that is optional.",
+            "text": "",
+            "tags": [
+              {
+                "tagName": "param",
+                "text": "requiredParam",
+                "paramName": "A normal parameter."
+              },
+              {
+                "tagName": "param",
+                "text": "optionalParam\n",
+                "paramName": "An optional parameter."
+              }
+            ]
+          },
+          "children": [
             {
               "id": 12,
               "name": "functionWithOptionalValue",
               "kind": 8192,
               "kindString": "signature",
-              "flags": {},
+              "parent": 9,
+              "comment": {
+                "shortText": "This is a function with a parameter that is optional.",
+                "text": "",
+                "tags": [
+                  {
+                    "tagName": "param",
+                    "text": "requiredParam",
+                    "paramName": "A normal parameter."
+                  },
+                  {
+                    "tagName": "param",
+                    "text": "optionalParam\n",
+                    "paramName": "An optional parameter."
+                  }
+                ]
+              },
               "parameters": [
                 {
                   "id": 10,
                   "name": "requiredParam",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "flags": {},
+                  "parent": 12,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
@@ -295,9 +615,7 @@
                   "name": "optionalParam",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "flags": {
-                    "isOptional": true
-                  },
+                  "parent": 12,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
@@ -319,21 +637,73 @@
           "name": "functionWithParameters",
           "kind": 64,
           "kindString": "function",
-          "flags": {},
-          "signatures": [
+          "parent": 1,
+          "comment": {
+            "shortText": "This is a function with multiple arguments and a return value.",
+            "text": "",
+            "tags": [
+              {
+                "tagName": "param",
+                "text": "paramZ",
+                "paramName": "This is a string parameter."
+              },
+              {
+                "tagName": "param",
+                "text": "paramG\n    This sentence is placed in the next line.\n",
+                "paramName": "This is a parameter flagged with any."
+              },
+              {
+                "tagName": "param",
+                "text": "paramA\n  This is a **parameter** pointing to an interface.\n\n  ~~~\n  const value:BaseClass = new BaseClass('test');\n  functionWithArguments('arg', 0, value);\n  ~~~\n",
+                "paramName": ""
+              },
+              {
+                "tagName": "returns",
+                "text": "\n",
+                "paramName": "This is the return value of the function."
+              }
+            ]
+          },
+          "children": [
             {
               "id": 8,
               "name": "functionWithParameters",
               "kind": 8192,
               "kindString": "signature",
-              "flags": {},
+              "parent": 4,
+              "comment": {
+                "shortText": "This is a function with multiple arguments and a return value.",
+                "text": "",
+                "tags": [
+                  {
+                    "tagName": "param",
+                    "text": "paramZ",
+                    "paramName": "This is a string parameter."
+                  },
+                  {
+                    "tagName": "param",
+                    "text": "paramG\n    This sentence is placed in the next line.\n",
+                    "paramName": "This is a parameter flagged with any."
+                  },
+                  {
+                    "tagName": "param",
+                    "text": "paramA\n  This is a **parameter** pointing to an interface.\n\n  ~~~\n  const value:BaseClass = new BaseClass('test');\n  functionWithArguments('arg', 0, value);\n  ~~~\n",
+                    "paramName": ""
+                  },
+                  {
+                    "tagName": "returns",
+                    "text": "\n",
+                    "paramName": "This is the return value of the function."
+                  }
+                ]
+              },
               "parameters": [
                 {
                   "id": 5,
                   "name": "paramZ",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "flags": {},
+                  "parent": 8,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
@@ -345,7 +715,7 @@
                   "name": "paramG",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "flags": {},
+                  "parent": 8,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
@@ -357,7 +727,7 @@
                   "name": "paramA",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "flags": {},
+                  "parent": 8,
                   "type": {
                     "kind": 1024,
                     "kindString": "reference",
@@ -376,25 +746,47 @@
           ]
         },
         {
-          "id": 39,
+          "id": 43,
           "name": "isNonNull",
           "kind": 64,
           "kindString": "function",
-          "flags": {},
-          "signatures": [
+          "parent": 1,
+          "comment": {
+            "shortText": "Checks that an argument is not null.",
+            "text": "",
+            "tags": [
+              {
+                "tagName": "param",
+                "text": "arg\n",
+                "paramName": ""
+              }
+            ]
+          },
+          "children": [
             {
-              "id": 41,
+              "id": 45,
               "name": "isNonNull",
               "kind": 8192,
               "kindString": "signature",
-              "flags": {},
+              "parent": 43,
+              "comment": {
+                "shortText": "Checks that an argument is not null.",
+                "text": "",
+                "tags": [
+                  {
+                    "tagName": "param",
+                    "text": "arg\n",
+                    "paramName": ""
+                  }
+                ]
+              },
               "parameters": [
                 {
-                  "id": 40,
+                  "id": 44,
                   "name": "arg",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "flags": {},
+                  "parent": 45,
                   "type": {
                     "kind": 262144,
                     "kindString": "union",
@@ -442,33 +834,47 @@
           ]
         },
         {
-          "id": 27,
-          "name": "moduleFunction",
-          "kind": 4,
-          "kindString": "namespace",
-          "flags": {},
-          "children": []
-        },
-        {
           "id": 26,
           "name": "moduleFunction",
           "kind": 64,
           "kindString": "function",
-          "flags": {},
-          "signatures": [
+          "parent": 1,
+          "comment": {
+            "shortText": "This is a function that is extended by a module.",
+            "text": "",
+            "tags": [
+              {
+                "tagName": "param",
+                "text": "arg\n",
+                "paramName": "An argument."
+              }
+            ]
+          },
+          "children": [
             {
-              "id": 29,
+              "id": 33,
               "name": "moduleFunction",
               "kind": 8192,
               "kindString": "signature",
-              "flags": {},
+              "parent": 26,
+              "comment": {
+                "shortText": "This is a function that is extended by a module.",
+                "text": "",
+                "tags": [
+                  {
+                    "tagName": "param",
+                    "text": "arg\n",
+                    "paramName": "An argument."
+                  }
+                ]
+              },
               "parameters": [
                 {
-                  "id": 28,
+                  "id": 30,
                   "name": "arg",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "flags": {},
+                  "parent": 33,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
@@ -490,21 +896,48 @@
           "name": "multipleSignatures",
           "kind": 64,
           "kindString": "function",
-          "flags": {},
-          "signatures": [
+          "parent": 1,
+          "comment": {
+            "shortText": "This is the second signature of a function with multiple signatures.",
+            "text": "",
+            "tags": [
+              {
+                "tagName": "param",
+                "text": "value",
+                "paramName": "An object containing the name value."
+              },
+              {
+                "tagName": "param",
+                "text": "value.name\n",
+                "paramName": "A value of the object."
+              }
+            ]
+          },
+          "children": [
             {
-              "id": 22,
+              "id": 24,
               "name": "multipleSignatures",
               "kind": 8192,
               "kindString": "signature",
-              "flags": {},
+              "parent": 20,
+              "comment": {
+                "shortText": "This is the first signature of a function with multiple signatures.",
+                "text": "",
+                "tags": [
+                  {
+                    "tagName": "param",
+                    "text": "value\n",
+                    "paramName": "The name value."
+                  }
+                ]
+              },
               "parameters": [
                 {
-                  "id": 21,
+                  "id": 22,
                   "name": "value",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "flags": {},
+                  "parent": 24,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
@@ -524,20 +957,35 @@
               "name": "multipleSignatures",
               "kind": 8192,
               "kindString": "signature",
-              "flags": {},
+              "parent": 20,
+              "comment": {
+                "shortText": "This is the second signature of a function with multiple signatures.",
+                "text": "",
+                "tags": [
+                  {
+                    "tagName": "param",
+                    "text": "value",
+                    "paramName": "An object containing the name value."
+                  },
+                  {
+                    "tagName": "param",
+                    "text": "value.name\n",
+                    "paramName": "A value of the object."
+                  }
+                ]
+              },
               "parameters": [
                 {
-                  "id": 24,
+                  "id": 23,
                   "name": "value",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "flags": {},
+                  "parent": 25,
                   "type": {
-                    "id": 23,
+                    "id": 21,
                     "name": "TODO",
                     "kind": 512,
                     "kindString": "object",
-                    "flags": {},
                     "children": [],
                     "signatures": [],
                     "constructSignatures": [],
@@ -553,94 +1001,56 @@
               }
             }
           ]
-        },
-        {
-          "id": 42,
-          "name": "variableFunction",
-          "kind": 32,
-          "kindString": "variable",
-          "flags": {},
-          "type": {
-            "kind": 64,
-            "kindString": "object",
-            "properties": [],
-            "signatures": [
-              {
-                "kind": 2048,
-                "kindString": "signature",
-                "typeParameters": [],
-                "parameters": [
-                  {
-                    "kind": 8192,
-                    "kindString": "signatureParameter",
-                    "name": "someParam",
-                    "isOptional": false,
-                    "isRest": false,
-                    "parameterType": {
-                      "kind": 32,
-                      "kindString": "intrinsic",
-                      "name": "number"
-                    }
-                  }
-                ],
-                "returnType": {
-                  "kind": 32,
-                  "kindString": "intrinsic",
-                  "name": "number"
-                }
-              }
-            ],
-            "constructSignatures": []
-          },
-          "defaultValue": "function(someParam: number): number {\n    return 0;\n}"
         }
       ]
     },
     {
-      "id": 43,
-      "name": "%BASE%/function/generic-function.ts",
+      "id": 47,
+      "name": "generic-function",
       "kind": 2,
       "kindString": "module",
-      "flags": {},
+      "parent": 0,
       "children": []
     },
     {
-      "id": 44,
-      "name": "%BASE%/function/implicit-types.ts",
+      "id": 48,
+      "name": "implicit-types",
       "kind": 2,
       "kindString": "module",
-      "flags": {},
+      "parent": 0,
       "children": [
         {
-          "id": 47,
+          "id": 51,
           "name": "BreakpointRange",
           "kind": 256,
           "kindString": "interface",
-          "flags": {},
+          "parent": 48,
           "children": [
             {
-              "id": 49,
+              "id": 53,
               "name": "end",
               "kind": 1024,
               "kindString": "property",
-              "flags": {},
+              "parent": 51,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
                 "name": "number"
-              }
+              },
+              "visibility": "public"
             },
             {
-              "id": 48,
+              "id": 52,
               "name": "start",
               "kind": 1024,
               "kindString": "property",
-              "flags": {},
+              "parent": 51,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
                 "name": "number"
-              }
+              },
+              "visibility": "public"
             }
           ],
           "signatures": [],
@@ -649,18 +1059,18 @@
           "extendedTypes": []
         },
         {
-          "id": 45,
+          "id": 49,
           "name": "getBreakpoints",
           "kind": 64,
           "kindString": "function",
-          "flags": {},
-          "signatures": [
+          "parent": 48,
+          "children": [
             {
-              "id": 46,
+              "id": 50,
               "name": "getBreakpoints",
               "kind": 8192,
               "kindString": "signature",
-              "flags": {},
+              "parent": 49,
               "parameters": [],
               "typeParameters": [],
               "returnType": {
