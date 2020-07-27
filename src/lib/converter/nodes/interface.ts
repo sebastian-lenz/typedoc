@@ -3,7 +3,7 @@ import * as ts from "typescript";
 import type { ReflectionConverter } from "./types";
 import { InterfaceReflection, ReferenceType } from "../../models";
 import { convertSignatureDeclaration } from "./signature";
-import { convertTypeParameters } from "../utils";
+import { convertTypeParameterDeclarations } from "../utils";
 
 export const interfaceConverter: ReflectionConverter<
   ts.InterfaceDeclaration,
@@ -53,7 +53,7 @@ export const interfaceConverter: ReflectionConverter<
       }
     });
 
-    const typeParameters = convertTypeParameters(
+    const typeParameters = convertTypeParameterDeclarations(
       context.converter,
       typeParameterSymbols.map((symbol) => {
         const param = symbol.getDeclarations()?.[0];

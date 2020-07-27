@@ -391,18 +391,9 @@
               "kindString": "property",
               "parent": 49,
               "type": {
-                "kind": 262144,
-                "kindString": "union",
-                "types": [
-                  {
-                    "kind": 16384,
-                    "kindString": "literal"
-                  },
-                  {
-                    "kind": 16384,
-                    "kindString": "literal"
-                  }
-                ]
+                "kind": 32,
+                "kindString": "intrinsic",
+                "name": "boolean"
               },
               "visibility": "public"
             },
@@ -413,18 +404,9 @@
               "kindString": "property",
               "parent": 49,
               "type": {
-                "kind": 262144,
-                "kindString": "union",
-                "types": [
-                  {
-                    "kind": 16384,
-                    "kindString": "literal"
-                  },
-                  {
-                    "kind": 16384,
-                    "kindString": "literal"
-                  }
-                ]
+                "kind": 32,
+                "kindString": "intrinsic",
+                "name": "boolean"
               },
               "visibility": "public"
             }
@@ -1161,7 +1143,7 @@
       "children": []
     },
     {
-      "id": 70,
+      "id": 71,
       "name": "events",
       "kind": 2,
       "kindString": "module",
@@ -1169,7 +1151,7 @@
       "children": []
     },
     {
-      "id": 71,
+      "id": 70,
       "name": "events-overloads",
       "kind": 2,
       "kindString": "module",

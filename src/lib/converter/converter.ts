@@ -13,11 +13,10 @@ import {
   IntrinsicType,
 } from "../models/index";
 import { ObjectReflection } from "../models/reflections/object";
-import { insertOrderSorted, Options, Logger } from "../utils";
+import { Options, Logger } from "../utils";
 import { EventEmitter } from "../utils/event";
 import { Context } from "./context";
 import { addConverters, ReflectionConverter } from "./nodes";
-import { addTypeNodeConverters, TypeNodeConverter } from "./type-nodes";
 import { addTypeConverters, TypeConverter } from "./types";
 import { getCommonDirectory } from "../utils/fs";
 import { getCommentForNodes } from "./comments";
@@ -80,13 +79,11 @@ export class Converter extends EventEmitter<ConverterEventMap> {
   private _checker?: ts.TypeChecker;
   private _project?: ProjectReflection;
   private _reflectionConverters = new Map<ts.SyntaxKind, ReflectionConverter>();
-  private _typeNodeConverters = new Map<ts.SyntaxKind, TypeNodeConverter>();
-  private _typeConverters: TypeConverter[] = [];
+  private _typeNodeConverters = new Map<ts.SyntaxKind, TypeConverter>();
 
   constructor(readonly application: Application) {
     super();
     addConverters(this);
-    addTypeNodeConverters(this);
     addTypeConverters(this);
   }
 
@@ -100,7 +97,7 @@ export class Converter extends EventEmitter<ConverterEventMap> {
     }
   }
 
-  addTypeNodeConverter(converter: TypeNodeConverter): void {
+  addTypeNodeConverter(converter: TypeConverter): void {
     for (const kind of converter.kind) {
       assert(
         !this._reflectionConverters.has(kind),
@@ -108,10 +105,6 @@ export class Converter extends EventEmitter<ConverterEventMap> {
       );
       this._typeNodeConverters.set(kind, converter);
     }
-  }
-
-  addTypeConverter(converter: TypeConverter): void {
-    insertOrderSorted(this._typeConverters, converter);
   }
 
   async convert(
@@ -232,66 +225,66 @@ export class Converter extends EventEmitter<ConverterEventMap> {
   }
 
   async convertTypeOrObject(
-    typeNode: ts.TypeNode,
-    type?: ts.Type
-  ): Promise<SomeType | ObjectReflection>;
-  async convertTypeOrObject(
-    typeNode: ts.TypeNode | undefined,
-    type: ts.Type
-  ): Promise<SomeType | ObjectReflection>;
-  async convertTypeOrObject(
-    typeNode?: ts.TypeNode,
-    type?: ts.Type
+    typeOrNode: ts.TypeNode | ts.Type | undefined
   ): Promise<SomeType | ObjectReflection> {
     // TODO: Fix this
-    if (typeNode && ts.isTypeLiteralNode(typeNode)) {
+    if (
+      typeOrNode &&
+      "kind" in typeOrNode &&
+      ts.isTypeLiteralNode(typeOrNode)
+    ) {
       this.logger.verbose("TODO Fix convertTypeOrObject");
       return new ObjectReflection("TODO", [], [], []);
     }
-    return this.convertType(typeNode, type);
+
+    return this.convertType(typeOrNode);
   }
 
   // Unlike convertSymbol, types aren't immediately interesting without being tied to something.
   // They don't emit events and thus can be converted synchronously.
-  convertType(typeNode: ts.TypeNode | undefined, type?: ts.Type): SomeType {
+  convertType = (typeOrNode: ts.TypeNode | ts.Type | undefined): SomeType => {
     assert(
       this._checker,
       "convertType may only be called when a call to convert is in progress."
     );
 
-    if (!typeNode && !type) {
+    if (typeOrNode == null) {
       return new IntrinsicType("any");
     }
 
-    if (!typeNode) {
-      typeNode = this._checker.typeToTypeNode(type!);
-    }
-
-    if (typeNode) {
-      type = type ?? this._checker.getTypeAtLocation(typeNode);
-      const converter = this._typeNodeConverters.get(typeNode.kind);
+    if ("kind" in typeOrNode) {
+      const converter = this._typeNodeConverters.get(typeOrNode.kind);
       if (converter) {
-        return converter.convert(this, typeNode, type);
+        return converter.convert(this, typeOrNode);
       }
-      this.logger.verbose(
-        `Missing type node converter for kind ${typeNode.kind} (${
-          ts.SyntaxKind[typeNode.kind]
+      this.logger.warn(
+        `Missing type converter for kind ${typeOrNode.kind} (${
+          ts.SyntaxKind[typeOrNode.kind]
         })`
       );
+      return new UnknownType(typeOrNode.getText());
     }
 
-    assert(type); // Shouldn't be possible for this to fail.
-    for (const converter of this._typeConverters) {
-      if (converter.supports(type, this._checker)) {
-        return converter.convert(this, type, this._checker);
-      }
-    }
-
-    this.logger.verbose(
-      `Missing type converter for type: ${this._checker.typeToString(type)}`
+    // IgnoreErrors is important, without it, we can't assert that we will get a node.
+    const node = this._checker.typeToTypeNode(
+      typeOrNode,
+      void 0,
+      ts.NodeBuilderFlags.IgnoreErrors
     );
-    return new UnknownType(this._checker.typeToString(type));
-  }
+    assert(node); // According to the TS source of typeToString, this is a bug if it does not hold.
+
+    const converter = this._typeNodeConverters.get(node.kind);
+    if (converter) {
+      return converter.convertType(this, typeOrNode, node);
+    }
+
+    this.logger.warn(
+      `Missing type converter for type: ${this._checker.typeToString(
+        typeOrNode
+      )}`
+    );
+    return new UnknownType(this._checker.typeToString(typeOrNode));
+  };
 
   private getExportsOfModule(file: ts.SourceFile, checker: ts.TypeChecker) {
     // If this is a normal TS file using ES2015 modules, use the type checker.

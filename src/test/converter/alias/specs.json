@@ -129,11 +129,9 @@
                         ]
                       },
                       {
-                        "kind": 64,
-                        "kindString": "object",
-                        "properties": [],
-                        "signatures": [],
-                        "constructSignatures": []
+                        "kind": 524288,
+                        "kindString": "unknown",
+                        "name": "{\n      [K in keyof R | keyof T[0]]: K extends keyof R ? R[K] : T[0][K];\n    }"
                       }
                     ]
                   }

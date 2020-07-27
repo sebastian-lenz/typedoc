@@ -14,8 +14,7 @@ export const variableConverter: ReflectionConverter<
     return new VariableReflection(
       symbol.name,
       context.converter.convertType(
-        node.type,
-        context.checker.getTypeOfSymbolAtLocation(symbol, node)
+        node.type ?? context.checker.getTypeOfSymbolAtLocation(symbol, node)
       ),
       defaultValue
     );

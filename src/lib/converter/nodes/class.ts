@@ -3,7 +3,7 @@ import * as ts from "typescript";
 import type { ReflectionConverter } from "./types";
 import { ReferenceType, ClassReflection } from "../../models";
 import { convertSignatureDeclaration } from "./signature";
-import { convertTypeParameters } from "../utils";
+import { convertTypeParameterDeclarations } from "../utils";
 
 // TODO: GERRIT This and the interface implementation can be simplified / merged.
 
@@ -62,7 +62,7 @@ export const classConverter: ReflectionConverter<
       }
     });
 
-    const typeParameters = convertTypeParameters(
+    const typeParameters = convertTypeParameterDeclarations(
       context.converter,
       typeParameterSymbols.map((symbol) => {
         const param = symbol.getDeclarations()?.[0];

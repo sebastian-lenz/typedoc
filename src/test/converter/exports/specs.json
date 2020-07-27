@@ -48,7 +48,8 @@
           },
           "type": {
             "kind": 16384,
-            "kindString": "literal"
+            "kindString": "literal",
+            "value": true
           },
           "defaultValue": "true"
         },
@@ -220,7 +221,8 @@
           },
           "type": {
             "kind": 16384,
-            "kindString": "literal"
+            "kindString": "literal",
+            "value": true
           },
           "defaultValue": "true"
         },

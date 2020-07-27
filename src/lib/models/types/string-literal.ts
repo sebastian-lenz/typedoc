@@ -43,6 +43,9 @@ export class LiteralType extends Type {
 
   /** @inheritdoc */
   stringify(): string {
+    if (typeof this.value === "object") {
+      return `${this.value.negative ? "-" : ""}${this.value.value}n`;
+    }
     return JSON.stringify(this.value);
   }
 

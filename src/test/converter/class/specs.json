@@ -391,18 +391,9 @@
               "kindString": "property",
               "parent": 49,
               "type": {
-                "kind": 262144,
-                "kindString": "union",
-                "types": [
-                  {
-                    "kind": 16384,
-                    "kindString": "literal"
-                  },
-                  {
-                    "kind": 16384,
-                    "kindString": "literal"
-                  }
-                ]
+                "kind": 32,
+                "kindString": "intrinsic",
+                "name": "boolean"
               },
               "visibility": "public"
             },
@@ -413,18 +404,9 @@
               "kindString": "property",
               "parent": 49,
               "type": {
-                "kind": 262144,
-                "kindString": "union",
-                "types": [
-                  {
-                    "kind": 16384,
-                    "kindString": "literal"
-                  },
-                  {
-                    "kind": 16384,
-                    "kindString": "literal"
-                  }
-                ]
+                "kind": 32,
+                "kindString": "intrinsic",
+                "name": "boolean"
               },
               "visibility": "public"
             }

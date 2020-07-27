@@ -31,8 +31,7 @@ export const propertyConverter: ReflectionConverter<
     return new PropertyReflection(
       symbol.name,
       await context.converter.convertTypeOrObject(
-        node.type,
-        context.checker.getTypeOfSymbolAtLocation(symbol, node)
+        node.type ?? context.checker.getTypeOfSymbolAtLocation(symbol, node)
       ),
       getVisibility(node)
     );
@@ -53,8 +52,7 @@ export const accessorConverter: ReflectionConverter<
     return new DynamicPropertyReflection(
       symbol.name,
       await context.converter.convertTypeOrObject(
-        node.type,
-        context.checker.getTypeOfSymbolAtLocation(symbol, node)
+        node.type ?? context.checker.getTypeOfSymbolAtLocation(symbol, node)
       ),
       getVisibility(node),
       hasGetter,
@@ -73,8 +71,7 @@ export const parameterPropertyConverter: ReflectionConverter<
     return new PropertyReflection(
       symbol.name,
       await context.converter.convertTypeOrObject(
-        node.type,
-        context.checker.getTypeOfSymbolAtLocation(symbol, node)
+        node.type ?? context.checker.getTypeOfSymbolAtLocation(symbol, node)
       ),
       getVisibility(node)
     );

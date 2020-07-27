@@ -7,6 +7,44 @@ import { Visibility } from "../models";
 
 export function convertTypeParameters(
   converter: Converter,
+  parameters: readonly ts.TypeParameter[]
+): M.TypeParameterType[] {
+  return parameters.map((param) => {
+    const constraintType = param.getConstraint();
+    const constraint = constraintType
+      ? converter.convertType(constraintType)
+      : undefined;
+    const defaultType = param.getDefault();
+    const defaultValue = defaultType
+      ? converter.convertType(defaultType)
+      : undefined;
+
+    return new M.TypeParameterType(param.symbol.name, constraint, defaultValue);
+  });
+}
+
+export function convertParameterSymbols(
+  converter: Converter,
+  parameters: readonly ts.Symbol[]
+): M.SignatureParameterType[] {
+  return parameters.map((symbol) => {
+    const type = converter.convertType(
+      converter.checker.getTypeOfSymbolAtLocation(
+        symbol,
+        symbol.valueDeclaration
+      )
+    );
+    return new M.SignatureParameterType(
+      symbol.name,
+      hasQuestionToken(symbol.valueDeclaration),
+      hasDotDotDotToken(symbol.valueDeclaration as ts.ParameterDeclaration),
+      type
+    );
+  });
+}
+
+export function convertTypeParameterDeclarations(
+  converter: Converter,
   parameters: readonly ts.TypeParameterDeclaration[]
 ): M.TypeParameterType[] {
   return parameters.map((param) => {
@@ -29,10 +67,7 @@ export function convertParameters(
     const name = ts.isIdentifier(param.name)
       ? param.name.text
       : `param${index}`;
-    const type = converter.convertType(
-      param.type,
-      converter.checker.getTypeAtLocation(param)
-    );
+    const type = converter.convertType(param.type);
     return new M.SignatureParameterType(
       name,
       hasQuestionToken(param),
@@ -50,13 +85,8 @@ export function hasReadonlyModifier(declaration?: ts.Declaration): boolean {
   );
 }
 
-export function hasQuestionToken(
-  declaration:
-    | ts.ParameterDeclaration
-    | ts.PropertyDeclaration
-    | ts.PropertySignature
-): boolean {
-  return !!declaration.questionToken;
+export function hasQuestionToken(declaration: ts.Declaration): boolean {
+  return !!(declaration as any).questionToken;
 }
 
 export function hasDotDotDotToken(

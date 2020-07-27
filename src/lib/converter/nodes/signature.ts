@@ -1,12 +1,9 @@
 import * as assert from "assert";
 import * as ts from "typescript";
-import {
-  SignatureReflection,
-  ParameterReflection,
-  TypeParameterType,
-} from "../../models";
+import { SignatureReflection, ParameterReflection } from "../../models";
 import { Converter } from "../converter";
 import { getCommentForNodes } from "../comments";
+import { convertTypeParameters } from "../utils";
 
 export async function convertSignatureDeclaration(
   converter: Converter,
@@ -20,8 +17,7 @@ export async function convertSignatureDeclaration(
   );
 
   const returnType = await converter.convertTypeOrObject(
-    node.type,
-    converter.checker.getReturnTypeOfSignature(signature)
+    node.type ?? signature.getReturnType()
   );
 
   const parameters = await Promise.all(
@@ -30,8 +26,8 @@ export async function convertSignatureDeclaration(
       assert(paramDeclaration && ts.isParameter(paramDeclaration)); // Should never fail...
 
       const paramType = await converter.convertTypeOrObject(
-        paramDeclaration.type,
-        converter.checker.getTypeOfSymbolAtLocation(param, paramDeclaration)
+        paramDeclaration.type ??
+          converter.checker.getTypeOfSymbolAtLocation(param, paramDeclaration)
       );
 
       const parameter = new ParameterReflection(
@@ -47,12 +43,10 @@ export async function convertSignatureDeclaration(
     })
   );
 
-  const typeParameters =
-    signature.typeParameters?.map((param) => {
-      const type = converter.convertType(undefined, param);
-      assert(type instanceof TypeParameterType);
-      return type;
-    }) ?? [];
+  const typeParameters = convertTypeParameters(
+    converter,
+    signature.getTypeParameters() ?? []
+  );
 
   const reflection = new SignatureReflection(
     name,

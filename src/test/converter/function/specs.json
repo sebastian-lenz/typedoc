@@ -114,36 +114,28 @@
             ]
           },
           "type": {
-            "kind": 64,
-            "kindString": "object",
-            "properties": [],
-            "signatures": [
+            "kind": 2048,
+            "kindString": "signature",
+            "typeParameters": [],
+            "parameters": [
               {
-                "kind": 2048,
-                "kindString": "signature",
-                "typeParameters": [],
-                "parameters": [
-                  {
-                    "kind": 8192,
-                    "kindString": "signatureParameter",
-                    "name": "someParam",
-                    "isOptional": false,
-                    "isRest": false,
-                    "parameterType": {
-                      "kind": 32,
-                      "kindString": "intrinsic",
-                      "name": "number"
-                    }
-                  }
-                ],
-                "returnType": {
+                "kind": 8192,
+                "kindString": "signatureParameter",
+                "name": "someParam",
+                "isOptional": false,
+                "isRest": false,
+                "parameterType": {
                   "kind": 32,
                   "kindString": "intrinsic",
                   "name": "number"
                 }
               }
             ],
-            "constructSignatures": []
+            "returnType": {
+              "kind": 32,
+              "kindString": "intrinsic",
+              "name": "number"
+            }
           },
           "defaultValue": "function (someParam: number): number {\n  return 0;\n}"
         },
@@ -1084,36 +1076,10 @@
                     "isReadonly": false,
                     "isOptional": false,
                     "propertyType": {
-                      "kind": 64,
-                      "kindString": "object",
-                      "properties": [
-                        {
-                          "kind": 128,
-                          "kindString": "property",
-                          "name": "start",
-                          "isReadonly": false,
-                          "isOptional": false,
-                          "propertyType": {
-                            "kind": 32,
-                            "kindString": "intrinsic",
-                            "name": "number"
-                          }
-                        },
-                        {
-                          "kind": 128,
-                          "kindString": "property",
-                          "name": "end",
-                          "isReadonly": false,
-                          "isOptional": false,
-                          "propertyType": {
-                            "kind": 32,
-                            "kindString": "intrinsic",
-                            "name": "number"
-                          }
-                        }
-                      ],
-                      "signatures": [],
-                      "constructSignatures": []
+                      "kind": 1024,
+                      "kindString": "reference",
+                      "name": "BreakpointRange",
+                      "typeArguments": []
                     }
                   },
                   {
@@ -1123,36 +1089,10 @@
                     "isReadonly": false,
                     "isOptional": false,
                     "propertyType": {
-                      "kind": 64,
-                      "kindString": "object",
-                      "properties": [
-                        {
-                          "kind": 128,
-                          "kindString": "property",
-                          "name": "start",
-                          "isReadonly": false,
-                          "isOptional": false,
-                          "propertyType": {
-                            "kind": 32,
-                            "kindString": "intrinsic",
-                            "name": "number"
-                          }
-                        },
-                        {
-                          "kind": 128,
-                          "kindString": "property",
-                          "name": "end",
-                          "isReadonly": false,
-                          "isOptional": false,
-                          "propertyType": {
-                            "kind": 32,
-                            "kindString": "intrinsic",
-                            "name": "number"
-                          }
-                        }
-                      ],
-                      "signatures": [],
-                      "constructSignatures": []
+                      "kind": 1024,
+                      "kindString": "reference",
+                      "name": "BreakpointRange",
+                      "typeArguments": []
                     }
                   },
                   {
@@ -1162,36 +1102,10 @@
                     "isReadonly": false,
                     "isOptional": false,
                     "propertyType": {
-                      "kind": 64,
-                      "kindString": "object",
-                      "properties": [
-                        {
-                          "kind": 128,
-                          "kindString": "property",
-                          "name": "start",
-                          "isReadonly": false,
-                          "isOptional": false,
-                          "propertyType": {
-                            "kind": 32,
-                            "kindString": "intrinsic",
-                            "name": "number"
-                          }
-                        },
-                        {
-                          "kind": 128,
-                          "kindString": "property",
-                          "name": "end",
-                          "isReadonly": false,
-                          "isOptional": false,
-                          "propertyType": {
-                            "kind": 32,
-                            "kindString": "intrinsic",
-                            "name": "number"
-                          }
-                        }
-                      ],
-                      "signatures": [],
-                      "constructSignatures": []
+                      "kind": 1024,
+                      "kindString": "reference",
+                      "name": "BreakpointRange",
+                      "typeArguments": []
                     }
                   },
                   {
@@ -1201,36 +1115,10 @@
                     "isReadonly": false,
                     "isOptional": false,
                     "propertyType": {
-                      "kind": 64,
-                      "kindString": "object",
-                      "properties": [
-                        {
-                          "kind": 128,
-                          "kindString": "property",
-                          "name": "start",
-                          "isReadonly": false,
-                          "isOptional": false,
-                          "propertyType": {
-                            "kind": 32,
-                            "kindString": "intrinsic",
-                            "name": "number"
-                          }
-                        },
-                        {
-                          "kind": 128,
-                          "kindString": "property",
-                          "name": "end",
-                          "isReadonly": false,
-                          "isOptional": false,
-                          "propertyType": {
-                            "kind": 32,
-                            "kindString": "intrinsic",
-                            "name": "number"
-                          }
-                        }
-                      ],
-                      "signatures": [],
-                      "constructSignatures": []
+                      "kind": 1024,
+                      "kindString": "reference",
+                      "name": "BreakpointRange",
+                      "typeArguments": []
                     }
                   },
                   {
@@ -1240,36 +1128,10 @@
                     "isReadonly": false,
                     "isOptional": false,
                     "propertyType": {
-                      "kind": 64,
-                      "kindString": "object",
-                      "properties": [
-                        {
-                          "kind": 128,
-                          "kindString": "property",
-                          "name": "start",
-                          "isReadonly": false,
-                          "isOptional": false,
-                          "propertyType": {
-                            "kind": 32,
-                            "kindString": "intrinsic",
-                            "name": "number"
-                          }
-                        },
-                        {
-                          "kind": 128,
-                          "kindString": "property",
-                          "name": "end",
-                          "isReadonly": false,
-                          "isOptional": false,
-                          "propertyType": {
-                            "kind": 32,
-                            "kindString": "intrinsic",
-                            "name": "number"
-                          }
-                        }
-                      ],
-                      "signatures": [],
-                      "constructSignatures": []
+                      "kind": 1024,
+                      "kindString": "reference",
+                      "name": "BreakpointRange",
+                      "typeArguments": []
                     }
                   }
                 ],
