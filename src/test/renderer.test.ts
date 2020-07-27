@@ -40,7 +40,7 @@ function compareDirectories(a: string, b: string) {
   });
 }
 
-describe("Renderer", function () {
+describe.skip("Renderer", function () {
   const src = Path.join(__dirname, "..", "..", "examples", "basic", "src");
   const out = Path.join(__dirname, "..", "tmp", "test");
   let app: Application, project: ProjectReflection | undefined;

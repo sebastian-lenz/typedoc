@@ -21,14 +21,16 @@ describe("FS Utils", () => {
       assert(expanded.includes(classFile));
     });
 
-    it("honors the exclude argument even on a fixed file list", async () => {
+    // This is the opposite of the previous behavior. If the user specifies a file explicitly,
+    // we shouldn't exclude it since it is an entry point.
+    it("does not exclude files which are explicitly included", async () => {
       const expanded = await expandDirectories(
         [classFile],
         ["**/class.ts"],
         false,
         false
       );
-      assert(!expanded.includes(classFile));
+      assert(expanded.includes(classFile));
     });
 
     it("supports multiple excludes", async () => {
@@ -54,7 +56,7 @@ describe("FS Utils", () => {
     });
 
     it("supports directory excludes", async () => {
-      const inputFiles = join(__dirname, "converter");
+      const inputFiles = join(__dirname, "..", "converter");
       const expanded = await expandDirectories(
         [inputFiles],
         ["**/alias"],
@@ -66,7 +68,7 @@ describe("FS Utils", () => {
     });
 
     it("supports negations in directory excludes", async () => {
-      const inputFiles = join(__dirname, "converter");
+      const inputFiles = join(__dirname, "..", "converter");
       const expanded = await expandDirectories(
         [inputFiles],
         ["**/!(alias)/"],

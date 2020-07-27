@@ -18,10 +18,6 @@ describe("Options - TypeDocReader", () => {
     });
   }
 
-  test("Converts src to inputFiles", join(__dirname, "data/src.json"), () => {
-    equal(options.getValue("inputFiles"), ["a"]);
-  });
-
   test(
     "Preserves splitting behavior",
     join(__dirname, "data/src2.json"),

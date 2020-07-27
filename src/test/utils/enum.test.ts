@@ -16,7 +16,7 @@ describe("Enum utils", () => {
     });
 
     it("works with a single value", () => {
-      equal(toKindArray(TestEnum.Bar), TestEnum.Bar);
+      equal(toKindArray(TestEnum.Bar), [TestEnum.Bar]);
     });
 
     it("works with multiple values", () => {
