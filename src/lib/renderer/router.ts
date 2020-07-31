@@ -63,6 +63,7 @@ export class ThemeRouter {
       // named this don't cause duplicate ids.
       slugger.slug("main");
       slugger.slug("search");
+      slugger.slug("theme");
       this._sluggers.set(docReflection, slugger);
     }
 

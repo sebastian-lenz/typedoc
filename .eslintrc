@@ -57,6 +57,12 @@
       "env": {
         "mocha": true
       }
+    },
+    {
+      "files": ["static/theme.js"],
+      "env": {
+        "browser": true
+      }
     }
   ]
 }

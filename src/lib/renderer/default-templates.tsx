@@ -10,9 +10,6 @@ import {
 // See the Templates interface for doc comments.
 // TODO: Lots to do to make this good yet.
 
-// TODO: Color scheme
-// window.matchMedia('(prefers-color-scheme: dark)').matches / .addEventListener
-
 const kindNames: Record<ReflectionKind, string> = {
   [ReflectionKind.Project]: "", // We just want to display the name.
   [ReflectionKind.Module]: "Module",
@@ -63,11 +60,6 @@ export const defaultTemplates: Templates = {
           {hooks.emit("head.end", reflection)}
         </head>
         <body>
-          <script>
-            const loads = +localStorage.getItem('loads') || 0;
-            localStorage.setItem('loads', loads + 1); if (loads % 2)
-            document.body.classList.add('dark')
-          </script>
           {hooks.emit("body.begin", reflection)}
           <templates.Header {...props} />
           <main>
@@ -104,6 +96,11 @@ export const defaultTemplates: Templates = {
             {reflection.project.name}
           </a>
           <input id="search" placeholder="Click or press S for search" />
+          <select id="theme">
+            <option value="native">Native</option>
+            <option value="dark">Dark</option>
+            <option value="light">Light</option>
+          </select>
         </div>
         <div class="title">
           <templates.Breadcrumbs {...props} />

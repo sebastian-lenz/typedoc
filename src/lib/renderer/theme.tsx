@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { promises as fs } from "fs";
+import { promises as fs, readFileSync } from "fs";
 import { dirname, join } from "path";
 import { createElement } from "preact";
 import { render } from "preact-render-to-string";
@@ -17,6 +17,9 @@ import { DoubleHighlighter } from "./highlight";
 import { copy } from "../utils/fs";
 
 const STATIC_DIR = join(__dirname, "../../../static");
+
+// Keep this small, it will be inlined on EVERY page.
+const THEME_JS = readFileSync(join(STATIC_DIR, "theme.js"), "utf-8").trim();
 
 const writeFile = async (path: string, content: string) => {
   await fs.mkdir(dirname(path), { recursive: true });
@@ -47,6 +50,10 @@ export function buildTheme(
       "light_plus",
       "monokai_dimmed"
     );
+
+    app.renderer.hooks.on("body.begin", () => (
+      <script dangerouslySetInnerHTML={{ __html: THEME_JS }} />
+    ));
 
     const pages: Reflection[] = [project];
     const tasks: Promise<void>[] = [];
