@@ -1,3 +1,5 @@
+import { ok as assert } from "assert";
+
 /**
  * Inserts an item into an array sorted by order. If two items have the same order,
  * the item inserted later will be placed earlier in the array.
@@ -68,4 +70,27 @@ export function removeIfPresent<T>(arr: T[] | undefined, item: T): void {
  */
 export function uniq<T>(arr: readonly T[]): T[] {
   return Array.from(new Set(arr));
+}
+
+export type Zip<T extends any[][]> = {
+  [K in keyof T]: T[K] extends Array<infer U> ? U : never;
+};
+
+/**
+ * Standard zip function, expects that all arrays have the same length.
+ */
+export function zip<T extends any[][]>(...arrays: T): Zip<T>[] {
+  const result: Zip<T>[] = [];
+
+  const length = Math.min(...arrays.map((a) => a.length));
+  assert(
+    Math.max(...arrays.map((a) => a.length)) === length,
+    "zip arrays do not have the same length"
+  );
+
+  for (let i = 0; i < length; i++) {
+    result.push(arrays.map((a) => a[i]) as Zip<T>);
+  }
+
+  return result;
 }

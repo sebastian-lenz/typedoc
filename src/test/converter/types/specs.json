@@ -9,14 +9,12 @@
       "name": "query",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": [
         {
           "id": 3,
           "name": "TypeOfX",
           "kind": 32768,
           "kindString": "alias",
-          "parent": 1,
           "typeParameters": [],
           "type": {
             "kind": 512,
@@ -34,7 +32,6 @@
           "name": "x",
           "kind": 32,
           "kindString": "variable",
-          "parent": 1,
           "type": {
             "kind": 16384,
             "kindString": "literal",
@@ -49,14 +46,12 @@
       "name": "union-or-intersection",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": [
         {
           "id": 5,
           "name": "FirstType",
           "kind": 256,
           "kindString": "interface",
-          "parent": 4,
           "comment": {
             "shortText": "First type for union or intersection type tests.",
             "text": "",
@@ -68,7 +63,6 @@
               "name": "firstProperty",
               "kind": 1024,
               "kindString": "property",
-              "parent": 5,
               "comment": {
                 "shortText": "Property of first type.",
                 "text": "",
@@ -92,7 +86,6 @@
           "name": "SecondType",
           "kind": 256,
           "kindString": "interface",
-          "parent": 4,
           "comment": {
             "shortText": "Second type for union or intersection type tests.",
             "text": "",
@@ -104,7 +97,6 @@
               "name": "secondProperty",
               "kind": 1024,
               "kindString": "property",
-              "parent": 7,
               "comment": {
                 "shortText": "Property of second type.",
                 "text": "",
@@ -128,7 +120,6 @@
           "name": "ThirdType",
           "kind": 256,
           "kindString": "interface",
-          "parent": 4,
           "comment": {
             "shortText": "Third type for union or intersection type tests.",
             "text": "",
@@ -140,7 +131,6 @@
               "name": "thirdComplexProperty",
               "kind": 1024,
               "kindString": "property",
-              "parent": 9,
               "comment": {
                 "shortText": "Complex Property of third type.",
                 "text": "",
@@ -190,7 +180,6 @@
               "name": "thirdIntersectionProperty",
               "kind": 1024,
               "kindString": "property",
-              "parent": 9,
               "comment": {
                 "shortText": "Intersection Property of third type.",
                 "text": "",
@@ -221,7 +210,6 @@
               "name": "thirdUnionProperty",
               "kind": 1024,
               "kindString": "property",
-              "parent": 9,
               "comment": {
                 "shortText": "Union Property of third type.",
                 "text": "",

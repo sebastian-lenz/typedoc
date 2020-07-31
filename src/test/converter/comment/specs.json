@@ -9,7 +9,6 @@
       "name": "comment",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "comment": {
         "shortText": "This is a module doc comment with legacy behavior.",
         "text": "",
@@ -21,7 +20,6 @@
           "name": "CommentedClass",
           "kind": 128,
           "kindString": "class",
-          "parent": 1,
           "comment": {
             "shortText": "A Comment for a class",
             "text": "## Some Markup\n**with more markup**\n\nAn example with decorators that should not parse to tag\n```\n@myDecorator\n@FactoryDecorator('a', 'b', 'c')\nexport class CommentedClass {\n  myProp: string = 'myProp';\n\n  @PropDecorator() decoratedProp: string;\n\n  constructor(@ParamDecorator public param: string) { }\n\n  myMethod() { }\n}\n```",
@@ -54,7 +52,6 @@
               "name": "hiddenprop",
               "kind": 1024,
               "kindString": "property",
-              "parent": 5,
               "comment": {
                 "shortText": "",
                 "text": "",
@@ -78,7 +75,6 @@
               "name": "ignoredprop",
               "kind": 1024,
               "kindString": "property",
-              "parent": 5,
               "comment": {
                 "shortText": "",
                 "text": "",
@@ -102,7 +98,6 @@
               "name": "prop",
               "kind": 1024,
               "kindString": "property",
-              "parent": 5,
               "comment": {
                 "shortText": "The main prop",
                 "text": "",
@@ -120,7 +115,6 @@
               "name": "hidden",
               "kind": 4096,
               "kindString": "method",
-              "parent": 5,
               "comment": {
                 "shortText": "Hidden function",
                 "text": "",
@@ -138,7 +132,6 @@
                   "name": "hidden",
                   "kind": 8192,
                   "kindString": "signature",
-                  "parent": 6,
                   "comment": {
                     "shortText": "Hidden function",
                     "text": "",
@@ -156,7 +149,6 @@
                       "name": "args",
                       "kind": 16384,
                       "kindString": "parameter",
-                      "parent": 21,
                       "type": {
                         "kind": 1,
                         "kindString": "array",
@@ -183,7 +175,6 @@
               "name": "hiddenWithImplementation",
               "kind": 4096,
               "kindString": "method",
-              "parent": 5,
               "comment": {
                 "shortText": "Single hidden signature",
                 "text": "",
@@ -201,7 +192,6 @@
                   "name": "hiddenWithImplementation",
                   "kind": 8192,
                   "kindString": "signature",
-                  "parent": 7,
                   "comment": {
                     "shortText": "Single hidden signature",
                     "text": "",
@@ -219,7 +209,6 @@
                       "name": "arg",
                       "kind": 16384,
                       "kindString": "parameter",
-                      "parent": 22,
                       "type": {
                         "kind": 32,
                         "kindString": "intrinsic",
@@ -242,7 +231,6 @@
               "name": "mixedHidden",
               "kind": 4096,
               "kindString": "method",
-              "parent": 5,
               "comment": {
                 "shortText": "Mixed hidden 1",
                 "text": "",
@@ -260,7 +248,6 @@
                   "name": "mixedHidden",
                   "kind": 8192,
                   "kindString": "signature",
-                  "parent": 9,
                   "comment": {
                     "shortText": "Mixed hidden 1",
                     "text": "",
@@ -278,7 +265,6 @@
                       "name": "arg",
                       "kind": 16384,
                       "kindString": "parameter",
-                      "parent": 25,
                       "type": {
                         "kind": 32,
                         "kindString": "intrinsic",
@@ -298,7 +284,6 @@
                   "name": "mixedHidden",
                   "kind": 8192,
                   "kindString": "signature",
-                  "parent": 9,
                   "comment": {
                     "shortText": "Mixed hidden 2",
                     "text": "",
@@ -310,7 +295,6 @@
                       "name": "arg1",
                       "kind": 16384,
                       "kindString": "parameter",
-                      "parent": 26,
                       "type": {
                         "kind": 32,
                         "kindString": "intrinsic",
@@ -322,7 +306,6 @@
                       "name": "arg2",
                       "kind": 16384,
                       "kindString": "parameter",
-                      "parent": 26,
                       "type": {
                         "kind": 32,
                         "kindString": "intrinsic",
@@ -345,7 +328,6 @@
               "name": "multipleHidden",
               "kind": 4096,
               "kindString": "method",
-              "parent": 5,
               "comment": {
                 "shortText": "Multiple hidden 1",
                 "text": "",
@@ -363,7 +345,6 @@
                   "name": "multipleHidden",
                   "kind": 8192,
                   "kindString": "signature",
-                  "parent": 8,
                   "comment": {
                     "shortText": "Multiple hidden 1",
                     "text": "",
@@ -381,7 +362,6 @@
                       "name": "arg",
                       "kind": 16384,
                       "kindString": "parameter",
-                      "parent": 23,
                       "type": {
                         "kind": 32,
                         "kindString": "intrinsic",
@@ -401,7 +381,6 @@
                   "name": "multipleHidden",
                   "kind": 8192,
                   "kindString": "signature",
-                  "parent": 8,
                   "comment": {
                     "shortText": "Multiple hidden 2",
                     "text": "",
@@ -419,7 +398,6 @@
                       "name": "arg1",
                       "kind": 16384,
                       "kindString": "parameter",
-                      "parent": 24,
                       "type": {
                         "kind": 32,
                         "kindString": "intrinsic",
@@ -431,7 +409,6 @@
                       "name": "arg2",
                       "kind": 16384,
                       "kindString": "parameter",
-                      "parent": 24,
                       "type": {
                         "kind": 32,
                         "kindString": "intrinsic",
@@ -460,7 +437,6 @@
           "name": "gh1164",
           "kind": 64,
           "kindString": "function",
-          "parent": 1,
           "comment": {
             "shortText": "Function description",
             "text": "",
@@ -483,7 +459,6 @@
               "name": "gh1164",
               "kind": 8192,
               "kindString": "signature",
-              "parent": 2,
               "comment": {
                 "shortText": "Function description",
                 "text": "",
@@ -506,7 +481,6 @@
                   "name": "scope",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "parent": 4,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
@@ -530,7 +504,6 @@
       "name": "comment2",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "comment": {
         "shortText": "This is a module doc with the packageDocumentation tag to mark it as documentation\nfor the whole module. It is *not* documentation for the `multiply` function.",
         "text": "",
@@ -548,21 +521,18 @@
           "name": "multiply",
           "kind": 64,
           "kindString": "function",
-          "parent": 27,
           "children": [
             {
               "id": 31,
               "name": "multiply",
               "kind": 8192,
               "kindString": "signature",
-              "parent": 28,
               "parameters": [
                 {
                   "id": 29,
                   "name": "a",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "parent": 31,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
@@ -574,7 +544,6 @@
                   "name": "b",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "parent": 31,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",

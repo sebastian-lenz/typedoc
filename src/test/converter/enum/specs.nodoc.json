@@ -9,14 +9,12 @@
       "name": "enum",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": [
         {
           "id": 10,
           "name": "ModuleEnum",
           "kind": 4,
           "kindString": "namespace",
-          "parent": 1,
           "comment": {
             "shortText": "This is a module extending an enumeration.",
             "text": "",
@@ -28,7 +26,6 @@
               "name": "enumValue",
               "kind": 32,
               "kindString": "variable",
-              "parent": 10,
               "comment": {
                 "shortText": "This is a variable appended to an enumeration.",
                 "text": "",
@@ -45,7 +42,6 @@
               "name": "enumFunction",
               "kind": 64,
               "kindString": "function",
-              "parent": 10,
               "comment": {
                 "shortText": "This is a function appended to an enumeration.",
                 "text": "",
@@ -57,7 +53,6 @@
                   "name": "enumFunction",
                   "kind": 8192,
                   "kindString": "signature",
-                  "parent": 11,
                   "comment": {
                     "shortText": "This is a function appended to an enumeration.",
                     "text": "",
@@ -80,7 +75,6 @@
           "name": "ConstEnum",
           "kind": 8,
           "kindString": "enum",
-          "parent": 1,
           "comment": {
             "shortText": "This is a const enum.",
             "text": "",
@@ -92,7 +86,6 @@
               "name": "a",
               "kind": 16,
               "kindString": "enumMember",
-              "parent": 14,
               "value": 1
             },
             {
@@ -100,7 +93,6 @@
               "name": "b",
               "kind": 16,
               "kindString": "enumMember",
-              "parent": 14,
               "value": 2
             }
           ],
@@ -111,7 +103,6 @@
           "name": "ModuleEnum",
           "kind": 8,
           "kindString": "enum",
-          "parent": 1,
           "comment": {
             "shortText": "This is an enumeration extended by a module.",
             "text": "",
@@ -123,7 +114,6 @@
               "name": "EnumValue1",
               "kind": 16,
               "kindString": "enumMember",
-              "parent": 6,
               "comment": {
                 "shortText": "This is the first enum member.",
                 "text": "",
@@ -136,7 +126,6 @@
               "name": "EnumValue2",
               "kind": 16,
               "kindString": "enumMember",
-              "parent": 6,
               "comment": {
                 "shortText": "This is the second enum member.",
                 "text": "",
@@ -149,7 +138,6 @@
               "name": "EnumValue3",
               "kind": 16,
               "kindString": "enumMember",
-              "parent": 6,
               "comment": {
                 "shortText": "This is the third enum member.",
                 "text": "",
@@ -165,7 +153,6 @@
           "name": "SimpleEnum",
           "kind": 8,
           "kindString": "enum",
-          "parent": 1,
           "comment": {
             "shortText": "This is a simple enumeration.",
             "text": "",
@@ -177,7 +164,6 @@
               "name": "EnumValue1",
               "kind": 16,
               "kindString": "enumMember",
-              "parent": 2,
               "comment": {
                 "shortText": "This is the first enum member.",
                 "text": "",
@@ -190,7 +176,6 @@
               "name": "EnumValue2",
               "kind": 16,
               "kindString": "enumMember",
-              "parent": 2,
               "comment": {
                 "shortText": "This is the second enum member.",
                 "text": "",
@@ -203,7 +188,6 @@
               "name": "EnumValue3",
               "kind": 16,
               "kindString": "enumMember",
-              "parent": 2,
               "comment": {
                 "shortText": "This is the third enum member.",
                 "text": "",

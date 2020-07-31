@@ -9,21 +9,18 @@
       "name": "react",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": [
         {
           "id": 5,
           "name": "Demo",
           "kind": 128,
           "kindString": "class",
-          "parent": 1,
           "children": [
             {
               "id": 7,
               "name": "foo",
               "kind": 1024,
               "kindString": "property",
-              "parent": 5,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -36,14 +33,12 @@
               "name": "render",
               "kind": 4096,
               "kindString": "method",
-              "parent": 5,
               "children": [
                 {
                   "id": 8,
                   "name": "render",
                   "kind": 8192,
                   "kindString": "signature",
-                  "parent": 6,
                   "parameters": [],
                   "typeParameters": [],
                   "returnType": {
@@ -67,14 +62,12 @@
           "name": "DemoProps",
           "kind": 256,
           "kindString": "interface",
-          "parent": 1,
           "children": [
             {
               "id": 4,
               "name": "age",
               "kind": 1024,
               "kindString": "property",
-              "parent": 2,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -87,7 +80,6 @@
               "name": "name",
               "kind": 1024,
               "kindString": "property",
-              "parent": 2,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",

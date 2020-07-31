@@ -9,21 +9,18 @@
       "name": "inherit-param-doc",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": [
         {
           "id": 4,
           "name": "Class1",
           "kind": 128,
           "kindString": "class",
-          "parent": 1,
           "children": [
             {
               "id": 5,
               "name": "method1",
               "kind": 4096,
               "kindString": "method",
-              "parent": 4,
               "comment": {
                 "shortText": "",
                 "text": "",
@@ -41,7 +38,6 @@
                   "name": "method1",
                   "kind": 8192,
                   "kindString": "signature",
-                  "parent": 5,
                   "comment": {
                     "shortText": "",
                     "text": "",
@@ -59,7 +55,6 @@
                       "name": "a",
                       "kind": 16384,
                       "kindString": "parameter",
-                      "parent": 8,
                       "type": {
                         "kind": 32,
                         "kindString": "intrinsic",
@@ -71,7 +66,6 @@
                       "name": "b",
                       "kind": 16384,
                       "kindString": "parameter",
-                      "parent": 8,
                       "type": {
                         "kind": 32,
                         "kindString": "intrinsic",
@@ -107,14 +101,12 @@
           "name": "Class2",
           "kind": 128,
           "kindString": "class",
-          "parent": 1,
           "children": [
             {
               "id": 10,
               "name": "method1",
               "kind": 4096,
               "kindString": "method",
-              "parent": 9,
               "comment": {
                 "shortText": "",
                 "text": "",
@@ -137,7 +129,6 @@
                   "name": "method1",
                   "kind": 8192,
                   "kindString": "signature",
-                  "parent": 10,
                   "comment": {
                     "shortText": "",
                     "text": "",
@@ -160,7 +151,6 @@
                       "name": "a",
                       "kind": 16384,
                       "kindString": "parameter",
-                      "parent": 13,
                       "type": {
                         "kind": 32,
                         "kindString": "intrinsic",
@@ -172,7 +162,6 @@
                       "name": "b",
                       "kind": 16384,
                       "kindString": "parameter",
-                      "parent": 13,
                       "type": {
                         "kind": 32,
                         "kindString": "intrinsic",
@@ -208,14 +197,12 @@
           "name": "Class3",
           "kind": 128,
           "kindString": "class",
-          "parent": 1,
           "children": [
             {
               "id": 15,
               "name": "method1",
               "kind": 4096,
               "kindString": "method",
-              "parent": 14,
               "comment": {
                 "shortText": "",
                 "text": "",
@@ -238,7 +225,6 @@
                   "name": "method1",
                   "kind": 8192,
                   "kindString": "signature",
-                  "parent": 15,
                   "comment": {
                     "shortText": "",
                     "text": "",
@@ -261,7 +247,6 @@
                       "name": "a",
                       "kind": 16384,
                       "kindString": "parameter",
-                      "parent": 18,
                       "type": {
                         "kind": 32,
                         "kindString": "intrinsic",
@@ -273,7 +258,6 @@
                       "name": "c",
                       "kind": 16384,
                       "kindString": "parameter",
-                      "parent": 18,
                       "type": {
                         "kind": 32,
                         "kindString": "intrinsic",
@@ -309,14 +293,12 @@
           "name": "Base",
           "kind": 256,
           "kindString": "interface",
-          "parent": 1,
           "children": [
             {
               "id": 3,
               "name": "method1",
               "kind": 4096,
               "kindString": "method",
-              "parent": 2,
               "comment": {
                 "shortText": "",
                 "text": "",

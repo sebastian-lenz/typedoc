@@ -9,14 +9,12 @@
       "name": "mixin",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": [
         {
           "id": 5,
           "name": "Base",
           "kind": 128,
           "kindString": "class",
-          "parent": 1,
           "comment": {
             "shortText": "Base class",
             "text": "",
@@ -28,7 +26,6 @@
               "name": "baseProperty",
               "kind": 1024,
               "kindString": "property",
-              "parent": 5,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -41,14 +38,12 @@
               "name": "baseMethod",
               "kind": 4096,
               "kindString": "method",
-              "parent": 5,
               "children": [
                 {
                   "id": 8,
                   "name": "baseMethod",
                   "kind": 8192,
                   "kindString": "signature",
-                  "parent": 6,
                   "parameters": [],
                   "typeParameters": [],
                   "returnType": {
@@ -71,7 +66,6 @@
           "name": "SomeClassWithMixin",
           "kind": 128,
           "kindString": "class",
-          "parent": 1,
           "comment": {
             "shortText": "Class that inherits from Base and consumes Mixin1 and Mixin2, in order.",
             "text": "",
@@ -83,7 +77,6 @@
               "name": "classWithMixinProperty",
               "kind": 1024,
               "kindString": "property",
-              "parent": 15,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -96,14 +89,12 @@
               "name": "classWithMixinMethod",
               "kind": 4096,
               "kindString": "method",
-              "parent": 15,
               "children": [
                 {
                   "id": 18,
                   "name": "classWithMixinMethod",
                   "kind": 8192,
                   "kindString": "signature",
-                  "parent": 16,
                   "parameters": [],
                   "typeParameters": [],
                   "returnType": {
@@ -256,7 +247,6 @@
           "name": "Mixin1Type",
           "kind": 256,
           "kindString": "interface",
-          "parent": 1,
           "comment": {
             "shortText": "The \"instance type\" of the Mixin1 using the interface notation (supports recursive type definition)",
             "text": "",
@@ -291,7 +281,6 @@
           "name": "Mixin2",
           "kind": 256,
           "kindString": "interface",
-          "parent": 1,
           "comment": {
             "shortText": "The \"instance type\" of the Mixin2 using the interface notation (supports recursive type definition)",
             "text": "",
@@ -326,7 +315,6 @@
           "name": "AnyConstructor",
           "kind": 32768,
           "kindString": "alias",
-          "parent": 1,
           "comment": {
             "shortText": "Any constructor function",
             "text": "",
@@ -379,7 +367,6 @@
           "name": "AnyFunction",
           "kind": 32768,
           "kindString": "alias",
-          "parent": 1,
           "comment": {
             "shortText": "Any function",
             "text": "",
@@ -432,7 +419,6 @@
           "name": "Mixin",
           "kind": 32768,
           "kindString": "alias",
-          "parent": 1,
           "comment": {
             "shortText": "Mixin type helper",
             "text": "",
@@ -477,7 +463,6 @@
           "name": "Mixin3",
           "kind": 32768,
           "kindString": "alias",
-          "parent": 1,
           "comment": {
             "shortText": "The \"instance type\" of the Mixin3 using the regular type notation (does not work well for recursive type definition)\nIs not well supported by the TypeDoc",
             "text": "",
@@ -507,7 +492,6 @@
           "name": "Mixin1Func",
           "kind": 32,
           "kindString": "variable",
-          "parent": 1,
           "comment": {
             "shortText": "The \"mixin function\" of the Mixin1",
             "text": "",
@@ -622,7 +606,6 @@
           "name": "Mixin2",
           "kind": 32,
           "kindString": "variable",
-          "parent": 1,
           "comment": {
             "shortText": "The \"mixin function\" of the Mixin2",
             "text": "",
@@ -737,7 +720,6 @@
           "name": "Mixin3",
           "kind": 32,
           "kindString": "variable",
-          "parent": 1,
           "comment": {
             "shortText": "The \"mixin function\" of the Mixin3",
             "text": "",

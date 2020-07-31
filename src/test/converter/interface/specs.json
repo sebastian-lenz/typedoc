@@ -9,14 +9,12 @@
       "name": "constructor-type",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": [
         {
           "id": 2,
           "name": "Constructor",
           "kind": 256,
           "kindString": "interface",
-          "parent": 1,
           "children": [],
           "signatures": [],
           "constructSignatures": [],
@@ -28,7 +26,6 @@
           "name": "Instance",
           "kind": 256,
           "kindString": "interface",
-          "parent": 1,
           "children": [],
           "signatures": [],
           "constructSignatures": [],
@@ -42,14 +39,12 @@
       "name": "interface-empty",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": [
         {
           "id": 6,
           "name": "ClassImplementingEmptyInterface",
           "kind": 128,
           "kindString": "class",
-          "parent": 4,
           "comment": {
             "shortText": "A class implementing an empty interface.",
             "text": "",
@@ -61,7 +56,6 @@
               "name": "name",
               "kind": 1024,
               "kindString": "property",
-              "parent": 6,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -74,14 +68,12 @@
               "name": "goto",
               "kind": 4096,
               "kindString": "method",
-              "parent": 6,
               "children": [
                 {
                   "id": 9,
                   "name": "goto",
                   "kind": 8192,
                   "kindString": "signature",
-                  "parent": 7,
                   "parameters": [],
                   "typeParameters": [],
                   "returnType": {
@@ -111,7 +103,6 @@
           "name": "EmptyInterface",
           "kind": 256,
           "kindString": "interface",
-          "parent": 4,
           "comment": {
             "shortText": "An empty interface",
             "text": "",
@@ -130,21 +121,18 @@
       "name": "interface-implementation",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": [
         {
           "id": 11,
           "name": "Forms",
           "kind": 4,
           "kindString": "namespace",
-          "parent": 10,
           "children": [
             {
               "id": 23,
               "name": "EventDispatcher",
               "kind": 128,
               "kindString": "class",
-              "parent": 11,
               "comment": {
                 "shortText": "Implementation of IEventDispatcher",
                 "text": "",
@@ -162,7 +150,6 @@
                   "name": "subscriptions",
                   "kind": 1024,
                   "kindString": "property",
-                  "parent": 23,
                   "type": {
                     "kind": 1,
                     "kindString": "array",
@@ -187,21 +174,18 @@
                   "name": "add",
                   "kind": 4096,
                   "kindString": "method",
-                  "parent": 23,
                   "children": [
                     {
                       "id": 46,
                       "name": "add",
                       "kind": 8192,
                       "kindString": "signature",
-                      "parent": 24,
                       "parameters": [
                         {
                           "id": 39,
                           "name": "listener",
                           "kind": 16384,
                           "kindString": "parameter",
-                          "parent": 46,
                           "type": {
                             "kind": 1024,
                             "kindString": "reference",
@@ -221,7 +205,6 @@
                           "name": "filter",
                           "kind": 16384,
                           "kindString": "parameter",
-                          "parent": 46,
                           "type": {
                             "kind": 32,
                             "kindString": "intrinsic",
@@ -234,7 +217,6 @@
                           "name": "priority",
                           "kind": 16384,
                           "kindString": "parameter",
-                          "parent": 46,
                           "type": {
                             "kind": 32,
                             "kindString": "intrinsic",
@@ -266,14 +248,12 @@
                   "name": "clear",
                   "kind": 4096,
                   "kindString": "method",
-                  "parent": 23,
                   "children": [
                     {
                       "id": 44,
                       "name": "clear",
                       "kind": 8192,
                       "kindString": "signature",
-                      "parent": 27,
                       "parameters": [],
                       "typeParameters": [],
                       "returnType": {
@@ -290,21 +270,18 @@
                   "name": "dispatch",
                   "kind": 4096,
                   "kindString": "method",
-                  "parent": 23,
                   "children": [
                     {
                       "id": 48,
                       "name": "dispatch",
                       "kind": 8192,
                       "kindString": "signature",
-                      "parent": 26,
                       "parameters": [
                         {
                           "id": 43,
                           "name": "event",
                           "kind": 16384,
                           "kindString": "parameter",
-                          "parent": 48,
                           "type": {
                             "kind": 1024,
                             "kindString": "reference",
@@ -328,14 +305,12 @@
                   "name": "hasListeners",
                   "kind": 4096,
                   "kindString": "method",
-                  "parent": 23,
                   "children": [
                     {
                       "id": 45,
                       "name": "hasListeners",
                       "kind": 8192,
                       "kindString": "signature",
-                      "parent": 28,
                       "parameters": [],
                       "typeParameters": [],
                       "returnType": {
@@ -352,21 +327,18 @@
                   "name": "remove",
                   "kind": 4096,
                   "kindString": "method",
-                  "parent": 23,
                   "children": [
                     {
                       "id": 47,
                       "name": "remove",
                       "kind": 8192,
                       "kindString": "signature",
-                      "parent": 25,
                       "parameters": [
                         {
                           "id": 42,
                           "name": "subscription",
                           "kind": 16384,
                           "kindString": "parameter",
-                          "parent": 47,
                           "type": {
                             "kind": 1024,
                             "kindString": "reference",
@@ -423,14 +395,12 @@
               "name": "Subscription",
               "kind": 128,
               "kindString": "class",
-              "parent": 11,
               "children": [
                 {
                   "id": 35,
                   "name": "dispatcher",
                   "kind": 1024,
                   "kindString": "property",
-                  "parent": 15,
                   "type": {
                     "kind": 1024,
                     "kindString": "reference",
@@ -451,7 +421,6 @@
                   "name": "filter",
                   "kind": 1024,
                   "kindString": "property",
-                  "parent": 15,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
@@ -464,7 +433,6 @@
                   "name": "listener",
                   "kind": 1024,
                   "kindString": "property",
-                  "parent": 15,
                   "type": {
                     "kind": 1024,
                     "kindString": "reference",
@@ -485,7 +453,6 @@
                   "name": "priority",
                   "kind": 1024,
                   "kindString": "property",
-                  "parent": 15,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
@@ -498,14 +465,12 @@
                   "name": "unsubscribe",
                   "kind": 4096,
                   "kindString": "method",
-                  "parent": 15,
                   "children": [
                     {
                       "id": 38,
                       "name": "unsubscribe",
                       "kind": 8192,
                       "kindString": "signature",
-                      "parent": 16,
                       "parameters": [],
                       "typeParameters": [],
                       "returnType": {
@@ -548,7 +513,6 @@
               "name": "EventDispatcherInt",
               "kind": 256,
               "kindString": "interface",
-              "parent": 11,
               "comment": {
                 "shortText": "The main interface of the event system.\nAn IEventDispatcher is an object that keeps a list of listeners, and sends dispatches events of a certain type to them.\nThis might otherwise be known as a Signal.",
                 "text": "",
@@ -560,7 +524,6 @@
                   "name": "add",
                   "kind": 4096,
                   "kindString": "method",
-                  "parent": 17,
                   "children": [],
                   "visibility": "public"
                 },
@@ -569,7 +532,6 @@
                   "name": "clear",
                   "kind": 4096,
                   "kindString": "method",
-                  "parent": 17,
                   "children": [],
                   "visibility": "public"
                 },
@@ -578,7 +540,6 @@
                   "name": "dispatch",
                   "kind": 4096,
                   "kindString": "method",
-                  "parent": 17,
                   "children": [],
                   "visibility": "public"
                 },
@@ -587,7 +548,6 @@
                   "name": "hasListeners",
                   "kind": 4096,
                   "kindString": "method",
-                  "parent": 17,
                   "children": [],
                   "visibility": "public"
                 },
@@ -596,7 +556,6 @@
                   "name": "remove",
                   "kind": 4096,
                   "kindString": "method",
-                  "parent": 17,
                   "children": [],
                   "visibility": "public"
                 }
@@ -617,7 +576,6 @@
               "name": "EventListener",
               "kind": 256,
               "kindString": "interface",
-              "parent": 11,
               "comment": {
                 "shortText": "Function signature of an event listener callback",
                 "text": "",
@@ -636,7 +594,6 @@
                       "name": "parameter",
                       "kind": 16384,
                       "kindString": "parameter",
-                      "parent": 37,
                       "type": {
                         "kind": 1024,
                         "kindString": "reference",
@@ -668,7 +625,6 @@
               "name": "SubscriptionInt",
               "kind": 256,
               "kindString": "interface",
-              "parent": 11,
               "comment": {
                 "shortText": "Encapsulates a subscription to an event dispatcher, and allows for unsubscribing",
                 "text": "",
@@ -680,7 +636,6 @@
                   "name": "filter",
                   "kind": 1024,
                   "kindString": "property",
-                  "parent": 13,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
@@ -693,7 +648,6 @@
                   "name": "listener",
                   "kind": 1024,
                   "kindString": "property",
-                  "parent": 13,
                   "type": {
                     "kind": 1024,
                     "kindString": "reference",
@@ -714,7 +668,6 @@
                   "name": "priority",
                   "kind": 1024,
                   "kindString": "property",
-                  "parent": 13,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
@@ -727,7 +680,6 @@
                   "name": "unsubscribe",
                   "kind": 4096,
                   "kindString": "method",
-                  "parent": 13,
                   "comment": {
                     "shortText": "Remove this subscription from its dispatcher",
                     "text": "",

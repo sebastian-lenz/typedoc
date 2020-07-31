@@ -9,14 +9,12 @@
       "name": "function",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": [
         {
           "id": 27,
           "name": "moduleFunction",
           "kind": 4,
           "kindString": "namespace",
-          "parent": 1,
           "comment": {
             "shortText": "This is the module extending the function moduleFunction().",
             "text": "",
@@ -28,7 +26,6 @@
               "name": "append",
               "kind": 64,
               "kindString": "function",
-              "parent": 27,
               "comment": {
                 "shortText": "This function is appended to another function.",
                 "text": "",
@@ -40,7 +37,6 @@
                   "name": "append",
                   "kind": 8192,
                   "kindString": "signature",
-                  "parent": 28,
                   "comment": {
                     "shortText": "This function is appended to another function.",
                     "text": "",
@@ -61,7 +57,6 @@
               "name": "prepend",
               "kind": 64,
               "kindString": "function",
-              "parent": 27,
               "comment": {
                 "shortText": "This function is appended to another function.",
                 "text": "",
@@ -73,7 +68,6 @@
                   "name": "prepend",
                   "kind": 8192,
                   "kindString": "signature",
-                  "parent": 29,
                   "comment": {
                     "shortText": "This function is appended to another function.",
                     "text": "",
@@ -96,7 +90,6 @@
           "name": "variableFunction",
           "kind": 32,
           "kindString": "variable",
-          "parent": 1,
           "comment": {
             "shortText": "This is a function that is assigned to a variable.",
             "text": "",
@@ -144,7 +137,6 @@
           "name": "assertionFunction",
           "kind": 64,
           "kindString": "function",
-          "parent": 1,
           "comment": {
             "shortText": "This is an assertion function.",
             "text": "",
@@ -162,7 +154,6 @@
               "name": "assertionFunction",
               "kind": 8192,
               "kindString": "signature",
-              "parent": 34,
               "comment": {
                 "shortText": "This is an assertion function.",
                 "text": "",
@@ -180,7 +171,6 @@
                   "name": "condition",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "parent": 36,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
@@ -203,7 +193,6 @@
           "name": "assertIsNonNull",
           "kind": 64,
           "kindString": "function",
-          "parent": 1,
           "comment": {
             "shortText": "Asserts that an argument is not null.",
             "text": "",
@@ -221,7 +210,6 @@
               "name": "assertIsNonNull",
               "kind": 8192,
               "kindString": "signature",
-              "parent": 40,
               "comment": {
                 "shortText": "Asserts that an argument is not null.",
                 "text": "",
@@ -239,7 +227,6 @@
                   "name": "arg",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "parent": 42,
                   "type": {
                     "kind": 262144,
                     "kindString": "union",
@@ -291,7 +278,6 @@
           "name": "checkerFunction",
           "kind": 64,
           "kindString": "function",
-          "parent": 1,
           "comment": {
             "shortText": "Assertion function with a type.",
             "text": "",
@@ -309,7 +295,6 @@
               "name": "checkerFunction",
               "kind": 8192,
               "kindString": "signature",
-              "parent": 37,
               "comment": {
                 "shortText": "Assertion function with a type.",
                 "text": "",
@@ -327,7 +312,6 @@
                   "name": "anything",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "parent": 39,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
@@ -355,7 +339,6 @@
           "name": "exportedFunction",
           "kind": 64,
           "kindString": "function",
-          "parent": 1,
           "comment": {
             "shortText": "This is a simple exported function.",
             "text": "",
@@ -367,7 +350,6 @@
               "name": "exportedFunction",
               "kind": 8192,
               "kindString": "signature",
-              "parent": 2,
               "comment": {
                 "shortText": "This is a simple exported function.",
                 "text": "",
@@ -388,7 +370,6 @@
           "name": "functionWithDefaults",
           "kind": 64,
           "kindString": "function",
-          "parent": 1,
           "comment": {
             "shortText": "This is a function with a parameter that has a default value.",
             "text": "",
@@ -431,7 +412,6 @@
               "name": "functionWithDefaults",
               "kind": 8192,
               "kindString": "signature",
-              "parent": 13,
               "comment": {
                 "shortText": "This is a function with a parameter that has a default value.",
                 "text": "",
@@ -474,7 +454,6 @@
                   "name": "valueA",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "parent": 19,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
@@ -487,7 +466,6 @@
                   "name": "valueB",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "parent": 19,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
@@ -500,7 +478,6 @@
                   "name": "valueC",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "parent": 19,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
@@ -513,7 +490,6 @@
                   "name": "valueD",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "parent": 19,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
@@ -526,7 +502,6 @@
                   "name": "valueE",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "parent": 19,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
@@ -549,7 +524,6 @@
           "name": "functionWithOptionalValue",
           "kind": 64,
           "kindString": "function",
-          "parent": 1,
           "comment": {
             "shortText": "This is a function with a parameter that is optional.",
             "text": "",
@@ -572,7 +546,6 @@
               "name": "functionWithOptionalValue",
               "kind": 8192,
               "kindString": "signature",
-              "parent": 9,
               "comment": {
                 "shortText": "This is a function with a parameter that is optional.",
                 "text": "",
@@ -595,7 +568,6 @@
                   "name": "requiredParam",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "parent": 12,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
@@ -607,7 +579,6 @@
                   "name": "optionalParam",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "parent": 12,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
@@ -629,7 +600,6 @@
           "name": "functionWithParameters",
           "kind": 64,
           "kindString": "function",
-          "parent": 1,
           "comment": {
             "shortText": "This is a function with multiple arguments and a return value.",
             "text": "",
@@ -662,7 +632,6 @@
               "name": "functionWithParameters",
               "kind": 8192,
               "kindString": "signature",
-              "parent": 4,
               "comment": {
                 "shortText": "This is a function with multiple arguments and a return value.",
                 "text": "",
@@ -695,7 +664,6 @@
                   "name": "paramZ",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "parent": 8,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
@@ -707,7 +675,6 @@
                   "name": "paramG",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "parent": 8,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
@@ -719,7 +686,6 @@
                   "name": "paramA",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "parent": 8,
                   "type": {
                     "kind": 1024,
                     "kindString": "reference",
@@ -742,7 +708,6 @@
           "name": "isNonNull",
           "kind": 64,
           "kindString": "function",
-          "parent": 1,
           "comment": {
             "shortText": "Checks that an argument is not null.",
             "text": "",
@@ -760,7 +725,6 @@
               "name": "isNonNull",
               "kind": 8192,
               "kindString": "signature",
-              "parent": 43,
               "comment": {
                 "shortText": "Checks that an argument is not null.",
                 "text": "",
@@ -778,7 +742,6 @@
                   "name": "arg",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "parent": 45,
                   "type": {
                     "kind": 262144,
                     "kindString": "union",
@@ -830,7 +793,6 @@
           "name": "moduleFunction",
           "kind": 64,
           "kindString": "function",
-          "parent": 1,
           "comment": {
             "shortText": "This is a function that is extended by a module.",
             "text": "",
@@ -848,7 +810,6 @@
               "name": "moduleFunction",
               "kind": 8192,
               "kindString": "signature",
-              "parent": 26,
               "comment": {
                 "shortText": "This is a function that is extended by a module.",
                 "text": "",
@@ -866,7 +827,6 @@
                   "name": "arg",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "parent": 33,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
@@ -888,7 +848,6 @@
           "name": "multipleSignatures",
           "kind": 64,
           "kindString": "function",
-          "parent": 1,
           "comment": {
             "shortText": "This is the second signature of a function with multiple signatures.",
             "text": "",
@@ -911,7 +870,6 @@
               "name": "multipleSignatures",
               "kind": 8192,
               "kindString": "signature",
-              "parent": 20,
               "comment": {
                 "shortText": "This is the first signature of a function with multiple signatures.",
                 "text": "",
@@ -929,7 +887,6 @@
                   "name": "value",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "parent": 24,
                   "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
@@ -949,7 +906,6 @@
               "name": "multipleSignatures",
               "kind": 8192,
               "kindString": "signature",
-              "parent": 20,
               "comment": {
                 "shortText": "This is the second signature of a function with multiple signatures.",
                 "text": "",
@@ -972,7 +928,6 @@
                   "name": "value",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "parent": 25,
                   "type": {
                     "id": 21,
                     "name": "TODO",
@@ -997,33 +952,29 @@
       ]
     },
     {
-      "id": 47,
+      "id": 53,
       "name": "generic-function",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": []
     },
     {
-      "id": 48,
+      "id": 47,
       "name": "implicit-types",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": [
         {
-          "id": 51,
+          "id": 50,
           "name": "BreakpointRange",
           "kind": 256,
           "kindString": "interface",
-          "parent": 48,
           "children": [
             {
-              "id": 53,
+              "id": 52,
               "name": "end",
               "kind": 1024,
               "kindString": "property",
-              "parent": 51,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -1032,11 +983,10 @@
               "visibility": "public"
             },
             {
-              "id": 52,
+              "id": 51,
               "name": "start",
               "kind": 1024,
               "kindString": "property",
-              "parent": 51,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -1051,18 +1001,16 @@
           "extendedTypes": []
         },
         {
-          "id": 49,
+          "id": 48,
           "name": "getBreakpoints",
           "kind": 64,
           "kindString": "function",
-          "parent": 48,
           "children": [
             {
-              "id": 50,
+              "id": 49,
               "name": "getBreakpoints",
               "kind": 8192,
               "kindString": "signature",
-              "parent": 49,
               "parameters": [],
               "typeParameters": [],
               "returnType": {

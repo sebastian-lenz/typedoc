@@ -5,18 +5,16 @@
   "kindString": "project",
   "children": [
     {
-      "id": 1,
+      "id": 41,
       "name": "access",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": [
         {
-          "id": 8,
+          "id": 48,
           "name": "PrivateClass",
           "kind": 128,
           "kindString": "class",
-          "parent": 1,
           "comment": {
             "shortText": "A class that is documented as being private.",
             "text": "",
@@ -30,11 +28,10 @@
           },
           "children": [
             {
-              "id": 11,
+              "id": 51,
               "name": "fakePrivateVariable",
               "kind": 1024,
               "kindString": "property",
-              "parent": 8,
               "comment": {
                 "shortText": "A variable that is made private via comment.",
                 "text": "",
@@ -54,11 +51,10 @@
               "visibility": "public"
             },
             {
-              "id": 12,
+              "id": 52,
               "name": "fakeProtectedVariable",
               "kind": 1024,
               "kindString": "property",
-              "parent": 8,
               "comment": {
                 "shortText": "A variable that is made protected via comment.",
                 "text": "",
@@ -78,11 +74,10 @@
               "visibility": "public"
             },
             {
-              "id": 9,
+              "id": 49,
               "name": "fakePrivateFunction",
               "kind": 4096,
               "kindString": "method",
-              "parent": 8,
               "comment": {
                 "shortText": "A function that is made private via comment.",
                 "text": "",
@@ -96,11 +91,10 @@
               },
               "children": [
                 {
-                  "id": 13,
+                  "id": 53,
                   "name": "fakePrivateFunction",
                   "kind": 8192,
                   "kindString": "signature",
-                  "parent": 9,
                   "comment": {
                     "shortText": "A function that is made private via comment.",
                     "text": "",
@@ -124,11 +118,10 @@
               "visibility": "public"
             },
             {
-              "id": 10,
+              "id": 50,
               "name": "fakeProtectedFunction",
               "kind": 4096,
               "kindString": "method",
-              "parent": 8,
               "comment": {
                 "shortText": "A function that is made protected via comment.",
                 "text": "",
@@ -142,11 +135,10 @@
               },
               "children": [
                 {
-                  "id": 14,
+                  "id": 54,
                   "name": "fakeProtectedFunction",
                   "kind": 8192,
                   "kindString": "signature",
-                  "parent": 10,
                   "comment": {
                     "shortText": "A function that is made protected via comment.",
                     "text": "",
@@ -176,11 +168,10 @@
           "implementedTypes": []
         },
         {
-          "id": 6,
+          "id": 46,
           "name": "fakePrivateVariable",
           "kind": 32,
           "kindString": "variable",
-          "parent": 1,
           "comment": {
             "shortText": "A variable that is made private via comment.",
             "text": "",
@@ -200,11 +191,10 @@
           "defaultValue": "\"test\""
         },
         {
-          "id": 7,
+          "id": 47,
           "name": "fakeProtectedVariable",
           "kind": 32,
           "kindString": "variable",
-          "parent": 1,
           "comment": {
             "shortText": "A variable that is made protected via comment.",
             "text": "",
@@ -224,11 +214,10 @@
           "defaultValue": "\"test\""
         },
         {
-          "id": 2,
+          "id": 42,
           "name": "fakePrivateFunction",
           "kind": 64,
           "kindString": "function",
-          "parent": 1,
           "comment": {
             "shortText": "A function that is made private via comment.",
             "text": "",
@@ -242,11 +231,10 @@
           },
           "children": [
             {
-              "id": 3,
+              "id": 43,
               "name": "fakePrivateFunction",
               "kind": 8192,
               "kindString": "signature",
-              "parent": 2,
               "comment": {
                 "shortText": "A function that is made private via comment.",
                 "text": "",
@@ -269,11 +257,10 @@
           ]
         },
         {
-          "id": 4,
+          "id": 44,
           "name": "fakeProtectedFunction",
           "kind": 64,
           "kindString": "function",
-          "parent": 1,
           "comment": {
             "shortText": "A function that is made protected via comment.",
             "text": "",
@@ -287,11 +274,10 @@
           },
           "children": [
             {
-              "id": 5,
+              "id": 45,
               "name": "fakeProtectedFunction",
               "kind": 8192,
               "kindString": "signature",
-              "parent": 4,
               "comment": {
                 "shortText": "A function that is made protected via comment.",
                 "text": "",
@@ -316,25 +302,22 @@
       ]
     },
     {
-      "id": 15,
+      "id": 1,
       "name": "class",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": [
         {
-          "id": 30,
+          "id": 16,
           "name": "TestSubClass",
           "kind": 4,
           "kindString": "namespace",
-          "parent": 15,
           "children": [
             {
-              "id": 31,
+              "id": 17,
               "name": "staticMergedMethod",
               "kind": 64,
               "kindString": "function",
-              "parent": 30,
               "comment": {
                 "shortText": "staticMergedMethod short text.",
                 "text": "",
@@ -342,11 +325,10 @@
               },
               "children": [
                 {
-                  "id": 36,
+                  "id": 22,
                   "name": "staticMergedMethod",
                   "kind": 8192,
                   "kindString": "signature",
-                  "parent": 31,
                   "comment": {
                     "shortText": "staticMergedMethod short text.",
                     "text": "",
@@ -365,18 +347,16 @@
           ]
         },
         {
-          "id": 49,
+          "id": 35,
           "name": "ComputedNames",
           "kind": 128,
           "kindString": "class",
-          "parent": 15,
           "children": [
             {
-              "id": 50,
+              "id": 36,
               "name": "__@toStringTag",
               "kind": 1024,
               "kindString": "property",
-              "parent": 49,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -385,11 +365,10 @@
               "visibility": "public"
             },
             {
-              "id": 51,
+              "id": 37,
               "name": "literal2",
               "kind": 1024,
               "kindString": "property",
-              "parent": 49,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -398,11 +377,10 @@
               "visibility": "public"
             },
             {
-              "id": 52,
+              "id": 38,
               "name": "y",
               "kind": 1024,
               "kindString": "property",
-              "parent": 49,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -417,18 +395,16 @@
           "implementedTypes": []
         },
         {
-          "id": 42,
+          "id": 28,
           "name": "TestAbstractClass",
           "kind": 128,
           "kindString": "class",
-          "parent": 15,
           "children": [
             {
-              "id": 44,
+              "id": 30,
               "name": "myAbstractProperty",
               "kind": 1024,
               "kindString": "property",
-              "parent": 42,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -437,11 +413,10 @@
               "visibility": "public"
             },
             {
-              "id": 43,
+              "id": 29,
               "name": "myAbstractMethod",
               "kind": 4096,
               "kindString": "method",
-              "parent": 42,
               "children": [],
               "visibility": "protected"
             }
@@ -452,18 +427,16 @@
           "implementedTypes": []
         },
         {
-          "id": 45,
+          "id": 31,
           "name": "TestAbstractClassImplementation",
           "kind": 128,
           "kindString": "class",
-          "parent": 15,
           "children": [
             {
-              "id": 47,
+              "id": 33,
               "name": "myAbstractProperty",
               "kind": 1024,
               "kindString": "property",
-              "parent": 45,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -472,18 +445,16 @@
               "visibility": "public"
             },
             {
-              "id": 46,
+              "id": 32,
               "name": "myAbstractMethod",
               "kind": 4096,
               "kindString": "method",
-              "parent": 45,
               "children": [
                 {
-                  "id": 48,
+                  "id": 34,
                   "name": "myAbstractMethod",
                   "kind": 8192,
                   "kindString": "signature",
-                  "parent": 46,
                   "parameters": [],
                   "typeParameters": [],
                   "returnType": {
@@ -508,11 +479,10 @@
           }
         },
         {
-          "id": 16,
+          "id": 2,
           "name": "TestClass",
           "kind": 128,
           "kindString": "class",
-          "parent": 15,
           "comment": {
             "shortText": "TestClass comment short text.",
             "text": "TestClass comment text.\n",
@@ -526,11 +496,10 @@
           },
           "children": [
             {
-              "id": 22,
+              "id": 8,
               "name": "privateProperty",
               "kind": 1024,
               "kindString": "property",
-              "parent": 16,
               "comment": {
                 "shortText": "privateProperty short text.",
                 "text": "",
@@ -548,11 +517,10 @@
               "visibility": "private"
             },
             {
-              "id": 21,
+              "id": 7,
               "name": "publicProperty",
               "kind": 1024,
               "kindString": "property",
-              "parent": 16,
               "comment": {
                 "shortText": "publicProperty short text.",
                 "text": "",
@@ -566,11 +534,10 @@
               "visibility": "public"
             },
             {
-              "id": 23,
+              "id": 9,
               "name": "getterOnly",
               "kind": 2048,
               "kindString": "accessor",
-              "parent": 16,
               "visibility": "public",
               "hasGetter": true,
               "hasSetter": false,
@@ -581,11 +548,10 @@
               }
             },
             {
-              "id": 24,
+              "id": 10,
               "name": "getterSetter",
               "kind": 2048,
               "kindString": "accessor",
-              "parent": 16,
               "visibility": "public",
               "hasGetter": true,
               "hasSetter": true,
@@ -596,11 +562,10 @@
               }
             },
             {
-              "id": 25,
+              "id": 11,
               "name": "setterOnly",
               "kind": 2048,
               "kindString": "accessor",
-              "parent": 16,
               "visibility": "public",
               "hasGetter": false,
               "hasSetter": true,
@@ -611,11 +576,10 @@
               }
             },
             {
-              "id": 20,
+              "id": 6,
               "name": "arrowMethod",
               "kind": 4096,
               "kindString": "method",
-              "parent": 16,
               "comment": {
                 "shortText": "arrow method",
                 "text": "",
@@ -623,11 +587,10 @@
               },
               "children": [
                 {
-                  "id": 29,
+                  "id": 15,
                   "name": "arrowMethod",
                   "kind": 8192,
                   "kindString": "signature",
-                  "parent": 20,
                   "parameters": [],
                   "typeParameters": [],
                   "returnType": {
@@ -640,11 +603,10 @@
               "visibility": "public"
             },
             {
-              "id": 19,
+              "id": 5,
               "name": "privateMethod",
               "kind": 4096,
               "kindString": "method",
-              "parent": 16,
               "comment": {
                 "shortText": "privateMethod short text.",
                 "text": "",
@@ -652,11 +614,10 @@
               },
               "children": [
                 {
-                  "id": 28,
+                  "id": 14,
                   "name": "privateMethod",
                   "kind": 8192,
                   "kindString": "signature",
-                  "parent": 19,
                   "comment": {
                     "shortText": "privateMethod short text.",
                     "text": "",
@@ -674,11 +635,10 @@
               "visibility": "private"
             },
             {
-              "id": 18,
+              "id": 4,
               "name": "protectedMethod",
               "kind": 4096,
               "kindString": "method",
-              "parent": 16,
               "comment": {
                 "shortText": "protectedMethod short text.",
                 "text": "",
@@ -692,11 +652,10 @@
               },
               "children": [
                 {
-                  "id": 27,
+                  "id": 13,
                   "name": "protectedMethod",
                   "kind": 8192,
                   "kindString": "signature",
-                  "parent": 18,
                   "comment": {
                     "shortText": "protectedMethod short text.",
                     "text": "",
@@ -720,11 +679,10 @@
               "visibility": "protected"
             },
             {
-              "id": 17,
+              "id": 3,
               "name": "publicMethod",
               "kind": 4096,
               "kindString": "method",
-              "parent": 16,
               "comment": {
                 "shortText": "publicMethod short text.",
                 "text": "",
@@ -738,11 +696,10 @@
               },
               "children": [
                 {
-                  "id": 26,
+                  "id": 12,
                   "name": "publicMethod",
                   "kind": 8192,
                   "kindString": "signature",
-                  "parent": 17,
                   "comment": {
                     "shortText": "publicMethod short text.",
                     "text": "",
@@ -772,18 +729,16 @@
           "implementedTypes": []
         },
         {
-          "id": 32,
+          "id": 18,
           "name": "TestSubClass",
           "kind": 128,
           "kindString": "class",
-          "parent": 15,
           "children": [
             {
-              "id": 37,
+              "id": 23,
               "name": "p2",
               "kind": 1024,
               "kindString": "property",
-              "parent": 32,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -792,11 +747,10 @@
               "visibility": "private"
             },
             {
-              "id": 38,
+              "id": 24,
               "name": "p3",
               "kind": 1024,
               "kindString": "property",
-              "parent": 32,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -805,11 +759,10 @@
               "visibility": "public"
             },
             {
-              "id": 39,
+              "id": 25,
               "name": "p4",
               "kind": 1024,
               "kindString": "property",
-              "parent": 32,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -818,11 +771,10 @@
               "visibility": "public"
             },
             {
-              "id": 35,
+              "id": 21,
               "name": "mergedMethod",
               "kind": 4096,
               "kindString": "method",
-              "parent": 32,
               "comment": {
                 "shortText": "mergedMethod short text.",
                 "text": "",
@@ -832,11 +784,10 @@
               "visibility": "public"
             },
             {
-              "id": 34,
+              "id": 20,
               "name": "protectedMethod",
               "kind": 4096,
               "kindString": "method",
-              "parent": 32,
               "comment": {
                 "shortText": "protectedMethod short text.",
                 "text": "",
@@ -844,11 +795,10 @@
               },
               "children": [
                 {
-                  "id": 41,
+                  "id": 27,
                   "name": "protectedMethod",
                   "kind": 8192,
                   "kindString": "signature",
-                  "parent": 34,
                   "comment": {
                     "shortText": "protectedMethod short text.",
                     "text": "",
@@ -866,11 +816,10 @@
               "visibility": "protected"
             },
             {
-              "id": 33,
+              "id": 19,
               "name": "publicMethod",
               "kind": 4096,
               "kindString": "method",
-              "parent": 32,
               "comment": {
                 "shortText": "publicMethod short text.",
                 "text": "",
@@ -878,11 +827,10 @@
               },
               "children": [
                 {
-                  "id": 40,
+                  "id": 26,
                   "name": "publicMethod",
                   "kind": 8192,
                   "kindString": "signature",
-                  "parent": 33,
                   "comment": {
                     "shortText": "publicMethod short text.",
                     "text": "",
@@ -912,18 +860,16 @@
           }
         },
         {
-          "id": 53,
+          "id": 39,
           "name": "Ts38PrivateFields",
           "kind": 128,
           "kindString": "class",
-          "parent": 15,
           "children": [
             {
-              "id": 54,
+              "id": 40,
               "name": "#foo",
               "kind": 1024,
               "kindString": "property",
-              "parent": 53,
               "comment": {
                 "shortText": "Docs",
                 "text": "",
@@ -949,21 +895,18 @@
       "name": "clodule-with-subclass",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": [
         {
           "id": 56,
           "name": "Foo",
           "kind": 4,
           "kindString": "namespace",
-          "parent": 55,
           "children": [
             {
               "id": 57,
               "name": "x",
               "kind": 32,
               "kindString": "variable",
-              "parent": 56,
               "type": {
                 "kind": 16384,
                 "kindString": "literal",
@@ -978,7 +921,6 @@
           "name": "Bar",
           "kind": 128,
           "kindString": "class",
-          "parent": 55,
           "children": [],
           "signatures": [],
           "constructSignatures": [],
@@ -996,7 +938,6 @@
           "name": "Foo",
           "kind": 128,
           "kindString": "class",
-          "parent": 55,
           "children": [],
           "signatures": [],
           "constructSignatures": [],
@@ -1010,14 +951,12 @@
       "name": "constructor-properties",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": [
         {
           "id": 61,
           "name": "Vector2",
           "kind": 128,
           "kindString": "class",
-          "parent": 60,
           "comment": {
             "shortText": "A class with constructor properties.",
             "text": "",
@@ -1029,7 +968,6 @@
               "name": "name",
               "kind": 1024,
               "kindString": "property",
-              "parent": 61,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -1042,7 +980,6 @@
               "name": "x",
               "kind": 1024,
               "kindString": "property",
-              "parent": 61,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -1055,7 +992,6 @@
               "name": "y",
               "kind": 1024,
               "kindString": "property",
-              "parent": 61,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -1074,7 +1010,6 @@
           "name": "Vector3",
           "kind": 128,
           "kindString": "class",
-          "parent": 60,
           "comment": {
             "shortText": "A class with inherited and overwritten constructor properties.",
             "text": "",
@@ -1086,7 +1021,6 @@
               "name": "name",
               "kind": 1024,
               "kindString": "property",
-              "parent": 65,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -1099,7 +1033,6 @@
               "name": "y",
               "kind": 1024,
               "kindString": "property",
-              "parent": 65,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -1112,7 +1045,6 @@
               "name": "z",
               "kind": 1024,
               "kindString": "property",
-              "parent": 65,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -1139,15 +1071,13 @@
       "name": "decorators",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": []
     },
     {
-      "id": 71,
+      "id": 72,
       "name": "events",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": []
     },
     {
@@ -1155,15 +1085,13 @@
       "name": "events-overloads",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": []
     },
     {
-      "id": 72,
+      "id": 71,
       "name": "generic-class",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": []
     },
     {
@@ -1171,7 +1099,6 @@
       "name": "getter-setter",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": []
     },
     {
@@ -1179,14 +1106,12 @@
       "name": "this",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": [
         {
           "id": 75,
           "name": "ChainClass",
           "kind": 128,
           "kindString": "class",
-          "parent": 74,
           "comment": {
             "shortText": "ChainClass comment short text.",
             "text": "ChainClass comment text.\n",
@@ -1198,7 +1123,6 @@
               "name": "chain",
               "kind": 4096,
               "kindString": "method",
-              "parent": 75,
               "comment": {
                 "shortText": "Chain method that returns this.",
                 "text": "",
@@ -1210,7 +1134,6 @@
                   "name": "chain",
                   "kind": 8192,
                   "kindString": "signature",
-                  "parent": 76,
                   "comment": {
                     "shortText": "Chain method that returns this.",
                     "text": "",
@@ -1240,21 +1163,18 @@
       "name": "type-operator",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": [
         {
           "id": 82,
           "name": "GenericClass",
           "kind": 128,
           "kindString": "class",
-          "parent": 78,
           "children": [
             {
               "id": 83,
               "name": "c",
               "kind": 1024,
               "kindString": "property",
-              "parent": 82,
               "type": {
                 "kind": 1024,
                 "kindString": "reference",
@@ -1291,7 +1211,6 @@
           "name": "TestClass",
           "kind": 128,
           "kindString": "class",
-          "parent": 78,
           "comment": {
             "shortText": "TestClass comment short text.",
             "text": "TestClass comment text.\n",
@@ -1309,7 +1228,6 @@
               "name": "a",
               "kind": 1024,
               "kindString": "property",
-              "parent": 79,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",
@@ -1322,7 +1240,6 @@
               "name": "b",
               "kind": 1024,
               "kindString": "property",
-              "parent": 79,
               "type": {
                 "kind": 32,
                 "kindString": "intrinsic",

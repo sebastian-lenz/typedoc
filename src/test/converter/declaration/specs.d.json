@@ -9,7 +9,6 @@
       "name": "declaration",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": []
     },
     {
@@ -17,14 +16,12 @@
       "name": "export-declaration",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": [
         {
           "id": 3,
           "name": "Exported",
           "kind": 128,
           "kindString": "class",
-          "parent": 2,
           "children": [],
           "signatures": [],
           "constructSignatures": [],
@@ -36,7 +33,6 @@
           "name": "NotExported",
           "kind": 128,
           "kindString": "class",
-          "parent": 2,
           "children": [],
           "signatures": [],
           "constructSignatures": [],

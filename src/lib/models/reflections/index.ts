@@ -116,6 +116,11 @@ export interface ReflectionKindToSerialized {
  */
 export type SomeReflection = ReflectionKindToModel[ReflectionKind];
 
+/**
+ * A discriminated union on the `kind` property for serialized reflections.
+ */
+export type SomeSerializedReflection = ReflectionKindToSerialized[ReflectionKind];
+
 // Extract<SomeReflection, ContainerReflection<IndependentReflection>> doesn't work due to circularity...
 // Not entirely sure where the circularity comes in. If you manage to fix it, please submit a PR!
 export type SomeContainerReflection =
@@ -128,6 +133,10 @@ export type SomeContainerReflection =
   | ObjectReflection
   | FunctionReflection
   | MethodReflection;
+
+export type SomeSerializedContainerReflection = ModelToSerialized<
+  SomeContainerReflection
+>;
 
 export type ModelToSerialized<T> = T extends SomeReflection
   ? ReflectionKindToSerialized[T["kind"]]

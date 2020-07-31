@@ -5,209 +5,33 @@
   "kindString": "project",
   "children": [
     {
-      "id": 14,
+      "id": 9,
       "name": "export",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": [
-        {
-          "id": 18,
-          "name": "a",
-          "kind": 32,
-          "kindString": "variable",
-          "parent": 14,
-          "comment": {
-            "shortText": "A simple named export that will be exported from export.ts",
-            "text": "",
-            "tags": []
-          },
-          "type": {
-            "kind": 16384,
-            "kindString": "literal",
-            "value": 1
-          },
-          "defaultValue": "1"
-        },
-        {
-          "id": 19,
-          "name": "hidden",
-          "kind": 32,
-          "kindString": "variable",
-          "parent": 14,
-          "comment": {
-            "shortText": "This is annotated with the hidden tag and will therefore not be included in the generated documentation.\nThis *would* cause a broken link since it is also re-exported from export.ts, but the CommentPlugin removes\nbroken links caused by hidden/ignore/internal tags.",
-            "text": "",
-            "tags": [
-              {
-                "tagName": "hidden",
-                "text": "\n",
-                "paramName": ""
-              }
-            ]
-          },
-          "type": {
-            "kind": 16384,
-            "kindString": "literal",
-            "value": true
-          },
-          "defaultValue": "true"
-        },
-        {
-          "id": 15,
-          "name": "default",
-          "kind": 64,
-          "kindString": "function",
-          "parent": 14,
-          "children": [
-            {
-              "id": 17,
-              "name": "default",
-              "kind": 8192,
-              "kindString": "signature",
-              "parent": 15,
-              "parameters": [
-                {
-                  "id": 16,
-                  "name": "a",
-                  "kind": 16384,
-                  "kindString": "parameter",
-                  "parent": 17,
-                  "type": {
-                    "kind": 32,
-                    "kindString": "intrinsic",
-                    "name": "number"
-                  }
-                }
-              ],
-              "typeParameters": [],
-              "returnType": {
-                "kind": 32,
-                "kindString": "intrinsic",
-                "name": "void"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": 1,
-      "name": "export-assignment",
-      "kind": 2,
-      "kindString": "module",
-      "parent": 0,
-      "children": []
-    },
-    {
-      "id": 2,
-      "name": "export-default",
-      "kind": 2,
-      "kindString": "module",
-      "parent": 0,
-      "children": []
-    },
-    {
-      "id": 3,
-      "name": "export-with-local",
-      "kind": 2,
-      "kindString": "module",
-      "parent": 0,
-      "children": [
-        {
-          "id": 8,
-          "name": "x",
-          "kind": 32,
-          "kindString": "variable",
-          "parent": 3,
-          "type": {
-            "kind": 16384,
-            "kindString": "literal",
-            "value": 5
-          },
-          "defaultValue": "5"
-        },
-        {
-          "id": 4,
-          "name": "add",
-          "kind": 64,
-          "kindString": "function",
-          "parent": 3,
-          "children": [
-            {
-              "id": 7,
-              "name": "add",
-              "kind": 8192,
-              "kindString": "signature",
-              "parent": 4,
-              "parameters": [
-                {
-                  "id": 5,
-                  "name": "x",
-                  "kind": 16384,
-                  "kindString": "parameter",
-                  "parent": 7,
-                  "type": {
-                    "kind": 32,
-                    "kindString": "intrinsic",
-                    "name": "number"
-                  }
-                },
-                {
-                  "id": 6,
-                  "name": "y",
-                  "kind": 16384,
-                  "kindString": "parameter",
-                  "parent": 7,
-                  "type": {
-                    "kind": 32,
-                    "kindString": "intrinsic",
-                    "name": "number"
-                  }
-                }
-              ],
-              "typeParameters": [],
-              "returnType": {
-                "kind": 32,
-                "kindString": "intrinsic",
-                "name": "number"
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "id": 9,
-      "name": "mod",
-      "kind": 2,
-      "kindString": "module",
-      "parent": 0,
-      "children": [
-        {
-          "id": 12,
-          "name": "a",
-          "kind": 32,
-          "kindString": "variable",
-          "parent": 9,
-          "comment": {
-            "shortText": "A simple named export that will be exported from export.ts",
-            "text": "",
-            "tags": []
-          },
-          "type": {
-            "kind": 16384,
-            "kindString": "literal",
-            "value": 1
-          },
-          "defaultValue": "1"
-        },
         {
           "id": 13,
+          "name": "a",
+          "kind": 32,
+          "kindString": "variable",
+          "comment": {
+            "shortText": "A simple named export that will be exported from export.ts",
+            "text": "",
+            "tags": []
+          },
+          "type": {
+            "kind": 16384,
+            "kindString": "literal",
+            "value": 1
+          },
+          "defaultValue": "1"
+        },
+        {
+          "id": 14,
           "name": "hidden",
           "kind": 32,
           "kindString": "variable",
-          "parent": 9,
           "comment": {
             "shortText": "This is annotated with the hidden tag and will therefore not be included in the generated documentation.\nThis *would* cause a broken link since it is also re-exported from export.ts, but the CommentPlugin removes\nbroken links caused by hidden/ignore/internal tags.",
             "text": "",
@@ -231,7 +55,165 @@
           "name": "default",
           "kind": 64,
           "kindString": "function",
-          "parent": 9,
+          "children": [
+            {
+              "id": 12,
+              "name": "default",
+              "kind": 8192,
+              "kindString": "signature",
+              "parameters": [
+                {
+                  "id": 11,
+                  "name": "a",
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "type": {
+                    "kind": 32,
+                    "kindString": "intrinsic",
+                    "name": "number"
+                  }
+                }
+              ],
+              "typeParameters": [],
+              "returnType": {
+                "kind": 32,
+                "kindString": "intrinsic",
+                "name": "void"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "export-assignment",
+      "kind": 2,
+      "kindString": "module",
+      "children": []
+    },
+    {
+      "id": 2,
+      "name": "export-default",
+      "kind": 2,
+      "kindString": "module",
+      "children": []
+    },
+    {
+      "id": 3,
+      "name": "export-with-local",
+      "kind": 2,
+      "kindString": "module",
+      "children": [
+        {
+          "id": 8,
+          "name": "x",
+          "kind": 32,
+          "kindString": "variable",
+          "type": {
+            "kind": 16384,
+            "kindString": "literal",
+            "value": 5
+          },
+          "defaultValue": "5"
+        },
+        {
+          "id": 4,
+          "name": "add",
+          "kind": 64,
+          "kindString": "function",
+          "children": [
+            {
+              "id": 7,
+              "name": "add",
+              "kind": 8192,
+              "kindString": "signature",
+              "parameters": [
+                {
+                  "id": 5,
+                  "name": "x",
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "type": {
+                    "kind": 32,
+                    "kindString": "intrinsic",
+                    "name": "number"
+                  }
+                },
+                {
+                  "id": 6,
+                  "name": "y",
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "type": {
+                    "kind": 32,
+                    "kindString": "intrinsic",
+                    "name": "number"
+                  }
+                }
+              ],
+              "typeParameters": [],
+              "returnType": {
+                "kind": 32,
+                "kindString": "intrinsic",
+                "name": "number"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 15,
+      "name": "mod",
+      "kind": 2,
+      "kindString": "module",
+      "children": [
+        {
+          "id": 18,
+          "name": "a",
+          "kind": 32,
+          "kindString": "variable",
+          "comment": {
+            "shortText": "A simple named export that will be exported from export.ts",
+            "text": "",
+            "tags": []
+          },
+          "type": {
+            "kind": 16384,
+            "kindString": "literal",
+            "value": 1
+          },
+          "defaultValue": "1"
+        },
+        {
+          "id": 19,
+          "name": "hidden",
+          "kind": 32,
+          "kindString": "variable",
+          "comment": {
+            "shortText": "This is annotated with the hidden tag and will therefore not be included in the generated documentation.\nThis *would* cause a broken link since it is also re-exported from export.ts, but the CommentPlugin removes\nbroken links caused by hidden/ignore/internal tags.",
+            "text": "",
+            "tags": [
+              {
+                "tagName": "hidden",
+                "text": "\n",
+                "paramName": ""
+              }
+            ]
+          },
+          "type": {
+            "kind": 16384,
+            "kindString": "literal",
+            "value": true
+          },
+          "defaultValue": "true"
+        },
+        {
+          "id": 16,
+          "name": "default",
+          "kind": 64,
+          "kindString": "function",
           "comment": {
             "shortText": "Will not be re-exported from export.ts using export * from...",
             "text": "",
@@ -239,11 +221,10 @@
           },
           "children": [
             {
-              "id": 11,
+              "id": 17,
               "name": "default",
               "kind": 8192,
               "kindString": "signature",
-              "parent": 10,
               "comment": {
                 "shortText": "Will not be re-exported from export.ts using export * from...",
                 "text": "",

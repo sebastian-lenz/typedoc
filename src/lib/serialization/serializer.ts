@@ -110,10 +110,6 @@ function addBaseSerializers(serializer: Serializer) {
         kindString: ReflectionKind.toKindString(reflection.kind),
       };
 
-      if (reflection.parent) {
-        (base as any).parent = reflection.parent.id;
-      }
-
       if (reflection.originalName !== reflection.name) {
         base.originalName = reflection.originalName;
       }

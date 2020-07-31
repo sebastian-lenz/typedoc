@@ -9,14 +9,12 @@
       "name": "array",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": [
         {
           "id": 5,
           "name": "Foo",
           "kind": 128,
           "kindString": "class",
-          "parent": 1,
           "comment": {
             "shortText": "Class array class item",
             "text": "",
@@ -33,7 +31,6 @@
           "name": "FooList",
           "kind": 128,
           "kindString": "class",
-          "parent": 1,
           "comment": {
             "shortText": "Custom list class",
             "text": "",
@@ -63,7 +60,6 @@
           "name": "Array",
           "kind": 256,
           "kindString": "interface",
-          "parent": 1,
           "comment": {
             "shortText": "A custom array interface.\nNote that this **does not** merge with the global Array type.\nAs such, `Array` instances denoted with `Array<T>` in this file **are not** actually arrays.",
             "text": "",
@@ -86,7 +82,6 @@
           "name": "complex",
           "kind": 32,
           "kindString": "variable",
-          "parent": 1,
           "comment": {
             "shortText": "A const of a complex type.",
             "text": "",
@@ -153,7 +148,6 @@
           "name": "custom",
           "kind": 32,
           "kindString": "variable",
-          "parent": 1,
           "comment": {
             "shortText": "An exported const of the custom array type.",
             "text": "",
@@ -180,14 +174,12 @@
       "name": "destructuring",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": [
         {
           "id": 8,
           "name": "drawText",
           "kind": 64,
           "kindString": "function",
-          "parent": 7,
           "comment": {
             "shortText": "Destructuring function parameters.",
             "text": "",
@@ -199,7 +191,6 @@
               "name": "drawText",
               "kind": 8192,
               "kindString": "signature",
-              "parent": 8,
               "comment": {
                 "shortText": "Destructuring function parameters.",
                 "text": "",
@@ -211,7 +202,6 @@
                   "name": "__0",
                   "kind": 16384,
                   "kindString": "parameter",
-                  "parent": 10,
                   "type": {
                     "kind": 64,
                     "kindString": "object",
@@ -274,7 +264,6 @@
       "name": "literal",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": []
     },
     {
@@ -282,14 +271,12 @@
       "name": "variable",
       "kind": 2,
       "kindString": "module",
-      "parent": 0,
       "children": [
         {
           "id": 13,
           "name": "myConst",
           "kind": 32,
           "kindString": "variable",
-          "parent": 12,
           "type": {
             "kind": 16384,
             "kindString": "literal",
@@ -302,7 +289,6 @@
           "name": "myLet",
           "kind": 32,
           "kindString": "variable",
-          "parent": 12,
           "type": {
             "kind": 32,
             "kindString": "intrinsic",
@@ -315,7 +301,6 @@
           "name": "myVar",
           "kind": 32,
           "kindString": "variable",
-          "parent": 12,
           "type": {
             "kind": 32,
             "kindString": "intrinsic",
