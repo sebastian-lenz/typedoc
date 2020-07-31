@@ -2,7 +2,7 @@ import * as fs from "fs";
 import { join, resolve } from "path";
 
 import type { Logger } from "./loggers";
-import { Application } from "../application";
+import type { Application } from "../application";
 
 export function loadPlugins(
   app: Application,

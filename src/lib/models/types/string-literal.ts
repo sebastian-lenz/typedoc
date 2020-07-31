@@ -1,5 +1,5 @@
 import { Type, TypeKind } from "./abstract";
-import { BaseSerialized, Serialized } from "../../serialization";
+import type { BaseSerialized, Serialized } from "../../serialization";
 
 /**
  * BigInt values cannot be passed to JSON.stringify, and are not supported in all

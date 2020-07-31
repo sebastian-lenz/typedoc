@@ -7,7 +7,7 @@ import type { SomeType, TypeParameterType } from "../types/index";
 import { Reflection, ReflectionKind, ContainerReflection } from "./abstract";
 import type { ObjectReflection } from "./object";
 import type { ParameterReflection } from "./parameter";
-import { Visibility } from "./class";
+import type { Visibility } from "./class";
 
 /**
  * Represents a function exported from a module or namespace.

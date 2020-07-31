@@ -9,6 +9,7 @@ import {
   convertTypeParameterDeclarations,
   convertParameterSymbols,
 } from "./utils";
+import { OptionalModifier } from "../models/types/mapped";
 
 export interface TypeConverter<
   TNode extends ts.TypeNode = ts.TypeNode,
@@ -40,6 +41,7 @@ export function addTypeConverters(converter: Converter): void {
     keywordTypeNodeConverter,
     literalTypeNodeConverter,
     literalBooleanConverter,
+    mappedConverter,
     operatorTypeNodeConverter,
     parenthesizedTypeNodeConverter,
     predicateTypeNodeConverter,
@@ -296,6 +298,61 @@ const literalBooleanConverter: TypeConverter = {
   },
   convertType(_converter, _type, node) {
     return new M.LiteralType(node.kind === ts.SyntaxKind.TrueKeyword);
+  },
+};
+
+const tokenToModifier: Record<
+  NonNullable<ts.MappedTypeNode["readonlyToken" | "questionToken"]>["kind"],
+  OptionalModifier
+> = {
+  [ts.SyntaxKind.ReadonlyKeyword]: OptionalModifier.Add,
+  [ts.SyntaxKind.QuestionToken]: OptionalModifier.Add,
+  [ts.SyntaxKind.PlusToken]: OptionalModifier.Add,
+  [ts.SyntaxKind.MinusToken]: OptionalModifier.Remove,
+};
+
+const mappedConverter: TypeConverter<
+  ts.MappedTypeNode,
+  ts.Type & {
+    templateType: ts.Type;
+    typeParameter: ts.TypeParameter;
+    constraintType: ts.Type;
+  },
+  M.MappedType
+> = {
+  kind: [ts.SyntaxKind.MappedType],
+  convert(converter, node) {
+    const parameter = convertTypeParameterDeclarations(converter, [
+      node.typeParameter,
+    ])[0];
+    assert(parameter.constraint, "this should have caused a compiler error.");
+
+    return new M.MappedType(
+      node.readonlyToken
+        ? tokenToModifier[node.readonlyToken.kind]
+        : OptionalModifier.None,
+      parameter as M.TypeParameterType & { constraint: M.SomeType },
+      node.questionToken
+        ? tokenToModifier[node.questionToken.kind]
+        : OptionalModifier.None,
+      converter.convertType(node.type)
+    );
+  },
+  convertType(converter, type, node) {
+    // This can happen if a generic function does not have a return type annotated.
+    const parameter = convertTypeParameters(converter, [type.typeParameter])[0];
+    parameter.constraint = converter.convertType(type.constraintType);
+
+    return new M.MappedType(
+      node.readonlyToken
+        ? tokenToModifier[node.readonlyToken.kind]
+        : OptionalModifier.None,
+      parameter as M.TypeParameterType & { constraint: M.SomeType },
+      node.questionToken
+        ? tokenToModifier[node.questionToken.kind]
+        : OptionalModifier.None,
+      converter.convertType(type.templateType)
+    );
   },
 };
 

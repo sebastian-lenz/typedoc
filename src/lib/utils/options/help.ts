@@ -1,6 +1,6 @@
 import * as ts from "typescript";
 
-import { Options } from "./options";
+import type { Options } from "./options";
 import {
   ParameterScope,
   ParameterHint,

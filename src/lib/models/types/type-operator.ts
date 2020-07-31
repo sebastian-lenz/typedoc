@@ -1,6 +1,10 @@
 import { Type, TypeKind } from "./abstract";
-import { Serializer, BaseSerialized, Serialized } from "../../serialization";
-import { SomeType } from ".";
+import type {
+  Serializer,
+  BaseSerialized,
+  Serialized,
+} from "../../serialization";
+import type { SomeType } from ".";
 
 /**
  * Represents a type operator type.

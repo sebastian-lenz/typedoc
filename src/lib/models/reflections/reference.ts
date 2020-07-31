@@ -1,7 +1,11 @@
 import * as assert from "assert";
 import { Reflection, ReflectionKind } from "./abstract";
 import type { SomeReflection } from "./index";
-import { BaseSerialized, Serializer, Serialized } from "../../serialization";
+import type {
+  BaseSerialized,
+  Serializer,
+  Serialized,
+} from "../../serialization";
 
 /**
  * Describes a reflection which does not exist at this location, but is referenced. Used for imported reflections.

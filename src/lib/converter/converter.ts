@@ -2,7 +2,7 @@ import * as assert from "assert";
 import * as ts from "typescript";
 import { relative, resolve } from "path";
 
-import { Application } from "../application";
+import type { Application } from "../application";
 import {
   ModuleReflection,
   ProjectReflection,
@@ -13,7 +13,7 @@ import {
   IntrinsicType,
 } from "../models/index";
 import { ObjectReflection } from "../models/reflections/object";
-import { Options, Logger } from "../utils";
+import type { Options, Logger } from "../utils";
 import { EventEmitter } from "../utils/event";
 import { Context } from "./context";
 import { addConverters, ReflectionConverter } from "./nodes";

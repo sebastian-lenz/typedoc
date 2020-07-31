@@ -1,5 +1,9 @@
 import { ReflectionKind, ContainerReflection, Reflection } from "./abstract";
-import { Serializer, BaseSerialized, Serialized } from "../../serialization";
+import type {
+  Serializer,
+  BaseSerialized,
+  Serialized,
+} from "../../serialization";
 
 /**
  * Describes an enum which may contain enum members.

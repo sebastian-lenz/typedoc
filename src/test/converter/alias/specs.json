@@ -127,9 +127,114 @@
                         ]
                       },
                       {
-                        "kind": 524288,
-                        "kindString": "unknown",
-                        "name": "{\n      [K in keyof R | keyof T[0]]: K extends keyof R ? R[K] : T[0][K];\n    }"
+                        "kind": 1048576,
+                        "kindString": "mapped",
+                        "readonlyModifier": "none",
+                        "parameter": {
+                          "kind": 131072,
+                          "kindString": "typeParameter",
+                          "name": "K",
+                          "constraint": {
+                            "kind": 262144,
+                            "kindString": "union",
+                            "types": [
+                              {
+                                "kind": 65536,
+                                "kindString": "typeOperator",
+                                "operator": "keyof",
+                                "target": {
+                                  "kind": 1024,
+                                  "kindString": "reference",
+                                  "name": "R",
+                                  "typeArguments": []
+                                }
+                              },
+                              {
+                                "kind": 65536,
+                                "kindString": "typeOperator",
+                                "operator": "keyof",
+                                "target": {
+                                  "kind": 4,
+                                  "kindString": "indexedAccess",
+                                  "indexType": {
+                                    "kind": 16384,
+                                    "kindString": "literal",
+                                    "value": 0
+                                  },
+                                  "objectType": {
+                                    "kind": 1024,
+                                    "kindString": "reference",
+                                    "name": "T",
+                                    "typeArguments": []
+                                  }
+                                }
+                              }
+                            ]
+                          }
+                        },
+                        "optionalModifier": "none",
+                        "type": {
+                          "kind": 2,
+                          "kindString": "conditional",
+                          "checkType": {
+                            "kind": 1024,
+                            "kindString": "reference",
+                            "name": "K",
+                            "typeArguments": []
+                          },
+                          "extendsType": {
+                            "kind": 65536,
+                            "kindString": "typeOperator",
+                            "operator": "keyof",
+                            "target": {
+                              "kind": 1024,
+                              "kindString": "reference",
+                              "name": "R",
+                              "typeArguments": []
+                            }
+                          },
+                          "trueType": {
+                            "kind": 4,
+                            "kindString": "indexedAccess",
+                            "indexType": {
+                              "kind": 1024,
+                              "kindString": "reference",
+                              "name": "K",
+                              "typeArguments": []
+                            },
+                            "objectType": {
+                              "kind": 1024,
+                              "kindString": "reference",
+                              "name": "R",
+                              "typeArguments": []
+                            }
+                          },
+                          "falseType": {
+                            "kind": 4,
+                            "kindString": "indexedAccess",
+                            "indexType": {
+                              "kind": 1024,
+                              "kindString": "reference",
+                              "name": "K",
+                              "typeArguments": []
+                            },
+                            "objectType": {
+                              "kind": 4,
+                              "kindString": "indexedAccess",
+                              "indexType": {
+                                "kind": 16384,
+                                "kindString": "literal",
+                                "value": 0
+                              },
+                              "objectType": {
+                                "kind": 1024,
+                                "kindString": "reference",
+                                "name": "T",
+                                "typeArguments": []
+                              }
+                            }
+                          }
+                        }
                       }
                     ]
                   }

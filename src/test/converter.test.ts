@@ -9,7 +9,7 @@ import {
   SomeSerializedReflection,
 } from "../lib/models";
 import { zip } from "../lib/utils/array";
-import { SerializedSignatureReflection } from "../lib/models/reflections/signature";
+import type { SerializedSignatureReflection } from "../lib/models/reflections/signature";
 
 function omit<T, K extends keyof T>(obj: T, ...keys: K[]): Omit<T, K> {
   const data = { ...obj };

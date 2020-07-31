@@ -11,7 +11,7 @@ import {
   ThemeRouter,
   ThemeRouterConstructor,
 } from "./router";
-import { Templates } from "./templates";
+import type { Templates } from "./templates";
 import { parseMarkdown, replaceMedia, replaceIncludes } from "./comment";
 import { DoubleHighlighter } from "./highlight";
 import { copy } from "../utils/fs";

@@ -9,7 +9,7 @@ import type {
 import type { ProjectReflection } from "./project";
 import { makeToKindArray, makeToKindString } from "../../utils/enum";
 import type { Serializer, BaseSerialized } from "../../serialization";
-import { Comment } from "../comments";
+import type { Comment } from "../comments";
 
 /**
  * Current reflection id. This provides a quick way to look up a reference to a reflection.

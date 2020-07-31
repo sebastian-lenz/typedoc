@@ -1,6 +1,6 @@
-import { SomeType, TypeToSerialized } from ".";
+import type { SomeType, TypeToSerialized } from ".";
 import { makeToKindArray, makeToKindString } from "../../utils/enum";
-import { Serializer, BaseSerialized } from "../../serialization";
+import type { Serializer, BaseSerialized } from "../../serialization";
 
 /**
  * Defines the available type kinds. Analogous to the {@link ReflectionKind}
@@ -27,10 +27,11 @@ export enum TypeKind {
   TypeParameter = 131072,
   Union = 262144,
   Unknown = 524288,
+  Mapped = 1048576,
 }
 
 export namespace TypeKind {
-  const LAST_KIND = TypeKind.Unknown;
+  const LAST_KIND = TypeKind.Mapped;
 
   export const All: TypeKind = LAST_KIND * 2 - 1;
 

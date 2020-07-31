@@ -1,7 +1,11 @@
 import * as assert from "assert";
 import { Type, TypeKind } from "./abstract";
-import { Serializer, BaseSerialized, Serialized } from "../../serialization";
-import { SomeType } from ".";
+import type {
+  Serializer,
+  BaseSerialized,
+  Serialized,
+} from "../../serialization";
+import type { SomeType } from ".";
 
 /**
  * Represents a type parameter type.

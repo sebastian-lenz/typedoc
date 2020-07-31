@@ -1,5 +1,5 @@
-import { VNode } from "preact";
-import {
+import type { VNode } from "preact";
+import type {
   ClassReflection,
   EnumMemberReflection,
   EnumReflection,
@@ -17,10 +17,10 @@ import {
   TypeAliasReflection,
   VariableReflection,
 } from "../models";
-import { ObjectReflection } from "../models/reflections/object";
-import { AccessorReflection } from "../models/reflections/property";
-import { EventHooks } from "../utils/hooks";
-import { ThemeRouter } from "./router";
+import type { ObjectReflection } from "../models/reflections/object";
+import type { AccessorReflection } from "../models/reflections/property";
+import type { EventHooks } from "../utils/hooks";
+import type { ThemeRouter } from "./router";
 
 export type TemplateProps<R extends SomeReflection> = {
   reflection: R;

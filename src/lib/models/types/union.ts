@@ -1,7 +1,11 @@
 import { Type, TypeKind } from "./abstract";
 import { wrap, cloned } from "./utils";
-import { Serializer, BaseSerialized, Serialized } from "../../serialization";
-import { SomeType } from ".";
+import type {
+  Serializer,
+  BaseSerialized,
+  Serialized,
+} from "../../serialization";
+import type { SomeType } from ".";
 
 /**
  * Represents an union type.

@@ -1,5 +1,5 @@
 import { Type, TypeKind } from "./abstract";
-import { BaseSerialized, Serialized } from "../../serialization";
+import type { BaseSerialized, Serialized } from "../../serialization";
 
 /**
  * Represents all unknown types.

@@ -1,4 +1,4 @@
-import { CommentTag } from "./tag";
+import type { CommentTag } from "./tag";
 
 /**
  * A model that represents a TypeDoc comment.

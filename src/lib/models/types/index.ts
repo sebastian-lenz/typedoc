@@ -11,6 +11,7 @@ import type {
   SerializedIntersectionType,
 } from "./intersection";
 import type { IntrinsicType, SerializedIntrinsicType } from "./intrinsic";
+import type { MappedType, SerializedMappedType } from "./mapped";
 import type {
   ObjectType,
   PropertyType,
@@ -42,27 +43,42 @@ import type { SerializedUnionType, UnionType } from "./union";
 import type { SerializedUnknownType, UnknownType } from "./unknown";
 
 export { Type, TypeKind } from "./abstract";
-export { ArrayType } from "./array";
-export { ConditionalType } from "./conditional";
-export { IndexedAccessType } from "./indexed-access";
-export { InferredType } from "./inferred";
-export { IntersectionType } from "./intersection";
-export { IntrinsicType } from "./intrinsic";
-export { ObjectType, PropertyType } from "./object";
-export { PredicateType } from "./predicate";
-export { QueryType } from "./query";
-export { ReferenceType } from "./reference";
+export { ArrayType, SerializedArrayType } from "./array";
+export { ConditionalType, SerializedConditionalType } from "./conditional";
+export {
+  IndexedAccessType,
+  SerializedIndexedAccessType,
+} from "./indexed-access";
+export { InferredType, SerializedInferredType } from "./inferred";
+export { IntersectionType, SerializedIntersectionType } from "./intersection";
+export { IntrinsicType, SerializedIntrinsicType } from "./intrinsic";
+export { MappedType, SerializedMappedType } from "./mapped";
+export {
+  ObjectType,
+  SerializedObjectType,
+  PropertyType,
+  SerializedPropertyType,
+} from "./object";
+export { PredicateType, SerializedPredicateType } from "./predicate";
+export { QueryType, SerializedQueryType } from "./query";
+export { ReferenceType, SerializedReferenceType } from "./reference";
 export {
   SignatureParameterType,
+  SerializedSignatureParameterType,
   SignatureType,
+  SerializedSignatureType,
   ConstructorType,
+  SerializedConstructorType,
 } from "./signature";
-export { LiteralType } from "./string-literal";
-export { TupleType } from "./tuple";
-export { TypeOperatorType } from "./type-operator";
-export { TypeParameterType } from "./type-parameter";
-export { UnionType } from "./union";
-export { UnknownType } from "./unknown";
+export { LiteralType, SerializedLiteralType } from "./string-literal";
+export { TupleType, SerializedTupleType } from "./tuple";
+export { TypeOperatorType, SerializedTypeOperatorType } from "./type-operator";
+export {
+  TypeParameterType,
+  SerializedTypeParameterType,
+} from "./type-parameter";
+export { UnionType, SerializedUnionType } from "./union";
+export { UnknownType, SerializedUnknownType } from "./unknown";
 
 export interface TypeKindToModel {
   [TypeKind.Array]: ArrayType;
@@ -85,6 +101,7 @@ export interface TypeKindToModel {
   [TypeKind.TypeParameter]: TypeParameterType;
   [TypeKind.Union]: UnionType;
   [TypeKind.Unknown]: UnknownType;
+  [TypeKind.Mapped]: MappedType;
 }
 
 export interface TypeKindToSerialized {
@@ -108,6 +125,7 @@ export interface TypeKindToSerialized {
   [TypeKind.TypeParameter]: SerializedTypeParameterType;
   [TypeKind.Union]: SerializedUnionType;
   [TypeKind.Unknown]: SerializedUnknownType;
+  [TypeKind.Mapped]: SerializedMappedType;
 }
 
 export type SomeType = TypeKindToModel[TypeKind];

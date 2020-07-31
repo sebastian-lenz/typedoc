@@ -6,7 +6,7 @@ import {
   ParameterType,
   MapDeclarationOption,
 } from "../declaration";
-import { Options } from "../options";
+import type { Options } from "../options";
 
 const IGNORED_OPTIONS = [
   "out",

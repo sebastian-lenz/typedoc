@@ -1,6 +1,6 @@
-import { CompilerOptions } from "typescript";
-import { IgnoredTsOptionKeys } from "./sources/typescript";
-import { LogLevel } from "../loggers";
+import type { CompilerOptions } from "typescript";
+import type { IgnoredTsOptionKeys } from "./sources/typescript";
+import type { LogLevel } from "../loggers";
 
 /**
  * An interface describing all TypeDoc specific options options. Generated from a

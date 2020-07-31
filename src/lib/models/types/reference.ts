@@ -1,10 +1,14 @@
-import * as ts from "typescript";
+import type * as ts from "typescript";
 import type { SomeType } from ".";
 import type { ProjectReflection } from "../reflections";
 import { Reflection, ReflectionKind } from "../reflections/abstract";
 import { Type, TypeKind } from "./abstract";
 import { cloned } from "./utils";
-import { Serializer, BaseSerialized, Serialized } from "../../serialization";
+import type {
+  Serializer,
+  BaseSerialized,
+  Serialized,
+} from "../../serialization";
 
 const TYPE_CONTRIBUTING_KINDS =
   ReflectionKind.Interface |

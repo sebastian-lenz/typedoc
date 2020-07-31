@@ -1,6 +1,10 @@
 import { Type, TypeKind, SomeType } from ".";
 import { cloned, wrap } from "./utils";
-import { Serializer, BaseSerialized, Serialized } from "../../serialization";
+import type {
+  Serializer,
+  BaseSerialized,
+  Serialized,
+} from "../../serialization";
 
 /**
  * Represents an intersection type.

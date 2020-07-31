@@ -1,4 +1,4 @@
-import { Application } from "../../application";
+import type { Application } from "../../application";
 import {
   ReflectionKind,
   PropertyReflection,
@@ -6,7 +6,7 @@ import {
   Visibility,
   SomeReflection,
 } from "../../models";
-import { AccessorReflection } from "../../models/reflections/property";
+import type { AccessorReflection } from "../../models/reflections/property";
 
 // TODO: @event
 

@@ -1,5 +1,5 @@
 import { Type, TypeKind } from ".";
-import { BaseSerialized, Serialized } from "../../serialization";
+import type { BaseSerialized, Serialized } from "../../serialization";
 import { wrap } from "./utils";
 
 /**

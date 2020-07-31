@@ -2,7 +2,7 @@ import { promises as fs } from "fs";
 import * as path from "path";
 import * as ts from "typescript";
 import { Converter } from "./converter/converter";
-import { ProjectReflection } from "./models/index";
+import type { ProjectReflection } from "./models/index";
 import { Serializer } from "./serialization";
 import {
   CallbackLogger,

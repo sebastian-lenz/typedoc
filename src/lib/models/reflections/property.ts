@@ -5,8 +5,8 @@ import type {
 } from "../../serialization";
 import type { SomeType } from "../types";
 import { Reflection, ReflectionKind } from "./abstract";
-import { ObjectReflection } from "./object";
-import { Visibility } from "./class";
+import type { ObjectReflection } from "./object";
+import type { Visibility } from "./class";
 
 /**
  * Describes a property of a {@link ClassReflection} or {@link InterfaceReflection}.

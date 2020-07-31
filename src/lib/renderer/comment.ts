@@ -1,13 +1,13 @@
 // Comments are special. Users can include markdown which will be rendered. They can also use [[include: file]]
 // to include a file within their comment, or media://file to link to images or attachments.
 
-import { Reflection } from "../models";
-import { ThemeRouter } from "./router";
+import type { Reflection } from "../models";
+import type { ThemeRouter } from "./router";
 import * as Marked from "marked";
 import * as path from "path";
-import { Logger } from "../utils";
+import type { Logger } from "../utils";
 import { readFileSync, existsSync } from "fs";
-import { DoubleHighlighter } from "./highlight";
+import type { DoubleHighlighter } from "./highlight";
 
 // TODO: {@link}, [[link]]
 

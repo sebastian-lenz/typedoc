@@ -1,6 +1,10 @@
 import { Type, TypeKind } from "./abstract";
 import type { ReferenceType } from "./reference";
-import { Serializer, BaseSerialized, Serialized } from "../../serialization";
+import type {
+  Serializer,
+  BaseSerialized,
+  Serialized,
+} from "../../serialization";
 
 /**
  * Represents a type that is constructed by querying the type of a reflection.

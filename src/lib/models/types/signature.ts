@@ -1,9 +1,13 @@
 import * as assert from "assert";
+import type {
+  BaseSerialized,
+  Serialized,
+  Serializer,
+} from "../../serialization";
 import { Type, TypeKind } from "./abstract";
 import type { SomeType } from "./index";
-import { TypeParameterType } from "./type-parameter";
+import type { TypeParameterType } from "./type-parameter";
 import { cloned, wrap } from "./utils";
-import { Serializer, BaseSerialized, Serialized } from "../../serialization";
 
 /**
  * Type which describes a signature.

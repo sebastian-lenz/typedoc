@@ -1,7 +1,7 @@
 import * as assert from "assert";
 import * as ts from "typescript";
 import { SignatureReflection, ParameterReflection } from "../../models";
-import { Converter } from "../converter";
+import type { Converter } from "../converter";
 import { getCommentForNodes } from "../comments";
 import { convertTypeParameters } from "../utils";
 

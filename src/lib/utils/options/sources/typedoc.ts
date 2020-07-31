@@ -1,4 +1,4 @@
-import { Options } from "..";
+import type { Options } from "..";
 import { ParameterType, ParameterHint } from "../declaration";
 import { LogLevel } from "../../loggers";
 

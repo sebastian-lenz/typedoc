@@ -19,6 +19,8 @@
     "jsx": "react",
     "jsxFactory": "createElement",
 
+    "importsNotUsedAsValues": "error",
+
     // These really ought to be checked by a linter, but ESLint doesn't work properly with JSX.
     "noUnusedParameters": true,
     "noUnusedLocals": true

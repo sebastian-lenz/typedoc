@@ -8,10 +8,10 @@ import {
   otherLangIds,
 } from "shiki";
 // This is bad... but Shiki doesn't export it from the root.
-import { Highlighter } from "shiki/dist/highlighter";
+import type { Highlighter } from "shiki/dist/highlighter";
 
-import { TLang } from "shiki-languages";
-import { TTheme } from "shiki-themes";
+import type { TLang } from "shiki-languages";
+import type { TTheme } from "shiki-themes";
 
 import { createElement, JSX, Fragment } from "preact";
 import { render } from "preact-render-to-string";

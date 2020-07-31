@@ -1,4 +1,4 @@
-import * as ts from "typescript";
+import type * as ts from "typescript";
 
 import {
   DeclarationOption,
@@ -11,9 +11,9 @@ import {
   TypeDocOptionMap,
   TypeDocOptionValues,
 } from "./declaration";
-import { Logger } from "../loggers";
+import type { Logger } from "../loggers";
 import { addTSOptions, addTypeDocOptions } from "./sources";
-import { Application } from "../../..";
+import type { Application } from "../../..";
 import { NeverIfInternal, uniq, insertOrderSorted } from "..";
 import { getOptionsHelp } from "./help";
 

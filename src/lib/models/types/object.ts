@@ -7,7 +7,7 @@ import type {
 import { Type, TypeKind } from "./abstract";
 import type { SignatureType, ConstructorType } from "./signature";
 import { cloned } from "./utils";
-import { SomeType } from ".";
+import type { SomeType } from ".";
 
 /**
  * The most versatile type, describes any type of object with properties, methods,

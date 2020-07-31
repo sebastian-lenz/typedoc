@@ -1,7 +1,11 @@
 import * as assert from "assert";
 import { Type, TypeKind } from "./abstract";
 import type { SomeType } from ".";
-import { Serializer, BaseSerialized, Serialized } from "../../serialization";
+import type {
+  Serializer,
+  BaseSerialized,
+  Serialized,
+} from "../../serialization";
 
 /**
  * Represents a type predicate.

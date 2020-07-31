@@ -6,12 +6,257 @@
   "children": [
     {
       "id": 1,
+      "name": "mapped",
+      "kind": 2,
+      "kindString": "module",
+      "children": [
+        {
+          "id": 9,
+          "name": "MappedObj",
+          "kind": 32768,
+          "kindString": "alias",
+          "typeParameters": [],
+          "type": {
+            "kind": 1048576,
+            "kindString": "mapped",
+            "readonlyModifier": "none",
+            "parameter": {
+              "kind": 131072,
+              "kindString": "typeParameter",
+              "name": "K",
+              "constraint": {
+                "kind": 65536,
+                "kindString": "typeOperator",
+                "operator": "keyof",
+                "target": {
+                  "kind": 1024,
+                  "kindString": "reference",
+                  "name": "Obj",
+                  "typeArguments": []
+                }
+              }
+            },
+            "optionalModifier": "none",
+            "type": {
+              "kind": 262144,
+              "kindString": "union",
+              "types": [
+                {
+                  "kind": 4,
+                  "kindString": "indexedAccess",
+                  "indexType": {
+                    "kind": 1024,
+                    "kindString": "reference",
+                    "name": "K",
+                    "typeArguments": []
+                  },
+                  "objectType": {
+                    "kind": 1024,
+                    "kindString": "reference",
+                    "name": "Obj",
+                    "typeArguments": []
+                  }
+                },
+                {
+                  "kind": 32,
+                  "kindString": "intrinsic",
+                  "name": "null"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": 6,
+          "name": "Obj",
+          "kind": 32768,
+          "kindString": "alias",
+          "typeParameters": [],
+          "type": {
+            "id": 5,
+            "name": "TODO",
+            "kind": 512,
+            "kindString": "object",
+            "children": [],
+            "signatures": [],
+            "constructSignatures": [],
+            "typeParameters": []
+          }
+        },
+        {
+          "id": 8,
+          "name": "Partial",
+          "kind": 32768,
+          "kindString": "alias",
+          "typeParameters": [
+            {
+              "kind": 131072,
+              "kindString": "typeParameter",
+              "name": "T"
+            }
+          ],
+          "type": {
+            "kind": 1048576,
+            "kindString": "mapped",
+            "readonlyModifier": "none",
+            "parameter": {
+              "kind": 131072,
+              "kindString": "typeParameter",
+              "name": "P",
+              "constraint": {
+                "kind": 65536,
+                "kindString": "typeOperator",
+                "operator": "keyof",
+                "target": {
+                  "kind": 1024,
+                  "kindString": "reference",
+                  "name": "T",
+                  "typeArguments": []
+                }
+              }
+            },
+            "optionalModifier": "add",
+            "type": {
+              "kind": 4,
+              "kindString": "indexedAccess",
+              "indexType": {
+                "kind": 1024,
+                "kindString": "reference",
+                "name": "P",
+                "typeArguments": []
+              },
+              "objectType": {
+                "kind": 1024,
+                "kindString": "reference",
+                "name": "T",
+                "typeArguments": []
+              }
+            }
+          }
+        },
+        {
+          "id": 7,
+          "name": "Readonly",
+          "kind": 32768,
+          "kindString": "alias",
+          "typeParameters": [
+            {
+              "kind": 131072,
+              "kindString": "typeParameter",
+              "name": "T"
+            }
+          ],
+          "type": {
+            "kind": 1048576,
+            "kindString": "mapped",
+            "readonlyModifier": "add",
+            "parameter": {
+              "kind": 131072,
+              "kindString": "typeParameter",
+              "name": "P",
+              "constraint": {
+                "kind": 65536,
+                "kindString": "typeOperator",
+                "operator": "keyof",
+                "target": {
+                  "kind": 1024,
+                  "kindString": "reference",
+                  "name": "T",
+                  "typeArguments": []
+                }
+              }
+            },
+            "optionalModifier": "none",
+            "type": {
+              "kind": 4,
+              "kindString": "indexedAccess",
+              "indexType": {
+                "kind": 1024,
+                "kindString": "reference",
+                "name": "P",
+                "typeArguments": []
+              },
+              "objectType": {
+                "kind": 1024,
+                "kindString": "reference",
+                "name": "T",
+                "typeArguments": []
+              }
+            }
+          }
+        },
+        {
+          "id": 2,
+          "name": "MappedReturn",
+          "kind": 64,
+          "kindString": "function",
+          "children": [
+            {
+              "id": 4,
+              "name": "MappedReturn",
+              "kind": 8192,
+              "kindString": "signature",
+              "parameters": [
+                {
+                  "id": 3,
+                  "name": "x",
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "type": {
+                    "kind": 1024,
+                    "kindString": "reference",
+                    "name": "T",
+                    "typeArguments": []
+                  }
+                }
+              ],
+              "typeParameters": [
+                {
+                  "kind": 131072,
+                  "kindString": "typeParameter",
+                  "name": "T"
+                }
+              ],
+              "returnType": {
+                "kind": 1048576,
+                "kindString": "mapped",
+                "readonlyModifier": "add",
+                "parameter": {
+                  "kind": 131072,
+                  "kindString": "typeParameter",
+                  "name": "K",
+                  "constraint": {
+                    "kind": 65536,
+                    "kindString": "typeOperator",
+                    "operator": "keyof",
+                    "target": {
+                      "kind": 1024,
+                      "kindString": "reference",
+                      "name": "T",
+                      "typeArguments": []
+                    }
+                  }
+                },
+                "optionalModifier": "add",
+                "type": {
+                  "kind": 32,
+                  "kindString": "intrinsic",
+                  "name": "string"
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": 10,
       "name": "query",
       "kind": 2,
       "kindString": "module",
       "children": [
         {
-          "id": 3,
+          "id": 12,
           "name": "TypeOfX",
           "kind": 32768,
           "kindString": "alias",
@@ -28,7 +273,7 @@
           }
         },
         {
-          "id": 2,
+          "id": 11,
           "name": "x",
           "kind": 32,
           "kindString": "variable",
@@ -42,13 +287,13 @@
       ]
     },
     {
-      "id": 4,
+      "id": 13,
       "name": "union-or-intersection",
       "kind": 2,
       "kindString": "module",
       "children": [
         {
-          "id": 5,
+          "id": 14,
           "name": "FirstType",
           "kind": 256,
           "kindString": "interface",
@@ -59,7 +304,7 @@
           },
           "children": [
             {
-              "id": 6,
+              "id": 15,
               "name": "firstProperty",
               "kind": 1024,
               "kindString": "property",
@@ -82,7 +327,7 @@
           "extendedTypes": []
         },
         {
-          "id": 7,
+          "id": 16,
           "name": "SecondType",
           "kind": 256,
           "kindString": "interface",
@@ -93,7 +338,7 @@
           },
           "children": [
             {
-              "id": 8,
+              "id": 17,
               "name": "secondProperty",
               "kind": 1024,
               "kindString": "property",
@@ -116,7 +361,7 @@
           "extendedTypes": []
         },
         {
-          "id": 9,
+          "id": 18,
           "name": "ThirdType",
           "kind": 256,
           "kindString": "interface",
@@ -127,7 +372,7 @@
           },
           "children": [
             {
-              "id": 12,
+              "id": 21,
               "name": "thirdComplexProperty",
               "kind": 1024,
               "kindString": "property",
@@ -176,7 +421,7 @@
               "visibility": "public"
             },
             {
-              "id": 11,
+              "id": 20,
               "name": "thirdIntersectionProperty",
               "kind": 1024,
               "kindString": "property",
@@ -206,7 +451,7 @@
               "visibility": "public"
             },
             {
-              "id": 10,
+              "id": 19,
               "name": "thirdUnionProperty",
               "kind": 1024,
               "kindString": "property",

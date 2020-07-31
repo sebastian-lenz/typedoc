@@ -1,8 +1,8 @@
 import { EventHooks } from "../utils/hooks";
-import { TemplateHooks } from "./templates";
-import { VNode } from "preact";
-import { Application } from "../application";
-import { ProjectReflection } from "../models";
+import type { TemplateHooks } from "./templates";
+import type { VNode } from "preact";
+import type { Application } from "../application";
+import type { ProjectReflection } from "../models";
 import { defaultTheme } from "./theme";
 
 export class Renderer {

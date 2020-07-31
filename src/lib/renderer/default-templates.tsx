@@ -1,6 +1,6 @@
 import * as assert from "assert";
 import { createElement, VNode, Fragment } from "preact";
-import { Templates, TemplateProps } from "./templates";
+import type { Templates, TemplateProps } from "./templates";
 import {
   ReflectionKind,
   ReflectionKindToModel,
