@@ -68,7 +68,7 @@ const conversions = [
 async function rebuildConverterTests(dirs) {
   for (const fullPath of dirs) {
     console.log(fullPath);
-    app.options.setValue("inputFiles", [fullPath]);
+    app.options.setValue("entryPoint", [fullPath]);
 
     for (const [file, before, after] of conversions) {
       const out = path.join(fullPath, `${file}.json`);
@@ -97,7 +97,7 @@ async function rebuildRendererTest() {
 
   await fs.rmdir(out, { recursive: true });
   app.options.setValue("excludeExternals", false);
-  app.options.setValue("inputFiles", [src]);
+  app.options.setValue("entryPoint", [src]);
   const project = await app.convert();
   await app.generateDocs(project, out);
   app.options.setValue("excludeExternals", true);

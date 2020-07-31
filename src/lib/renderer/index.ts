@@ -16,7 +16,7 @@ export class Renderer {
 
   async render(project: ProjectReflection, out: string): Promise<void> {
     if (this.application.options.getValue("cleanOutputDir")) {
-      remove(out);
+      await remove(out);
     }
 
     await defaultTheme(this.application, project, out);

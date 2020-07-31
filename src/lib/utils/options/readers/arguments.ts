@@ -36,7 +36,7 @@ export class ArgumentsReader implements OptionsReader {
       const name = this.args[index];
       const decl = name.startsWith("-")
         ? (index++, options.getDeclaration(name.replace(/^--?/, "")))
-        : options.getDeclaration("inputFiles");
+        : options.getDeclaration("entryPoint");
 
       if (decl) {
         if (seen.has(decl.name) && decl.type === ParameterType.Array) {

@@ -19,8 +19,9 @@ export function addTypeDocOptions(options: Options): void {
   });
 
   options.addDeclaration({
-    name: "inputFiles",
-    help: "The initial input files to expand and then pass to TS.",
+    name: "entryPoint",
+    help:
+      "The entry point to document all symbols from. More than one may be specified.",
     type: ParameterType.Array,
   });
 
@@ -28,12 +29,6 @@ export function addTypeDocOptions(options: Options): void {
     name: "includeDeclarations",
     help: "Turn on parsing of .d.ts declaration files.",
     type: ParameterType.Boolean,
-  });
-  options.addDeclaration({
-    name: "entryPoint",
-    help:
-      "Specifies the fully qualified name of the root symbol. Defaults to global namespace.",
-    type: ParameterType.String,
   });
   options.addDeclaration({
     name: "exclude",

@@ -71,7 +71,7 @@ export class TSConfigReader implements OptionsReader {
       fileToRead
     );
 
-    container.setValue("inputFiles", fileNames);
+    container.setValue("entryPoint", fileNames);
     for (const key of IGNORED) {
       delete options[key];
     }

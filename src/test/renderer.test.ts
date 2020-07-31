@@ -68,7 +68,7 @@ describe.skip("Renderer", function () {
 
   it("converts basic example", async function () {
     this.timeout(0);
-    app.options.setValue("inputFiles", [src]);
+    app.options.setValue("entryPoint", [src]);
     project = await app.convert();
 
     Assert(!app.logger.hasErrors(), "Application.convert returned errors");

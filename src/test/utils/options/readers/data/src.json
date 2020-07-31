@@ -1,4 +1,4 @@
 {
-  "inputFiles": ["a"],
+  "entryPoint": ["a"],
   "name": "src"
 }

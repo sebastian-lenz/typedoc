@@ -109,7 +109,7 @@ export class Converter extends EventEmitter<ConverterEventMap> {
 
   async convert(
     program: ts.Program,
-    inputFiles: string[]
+    entryPoints: string[]
   ): Promise<ProjectReflection> {
     const start = Date.now();
     const compilerOptions = program.getCompilerOptions();
@@ -133,7 +133,7 @@ export class Converter extends EventEmitter<ConverterEventMap> {
 
     // Due to the order juggling necessary to only document each item once, the module
     // converter is not a standard converter.
-    for (const entry of inputFiles) {
+    for (const entry of entryPoints) {
       const entryStart = Date.now();
       this.logger.verbose(`First pass: ${entry}`);
 

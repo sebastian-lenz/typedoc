@@ -22,13 +22,13 @@ describe("Options - TypeDocReader", () => {
     "Preserves splitting behavior",
     join(__dirname, "data/src2.json"),
     () => {
-      equal(options.getValue("inputFiles"), ["a"]);
+      equal(options.getValue("entryPoint"), ["a"]);
     }
   );
 
   test("Supports extends", join(__dirname, "data/extends.json"), () => {
     equal(options.getValue("name"), "extends");
-    equal(options.getValue("inputFiles"), ["a"]);
+    equal(options.getValue("entryPoint"), ["a"]);
   });
 
   function testError(name: string, file: string) {

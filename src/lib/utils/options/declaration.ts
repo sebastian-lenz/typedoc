@@ -59,9 +59,8 @@ export interface TypeDocOptionMap {
   options: string;
   tsconfig: string;
 
-  inputFiles: string[];
+  entryPoint: string[];
   includeDeclarations: boolean;
-  entryPoint: string;
   exclude: string[];
   externalPattern: string[];
   excludeExternals: boolean;

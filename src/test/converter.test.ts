@@ -163,7 +163,7 @@ describe("Converter", function () {
         it(`[${file}] converts fixtures`, async function () {
           before();
           resetReflectionID();
-          app.options.setValue("inputFiles", [path]);
+          app.options.setValue("entryPoint", [path]);
           result = await app.convert();
           after();
           ok(result instanceof ProjectReflection, "No reflection returned");

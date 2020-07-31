@@ -101,8 +101,8 @@ export class Application {
    * @returns An instance of ProjectReflection on success, undefined otherwise.
    */
   async convert(): Promise<ProjectReflection | undefined> {
-    const inputFiles = await expandDirectories(
-      this.options.getValue("inputFiles"),
+    const entryPoints = await expandDirectories(
+      this.options.getValue("entryPoint"),
       this.options.getValue("exclude"),
       !!this.options.getCompilerOptions().allowJs,
       this.options.getValue("includeDeclarations")
@@ -110,7 +110,7 @@ export class Application {
 
     const start = Date.now();
     const program = ts.createProgram(
-      inputFiles,
+      entryPoints,
       this.options.getCompilerOptions()
     );
 
@@ -129,7 +129,7 @@ export class Application {
       return;
     }
 
-    return this.converter.convert(program, inputFiles);
+    return this.converter.convert(program, entryPoints);
   }
 
   /**

@@ -40,7 +40,7 @@ async function main() {
     return 0;
   }
 
-  if (app.options.getValue("inputFiles").length === 0) {
+  if (app.options.getValue("entryPoint").length === 0) {
     app.logger.error("No input files discovered.");
     return 1;
   }

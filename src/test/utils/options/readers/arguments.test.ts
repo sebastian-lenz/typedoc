@@ -55,8 +55,8 @@ describe("Options - ArgumentsReader", () => {
     });
   }
 
-  test("Puts arguments with no flag into inputFiles", ["foo", "bar"], () => {
-    equal(options.getValue("inputFiles"), ["foo", "bar"]);
+  test("Puts arguments with no flag into entryPoint", ["foo", "bar"], () => {
+    equal(options.getValue("entryPoint"), ["foo", "bar"]);
   });
 
   test("Works with string options", ["--out", "outDir"], () => {
@@ -76,7 +76,7 @@ describe("Options - ArgumentsReader", () => {
     ["--includeVersion", "TrUE"],
     () => {
       equal(options.getValue("includeVersion"), true);
-      equal(options.getValue("inputFiles"), []);
+      equal(options.getValue("entryPoint"), []);
     }
   );
 
@@ -85,7 +85,7 @@ describe("Options - ArgumentsReader", () => {
     ["--includeVersion", "FALse"],
     () => {
       equal(options.getValue("includeVersion"), false);
-      equal(options.getValue("inputFiles"), []);
+      equal(options.getValue("entryPoint"), []);
     }
   );
 
@@ -94,7 +94,7 @@ describe("Options - ArgumentsReader", () => {
     ["--includeVersion", "foo"],
     () => {
       equal(options.getValue("includeVersion"), true);
-      equal(options.getValue("inputFiles"), ["foo"]);
+      equal(options.getValue("entryPoint"), ["foo"]);
     }
   );
 

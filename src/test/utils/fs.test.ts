@@ -56,27 +56,27 @@ describe("FS Utils", () => {
     });
 
     it("supports directory excludes", async () => {
-      const inputFiles = join(__dirname, "..", "converter");
+      const entryPoint = join(__dirname, "..", "converter");
       const expanded = await expandDirectories(
-        [inputFiles],
+        [entryPoint],
         ["**/alias"],
         false,
         false
       );
-      assert(expanded.includes(join(inputFiles, "class", "class.ts")));
-      assert(!expanded.includes(join(inputFiles, "alias", "alias.ts")));
+      assert(expanded.includes(join(entryPoint, "class", "class.ts")));
+      assert(!expanded.includes(join(entryPoint, "alias", "alias.ts")));
     });
 
     it("supports negations in directory excludes", async () => {
-      const inputFiles = join(__dirname, "..", "converter");
+      const entryPoint = join(__dirname, "..", "converter");
       const expanded = await expandDirectories(
-        [inputFiles],
+        [entryPoint],
         ["**/!(alias)/"],
         false,
         false
       );
-      assert(!expanded.includes(join(inputFiles, "class", "class.ts")));
-      assert(expanded.includes(join(inputFiles, "alias", "alias.ts")));
+      assert(!expanded.includes(join(entryPoint, "class", "class.ts")));
+      assert(expanded.includes(join(entryPoint, "alias", "alias.ts")));
     });
 
     it("supports including js files");
