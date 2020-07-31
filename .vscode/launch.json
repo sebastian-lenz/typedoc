@@ -7,10 +7,7 @@
     {
       "name": "Debug rebuild_specs",
       "program": "${workspaceFolder}/scripts/rebuild_specs.js",
-      "args": [
-        "converter",
-        "mixin"
-      ],
+      "args": ["converter", "mixin"],
       "request": "launch",
       "skipFiles": ["<node_internals>/**"],
       "type": "pwa-node",

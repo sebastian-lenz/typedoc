@@ -12,7 +12,7 @@ app.bootstrap({
   module: ts.ModuleKind.CommonJS,
   experimentalDecorators: true,
   jsx: ts.JsxEmit.React,
-  jsxFactory: 'createElement',
+  jsxFactory: "createElement",
   lib: [
     "lib.dom.d.ts",
     "lib.es5.d.ts",
