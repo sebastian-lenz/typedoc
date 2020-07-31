@@ -112,3 +112,26 @@ export async function copy(src: string, dest: string): Promise<void> {
     // Do nothing for FIFO, special devices.
   }
 }
+
+/**
+ * Async recursive rmdir. Node v12.10.0 adds the { recursive: true } option to
+ * the native fs rmdir function, but we don't require Node 12 yet.
+ * @param target
+ */
+export async function remove(target: string): Promise<void> {
+  let isFile: boolean;
+  try {
+    const stat = await fs.lstat(target);
+    isFile = !stat.isDirectory();
+  } catch {
+    return;
+  }
+
+  if (isFile) {
+    return fs.unlink(target);
+  } else {
+    const files = await fs.readdir(target);
+    await Promise.all(files.map((file) => remove(join(target, file))));
+    return fs.rmdir(target);
+  }
+}

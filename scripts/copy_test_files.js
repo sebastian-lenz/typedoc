@@ -1,7 +1,7 @@
 // @ts-check
 
 const fs = require("fs").promises;
-const { copy } = require("../dist/lib/utils/fs");
+const { copy, remove } = require("../dist/lib/utils/fs");
 const { join } = require("path");
 
 const tasks = [
@@ -10,13 +10,12 @@ const tasks = [
   "test/utils/options/readers/data",
 ];
 
-const copies = tasks.map((dir) => {
+const copies = tasks.map(async (dir) => {
   const source = join(__dirname, "../src", dir);
   const target = join(__dirname, "../dist", dir);
-  return fs
-    .rmdir(target, { recursive: true })
-    .then(() => fs.mkdir(target, { recursive: true }))
-    .then(() => copy(source, target));
+  await remove(target);
+  await fs.mkdir(target, { recursive: true });
+  return copy(source, target);
 });
 
 Promise.all(copies).catch((reason) => {
