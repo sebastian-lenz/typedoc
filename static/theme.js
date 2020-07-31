@@ -11,7 +11,7 @@
       }[theme]
     );
   }
-  media.addListener(setTheme);
+  media.addEventListener("change", setTheme);
   addEventListener("load", () => {
     const select = document.getElementById("theme");
     select.value = theme;
