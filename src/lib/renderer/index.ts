@@ -4,6 +4,7 @@ import type { VNode } from "preact";
 import type { Application } from "../application";
 import type { ProjectReflection } from "../models";
 import { defaultTheme } from "./theme";
+import { remove } from "../utils/fs";
 
 export class Renderer {
   /**
@@ -14,6 +15,10 @@ export class Renderer {
   constructor(readonly application: Application) {}
 
   async render(project: ProjectReflection, out: string): Promise<void> {
+    if (this.application.options.getValue("cleanOutputDir")) {
+      remove(out);
+    }
+
     await defaultTheme(this.application, project, out);
   }
 }

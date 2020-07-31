@@ -33,6 +33,7 @@ const kindNames: Record<ReflectionKind, string> = {
 export const defaultTemplates: Templates = {
   Page(props) {
     const { reflection, templates, hooks } = props;
+    assert(reflection.project);
     return (
       <html>
         <head>
@@ -40,14 +41,14 @@ export const defaultTemplates: Templates = {
           <meta charSet="utf-8" />
           <meta
             name="description"
-            content={`Documentation for ${reflection.project?.name}`}
+            content={`Documentation for ${reflection.project.name}`}
           />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           <meta name="generator" content="typedoc" />
           <title>
             {reflection.isProject()
               ? reflection.name
-              : `${reflection.name} | ${reflection.project?.name}`}
+              : `${reflection.name} | ${reflection.project.name}`}
           </title>
           <link
             rel="stylesheet"

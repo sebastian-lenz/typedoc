@@ -177,10 +177,10 @@ export function addTypeDocOptions(options: Options): void {
     type: ParameterType.Array,
   });
   options.addDeclaration({
-    name: "disableOutputCheck",
-    help:
-      "Should TypeDoc disable the testing and cleaning of the output directory?",
+    name: "cleanOutputDir",
+    help: "If set, will clean up the output directory before creating files.",
     type: ParameterType.Boolean,
+    defaultValue: true,
   });
 
   options.addDeclaration({

@@ -172,7 +172,7 @@ export class ThemeRouter {
     }
 
     if (
-      this.hasOwnDocument(reflection) &&
+      docReflection === reflection &&
       this._anyChildrenHaveOwnDocument(reflection)
     ) {
       // Our children will be placed under our directory, so we should take index.html.

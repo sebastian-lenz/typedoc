@@ -90,7 +90,7 @@ export interface TypeDocOptionMap {
   gaSite: string;
   hideGenerator: boolean;
   toc: string[];
-  disableOutputCheck: boolean;
+  cleanOutputDir: boolean;
 
   help: boolean;
   version: boolean;
