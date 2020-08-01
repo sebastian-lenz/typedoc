@@ -32,7 +32,8 @@
                   "kind": 1024,
                   "kindString": "reference",
                   "name": "Obj",
-                  "typeArguments": []
+                  "typeArguments": [],
+                  "target": 6
                 }
               }
             },
@@ -54,7 +55,8 @@
                     "kind": 1024,
                     "kindString": "reference",
                     "name": "Obj",
-                    "typeArguments": []
+                    "typeArguments": [],
+                    "target": 6
                   }
                 },
                 {
@@ -268,7 +270,8 @@
               "kind": 1024,
               "kindString": "reference",
               "name": "x",
-              "typeArguments": []
+              "typeArguments": [],
+              "target": 11
             }
           }
         },
@@ -399,13 +402,15 @@
                             "kind": 1024,
                             "kindString": "reference",
                             "name": "FirstType",
-                            "typeArguments": []
+                            "typeArguments": [],
+                            "target": 14
                           },
                           {
                             "kind": 1024,
                             "kindString": "reference",
                             "name": "SecondType",
-                            "typeArguments": []
+                            "typeArguments": [],
+                            "target": 16
                           }
                         ]
                       }
@@ -438,13 +443,15 @@
                     "kind": 1024,
                     "kindString": "reference",
                     "name": "FirstType",
-                    "typeArguments": []
+                    "typeArguments": [],
+                    "target": 14
                   },
                   {
                     "kind": 1024,
                     "kindString": "reference",
                     "name": "ThirdType",
-                    "typeArguments": []
+                    "typeArguments": [],
+                    "target": 18
                   }
                 ]
               },
@@ -468,13 +475,15 @@
                     "kind": 1024,
                     "kindString": "reference",
                     "name": "FirstType",
-                    "typeArguments": []
+                    "typeArguments": [],
+                    "target": 14
                   },
                   {
                     "kind": 1024,
                     "kindString": "reference",
                     "name": "SecondType",
-                    "typeArguments": []
+                    "typeArguments": [],
+                    "target": 16
                   }
                 ]
               },

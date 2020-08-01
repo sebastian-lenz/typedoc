@@ -46,15 +46,13 @@ export class ProjectReflection extends ContainerReflection<ModuleReflection> {
    */
   registerReflection(
     reflection: IndependentReflection,
-    symbol?: ts.Symbol
+    symbol: ts.Symbol
   ): void {
     this._referenceGraph = undefined;
     this._reflections.set(reflection.id, reflection);
-    if (symbol) {
-      const set = this._symbolToReflection.get(symbol) ?? new Set();
-      set.add(reflection.id);
-      this._symbolToReflection.set(symbol, set);
-    }
+    const set = this._symbolToReflection.get(symbol) ?? new Set();
+    set.add(reflection.id);
+    this._symbolToReflection.set(symbol, set);
   }
 
   /**

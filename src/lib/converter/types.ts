@@ -130,7 +130,7 @@ const exprWithTypeArgsTypeNodeConverter: TypeConverter<
 > = {
   kind: [ts.SyntaxKind.ExpressionWithTypeArguments],
   convert(converter, node) {
-    const targetSymbol = converter.checker.getSymbolAtLocation(node.expression);
+    const targetSymbol = converter.getSymbolAtLocation(node.expression);
     // Mixins... we might not have a symbol here.
     if (!targetSymbol) {
       return converter.convertType(converter.checker.getTypeAtLocation(node));
@@ -442,8 +442,7 @@ const queryTypeNodeConverter: TypeConverter<
 > = {
   kind: [ts.SyntaxKind.TypeQuery],
   convert(converter, node) {
-    // TODO: Resolve aliases
-    const symbol = converter.checker.getSymbolAtLocation(node.exprName);
+    const symbol = converter.getSymbolAtLocation(node.exprName);
     assert(
       symbol,
       `Query type failed to get a symbol for: ${node.exprName.getText()}. This is a bug.`
@@ -474,7 +473,7 @@ const referenceTypeNodeConverter: TypeConverter<
 > = {
   kind: [ts.SyntaxKind.TypeReference],
   convert(converter, node) {
-    const targetSymbol = converter.checker.getSymbolAtLocation(node.typeName);
+    const targetSymbol = converter.getSymbolAtLocation(node.typeName);
     assert(
       targetSymbol,
       `Reference type failed to get a symbol for ${node.typeName.getText()}. This is probably a bug.`

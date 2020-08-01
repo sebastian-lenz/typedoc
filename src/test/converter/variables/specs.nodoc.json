@@ -50,9 +50,11 @@
                 "kind": 1024,
                 "kindString": "reference",
                 "name": "Foo",
-                "typeArguments": []
+                "typeArguments": [],
+                "target": 5
               }
-            ]
+            ],
+            "target": 2
           }
         },
         {
@@ -117,7 +119,8 @@
                                 "kindString": "intrinsic",
                                 "name": "string"
                               }
-                            ]
+                            ],
+                            "target": 2
                           }
                         },
                         {
@@ -163,7 +166,8 @@
                 "kindString": "intrinsic",
                 "name": "number"
               }
-            ]
+            ],
+            "target": 2
           },
           "defaultValue": "{}"
         }

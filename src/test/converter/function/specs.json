@@ -952,26 +952,26 @@
       ]
     },
     {
-      "id": 53,
+      "id": 47,
       "name": "generic-function",
       "kind": 2,
       "kindString": "module",
       "children": []
     },
     {
-      "id": 47,
+      "id": 48,
       "name": "implicit-types",
       "kind": 2,
       "kindString": "module",
       "children": [
         {
-          "id": 50,
+          "id": 51,
           "name": "BreakpointRange",
           "kind": 256,
           "kindString": "interface",
           "children": [
             {
-              "id": 52,
+              "id": 53,
               "name": "end",
               "kind": 1024,
               "kindString": "property",
@@ -983,7 +983,7 @@
               "visibility": "public"
             },
             {
-              "id": 51,
+              "id": 52,
               "name": "start",
               "kind": 1024,
               "kindString": "property",
@@ -1001,13 +1001,13 @@
           "extendedTypes": []
         },
         {
-          "id": 48,
+          "id": 49,
           "name": "getBreakpoints",
           "kind": 64,
           "kindString": "function",
           "children": [
             {
-              "id": 49,
+              "id": 50,
               "name": "getBreakpoints",
               "kind": 8192,
               "kindString": "signature",
@@ -1027,7 +1027,8 @@
                       "kind": 1024,
                       "kindString": "reference",
                       "name": "BreakpointRange",
-                      "typeArguments": []
+                      "typeArguments": [],
+                      "target": 51
                     }
                   },
                   {
@@ -1040,7 +1041,8 @@
                       "kind": 1024,
                       "kindString": "reference",
                       "name": "BreakpointRange",
-                      "typeArguments": []
+                      "typeArguments": [],
+                      "target": 51
                     }
                   },
                   {
@@ -1053,7 +1055,8 @@
                       "kind": 1024,
                       "kindString": "reference",
                       "name": "BreakpointRange",
-                      "typeArguments": []
+                      "typeArguments": [],
+                      "target": 51
                     }
                   },
                   {
@@ -1066,7 +1069,8 @@
                       "kind": 1024,
                       "kindString": "reference",
                       "name": "BreakpointRange",
-                      "typeArguments": []
+                      "typeArguments": [],
+                      "target": 51
                     }
                   },
                   {
@@ -1079,7 +1083,8 @@
                       "kind": 1024,
                       "kindString": "reference",
                       "name": "BreakpointRange",
-                      "typeArguments": []
+                      "typeArguments": [],
+                      "target": 51
                     }
                   }
                 ],

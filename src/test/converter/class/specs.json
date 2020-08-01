@@ -475,7 +475,8 @@
             "kind": 1024,
             "kindString": "reference",
             "name": "TestAbstractClass",
-            "typeArguments": []
+            "typeArguments": [],
+            "target": 42
           }
         },
         {
@@ -856,7 +857,8 @@
             "kind": 1024,
             "kindString": "reference",
             "name": "TestClass",
-            "typeArguments": []
+            "typeArguments": [],
+            "target": 16
           }
         },
         {
@@ -930,7 +932,8 @@
             "kind": 1024,
             "kindString": "reference",
             "name": "Foo",
-            "typeArguments": []
+            "typeArguments": [],
+            "target": 58
           }
         },
         {
@@ -1061,7 +1064,8 @@
             "kind": 1024,
             "kindString": "reference",
             "name": "Vector2",
-            "typeArguments": []
+            "typeArguments": [],
+            "target": 61
           }
         }
       ]
@@ -1199,7 +1203,8 @@
                   "kind": 1024,
                   "kindString": "reference",
                   "name": "TestClass",
-                  "typeArguments": []
+                  "typeArguments": [],
+                  "target": 79
                 }
               }
             }

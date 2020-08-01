@@ -92,7 +92,8 @@
               "kind": 1024,
               "kindString": "reference",
               "name": "Base",
-              "typeArguments": []
+              "typeArguments": [],
+              "target": 2
             }
           ]
         },
@@ -188,7 +189,8 @@
               "kind": 1024,
               "kindString": "reference",
               "name": "Base",
-              "typeArguments": []
+              "typeArguments": [],
+              "target": 2
             }
           ]
         },
@@ -284,7 +286,8 @@
               "kind": 1024,
               "kindString": "reference",
               "name": "Base",
-              "typeArguments": []
+              "typeArguments": [],
+              "target": 2
             }
           ]
         },

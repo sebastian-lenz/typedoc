@@ -5,13 +5,13 @@
   "kindString": "project",
   "children": [
     {
-      "id": 9,
+      "id": 14,
       "name": "export",
       "kind": 2,
       "kindString": "module",
       "children": [
         {
-          "id": 13,
+          "id": 18,
           "name": "a",
           "kind": 32,
           "kindString": "variable",
@@ -28,7 +28,7 @@
           "defaultValue": "1"
         },
         {
-          "id": 14,
+          "id": 19,
           "name": "hidden",
           "kind": 32,
           "kindString": "variable",
@@ -51,19 +51,19 @@
           "defaultValue": "true"
         },
         {
-          "id": 10,
+          "id": 15,
           "name": "default",
           "kind": 64,
           "kindString": "function",
           "children": [
             {
-              "id": 12,
+              "id": 17,
               "name": "default",
               "kind": 8192,
               "kindString": "signature",
               "parameters": [
                 {
-                  "id": 11,
+                  "id": 16,
                   "name": "a",
                   "kind": 16384,
                   "kindString": "parameter",
@@ -164,13 +164,13 @@
       ]
     },
     {
-      "id": 15,
+      "id": 9,
       "name": "mod",
       "kind": 2,
       "kindString": "module",
       "children": [
         {
-          "id": 18,
+          "id": 12,
           "name": "a",
           "kind": 32,
           "kindString": "variable",
@@ -187,7 +187,7 @@
           "defaultValue": "1"
         },
         {
-          "id": 19,
+          "id": 13,
           "name": "hidden",
           "kind": 32,
           "kindString": "variable",
@@ -210,7 +210,7 @@
           "defaultValue": "true"
         },
         {
-          "id": 16,
+          "id": 10,
           "name": "default",
           "kind": 64,
           "kindString": "function",
@@ -221,7 +221,7 @@
           },
           "children": [
             {
-              "id": 17,
+              "id": 11,
               "name": "default",
               "kind": 8192,
               "kindString": "signature",

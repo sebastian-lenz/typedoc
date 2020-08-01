@@ -178,7 +178,8 @@
                                     "kind": 1024,
                                     "kindString": "reference",
                                     "name": "Base",
-                                    "typeArguments": []
+                                    "typeArguments": [],
+                                    "target": 5
                                   }
                                 }
                               ]
@@ -193,7 +194,8 @@
                           "kind": 1024,
                           "kindString": "reference",
                           "name": "Base",
-                          "typeArguments": []
+                          "typeArguments": [],
+                          "target": 5
                         }
                       }
                     ]
@@ -217,7 +219,8 @@
                       "kind": 1024,
                       "kindString": "reference",
                       "name": "Base",
-                      "typeArguments": []
+                      "typeArguments": [],
+                      "target": 5
                     }
                   },
                   {
@@ -237,7 +240,8 @@
                     "kindString": "intrinsic",
                     "name": "this"
                   }
-                ]
+                ],
+                "target": 5
               }
             ]
           }
@@ -269,10 +273,12 @@
                     "kind": 1024,
                     "kindString": "reference",
                     "name": "Mixin1Func",
-                    "typeArguments": []
+                    "typeArguments": [],
+                    "target": 9
                   }
                 }
-              ]
+              ],
+              "target": 4
             }
           ]
         },
@@ -303,10 +309,12 @@
                     "kind": 1024,
                     "kindString": "reference",
                     "name": "Mixin2",
-                    "typeArguments": []
+                    "typeArguments": [],
+                    "target": 11
                   }
                 }
-              ]
+              ],
+              "target": 4
             }
           ]
         },
@@ -433,7 +441,8 @@
                 "kind": 1024,
                 "kindString": "reference",
                 "name": "AnyFunction",
-                "typeArguments": []
+                "typeArguments": [],
+                "target": 2
               }
             }
           ],
@@ -481,10 +490,12 @@
                   "kind": 1024,
                   "kindString": "reference",
                   "name": "Mixin3",
-                  "typeArguments": []
+                  "typeArguments": [],
+                  "target": 13
                 }
               }
-            ]
+            ],
+            "target": 4
           }
         },
         {

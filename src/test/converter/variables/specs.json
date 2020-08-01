@@ -5,13 +5,13 @@
   "kindString": "project",
   "children": [
     {
-      "id": 5,
+      "id": 1,
       "name": "array",
       "kind": 2,
       "kindString": "module",
       "children": [
         {
-          "id": 9,
+          "id": 5,
           "name": "Foo",
           "kind": 128,
           "kindString": "class",
@@ -27,7 +27,7 @@
           "implementedTypes": []
         },
         {
-          "id": 10,
+          "id": 6,
           "name": "FooList",
           "kind": 128,
           "kindString": "class",
@@ -50,13 +50,15 @@
                 "kind": 1024,
                 "kindString": "reference",
                 "name": "Foo",
-                "typeArguments": []
+                "typeArguments": [],
+                "target": 5
               }
-            ]
+            ],
+            "target": 2
           }
         },
         {
-          "id": 6,
+          "id": 2,
           "name": "Array",
           "kind": 256,
           "kindString": "interface",
@@ -78,7 +80,7 @@
           "extendedTypes": []
         },
         {
-          "id": 7,
+          "id": 3,
           "name": "complex",
           "kind": 32,
           "kindString": "variable",
@@ -117,7 +119,8 @@
                                 "kindString": "intrinsic",
                                 "name": "string"
                               }
-                            ]
+                            ],
+                            "target": 2
                           }
                         },
                         {
@@ -144,7 +147,7 @@
           "defaultValue": "[]"
         },
         {
-          "id": 8,
+          "id": 4,
           "name": "custom",
           "kind": 32,
           "kindString": "variable",
@@ -163,20 +166,21 @@
                 "kindString": "intrinsic",
                 "name": "number"
               }
-            ]
+            ],
+            "target": 2
           },
           "defaultValue": "{}"
         }
       ]
     },
     {
-      "id": 1,
+      "id": 7,
       "name": "destructuring",
       "kind": 2,
       "kindString": "module",
       "children": [
         {
-          "id": 2,
+          "id": 8,
           "name": "drawText",
           "kind": 64,
           "kindString": "function",
@@ -187,7 +191,7 @@
           },
           "children": [
             {
-              "id": 4,
+              "id": 10,
               "name": "drawText",
               "kind": 8192,
               "kindString": "signature",
@@ -198,7 +202,7 @@
               },
               "parameters": [
                 {
-                  "id": 3,
+                  "id": 9,
                   "name": "__0",
                   "kind": 16384,
                   "kindString": "parameter",

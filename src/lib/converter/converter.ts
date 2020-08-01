@@ -212,6 +212,7 @@ export class Converter extends EventEmitter<ConverterEventMap> {
         }
         const child = await converter.convert(context, symbol, nodes);
         child.comment = getCommentForNodes(nodes);
+        this.project.registerReflection(child, symbol);
         // TS isn't smart enough to know this is safe. The converters are carefully structured so that it is.
         context.container.addChild(child as any);
         await this.emit(
@@ -285,6 +286,19 @@ export class Converter extends EventEmitter<ConverterEventMap> {
     );
     return new UnknownType(this._checker.typeToString(typeOrNode));
   };
+
+  /**
+   * Wrapper around checker.getSymbolAtLocation which resolves to the declaration
+   * symbol instead of any imported alias symbols.
+   * @param node
+   */
+  getSymbolAtLocation(node: ts.Node): ts.Symbol | undefined {
+    const symbol = this.checker.getSymbolAtLocation(node);
+    if (!symbol) return;
+    return symbol.flags & ts.SymbolFlags.Alias
+      ? this.checker.getAliasedSymbol(symbol)
+      : symbol;
+  }
 
   private getExportsOfModule(file: ts.SourceFile, checker: ts.TypeChecker) {
     // If this is a normal TS file using ES2015 modules, use the type checker.

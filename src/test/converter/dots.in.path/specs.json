@@ -41,7 +41,8 @@
                     "kind": 1024,
                     "kindString": "reference",
                     "name": "EmptyInterface",
-                    "typeArguments": []
+                    "typeArguments": [],
+                    "target": 6
                   }
                 }
               ],
