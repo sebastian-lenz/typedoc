@@ -16,6 +16,8 @@ import type { TTheme } from "shiki-themes";
 import { createElement, JSX, Fragment } from "preact";
 import { render } from "preact-render-to-string";
 
+import * as Color from "color";
+
 const supportedLanguages: Set<string> = new Set([
   ...commonLangIds,
   ...commonLangAliases,
@@ -117,19 +119,27 @@ export class DoubleHighlighter {
   }
 
   getStyles(): string {
-    let styles = Array.from(
-      this.reverseSchemes.values(),
-      ([light, dark], i) => {
+    let styles =
+      Array.from(this.reverseSchemes.values(), ([light, dark], i) => {
         return [
           `.hl-${i} { color: ${light}; }`,
           `.dark .hl-${i} { color: ${dark}; }`,
         ].join("\n");
-      }
-    ).join("\n");
+      }).join("\n") + "\n";
 
-    styles += `body { background: ${this.lightBg}; }`;
-    styles += `body.dark { background: ${this.darkBg}; }`;
-    styles += `code { white-space: pre-wrap; }`;
+    const lightBg = Color(this.lightBg);
+    const darkBg = Color(this.darkBg);
+
+    styles += `:root {
+    --light-bg-hue: ${lightBg.hue()}deg;
+    --dark-bg-hue: ${darkBg.hue()}deg;
+    --light-bg-saturation: ${lightBg.saturationl()}%;
+    --dark-bg-saturation: ${darkBg.saturationl()}%;
+    --light-bg-lightness: ${lightBg.lightness()}%;
+    --dark-bg-lightness: ${darkBg.lightness()}%;
+    --light-bg-alpha: ${lightBg.alpha()};
+    --dark-bg-alpha: ${darkBg.alpha()};
+}\n`;
 
     return styles;
   }

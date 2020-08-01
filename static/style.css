@@ -13,6 +13,13 @@
   --dark-text: #ffffff;
   --dark-text-aside: #dddddd;
   --dark-text-link: #389fff;
+
+  /* The base components are set by the highlighter, we generate colors here from them. */
+  --light-background: hsla(var(--light-bg-hue), var(--light-bg-saturation), var(--light-bg-lightness), var(--light-bg-alpha));
+  --light-offset-background: hsla(var(--light-bg-hue), var(--light-bg-saturation), calc(var(--light-bg-lightness) - 10%), var(--light-bg-alpha));
+
+  --dark-background: hsla(var(--dark-bg-hue), var(--dark-bg-saturation), var(--dark-bg-lightness), var(--dark-bg-alpha));
+  --dark-offset-background: hsla(var(--dark-bg-hue), var(--dark-bg-saturation), calc(var(--dark-bg-lightness) + 10%), var(--dark-bg-alpha));
 }
 
 html,
@@ -25,6 +32,8 @@ body {
   --theme-text: var(--light-text);
   --theme-text-aside: var(--light-text-aside);
   --theme-text-link: var(--light-text-link);
+  --theme-background: var(--light-background);
+  --theme-offset-background: var(--light-offset-background);
 }
 
 body.dark {
@@ -32,6 +41,8 @@ body.dark {
   --theme-text: var(--dark-text);
   --theme-text-aside: var(--dark-text-aside);
   --theme-text-link: var(--dark-text-link);
+  --theme-background: var(--dark-background);
+  --theme-offset-background: var(--dark-offset-background);
 }
 
 a {
@@ -41,6 +52,7 @@ a {
 body {
   margin: 0;
   color: var(--theme-text);
+  background: var(--theme-background);
 }
 
 header {
@@ -53,8 +65,9 @@ header {
 }
 
 .toolbar a {
-  padding: 1em;
+  padding: 1rem;
   text-decoration: none;
+  font-size: 1.5rem;
 }
 
 #search {
@@ -62,6 +75,17 @@ header {
   padding: 1em;
   border: 1px solid var(--theme-border);
   border-bottom: 0;
+}
+
+#theme {
+  border: 1px solid var(--theme-border);
+  border-bottom: 0;
+}
+
+#search, #search::placeholder, #theme {
+  color: var(--theme-text);
+  background: var(--theme-offset-background);
+  outline: none;
 }
 
 .breadcrumbs {
@@ -109,4 +133,8 @@ main,
 
 main > nav {
   min-width: 200px;
+}
+
+code {
+  white-space: pre-wrap;
 }
