@@ -442,6 +442,7 @@ const queryTypeNodeConverter: TypeConverter<
 > = {
   kind: [ts.SyntaxKind.TypeQuery],
   convert(converter, node) {
+    // TODO: Resolve aliases
     const symbol = converter.checker.getSymbolAtLocation(node.exprName);
     assert(
       symbol,

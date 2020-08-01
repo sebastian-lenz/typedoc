@@ -16,6 +16,7 @@ import type {
   SomeReflection,
   TypeAliasReflection,
   VariableReflection,
+  SomeType,
 } from "../models";
 import type { ObjectReflection } from "../models/reflections/object";
 import type { AccessorReflection } from "../models/reflections/property";
@@ -24,6 +25,17 @@ import type { ThemeRouter } from "./router";
 
 export type TemplateProps<R extends SomeReflection> = {
   reflection: R;
+  templates: Templates;
+  hooks: EventHooks<TemplateHooks, VNode | null>;
+  router: ThemeRouter;
+  parseMarkdown: (markdown: string, reflection: SomeReflection) => string;
+};
+
+export type TypeProps<T extends SomeType | ObjectReflection> = {
+  reflection: SomeReflection;
+  type: T;
+  wrapped?: boolean;
+
   templates: Templates;
   hooks: EventHooks<TemplateHooks, VNode | null>;
   router: ThemeRouter;
@@ -117,4 +129,6 @@ export interface Templates {
   Parameter(props: TemplateProps<ParameterReflection>): VNode;
   TypeAlias(props: TemplateProps<TypeAliasReflection>): VNode;
   Reference(props: TemplateProps<ReferenceReflection>): VNode;
+
+  Type(props: TypeProps<SomeType | ObjectReflection>): VNode;
 }

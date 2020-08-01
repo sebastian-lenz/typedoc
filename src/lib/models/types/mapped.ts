@@ -96,7 +96,7 @@ export class MappedType extends Type {
       [OptionalModifier.None]: " ",
       [OptionalModifier.Add]: " readonly ",
       [OptionalModifier.Remove]: " -readonly ",
-    };
+    }[this.readonlyModifier];
 
     const parameter =
       this.parameter.name + " in " + this.parameter.constraint.toString();

@@ -6,6 +6,7 @@ import {
   ReflectionKindToModel,
   SomeReflection,
 } from "../models";
+import { TypeTemplates } from "./type-templates";
 
 // See the Templates interface for doc comments.
 // TODO: Lots to do to make this good yet.
@@ -30,7 +31,7 @@ const kindNames: Record<ReflectionKind, string> = {
   [ReflectionKind.Reference]: "Reference",
 };
 
-export const defaultTemplates: Templates = {
+export const DefaultTemplates: Templates = {
   Page(props) {
     const { reflection, templates, hooks } = props;
     assert(reflection.project);
@@ -403,6 +404,7 @@ export const defaultTemplates: Templates = {
         const rest = s.isRest ? "..." : "";
         const sep = s.isOptional ? "?: " : ": ";
         const init = s.defaultValue == null ? "" : ` = ${s.defaultValue}`;
+        // TODO: Use templates.Type here.
         return rest + s.name + sep + s.type.toString() + init;
       })
       .join(", ");
@@ -434,7 +436,8 @@ export const defaultTemplates: Templates = {
     const { reflection, templates } = props;
     return (
       <Fragment>
-        <b>{reflection.name}</b>: {reflection.type.toString()}
+        <b>{reflection.name}</b>:{" "}
+        <templates.Type type={reflection.type} {...props} />
         <br />
         <templates.Comment {...props} />
       </Fragment>
@@ -454,5 +457,14 @@ export const defaultTemplates: Templates = {
     }
 
     return <Fragment>Re-export {reflection.name}</Fragment>;
+  },
+
+  Type(props) {
+    if ("id" in props.type) {
+      return <props.templates.Object {...props} reflection={props.type} />;
+    }
+
+    const Template = TypeTemplates[props.type.kind];
+    return <Template {...props} type={props.type as never} />;
   },
 };

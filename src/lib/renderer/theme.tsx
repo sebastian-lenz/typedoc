@@ -5,7 +5,7 @@ import { createElement } from "preact";
 import { render } from "preact-render-to-string";
 import type { Application } from "../application";
 import type { ProjectReflection, Reflection, SomeReflection } from "../models";
-import { defaultTemplates } from "./default-templates";
+import { DefaultTemplates } from "./default-templates";
 import {
   MinimalThemeRouter,
   ThemeRouter,
@@ -44,7 +44,7 @@ export function buildTheme(
   return async (app, project, outDir) => {
     const start = Date.now();
     const router = new routerCtor(project);
-    const themeTemplates: Templates = { ...defaultTemplates, ...templates };
+    const themeTemplates: Templates = { ...DefaultTemplates, ...templates };
     // TODO: These ought to be configurable.
     const highlighter = await DoubleHighlighter.create(
       "light_plus",

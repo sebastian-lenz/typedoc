@@ -29,7 +29,7 @@ import type {
   SignatureParameterType,
   SignatureType,
 } from "./signature";
-import type { LiteralType, SerializedLiteralType } from "./string-literal";
+import type { LiteralType, SerializedLiteralType } from "./literal";
 import type { SerializedTupleType, TupleType } from "./tuple";
 import type {
   SerializedTypeOperatorType,
@@ -70,7 +70,7 @@ export {
   ConstructorType,
   SerializedConstructorType,
 } from "./signature";
-export { LiteralType, SerializedLiteralType } from "./string-literal";
+export { LiteralType, SerializedLiteralType } from "./literal";
 export { TupleType, SerializedTupleType } from "./tuple";
 export { TypeOperatorType, SerializedTypeOperatorType } from "./type-operator";
 export {
