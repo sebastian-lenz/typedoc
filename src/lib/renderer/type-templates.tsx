@@ -27,9 +27,12 @@ export const TypeTemplates: {
     return wrap(
       wrapped,
       <Fragment>
-        <templates.Type {...props} type={type.checkType} wrapped /> extends
-        <templates.Type {...props} type={type.extendsType} wrapped /> ?
-        <templates.Type {...props} type={type.trueType} wrapped /> :
+        <templates.Type {...props} type={type.checkType} wrapped />
+        {" extends "}
+        <templates.Type {...props} type={type.extendsType} wrapped />
+        {" ? "}
+        <templates.Type {...props} type={type.trueType} wrapped />
+        {" : "}
         <templates.Type {...props} type={type.falseType} wrapped />
       </Fragment>
     );
@@ -188,17 +191,6 @@ export const TypeTemplates: {
   [TypeKind.Signature](props) {
     const { type, templates } = props;
 
-    const typeParameters: ComponentChild[] = type.typeParameters.map(
-      (param) => <templates.Type {...props} type={param} />
-    );
-    for (let i = 1; i < typeParameters.length; i += 2) {
-      typeParameters.splice(i, 0, ", ");
-    }
-    if (typeParameters.length) {
-      typeParameters.unshift("<");
-      typeParameters.push(">");
-    }
-
     const parameters: ComponentChild[] = type.parameters.map((param) => (
       <templates.Type {...props} type={param} />
     ));
@@ -211,7 +203,7 @@ export const TypeTemplates: {
     return wrap(
       props.wrapped,
       <Fragment>
-        {typeParameters}
+        <templates.TypeParameters {...props} params={type.typeParameters} />
         {parameters}:
         <templates.Type {...props} type={type.returnType} />
       </Fragment>
@@ -219,17 +211,6 @@ export const TypeTemplates: {
   },
   [TypeKind.Constructor](props) {
     const { type, templates } = props;
-
-    const typeParameters: ComponentChild[] = type.typeParameters.map(
-      (param) => <templates.Type {...props} type={param} />
-    );
-    for (let i = 1; i < typeParameters.length; i += 2) {
-      typeParameters.splice(i, 0, ", ");
-    }
-    if (typeParameters.length) {
-      typeParameters.unshift("<");
-      typeParameters.push(">");
-    }
 
     const parameters: ComponentChild[] = type.parameters.map((param) => (
       <templates.Type {...props} type={param} />
@@ -244,7 +225,7 @@ export const TypeTemplates: {
       props.wrapped,
       <Fragment>
         new
-        {typeParameters}
+        <templates.TypeParameters {...props} params={type.typeParameters} />
         {parameters}:
         <templates.Type {...props} type={type.returnType} />
       </Fragment>

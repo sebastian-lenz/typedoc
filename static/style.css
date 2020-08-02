@@ -138,3 +138,12 @@ main > nav {
 code {
   white-space: pre-wrap;
 }
+
+.reflection:not([id="#"]) {
+  padding: 1em;
+  margin: 1em 0;
+  border: 1px solid var(--theme-border);
+}
+.reflection h3:first-child {
+  margin-top: 0;
+}

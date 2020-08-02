@@ -3,6 +3,7 @@ import type { ReflectionConverter } from "./types";
 import { MethodReflection } from "../../models";
 import { convertSignatureDeclaration } from "./signature";
 import { getVisibility } from "../utils";
+import { waterfall } from "../../utils/array";
 
 export const methodConverter: ReflectionConverter<
   ts.MethodSignature | ts.MethodDeclaration,
@@ -25,10 +26,8 @@ export const methodConverter: ReflectionConverter<
         Boolean(node.body) === includeImplementation
     );
 
-    const signatures = await Promise.all(
-      realNodes.map(
-        convertSignatureDeclaration.bind(null, context.converter, symbol.name)
-      )
+    const signatures = await waterfall(realNodes, (node) =>
+      convertSignatureDeclaration(context.converter, symbol.name, node)
     );
 
     for (const signature of signatures) {

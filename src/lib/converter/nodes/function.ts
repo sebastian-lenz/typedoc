@@ -2,6 +2,7 @@ import * as ts from "typescript";
 import type { ReflectionConverter } from "./types";
 import { FunctionReflection } from "../../models";
 import { convertSignatureDeclaration } from "./signature";
+import { waterfall } from "../../utils/array";
 
 export const functionConverter: ReflectionConverter<
   ts.FunctionDeclaration,
@@ -18,10 +19,8 @@ export const functionConverter: ReflectionConverter<
       (node) => Boolean(node.body) === includeImplementation
     );
 
-    const signatures = await Promise.all(
-      realNodes.map(
-        convertSignatureDeclaration.bind(null, context.converter, symbol.name)
-      )
+    const signatures = await waterfall(realNodes, (node) =>
+      convertSignatureDeclaration(context.converter, symbol.name, node)
     );
 
     for (const signature of signatures) {

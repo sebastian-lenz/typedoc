@@ -11,6 +11,7 @@ import {
   SomeType,
   UnknownType,
   IntrinsicType,
+  ReferenceReflection,
 } from "../models/index";
 import { ObjectReflection } from "../models/reflections/object";
 import type { Options, Logger } from "../utils";
@@ -153,18 +154,48 @@ export class Converter extends EventEmitter<ConverterEventMap> {
       moduleReflection.comment = getCommentForNodes([file]);
       project.addChild(moduleReflection);
       await this.emit(Converter.EVENT_MODULE_CREATED, moduleReflection, file);
-      for (const exportSymbol of this.getExportsOfModule(
+
+      const checker = program.getTypeChecker();
+      const exportSymbols = this.getExportsOfModule(
         file,
-        program.getTypeChecker()
-      )) {
+        checker
+      ).map((symbol) =>
+        symbol.flags & ts.SymbolFlags.Alias
+          ? ([checker.getAliasedSymbol(symbol), symbol] as const)
+          : ([symbol, symbol] as const)
+      );
+
+      for (const exportSymbol of exportSymbols) {
+        // First time through, skip symbols which are re-exports.
+        if (exportSymbol[0].getDeclarations()?.[0]?.getSourceFile() !== file) {
+          continue;
+        }
+
         await this.convertSymbol(
-          exportSymbol,
+          exportSymbol[0],
+          context.withContainer(moduleReflection)
+        );
+      }
+
+      const secondStart = Date.now();
+      this.logger.verbose(
+        `[Perf] First pass of ${name} took ${secondStart - entryStart}ms`
+      );
+
+      for (const exportSymbol of exportSymbols) {
+        // Second time through, only convert re-exports.
+        if (exportSymbol[0].getDeclarations()?.[0]?.getSourceFile() === file) {
+          continue;
+        }
+
+        await this.convertSymbol(
+          exportSymbol[1],
           context.withContainer(moduleReflection)
         );
       }
 
       this.logger.verbose(
-        `[Perf] Converting ${name} took ${Date.now() - entryStart}ms`
+        `[Perf] Second pass of ${name} took ${Date.now() - secondStart}ms`
       );
     }
 
@@ -181,6 +212,27 @@ export class Converter extends EventEmitter<ConverterEventMap> {
     context: Context<U>
   ): Promise<void> {
     this.logger.verbose(`Converting symbol: ${symbol.name}`);
+
+    const overrideName =
+      symbol.flags & ts.SymbolFlags.Alias ? symbol.name : null;
+
+    if (symbol.flags & ts.SymbolFlags.Alias) {
+      symbol = context.checker.getAliasedSymbol(symbol);
+    }
+
+    const existingReflections = this.project.getReflectionsFromSymbol(symbol);
+    if (existingReflections.size) {
+      const target = existingReflections.values().next().value;
+      const child = new ReferenceReflection(
+        overrideName ?? symbol.name,
+        target
+      );
+      this.project.registerReflection(child, symbol);
+      // This can only happen with re-exports, for which it is safe.
+      context.container.addChild(child as any);
+      return;
+    }
+
     const kinds = new Set(symbol.getDeclarations()?.map((d) => d.kind));
     if (kinds.has(ts.SyntaxKind.ClassDeclaration)) {
       // This is the one form of declaration merging we do, merging classes and interfaces.
@@ -191,38 +243,32 @@ export class Converter extends EventEmitter<ConverterEventMap> {
       kinds.delete(ts.SyntaxKind.SetAccessor);
     }
 
-    await Promise.all(
-      [...kinds].map(async (kind) => {
-        const converter = this._reflectionConverters.get(kind);
-        if (!converter) {
-          this.logger.verbose(
-            `Missing converter for symbol ${symbol.name} with kind ${kind} (${ts.SyntaxKind[kind]})`
-          );
-          return;
-        }
-        const nodes =
-          symbol.getDeclarations()?.filter((d) => d.kind === kind) ?? [];
-        if (kind === ts.SyntaxKind.ClassDeclaration) {
-          nodes.push(
-            ...(symbol
-              .getDeclarations()
-              ?.filter((d) => d.kind === ts.SyntaxKind.InterfaceDeclaration) ??
-              [])
-          );
-        }
-        const child = await converter.convert(context, symbol, nodes);
-        child.comment = getCommentForNodes(nodes);
-        this.project.registerReflection(child, symbol);
-        // TS isn't smart enough to know this is safe. The converters are carefully structured so that it is.
-        context.container.addChild(child as any);
-        await this.emit(
-          Converter.EVENT_REFLECTION_CREATED,
-          child,
-          symbol,
-          nodes
+    for (const kind of kinds) {
+      const converter = this._reflectionConverters.get(kind);
+      if (!converter) {
+        this.logger.verbose(
+          `Missing converter for symbol ${symbol.name} with kind ${kind} (${ts.SyntaxKind[kind]})`
         );
-      })
-    );
+        return;
+      }
+      const nodes =
+        symbol.getDeclarations()?.filter((d) => d.kind === kind) ?? [];
+      if (kind === ts.SyntaxKind.ClassDeclaration) {
+        nodes.push(
+          ...(symbol
+            .getDeclarations()
+            ?.filter((d) => d.kind === ts.SyntaxKind.InterfaceDeclaration) ??
+            [])
+        );
+      }
+      const child = await converter.convert(context, symbol, nodes);
+      child.comment = getCommentForNodes(nodes);
+      this.project.registerReflection(child, symbol);
+      child.name = overrideName ?? child.name;
+      // TS isn't smart enough to know this is safe. The converters are carefully structured so that it is.
+      context.container.addChild(child as any);
+      await this.emit(Converter.EVENT_REFLECTION_CREATED, child, symbol, nodes);
+    }
   }
 
   async convertTypeOrObject(

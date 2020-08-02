@@ -4,6 +4,7 @@ import type { ReflectionConverter } from "./types";
 import { InterfaceReflection, ReferenceType } from "../../models";
 import { convertSignatureDeclaration } from "./signature";
 import { convertTypeParameterDeclarations } from "../utils";
+import { waterfall } from "../../utils/array";
 
 export const interfaceConverter: ReflectionConverter<
   ts.InterfaceDeclaration,
@@ -12,23 +13,19 @@ export const interfaceConverter: ReflectionConverter<
   kind: [ts.SyntaxKind.InterfaceDeclaration],
   async convert(context, symbol, [node]) {
     const signatureSymbol = symbol.members?.get("__call" as ts.__String);
-    const signatures = await Promise.all(
+    const signatures = await waterfall(
       signatureSymbol
         ?.getDeclarations()
-        ?.filter(ts.isCallSignatureDeclaration)
-        .map((node) =>
-          convertSignatureDeclaration(context.converter, "__call", node)
-        ) ?? []
+        ?.filter(ts.isCallSignatureDeclaration) ?? [],
+      (node) => convertSignatureDeclaration(context.converter, "__call", node)
     );
 
     const constructSymbol = symbol.members?.get("__new" as ts.__String);
-    const constructSignatures = await Promise.all(
+    const constructSignatures = await waterfall(
       constructSymbol
         ?.getDeclarations()
-        ?.filter(ts.isCallSignatureDeclaration)
-        .map((node) =>
-          convertSignatureDeclaration(context.converter, "__new", node)
-        ) ?? []
+        ?.filter(ts.isCallSignatureDeclaration) ?? [],
+      (node) => convertSignatureDeclaration(context.converter, "__new", node)
     );
 
     const extendsClause = node.heritageClauses?.find(
@@ -70,14 +67,7 @@ export const interfaceConverter: ReflectionConverter<
       extendedTypes
     );
 
-    await Promise.all(
-      members.map((child) =>
-        context.converter.convertSymbol(
-          child,
-          context.withContainer(reflection)
-        )
-      )
-    );
+    await context.convertChildren(members, reflection);
 
     return reflection;
   },

@@ -1,5 +1,5 @@
 import * as assert from "assert";
-import { createElement, VNode, Fragment } from "preact";
+import { createElement, VNode, Fragment, ComponentChild } from "preact";
 import type { Templates, TemplateProps } from "./templates";
 import {
   ReflectionKind,
@@ -182,19 +182,18 @@ export const DefaultTemplates: Templates = {
     return (
       <Fragment>
         {router.getChildrenInPage(reflection).map((child) => (
-          <Fragment>
-            <h3>
-              {kindNames[child.kind]} {child.name}
-            </h3>
-            <templates.Reflection {...props} reflection={child} />
-          </Fragment>
+          <templates.Reflection
+            {...props}
+            reflection={child}
+            displayName={`${kindNames[child.kind]} ${child.name}`}
+          />
         ))}
       </Fragment>
     );
   },
 
   Reflection(props) {
-    const { reflection, templates, hooks, router } = props;
+    const { reflection, templates, hooks, router, displayName } = props;
 
     const templateMap: {
       [K in ReflectionKind]: (
@@ -241,6 +240,7 @@ export const DefaultTemplates: Templates = {
           )}`}
           id={router.createSlug(reflection) || "#"} // Empty ID isn't valid HTML, and the slugger won't produce a `#`
         >
+          {displayName && <h3>{displayName}</h3>}
           {hooks.emit("reflection.begin", reflection)}
           <Template
             {...props}
@@ -337,9 +337,20 @@ export const DefaultTemplates: Templates = {
     return <Fragment>TODO {reflection.name}</Fragment>;
   },
   TypeAlias(props) {
-    const { reflection } = props;
+    const { reflection, templates } = props;
 
-    return <Fragment>TODO {reflection.name}</Fragment>;
+    return (
+      <Fragment>
+        type {reflection.name}
+        <templates.TypeParameters
+          {...props}
+          params={reflection.typeParameters}
+        />
+        {" = "}
+        <templates.Type {...props} type={reflection.type} />
+        <templates.Comment {...props} />
+      </Fragment>
+    );
   },
   Enum(props) {
     const { reflection } = props;
@@ -448,15 +459,15 @@ export const DefaultTemplates: Templates = {
     if (referenced) {
       return (
         <Fragment>
-          Re-export{" "}
+          Re-exports{" "}
           <a href={router.createLink(reflection, referenced)}>
-            {reflection.name}
+            {referenced.name}
           </a>
         </Fragment>
       );
     }
 
-    return <Fragment>Re-export {reflection.name}</Fragment>;
+    return <Fragment>Re-exports {reflection.name}</Fragment>;
   },
 
   Type(props) {
@@ -466,5 +477,32 @@ export const DefaultTemplates: Templates = {
 
     const Template = TypeTemplates[props.type.kind];
     return <Template {...props} type={props.type as never} />;
+  },
+
+  TypeParameters(props) {
+    const { params, templates } = props;
+
+    if (params.length === 0) {
+      return <Fragment />;
+    }
+
+    const children: ComponentChild[] = ["<"];
+    for (const param of params) {
+      if (children.length !== 1) {
+        children.push(", ");
+      }
+      children.push(param.name);
+      if (param.constraint) {
+        children.push(" extends ");
+        children.push(<templates.Type {...props} type={param.constraint} />);
+      }
+      if (param.defaultValue) {
+        children.push(" = ");
+        children.push(<templates.Type {...props} type={param.defaultValue} />);
+      }
+    }
+    children.push(">");
+
+    return <Fragment>{children}</Fragment>;
   },
 };

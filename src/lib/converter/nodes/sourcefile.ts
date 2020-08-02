@@ -2,19 +2,14 @@ import * as ts from "typescript";
 import type { ReflectionConverter } from "./types";
 import { NamespaceReflection } from "../../models";
 
-export const namespaceConverter: ReflectionConverter<
-  ts.NamespaceDeclaration,
+export const sourcefileConverter: ReflectionConverter<
+  ts.SourceFile,
   NamespaceReflection
 > = {
-  kind: [ts.SyntaxKind.ModuleDeclaration],
+  kind: [ts.SyntaxKind.SourceFile],
   async convert(context, symbol) {
     const namespace = new NamespaceReflection(symbol.name);
-
-    await context.convertChildren(
-      context.getExportsWithFlag(symbol, ts.SymbolFlags.ModuleMember),
-      namespace
-    );
-
+    await context.convertChildren(context.getExports(symbol), namespace);
     return namespace;
   },
 };

@@ -4,6 +4,7 @@ import type { ReflectionConverter } from "./types";
 import { ReferenceType, ClassReflection } from "../../models";
 import { convertSignatureDeclaration } from "./signature";
 import { convertTypeParameterDeclarations } from "../utils";
+import { waterfall } from "../../utils/array";
 
 // TODO: GERRIT This and the interface implementation can be simplified / merged.
 
@@ -14,23 +15,19 @@ export const classConverter: ReflectionConverter<
   kind: [ts.SyntaxKind.ClassDeclaration],
   async convert(context, symbol, [node]) {
     const signatureSymbol = symbol.members?.get("__call" as ts.__String);
-    const signatures = await Promise.all(
+    const signatures = await waterfall(
       signatureSymbol
         ?.getDeclarations()
-        ?.filter(ts.isCallSignatureDeclaration)
-        .map((node) =>
-          convertSignatureDeclaration(context.converter, "__call", node)
-        ) ?? []
+        ?.filter(ts.isCallSignatureDeclaration) ?? [],
+      (node) => convertSignatureDeclaration(context.converter, "__call", node)
     );
 
     const constructSymbol = symbol.members?.get("__new" as ts.__String);
-    const constructSignatures = await Promise.all(
+    const constructSignatures = await waterfall(
       constructSymbol
         ?.getDeclarations()
-        ?.filter(ts.isCallSignatureDeclaration)
-        .map((node) =>
-          convertSignatureDeclaration(context.converter, "__new", node)
-        ) ?? []
+        ?.filter(ts.isCallSignatureDeclaration) ?? [],
+      (node) => convertSignatureDeclaration(context.converter, "__new", node)
     );
 
     const implementsClause = node.heritageClauses?.find(
@@ -80,14 +77,7 @@ export const classConverter: ReflectionConverter<
       extendedType
     );
 
-    await Promise.all(
-      members.map((child) =>
-        context.converter.convertSymbol(
-          child,
-          context.withContainer(reflection)
-        )
-      )
-    );
+    await context.convertChildren(members, reflection);
 
     return reflection;
   },

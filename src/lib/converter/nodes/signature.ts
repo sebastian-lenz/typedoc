@@ -4,6 +4,7 @@ import { SignatureReflection, ParameterReflection } from "../../models";
 import type { Converter } from "../converter";
 import { getCommentForNodes } from "../comments";
 import { convertTypeParameters } from "../utils";
+import { waterfall } from "../../utils/array";
 
 export async function convertSignatureDeclaration(
   converter: Converter,
@@ -20,28 +21,26 @@ export async function convertSignatureDeclaration(
     node.type ?? signature.getReturnType()
   );
 
-  const parameters = await Promise.all(
-    signature.parameters.map(async (param) => {
-      const paramDeclaration = param.valueDeclaration;
-      assert(paramDeclaration && ts.isParameter(paramDeclaration)); // Should never fail...
+  const parameters = await waterfall(signature.parameters, async (param) => {
+    const paramDeclaration = param.valueDeclaration;
+    assert(paramDeclaration && ts.isParameter(paramDeclaration)); // Should never fail...
 
-      const paramType = await converter.convertTypeOrObject(
-        paramDeclaration.type ??
-          converter.checker.getTypeOfSymbolAtLocation(param, paramDeclaration)
-      );
+    const paramType = await converter.convertTypeOrObject(
+      paramDeclaration.type ??
+        converter.checker.getTypeOfSymbolAtLocation(param, paramDeclaration)
+    );
 
-      const parameter = new ParameterReflection(
-        param.name,
-        paramType,
-        paramDeclaration.initializer?.getText(),
-        !!paramDeclaration.questionToken || !!paramDeclaration.initializer,
-        !!paramDeclaration.dotDotDotToken
-      );
-      parameter.comment = getCommentForNodes([paramDeclaration]);
+    const parameter = new ParameterReflection(
+      param.name,
+      paramType,
+      paramDeclaration.initializer?.getText(),
+      !!paramDeclaration.questionToken || !!paramDeclaration.initializer,
+      !!paramDeclaration.dotDotDotToken
+    );
+    parameter.comment = getCommentForNodes([paramDeclaration]);
 
-      return parameter;
-    })
-  );
+    return parameter;
+  });
 
   const typeParameters = convertTypeParameters(
     converter,

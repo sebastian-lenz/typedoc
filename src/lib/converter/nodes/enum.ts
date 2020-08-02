@@ -9,19 +9,12 @@ export const enumConverter: ReflectionConverter<
 > = {
   kind: [ts.SyntaxKind.EnumDeclaration],
   async convert(context, symbol) {
-    const isConst =
-      (symbol.flags & ts.SymbolFlags.ConstEnum) === ts.SymbolFlags.ConstEnum;
+    const isConst = Boolean(symbol.flags & ts.SymbolFlags.ConstEnum);
     const container = new EnumReflection(symbol.name, isConst);
 
-    await Promise.all(
-      context
-        .getExportsOfKind(symbol, ts.SyntaxKind.EnumMember)
-        .map((member) =>
-          context.converter.convertSymbol(
-            member,
-            context.withContainer(container)
-          )
-        )
+    await context.convertChildren(
+      context.getExportsOfKind(symbol, ts.SyntaxKind.EnumMember),
+      container
     );
 
     return container;

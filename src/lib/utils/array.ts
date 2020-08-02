@@ -94,3 +94,14 @@ export function zip<T extends any[][]>(...arrays: T): Zip<T>[] {
 
   return result;
 }
+
+export async function waterfall<T, U>(
+  arr: readonly T[],
+  fn: (item: T) => U | Promise<U>
+): Promise<U[]> {
+  const result: U[] = [];
+  for (const item of arr) {
+    result.push(await fn(item));
+  }
+  return result;
+}

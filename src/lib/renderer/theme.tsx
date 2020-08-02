@@ -92,7 +92,7 @@ export function buildTheme(
             templates={themeTemplates}
           />,
           null,
-          { pretty: true }
+          { pretty: false }
         );
       tasks.push(writeFile(join(outDir, path), content));
 

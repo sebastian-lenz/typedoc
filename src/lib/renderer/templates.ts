@@ -17,6 +17,7 @@ import type {
   TypeAliasReflection,
   VariableReflection,
   SomeType,
+  TypeParameterType,
 } from "../models";
 import type { ObjectReflection } from "../models/reflections/object";
 import type { AccessorReflection } from "../models/reflections/property";
@@ -104,7 +105,9 @@ export interface Templates {
    * You should not need to override this template. It simply delegates to the more specific template
    * based on the `kind` property of the reflection.
    */
-  Reflection(props: TemplateProps<SomeReflection>): VNode;
+  Reflection(
+    props: TemplateProps<SomeReflection> & { displayName?: string }
+  ): VNode;
 
   /**
    * Renders the comment attached to the reflection, if any.
@@ -131,4 +134,7 @@ export interface Templates {
   Reference(props: TemplateProps<ReferenceReflection>): VNode;
 
   Type(props: TypeProps<SomeType | ObjectReflection>): VNode;
+  TypeParameters(
+    props: TemplateProps<SomeReflection> & { params: TypeParameterType[] }
+  ): VNode;
 }
