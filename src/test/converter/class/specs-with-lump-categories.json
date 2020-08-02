@@ -1078,7 +1078,7 @@
       "children": []
     },
     {
-      "id": 72,
+      "id": 71,
       "name": "events",
       "kind": 2,
       "kindString": "module",
@@ -1092,7 +1092,7 @@
       "children": []
     },
     {
-      "id": 71,
+      "id": 72,
       "name": "generic-class",
       "kind": 2,
       "kindString": "module",

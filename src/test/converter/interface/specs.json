@@ -5,13 +5,13 @@
   "kindString": "project",
   "children": [
     {
-      "id": 1,
+      "id": 7,
       "name": "constructor-type",
       "kind": 2,
       "kindString": "module",
       "children": [
         {
-          "id": 2,
+          "id": 8,
           "name": "Constructor",
           "kind": 256,
           "kindString": "interface",
@@ -22,7 +22,7 @@
           "extendedTypes": []
         },
         {
-          "id": 3,
+          "id": 9,
           "name": "Instance",
           "kind": 256,
           "kindString": "interface",
@@ -35,13 +35,13 @@
       ]
     },
     {
-      "id": 4,
+      "id": 1,
       "name": "interface-empty",
       "kind": 2,
       "kindString": "module",
       "children": [
         {
-          "id": 6,
+          "id": 3,
           "name": "ClassImplementingEmptyInterface",
           "kind": 128,
           "kindString": "class",
@@ -52,7 +52,7 @@
           },
           "children": [
             {
-              "id": 7,
+              "id": 4,
               "name": "name",
               "kind": 1024,
               "kindString": "property",
@@ -64,13 +64,13 @@
               "visibility": "private"
             },
             {
-              "id": 8,
+              "id": 5,
               "name": "goto",
               "kind": 4096,
               "kindString": "method",
               "children": [
                 {
-                  "id": 9,
+                  "id": 6,
                   "name": "goto",
                   "kind": 8192,
                   "kindString": "signature",
@@ -95,12 +95,12 @@
               "kindString": "reference",
               "name": "EmptyInterface",
               "typeArguments": [],
-              "target": 5
+              "target": 2
             }
           ]
         },
         {
-          "id": 5,
+          "id": 2,
           "name": "EmptyInterface",
           "kind": 256,
           "kindString": "interface",

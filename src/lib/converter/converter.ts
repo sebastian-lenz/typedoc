@@ -322,11 +322,22 @@ export class Converter extends EventEmitter<ConverterEventMap> {
       return new UnknownType(typeOrNode.getText());
     }
 
+    // IgnoreErrors is important, without it, we can't assert that we will get a node.
+    const node = this._checker.typeToTypeNode(
+      typeOrNode,
+      void 0,
+      ts.NodeBuilderFlags.IgnoreErrors
+    );
+    assert(node); // According to the TS source of typeToString, this is a bug if it does not hold.
+
     // HACK: This ought not be necessary, but we need some way to discover recursively
     // typed symbols. See the `recursive` symbol in the variables test.
     const symbol = typeOrNode.getSymbol();
     if (symbol) {
-      if (this._seenTypeSymbols.has(symbol)) {
+      if (
+        node.kind !== ts.SyntaxKind.TypeReference &&
+        this._seenTypeSymbols.has(symbol)
+      ) {
         const typeString = this._checker.typeToString(typeOrNode);
         this.logger.verbose(
           `Refusing to recurse when converting type: ${typeString}`
@@ -336,17 +347,11 @@ export class Converter extends EventEmitter<ConverterEventMap> {
       this._seenTypeSymbols.add(symbol);
     }
 
-    // IgnoreErrors is important, without it, we can't assert that we will get a node.
-    const node = this._checker.typeToTypeNode(
-      typeOrNode,
-      void 0,
-      ts.NodeBuilderFlags.IgnoreErrors
-    );
-    assert(node); // According to the TS source of typeToString, this is a bug if it does not hold.
-
     const converter = this._typeNodeConverters.get(node.kind);
     if (converter) {
-      return converter.convertType(this, typeOrNode, node);
+      const result = converter.convertType(this, typeOrNode, node);
+      if (symbol) this._seenTypeSymbols.delete(symbol);
+      return result;
     }
 
     this.logger.warn(
