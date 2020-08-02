@@ -135,7 +135,9 @@ export class HostLinkResolver {
     }
 
     host = this._tryCreateHost(file);
+
     if (host) {
+      this.hosts.push(host);
       return host.createLink(file, line);
     }
 
@@ -160,7 +162,7 @@ export class HostLinkResolver {
     const files = shell
       .exec("git ls-files")
       .split("\n")
-      .map((file) => join(repoRoot.trim(), file));
+      .map((file) => join(repoRoot.trim(), file).replace(/\\/g, "/"));
 
     shell.popd();
 
