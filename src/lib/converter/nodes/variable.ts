@@ -11,12 +11,14 @@ export const variableConverter: ReflectionConverter<
     const defaultValue = node.initializer?.getText();
 
     // TODO: Possibly convert as a function.
-    return new VariableReflection(
+    const reflection = new VariableReflection(
       symbol.name,
       context.converter.convertType(
         node.type ?? context.checker.getTypeOfSymbolAtLocation(symbol, node)
       ),
       defaultValue
     );
+    context.project.registerReflection(reflection, symbol);
+    return reflection;
   },
 };

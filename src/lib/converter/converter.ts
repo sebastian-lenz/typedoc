@@ -81,6 +81,10 @@ export class Converter extends EventEmitter<ConverterEventMap> {
   private _project?: ProjectReflection;
   private _reflectionConverters = new Map<ts.SyntaxKind, ReflectionConverter>();
   private _typeNodeConverters = new Map<ts.SyntaxKind, TypeConverter>();
+  // HACK: This shouldn't be necessary... but right now recursive inferred types
+  // can't be properly dealt with. Used to convert recursive types into unknown
+  // types.
+  private _seenTypeSymbols = new WeakSet<ts.Symbol>();
 
   constructor(readonly application: Application) {
     super();
@@ -119,7 +123,7 @@ export class Converter extends EventEmitter<ConverterEventMap> {
         compilerOptions.rootDir ??
         getCommonDirectory(program.getRootFileNames())
     );
-    this._checker = program.getTypeChecker();
+    const checker = (this._checker = program.getTypeChecker());
 
     const { name, readme } = await discoverProjectInfo(
       rootDir,
@@ -146,16 +150,22 @@ export class Converter extends EventEmitter<ConverterEventMap> {
         continue;
       }
 
+      const fileSymbol = this.getSourceFileSymbol(file, checker);
+      if (!fileSymbol) {
+        this.logger.error(`Provided entry point ${entry} is not a module.`);
+        continue;
+      }
+
       const name = relative(rootDir, file.fileName)
         .replace(/(\.d)?\.[tj]sx?$/, "")
         .replace(/\\/g, "/");
 
       const moduleReflection = new ModuleReflection(name);
       moduleReflection.comment = getCommentForNodes([file]);
+      project.registerReflection(moduleReflection, fileSymbol);
       project.addChild(moduleReflection);
       await this.emit(Converter.EVENT_MODULE_CREATED, moduleReflection, file);
 
-      const checker = program.getTypeChecker();
       const exportSymbols = this.getExportsOfModule(
         file,
         checker
@@ -263,7 +273,6 @@ export class Converter extends EventEmitter<ConverterEventMap> {
       }
       const child = await converter.convert(context, symbol, nodes);
       child.comment = getCommentForNodes(nodes);
-      this.project.registerReflection(child, symbol);
       child.name = overrideName ?? child.name;
       // TS isn't smart enough to know this is safe. The converters are carefully structured so that it is.
       context.container.addChild(child as any);
@@ -282,6 +291,7 @@ export class Converter extends EventEmitter<ConverterEventMap> {
     ) {
       this.logger.verbose("TODO Fix convertTypeOrObject");
       return new ObjectReflection("TODO", [], [], []);
+      // register
     }
 
     return this.convertType(typeOrNode);
@@ -310,6 +320,20 @@ export class Converter extends EventEmitter<ConverterEventMap> {
         })`
       );
       return new UnknownType(typeOrNode.getText());
+    }
+
+    // HACK: This ought not be necessary, but we need some way to discover recursively
+    // typed symbols. See the `recursive` symbol in the variables test.
+    const symbol = typeOrNode.getSymbol();
+    if (symbol) {
+      if (this._seenTypeSymbols.has(symbol)) {
+        const typeString = this._checker.typeToString(typeOrNode);
+        this.logger.verbose(
+          `Refusing to recurse when converting type: ${typeString}`
+        );
+        return new UnknownType(typeString);
+      }
+      this._seenTypeSymbols.add(symbol);
     }
 
     // IgnoreErrors is important, without it, we can't assert that we will get a node.
@@ -346,8 +370,7 @@ export class Converter extends EventEmitter<ConverterEventMap> {
       : symbol;
   }
 
-  private getExportsOfModule(file: ts.SourceFile, checker: ts.TypeChecker) {
-    // If this is a normal TS file using ES2015 modules, use the type checker.
+  private getSourceFileSymbol(file: ts.SourceFile, checker: ts.TypeChecker) {
     let symbol = checker.getSymbolAtLocation(file);
 
     if (!symbol && file.flags & ts.NodeFlags.JavaScriptFile) {
@@ -356,7 +379,11 @@ export class Converter extends EventEmitter<ConverterEventMap> {
       symbol = (file as any).symbol;
     }
 
-    // Otherwise this isn't a module it is global and thus has no exports.
+    return symbol;
+  }
+
+  private getExportsOfModule(file: ts.SourceFile, checker: ts.TypeChecker) {
+    const symbol = this.getSourceFileSymbol(file, checker);
     return symbol ? checker.getExportsOfModule(symbol) : [];
   }
 }

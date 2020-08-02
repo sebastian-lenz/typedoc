@@ -17,7 +17,7 @@
           "kindString": "class",
           "children": [
             {
-              "id": 7,
+              "id": 6,
               "name": "foo",
               "kind": 1024,
               "kindString": "property",
@@ -29,7 +29,7 @@
               "visibility": "private"
             },
             {
-              "id": 6,
+              "id": 7,
               "name": "render",
               "kind": 4096,
               "kindString": "method",

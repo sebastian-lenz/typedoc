@@ -7,11 +7,12 @@
     {
       "name": "Debug rebuild_specs",
       "program": "${workspaceFolder}/scripts/rebuild_specs.js",
-      "args": ["converter", "mixin"],
+      "args": ["converter", "variables"],
       "request": "launch",
       "skipFiles": ["<node_internals>/**"],
-      "type": "pwa-node",
-      "outputCapture": "console"
+      "type": "node",
+      "outputCapture": "console",
+      "sourceMaps": true
     },
     {
       "type": "node",

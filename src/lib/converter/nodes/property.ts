@@ -18,23 +18,27 @@ export const propertyConverter: ReflectionConverter<
     // class Foo { bar = () => this.something }
     if (node.initializer && ts.isArrowFunction(node.initializer)) {
       const container = new MethodReflection(symbol.name, getVisibility(node));
+      context.project.registerReflection(container, symbol);
       container.addChild(
         await convertSignatureDeclaration(
           context.converter,
           symbol.name,
-          node.initializer
+          node.initializer,
+          symbol
         )
       );
       return container;
     }
 
-    return new PropertyReflection(
+    const property = new PropertyReflection(
       symbol.name,
       await context.converter.convertTypeOrObject(
         node.type ?? context.checker.getTypeOfSymbolAtLocation(symbol, node)
       ),
       getVisibility(node)
     );
+    context.project.registerReflection(property, symbol);
+    return property;
   },
 };
 
@@ -49,7 +53,7 @@ export const accessorConverter: ReflectionConverter<
       (decl) => decl.kind === ts.SyntaxKind.SetAccessor
     );
 
-    return new DynamicPropertyReflection(
+    const property = new DynamicPropertyReflection(
       symbol.name,
       await context.converter.convertTypeOrObject(
         node.type ?? context.checker.getTypeOfSymbolAtLocation(symbol, node)
@@ -58,6 +62,8 @@ export const accessorConverter: ReflectionConverter<
       hasGetter,
       hasSetter
     );
+    context.project.registerReflection(property, symbol);
+    return property;
   },
 };
 
@@ -68,12 +74,14 @@ export const parameterPropertyConverter: ReflectionConverter<
 > = {
   kind: [ts.SyntaxKind.Parameter],
   async convert(context, symbol, [node]) {
-    return new PropertyReflection(
+    const property = new PropertyReflection(
       symbol.name,
       await context.converter.convertTypeOrObject(
         node.type ?? context.checker.getTypeOfSymbolAtLocation(symbol, node)
       ),
       getVisibility(node)
     );
+    context.project.registerReflection(property, symbol);
+    return property;
   },
 };

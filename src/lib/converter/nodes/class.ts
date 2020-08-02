@@ -19,7 +19,13 @@ export const classConverter: ReflectionConverter<
       signatureSymbol
         ?.getDeclarations()
         ?.filter(ts.isCallSignatureDeclaration) ?? [],
-      (node) => convertSignatureDeclaration(context.converter, "__call", node)
+      (node) =>
+        convertSignatureDeclaration(
+          context.converter,
+          "__call",
+          node,
+          signatureSymbol as ts.Symbol
+        )
     );
 
     const constructSymbol = symbol.members?.get("__new" as ts.__String);
@@ -27,7 +33,13 @@ export const classConverter: ReflectionConverter<
       constructSymbol
         ?.getDeclarations()
         ?.filter(ts.isCallSignatureDeclaration) ?? [],
-      (node) => convertSignatureDeclaration(context.converter, "__new", node)
+      (node) =>
+        convertSignatureDeclaration(
+          context.converter,
+          "__new",
+          node,
+          constructSymbol as ts.Symbol
+        )
     );
 
     const implementsClause = node.heritageClauses?.find(
@@ -76,6 +88,7 @@ export const classConverter: ReflectionConverter<
       implementedTypes,
       extendedType
     );
+    context.project.registerReflection(reflection, symbol);
 
     await context.convertChildren(members, reflection);
 

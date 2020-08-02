@@ -28,7 +28,7 @@
           },
           "children": [
             {
-              "id": 11,
+              "id": 9,
               "name": "fakePrivateVariable",
               "kind": 1024,
               "kindString": "property",
@@ -51,7 +51,7 @@
               "visibility": "public"
             },
             {
-              "id": 12,
+              "id": 10,
               "name": "fakeProtectedVariable",
               "kind": 1024,
               "kindString": "property",
@@ -74,7 +74,7 @@
               "visibility": "public"
             },
             {
-              "id": 9,
+              "id": 11,
               "name": "fakePrivateFunction",
               "kind": 4096,
               "kindString": "method",
@@ -91,7 +91,7 @@
               },
               "children": [
                 {
-                  "id": 13,
+                  "id": 12,
                   "name": "fakePrivateFunction",
                   "kind": 8192,
                   "kindString": "signature",
@@ -118,7 +118,7 @@
               "visibility": "public"
             },
             {
-              "id": 10,
+              "id": 13,
               "name": "fakeProtectedFunction",
               "kind": 4096,
               "kindString": "method",
@@ -308,13 +308,13 @@
       "kindString": "module",
       "children": [
         {
-          "id": 30,
+          "id": 39,
           "name": "TestSubClass",
           "kind": 4,
           "kindString": "namespace",
           "children": [
             {
-              "id": 31,
+              "id": 40,
               "name": "staticMergedMethod",
               "kind": 64,
               "kindString": "function",
@@ -325,7 +325,7 @@
               },
               "children": [
                 {
-                  "id": 36,
+                  "id": 41,
                   "name": "staticMergedMethod",
                   "kind": 8192,
                   "kindString": "signature",
@@ -401,7 +401,7 @@
           "kindString": "class",
           "children": [
             {
-              "id": 44,
+              "id": 43,
               "name": "myAbstractProperty",
               "kind": 1024,
               "kindString": "property",
@@ -413,7 +413,7 @@
               "visibility": "public"
             },
             {
-              "id": 43,
+              "id": 44,
               "name": "myAbstractMethod",
               "kind": 4096,
               "kindString": "method",
@@ -433,7 +433,7 @@
           "kindString": "class",
           "children": [
             {
-              "id": 47,
+              "id": 46,
               "name": "myAbstractProperty",
               "kind": 1024,
               "kindString": "property",
@@ -445,7 +445,7 @@
               "visibility": "public"
             },
             {
-              "id": 46,
+              "id": 47,
               "name": "myAbstractMethod",
               "kind": 4096,
               "kindString": "method",
@@ -497,7 +497,7 @@
           },
           "children": [
             {
-              "id": 22,
+              "id": 18,
               "name": "privateProperty",
               "kind": 1024,
               "kindString": "property",
@@ -518,7 +518,7 @@
               "visibility": "private"
             },
             {
-              "id": 21,
+              "id": 17,
               "name": "publicProperty",
               "kind": 1024,
               "kindString": "property",
@@ -535,7 +535,7 @@
               "visibility": "public"
             },
             {
-              "id": 23,
+              "id": 27,
               "name": "getterOnly",
               "kind": 2048,
               "kindString": "accessor",
@@ -549,7 +549,7 @@
               }
             },
             {
-              "id": 24,
+              "id": 28,
               "name": "getterSetter",
               "kind": 2048,
               "kindString": "accessor",
@@ -563,7 +563,7 @@
               }
             },
             {
-              "id": 25,
+              "id": 29,
               "name": "setterOnly",
               "kind": 2048,
               "kindString": "accessor",
@@ -577,7 +577,7 @@
               }
             },
             {
-              "id": 20,
+              "id": 25,
               "name": "arrowMethod",
               "kind": 4096,
               "kindString": "method",
@@ -588,7 +588,7 @@
               },
               "children": [
                 {
-                  "id": 29,
+                  "id": 26,
                   "name": "arrowMethod",
                   "kind": 8192,
                   "kindString": "signature",
@@ -604,7 +604,7 @@
               "visibility": "public"
             },
             {
-              "id": 19,
+              "id": 23,
               "name": "privateMethod",
               "kind": 4096,
               "kindString": "method",
@@ -615,7 +615,7 @@
               },
               "children": [
                 {
-                  "id": 28,
+                  "id": 24,
                   "name": "privateMethod",
                   "kind": 8192,
                   "kindString": "signature",
@@ -636,7 +636,7 @@
               "visibility": "private"
             },
             {
-              "id": 18,
+              "id": 21,
               "name": "protectedMethod",
               "kind": 4096,
               "kindString": "method",
@@ -653,7 +653,7 @@
               },
               "children": [
                 {
-                  "id": 27,
+                  "id": 22,
                   "name": "protectedMethod",
                   "kind": 8192,
                   "kindString": "signature",
@@ -680,7 +680,7 @@
               "visibility": "protected"
             },
             {
-              "id": 17,
+              "id": 19,
               "name": "publicMethod",
               "kind": 4096,
               "kindString": "method",
@@ -697,7 +697,7 @@
               },
               "children": [
                 {
-                  "id": 26,
+                  "id": 20,
                   "name": "publicMethod",
                   "kind": 8192,
                   "kindString": "signature",
@@ -730,13 +730,13 @@
           "implementedTypes": []
         },
         {
-          "id": 32,
+          "id": 30,
           "name": "TestSubClass",
           "kind": 128,
           "kindString": "class",
           "children": [
             {
-              "id": 37,
+              "id": 35,
               "name": "p2",
               "kind": 1024,
               "kindString": "property",
@@ -748,7 +748,7 @@
               "visibility": "private"
             },
             {
-              "id": 38,
+              "id": 36,
               "name": "p3",
               "kind": 1024,
               "kindString": "property",
@@ -760,7 +760,7 @@
               "visibility": "public"
             },
             {
-              "id": 39,
+              "id": 37,
               "name": "p4",
               "kind": 1024,
               "kindString": "property",
@@ -772,7 +772,7 @@
               "visibility": "public"
             },
             {
-              "id": 35,
+              "id": 38,
               "name": "mergedMethod",
               "kind": 4096,
               "kindString": "method",
@@ -785,7 +785,7 @@
               "visibility": "public"
             },
             {
-              "id": 34,
+              "id": 33,
               "name": "protectedMethod",
               "kind": 4096,
               "kindString": "method",
@@ -796,7 +796,7 @@
               },
               "children": [
                 {
-                  "id": 41,
+                  "id": 34,
                   "name": "protectedMethod",
                   "kind": 8192,
                   "kindString": "signature",
@@ -817,7 +817,7 @@
               "visibility": "protected"
             },
             {
-              "id": 33,
+              "id": 31,
               "name": "publicMethod",
               "kind": 4096,
               "kindString": "method",
@@ -828,7 +828,7 @@
               },
               "children": [
                 {
-                  "id": 40,
+                  "id": 32,
                   "name": "publicMethod",
                   "kind": 8192,
                   "kindString": "signature",
@@ -899,13 +899,13 @@
       "kindString": "module",
       "children": [
         {
-          "id": 56,
+          "id": 57,
           "name": "Foo",
           "kind": 4,
           "kindString": "namespace",
           "children": [
             {
-              "id": 57,
+              "id": 58,
               "name": "x",
               "kind": 32,
               "kindString": "variable",
@@ -933,11 +933,11 @@
             "kindString": "reference",
             "name": "Foo",
             "typeArguments": [],
-            "target": 58
+            "target": 56
           }
         },
         {
-          "id": 58,
+          "id": 56,
           "name": "Foo",
           "kind": 128,
           "kindString": "class",

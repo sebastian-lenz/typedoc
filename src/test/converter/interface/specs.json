@@ -52,7 +52,7 @@
           },
           "children": [
             {
-              "id": 8,
+              "id": 7,
               "name": "name",
               "kind": 1024,
               "kindString": "property",
@@ -64,7 +64,7 @@
               "visibility": "private"
             },
             {
-              "id": 7,
+              "id": 8,
               "name": "goto",
               "kind": 4096,
               "kindString": "method",
@@ -130,7 +130,7 @@
           "kindString": "namespace",
           "children": [
             {
-              "id": 23,
+              "id": 33,
               "name": "EventDispatcher",
               "kind": 128,
               "kindString": "class",
@@ -147,7 +147,7 @@
               },
               "children": [
                 {
-                  "id": 36,
+                  "id": 34,
                   "name": "subscriptions",
                   "kind": 1024,
                   "kindString": "property",
@@ -166,25 +166,25 @@
                           "typeArguments": []
                         }
                       ],
-                      "target": 13
+                      "target": 15
                     }
                   },
                   "visibility": "private"
                 },
                 {
-                  "id": 24,
+                  "id": 35,
                   "name": "add",
                   "kind": 4096,
                   "kindString": "method",
                   "children": [
                     {
-                      "id": 46,
+                      "id": 39,
                       "name": "add",
                       "kind": 8192,
                       "kindString": "signature",
                       "parameters": [
                         {
-                          "id": 39,
+                          "id": 36,
                           "name": "listener",
                           "kind": 16384,
                           "kindString": "parameter",
@@ -200,11 +200,11 @@
                                 "typeArguments": []
                               }
                             ],
-                            "target": 49
+                            "target": 14
                           }
                         },
                         {
-                          "id": 40,
+                          "id": 37,
                           "name": "filter",
                           "kind": 16384,
                           "kindString": "parameter",
@@ -216,7 +216,7 @@
                           "defaultValue": "null"
                         },
                         {
-                          "id": 41,
+                          "id": 38,
                           "name": "priority",
                           "kind": 16384,
                           "kindString": "parameter",
@@ -241,20 +241,20 @@
                             "typeArguments": []
                           }
                         ],
-                        "target": 13
+                        "target": 15
                       }
                     }
                   ],
                   "visibility": "public"
                 },
                 {
-                  "id": 27,
+                  "id": 46,
                   "name": "clear",
                   "kind": 4096,
                   "kindString": "method",
                   "children": [
                     {
-                      "id": 44,
+                      "id": 47,
                       "name": "clear",
                       "kind": 8192,
                       "kindString": "signature",
@@ -270,19 +270,19 @@
                   "visibility": "public"
                 },
                 {
-                  "id": 26,
+                  "id": 43,
                   "name": "dispatch",
                   "kind": 4096,
                   "kindString": "method",
                   "children": [
                     {
-                      "id": 48,
+                      "id": 45,
                       "name": "dispatch",
                       "kind": 8192,
                       "kindString": "signature",
                       "parameters": [
                         {
-                          "id": 43,
+                          "id": 44,
                           "name": "event",
                           "kind": 16384,
                           "kindString": "parameter",
@@ -305,13 +305,13 @@
                   "visibility": "public"
                 },
                 {
-                  "id": 28,
+                  "id": 48,
                   "name": "hasListeners",
                   "kind": 4096,
                   "kindString": "method",
                   "children": [
                     {
-                      "id": 45,
+                      "id": 49,
                       "name": "hasListeners",
                       "kind": 8192,
                       "kindString": "signature",
@@ -327,19 +327,19 @@
                   "visibility": "public"
                 },
                 {
-                  "id": 25,
+                  "id": 40,
                   "name": "remove",
                   "kind": 4096,
                   "kindString": "method",
                   "children": [
                     {
-                      "id": 47,
+                      "id": 42,
                       "name": "remove",
                       "kind": 8192,
                       "kindString": "signature",
                       "parameters": [
                         {
-                          "id": 42,
+                          "id": 41,
                           "name": "subscription",
                           "kind": 16384,
                           "kindString": "parameter",
@@ -355,7 +355,7 @@
                                 "typeArguments": []
                               }
                             ],
-                            "target": 13
+                            "target": 15
                           }
                         }
                       ],
@@ -392,18 +392,18 @@
                       "typeArguments": []
                     }
                   ],
-                  "target": 17
+                  "target": 27
                 }
               ]
             },
             {
-              "id": 15,
+              "id": 20,
               "name": "Subscription",
               "kind": 128,
               "kindString": "class",
               "children": [
                 {
-                  "id": 35,
+                  "id": 24,
                   "name": "dispatcher",
                   "kind": 1024,
                   "kindString": "property",
@@ -419,12 +419,12 @@
                         "typeArguments": []
                       }
                     ],
-                    "target": 23
+                    "target": 33
                   },
                   "visibility": "public"
                 },
                 {
-                  "id": 33,
+                  "id": 22,
                   "name": "filter",
                   "kind": 1024,
                   "kindString": "property",
@@ -436,7 +436,7 @@
                   "visibility": "public"
                 },
                 {
-                  "id": 32,
+                  "id": 21,
                   "name": "listener",
                   "kind": 1024,
                   "kindString": "property",
@@ -452,12 +452,12 @@
                         "typeArguments": []
                       }
                     ],
-                    "target": 49
+                    "target": 14
                   },
                   "visibility": "public"
                 },
                 {
-                  "id": 34,
+                  "id": 23,
                   "name": "priority",
                   "kind": 1024,
                   "kindString": "property",
@@ -469,13 +469,13 @@
                   "visibility": "public"
                 },
                 {
-                  "id": 16,
+                  "id": 25,
                   "name": "unsubscribe",
                   "kind": 4096,
                   "kindString": "method",
                   "children": [
                     {
-                      "id": 38,
+                      "id": 26,
                       "name": "unsubscribe",
                       "kind": 8192,
                       "kindString": "signature",
@@ -513,12 +513,12 @@
                       "typeArguments": []
                     }
                   ],
-                  "target": 13
+                  "target": 15
                 }
               ]
             },
             {
-              "id": 17,
+              "id": 27,
               "name": "EventDispatcherInt",
               "kind": 256,
               "kindString": "interface",
@@ -529,7 +529,7 @@
               },
               "children": [
                 {
-                  "id": 18,
+                  "id": 28,
                   "name": "add",
                   "kind": 4096,
                   "kindString": "method",
@@ -537,7 +537,7 @@
                   "visibility": "public"
                 },
                 {
-                  "id": 21,
+                  "id": 31,
                   "name": "clear",
                   "kind": 4096,
                   "kindString": "method",
@@ -545,7 +545,7 @@
                   "visibility": "public"
                 },
                 {
-                  "id": 20,
+                  "id": 30,
                   "name": "dispatch",
                   "kind": 4096,
                   "kindString": "method",
@@ -553,7 +553,7 @@
                   "visibility": "public"
                 },
                 {
-                  "id": 22,
+                  "id": 32,
                   "name": "hasListeners",
                   "kind": 4096,
                   "kindString": "method",
@@ -561,7 +561,7 @@
                   "visibility": "public"
                 },
                 {
-                  "id": 19,
+                  "id": 29,
                   "name": "remove",
                   "kind": 4096,
                   "kindString": "method",
@@ -581,7 +581,7 @@
               "extendedTypes": []
             },
             {
-              "id": 49,
+              "id": 14,
               "name": "EventListener",
               "kind": 256,
               "kindString": "interface",
@@ -593,7 +593,7 @@
               "children": [],
               "signatures": [
                 {
-                  "id": 37,
+                  "id": 13,
                   "name": "__call",
                   "kind": 8192,
                   "kindString": "signature",
@@ -630,7 +630,7 @@
               "extendedTypes": []
             },
             {
-              "id": 13,
+              "id": 15,
               "name": "SubscriptionInt",
               "kind": 256,
               "kindString": "interface",
@@ -641,7 +641,7 @@
               },
               "children": [
                 {
-                  "id": 31,
+                  "id": 18,
                   "name": "filter",
                   "kind": 1024,
                   "kindString": "property",
@@ -653,7 +653,7 @@
                   "visibility": "public"
                 },
                 {
-                  "id": 29,
+                  "id": 16,
                   "name": "listener",
                   "kind": 1024,
                   "kindString": "property",
@@ -669,12 +669,12 @@
                         "typeArguments": []
                       }
                     ],
-                    "target": 49
+                    "target": 14
                   },
                   "visibility": "public"
                 },
                 {
-                  "id": 30,
+                  "id": 17,
                   "name": "priority",
                   "kind": 1024,
                   "kindString": "property",
@@ -686,7 +686,7 @@
                   "visibility": "public"
                 },
                 {
-                  "id": 14,
+                  "id": 19,
                   "name": "unsubscribe",
                   "kind": 4096,
                   "kindString": "method",

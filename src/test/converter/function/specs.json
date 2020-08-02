@@ -11,7 +11,7 @@
       "kindString": "module",
       "children": [
         {
-          "id": 27,
+          "id": 29,
           "name": "moduleFunction",
           "kind": 4,
           "kindString": "namespace",
@@ -22,7 +22,7 @@
           },
           "children": [
             {
-              "id": 28,
+              "id": 30,
               "name": "append",
               "kind": 64,
               "kindString": "function",
@@ -53,7 +53,7 @@
               ]
             },
             {
-              "id": 29,
+              "id": 32,
               "name": "prepend",
               "kind": 64,
               "kindString": "function",
@@ -64,7 +64,7 @@
               },
               "children": [
                 {
-                  "id": 32,
+                  "id": 33,
                   "name": "prepend",
                   "kind": 8192,
                   "kindString": "signature",
@@ -806,7 +806,7 @@
           },
           "children": [
             {
-              "id": 33,
+              "id": 28,
               "name": "moduleFunction",
               "kind": 8192,
               "kindString": "signature",
@@ -823,7 +823,7 @@
               },
               "parameters": [
                 {
-                  "id": 30,
+                  "id": 27,
                   "name": "arg",
                   "kind": 16384,
                   "kindString": "parameter",
@@ -866,7 +866,7 @@
           },
           "children": [
             {
-              "id": 24,
+              "id": 22,
               "name": "multipleSignatures",
               "kind": 8192,
               "kindString": "signature",
@@ -883,7 +883,7 @@
               },
               "parameters": [
                 {
-                  "id": 22,
+                  "id": 21,
                   "name": "value",
                   "kind": 16384,
                   "kindString": "parameter",
@@ -924,12 +924,12 @@
               },
               "parameters": [
                 {
-                  "id": 23,
+                  "id": 24,
                   "name": "value",
                   "kind": 16384,
                   "kindString": "parameter",
                   "type": {
-                    "id": 21,
+                    "id": 23,
                     "name": "TODO",
                     "kind": 512,
                     "kindString": "object",

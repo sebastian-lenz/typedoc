@@ -9,7 +9,8 @@ import { waterfall } from "../../utils/array";
 export async function convertSignatureDeclaration(
   converter: Converter,
   name: string,
-  node: ts.SignatureDeclaration
+  node: ts.SignatureDeclaration,
+  symbol: ts.Symbol
 ): Promise<SignatureReflection> {
   const signature = converter.checker.getSignatureFromDeclaration(node);
   assert(
@@ -53,6 +54,7 @@ export async function convertSignatureDeclaration(
     parameters,
     typeParameters
   );
+  converter.project.registerReflection(reflection, symbol);
   reflection.parameters.forEach((param) => (param.parent = reflection));
   // Since we don't go through the converter, we have to set our own comment.
   reflection.comment = getCommentForNodes([node]);

@@ -9,6 +9,7 @@ export const namespaceConverter: ReflectionConverter<
   kind: [ts.SyntaxKind.ModuleDeclaration],
   async convert(context, symbol) {
     const namespace = new NamespaceReflection(symbol.name);
+    context.project.registerReflection(namespace, symbol);
 
     await context.convertChildren(
       context.getExportsWithFlag(symbol, ts.SymbolFlags.ModuleMember),

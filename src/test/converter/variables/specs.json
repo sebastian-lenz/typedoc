@@ -268,16 +268,448 @@
       "name": "literal",
       "kind": 2,
       "kindString": "module",
-      "children": []
+      "children": [
+        {
+          "id": 12,
+          "name": "objectLiteral",
+          "kind": 32,
+          "kindString": "variable",
+          "comment": {
+            "shortText": "An object literal.",
+            "text": "",
+            "tags": []
+          },
+          "type": {
+            "kind": 64,
+            "kindString": "object",
+            "properties": [
+              {
+                "kind": 128,
+                "kindString": "property",
+                "name": "valueZ",
+                "isReadonly": false,
+                "isOptional": false,
+                "propertyType": {
+                  "kind": 32,
+                  "kindString": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "kind": 128,
+                "kindString": "property",
+                "name": "valueY",
+                "isReadonly": false,
+                "isOptional": false,
+                "propertyType": {
+                  "kind": 2048,
+                  "kindString": "signature",
+                  "typeParameters": [],
+                  "parameters": [],
+                  "returnType": {
+                    "kind": 32,
+                    "kindString": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              },
+              {
+                "kind": 128,
+                "kindString": "property",
+                "name": "valueX",
+                "isReadonly": false,
+                "isOptional": false,
+                "propertyType": {
+                  "kind": 64,
+                  "kindString": "object",
+                  "properties": [
+                    {
+                      "kind": 128,
+                      "kindString": "property",
+                      "name": "valueZ",
+                      "isReadonly": false,
+                      "isOptional": false,
+                      "propertyType": {
+                        "kind": 32,
+                        "kindString": "intrinsic",
+                        "name": "string"
+                      }
+                    },
+                    {
+                      "kind": 128,
+                      "kindString": "property",
+                      "name": "valueY",
+                      "isReadonly": false,
+                      "isOptional": false,
+                      "propertyType": {
+                        "kind": 2048,
+                        "kindString": "signature",
+                        "typeParameters": [],
+                        "parameters": [
+                          {
+                            "kind": 8192,
+                            "kindString": "signatureParameter",
+                            "name": "z",
+                            "isOptional": false,
+                            "isRest": false,
+                            "parameterType": {
+                              "kind": 32,
+                              "kindString": "intrinsic",
+                              "name": "string"
+                            }
+                          }
+                        ],
+                        "returnType": {
+                          "kind": 64,
+                          "kindString": "object",
+                          "properties": [
+                            {
+                              "kind": 128,
+                              "kindString": "property",
+                              "name": "a",
+                              "isReadonly": false,
+                              "isOptional": false,
+                              "propertyType": {
+                                "kind": 32,
+                                "kindString": "intrinsic",
+                                "name": "string"
+                              }
+                            },
+                            {
+                              "kind": 128,
+                              "kindString": "property",
+                              "name": "b",
+                              "isReadonly": false,
+                              "isOptional": false,
+                              "propertyType": {
+                                "kind": 32,
+                                "kindString": "intrinsic",
+                                "name": "string"
+                              }
+                            }
+                          ],
+                          "signatures": [],
+                          "constructSignatures": []
+                        }
+                      }
+                    },
+                    {
+                      "kind": 128,
+                      "kindString": "property",
+                      "name": "valueA",
+                      "isReadonly": false,
+                      "isOptional": false,
+                      "propertyType": {
+                        "kind": 1,
+                        "kindString": "array",
+                        "elementType": {
+                          "kind": 1024,
+                          "kindString": "reference",
+                          "name": "T",
+                          "typeArguments": []
+                        }
+                      }
+                    }
+                  ],
+                  "signatures": [],
+                  "constructSignatures": []
+                }
+              },
+              {
+                "kind": 128,
+                "kindString": "property",
+                "name": "valueA",
+                "isReadonly": false,
+                "isOptional": false,
+                "propertyType": {
+                  "kind": 32,
+                  "kindString": "intrinsic",
+                  "name": "number"
+                }
+              },
+              {
+                "kind": 128,
+                "kindString": "property",
+                "name": "valueB",
+                "isReadonly": false,
+                "isOptional": false,
+                "propertyType": {
+                  "kind": 32,
+                  "kindString": "intrinsic",
+                  "name": "boolean"
+                }
+              },
+              {
+                "kind": 128,
+                "kindString": "property",
+                "name": "__@toStringTag",
+                "isReadonly": false,
+                "isOptional": false,
+                "propertyType": {
+                  "kind": 32,
+                  "kindString": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "kind": 128,
+                "kindString": "property",
+                "name": "literal",
+                "isReadonly": false,
+                "isOptional": false,
+                "propertyType": {
+                  "kind": 32,
+                  "kindString": "intrinsic",
+                  "name": "boolean"
+                }
+              },
+              {
+                "kind": 128,
+                "kindString": "property",
+                "name": "literal2",
+                "isReadonly": false,
+                "isOptional": false,
+                "propertyType": {
+                  "kind": 32,
+                  "kindString": "intrinsic",
+                  "name": "boolean"
+                }
+              }
+            ],
+            "signatures": [],
+            "constructSignatures": []
+          },
+          "defaultValue": "{\n  valueZ: \"foo\",\n  valueY: function () {\n    return \"foo\";\n  },\n  valueX: {\n    valueZ: \"foo\",\n    valueY: (z: string) => {\n      return { a: \"test\", b: z };\n    },\n    valueA: [100, 200, 300],\n  },\n  valueA: 100,\n  valueB: true,\n  [Symbol.toStringTag]: \"computed\",\n  [x]: true,\n  [\"literal2\"]: true,\n}"
+        },
+        {
+          "id": 13,
+          "name": "recursive",
+          "kind": 32,
+          "kindString": "variable",
+          "type": {
+            "kind": 64,
+            "kindString": "object",
+            "properties": [
+              {
+                "kind": 128,
+                "kindString": "property",
+                "name": "property",
+                "isReadonly": false,
+                "isOptional": false,
+                "propertyType": {
+                  "kind": 2048,
+                  "kindString": "signature",
+                  "typeParameters": [],
+                  "parameters": [],
+                  "returnType": {
+                    "kind": 524288,
+                    "kindString": "unknown",
+                    "name": "{ property: () => ...; }"
+                  }
+                }
+              }
+            ],
+            "signatures": [],
+            "constructSignatures": []
+          },
+          "defaultValue": "{\n  property: () => recursive,\n}"
+        },
+        {
+          "id": 14,
+          "name": "typeLiteral",
+          "kind": 32,
+          "kindString": "variable",
+          "comment": {
+            "shortText": "A typed literal without an initializer.",
+            "text": "",
+            "tags": []
+          },
+          "type": {
+            "kind": 64,
+            "kindString": "object",
+            "properties": [
+              {
+                "kind": 128,
+                "kindString": "property",
+                "name": "valueZ",
+                "isReadonly": false,
+                "isOptional": false,
+                "propertyType": {
+                  "kind": 32,
+                  "kindString": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "kind": 128,
+                "kindString": "property",
+                "name": "valueY",
+                "isReadonly": false,
+                "isOptional": false,
+                "propertyType": {
+                  "kind": 2048,
+                  "kindString": "signature",
+                  "typeParameters": [],
+                  "parameters": [],
+                  "returnType": {
+                    "kind": 32,
+                    "kindString": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              },
+              {
+                "kind": 128,
+                "kindString": "property",
+                "name": "valueX",
+                "isReadonly": false,
+                "isOptional": false,
+                "propertyType": {
+                  "kind": 64,
+                  "kindString": "object",
+                  "properties": [
+                    {
+                      "kind": 128,
+                      "kindString": "property",
+                      "name": "valueZ",
+                      "isReadonly": false,
+                      "isOptional": false,
+                      "propertyType": {
+                        "kind": 32,
+                        "kindString": "intrinsic",
+                        "name": "string"
+                      }
+                    },
+                    {
+                      "kind": 128,
+                      "kindString": "property",
+                      "name": "valueY",
+                      "isReadonly": false,
+                      "isOptional": false,
+                      "propertyType": {
+                        "kind": 2048,
+                        "kindString": "signature",
+                        "typeParameters": [],
+                        "parameters": [
+                          {
+                            "kind": 8192,
+                            "kindString": "signatureParameter",
+                            "name": "z",
+                            "isOptional": false,
+                            "isRest": false,
+                            "parameterType": {
+                              "kind": 32,
+                              "kindString": "intrinsic",
+                              "name": "string"
+                            }
+                          }
+                        ],
+                        "returnType": {
+                          "kind": 64,
+                          "kindString": "object",
+                          "properties": [
+                            {
+                              "kind": 128,
+                              "kindString": "property",
+                              "name": "a",
+                              "isReadonly": false,
+                              "isOptional": false,
+                              "propertyType": {
+                                "kind": 32,
+                                "kindString": "intrinsic",
+                                "name": "string"
+                              }
+                            },
+                            {
+                              "kind": 128,
+                              "kindString": "property",
+                              "name": "b",
+                              "isReadonly": false,
+                              "isOptional": false,
+                              "propertyType": {
+                                "kind": 32,
+                                "kindString": "intrinsic",
+                                "name": "string"
+                              }
+                            }
+                          ],
+                          "signatures": [],
+                          "constructSignatures": []
+                        }
+                      }
+                    },
+                    {
+                      "kind": 128,
+                      "kindString": "property",
+                      "name": "valueA",
+                      "isReadonly": false,
+                      "isOptional": false,
+                      "propertyType": {
+                        "kind": 1,
+                        "kindString": "array",
+                        "elementType": {
+                          "kind": 32,
+                          "kindString": "intrinsic",
+                          "name": "number"
+                        }
+                      }
+                    }
+                  ],
+                  "signatures": [],
+                  "constructSignatures": []
+                }
+              },
+              {
+                "kind": 128,
+                "kindString": "property",
+                "name": "valueA",
+                "isReadonly": false,
+                "isOptional": true,
+                "propertyType": {
+                  "kind": 32,
+                  "kindString": "intrinsic",
+                  "name": "number"
+                }
+              },
+              {
+                "kind": 128,
+                "kindString": "property",
+                "name": "valueB",
+                "isReadonly": false,
+                "isOptional": true,
+                "propertyType": {
+                  "kind": 32,
+                  "kindString": "intrinsic",
+                  "name": "boolean"
+                }
+              }
+            ],
+            "signatures": [],
+            "constructSignatures": []
+          }
+        },
+        {
+          "id": 15,
+          "name": "x",
+          "kind": 32,
+          "kindString": "variable",
+          "type": {
+            "kind": 16384,
+            "kindString": "literal",
+            "value": "literal"
+          },
+          "defaultValue": "\"literal\""
+        }
+      ]
     },
     {
-      "id": 12,
+      "id": 16,
       "name": "variable",
       "kind": 2,
       "kindString": "module",
       "children": [
         {
-          "id": 13,
+          "id": 17,
           "name": "myConst",
           "kind": 32,
           "kindString": "variable",
@@ -289,7 +721,7 @@
           "defaultValue": "15"
         },
         {
-          "id": 14,
+          "id": 18,
           "name": "myLet",
           "kind": 32,
           "kindString": "variable",
@@ -301,7 +733,7 @@
           "defaultValue": "15"
         },
         {
-          "id": 15,
+          "id": 19,
           "name": "myVar",
           "kind": 32,
           "kindString": "variable",

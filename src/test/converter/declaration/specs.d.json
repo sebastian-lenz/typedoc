@@ -9,16 +9,52 @@
       "name": "declaration",
       "kind": 2,
       "kindString": "module",
-      "children": []
+      "children": [
+        {
+          "id": 2,
+          "name": "Decl",
+          "kind": 128,
+          "kindString": "class",
+          "children": [
+            {
+              "id": 3,
+              "name": "prop",
+              "kind": 1024,
+              "kindString": "property",
+              "type": {
+                "kind": 32,
+                "kindString": "intrinsic",
+                "name": "number"
+              },
+              "visibility": "public"
+            }
+          ],
+          "signatures": [],
+          "constructSignatures": [],
+          "typeParameters": [],
+          "implementedTypes": []
+        },
+        {
+          "id": 4,
+          "name": "x",
+          "kind": 32,
+          "kindString": "variable",
+          "type": {
+            "kind": 32,
+            "kindString": "intrinsic",
+            "name": "number"
+          }
+        }
+      ]
     },
     {
-      "id": 2,
+      "id": 5,
       "name": "export-declaration",
       "kind": 2,
       "kindString": "module",
       "children": [
         {
-          "id": 3,
+          "id": 6,
           "name": "Exported",
           "kind": 128,
           "kindString": "class",
@@ -29,7 +65,7 @@
           "implementedTypes": []
         },
         {
-          "id": 4,
+          "id": 7,
           "name": "NotExported",
           "kind": 128,
           "kindString": "class",

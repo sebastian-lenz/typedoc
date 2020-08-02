@@ -11,6 +11,7 @@ export const enumConverter: ReflectionConverter<
   async convert(context, symbol) {
     const isConst = Boolean(symbol.flags & ts.SymbolFlags.ConstEnum);
     const container = new EnumReflection(symbol.name, isConst);
+    context.project.registerReflection(container, symbol);
 
     await context.convertChildren(
       context.getExportsOfKind(symbol, ts.SyntaxKind.EnumMember),
@@ -32,6 +33,9 @@ export const enumMemberConverter: ReflectionConverter<
       value !== undefined,
       "Failed to get the value of an enum. This is probably a bug."
     );
-    return new EnumMemberReflection(symbol.name, value);
+
+    const member = new EnumMemberReflection(symbol.name, value);
+    context.project.registerReflection(member, symbol);
+    return member;
   },
 };

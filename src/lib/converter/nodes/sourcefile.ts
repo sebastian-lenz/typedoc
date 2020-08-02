@@ -9,6 +9,7 @@ export const sourcefileConverter: ReflectionConverter<
   kind: [ts.SyntaxKind.SourceFile],
   async convert(context, symbol) {
     const namespace = new NamespaceReflection(symbol.name);
+    context.project.registerReflection(namespace, symbol);
     await context.convertChildren(context.getExports(symbol), namespace);
     return namespace;
   },

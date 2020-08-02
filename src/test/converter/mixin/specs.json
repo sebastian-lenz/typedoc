@@ -22,7 +22,7 @@
           },
           "children": [
             {
-              "id": 7,
+              "id": 6,
               "name": "baseProperty",
               "kind": 1024,
               "kindString": "property",
@@ -34,7 +34,7 @@
               "visibility": "public"
             },
             {
-              "id": 6,
+              "id": 7,
               "name": "baseMethod",
               "kind": 4096,
               "kindString": "method",
@@ -73,7 +73,7 @@
           },
           "children": [
             {
-              "id": 17,
+              "id": 16,
               "name": "classWithMixinProperty",
               "kind": 1024,
               "kindString": "property",
@@ -85,7 +85,7 @@
               "visibility": "public"
             },
             {
-              "id": 16,
+              "id": 17,
               "name": "classWithMixinMethod",
               "kind": 4096,
               "kindString": "method",

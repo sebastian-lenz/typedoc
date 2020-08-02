@@ -9,7 +9,7 @@ export const aliasConverter: ReflectionConverter<
 > = {
   kind: [ts.SyntaxKind.TypeAliasDeclaration],
   async convert(context, symbol, [node]) {
-    return new TypeAliasReflection(
+    const alias = new TypeAliasReflection(
       symbol.name,
       await context.converter.convertTypeOrObject(node.type),
       convertTypeParameterDeclarations(
@@ -17,5 +17,7 @@ export const aliasConverter: ReflectionConverter<
         node.typeParameters ?? []
       )
     );
+    context.project.registerReflection(alias, symbol);
+    return alias;
   },
 };

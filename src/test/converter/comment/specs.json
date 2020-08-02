@@ -48,7 +48,7 @@
           },
           "children": [
             {
-              "id": 11,
+              "id": 7,
               "name": "hiddenprop",
               "kind": 1024,
               "kindString": "property",
@@ -71,7 +71,7 @@
               "visibility": "public"
             },
             {
-              "id": 12,
+              "id": 26,
               "name": "ignoredprop",
               "kind": 1024,
               "kindString": "property",
@@ -94,7 +94,7 @@
               "visibility": "public"
             },
             {
-              "id": 10,
+              "id": 6,
               "name": "prop",
               "kind": 1024,
               "kindString": "property",
@@ -111,7 +111,7 @@
               "visibility": "public"
             },
             {
-              "id": 6,
+              "id": 8,
               "name": "hidden",
               "kind": 4096,
               "kindString": "method",
@@ -128,7 +128,7 @@
               },
               "children": [
                 {
-                  "id": 21,
+                  "id": 10,
                   "name": "hidden",
                   "kind": 8192,
                   "kindString": "signature",
@@ -145,7 +145,7 @@
                   },
                   "parameters": [
                     {
-                      "id": 13,
+                      "id": 9,
                       "name": "args",
                       "kind": 16384,
                       "kindString": "parameter",
@@ -171,7 +171,7 @@
               "visibility": "public"
             },
             {
-              "id": 7,
+              "id": 11,
               "name": "hiddenWithImplementation",
               "kind": 4096,
               "kindString": "method",
@@ -188,7 +188,7 @@
               },
               "children": [
                 {
-                  "id": 22,
+                  "id": 13,
                   "name": "hiddenWithImplementation",
                   "kind": 8192,
                   "kindString": "signature",
@@ -205,7 +205,7 @@
                   },
                   "parameters": [
                     {
-                      "id": 14,
+                      "id": 12,
                       "name": "arg",
                       "kind": 16384,
                       "kindString": "parameter",
@@ -227,7 +227,7 @@
               "visibility": "public"
             },
             {
-              "id": 9,
+              "id": 20,
               "name": "mixedHidden",
               "kind": 4096,
               "kindString": "method",
@@ -244,7 +244,7 @@
               },
               "children": [
                 {
-                  "id": 25,
+                  "id": 22,
                   "name": "mixedHidden",
                   "kind": 8192,
                   "kindString": "signature",
@@ -261,7 +261,7 @@
                   },
                   "parameters": [
                     {
-                      "id": 18,
+                      "id": 21,
                       "name": "arg",
                       "kind": 16384,
                       "kindString": "parameter",
@@ -280,7 +280,7 @@
                   }
                 },
                 {
-                  "id": 26,
+                  "id": 25,
                   "name": "mixedHidden",
                   "kind": 8192,
                   "kindString": "signature",
@@ -291,7 +291,7 @@
                   },
                   "parameters": [
                     {
-                      "id": 19,
+                      "id": 23,
                       "name": "arg1",
                       "kind": 16384,
                       "kindString": "parameter",
@@ -302,7 +302,7 @@
                       }
                     },
                     {
-                      "id": 20,
+                      "id": 24,
                       "name": "arg2",
                       "kind": 16384,
                       "kindString": "parameter",
@@ -324,7 +324,7 @@
               "visibility": "public"
             },
             {
-              "id": 8,
+              "id": 14,
               "name": "multipleHidden",
               "kind": 4096,
               "kindString": "method",
@@ -341,7 +341,7 @@
               },
               "children": [
                 {
-                  "id": 23,
+                  "id": 16,
                   "name": "multipleHidden",
                   "kind": 8192,
                   "kindString": "signature",
@@ -377,7 +377,7 @@
                   }
                 },
                 {
-                  "id": 24,
+                  "id": 19,
                   "name": "multipleHidden",
                   "kind": 8192,
                   "kindString": "signature",
@@ -394,7 +394,7 @@
                   },
                   "parameters": [
                     {
-                      "id": 16,
+                      "id": 17,
                       "name": "arg1",
                       "kind": 16384,
                       "kindString": "parameter",
@@ -405,7 +405,7 @@
                       }
                     },
                     {
-                      "id": 17,
+                      "id": 18,
                       "name": "arg2",
                       "kind": 16384,
                       "kindString": "parameter",

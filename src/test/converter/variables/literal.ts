@@ -36,23 +36,8 @@ let typeLiteral: {
   valueB?: boolean;
 };
 
-let onSuccess: any = function () {};
-let onError: any = function () {};
-let onFinally: any = function () {};
-
-const callbackReturn = {
-  success: (successCallback: () => any) => {
-    onSuccess = successCallback;
-    return callbackReturn;
-  },
-  error: (errorCallback: () => any) => {
-    onError = errorCallback;
-    return callbackReturn;
-  },
-  finally: (finallyCallback: () => any) => {
-    onFinally = finallyCallback;
-    return callbackReturn;
-  },
+const recursive = {
+  property: () => recursive,
 };
 
-export { objectLiteral, callbackReturn, typeLiteral, x };
+export { objectLiteral, recursive, typeLiteral, x };

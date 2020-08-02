@@ -22,7 +22,7 @@
           },
           "children": [
             {
-              "id": 12,
+              "id": 13,
               "name": "enumValue",
               "kind": 32,
               "kindString": "variable",
@@ -49,7 +49,7 @@
               },
               "children": [
                 {
-                  "id": 13,
+                  "id": 12,
                   "name": "enumFunction",
                   "kind": 8192,
                   "kindString": "signature",

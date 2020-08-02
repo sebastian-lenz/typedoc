@@ -16,6 +16,7 @@ export const methodConverter: ReflectionConverter<
       symbol.name,
       getVisibility(nodes[0])
     );
+    context.project.registerReflection(container, symbol);
 
     // With overloads, only the signatures without an implementation are "real"
     const includeImplementation = nodes.length === 1;
@@ -27,7 +28,7 @@ export const methodConverter: ReflectionConverter<
     );
 
     const signatures = await waterfall(realNodes, (node) =>
-      convertSignatureDeclaration(context.converter, symbol.name, node)
+      convertSignatureDeclaration(context.converter, symbol.name, node, symbol)
     );
 
     for (const signature of signatures) {
