@@ -6,9 +6,9 @@ import {
   commonLangIds,
   commonLangAliases,
   otherLangIds,
-} from "shiki";
+} from "@gerrit0/shiki";
 // This is bad... but Shiki doesn't export it from the root.
-import type { Highlighter } from "shiki/dist/highlighter";
+import type { Highlighter } from "@gerrit0/shiki/dist/highlighter";
 
 import type { TLang } from "shiki-languages";
 import type { TTheme } from "shiki-themes";
@@ -56,8 +56,12 @@ export class DoubleHighlighter {
       return code;
     }
 
-    const lightTokens = this.light.codeToThemedTokens(code, lang as TLang);
-    const darkTokens = this.dark.codeToThemedTokens(code, lang as TLang);
+    const lightTokens = this.light.codeToThemedTokens(code, lang as TLang, {
+      includeExplanation: false,
+    });
+    const darkTokens = this.dark.codeToThemedTokens(code, lang as TLang, {
+      includeExplanation: false,
+    });
 
     // If this fails... something went *very* wrong.
     assert(lightTokens.length === darkTokens.length);

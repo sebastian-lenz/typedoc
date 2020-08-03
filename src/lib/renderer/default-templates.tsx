@@ -278,7 +278,9 @@ export const DefaultTemplates: Templates = {
           <dl class="comment-tags">
             {comment.tags.map((tag) => (
               <Fragment>
-                <dt>{tag.tagName}</dt>
+                <dt>
+                  {tag.tagName + (tag.paramName ? ` ${tag.paramName}` : "")}
+                </dt>
                 <dd
                   dangerouslySetInnerHTML={{
                     __html: parseMarkdown(tag.text, reflection),
