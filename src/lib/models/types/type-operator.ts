@@ -47,11 +47,4 @@ export class TypeOperatorType extends Type {
 
         return type.target.equals(this.target);
     }
-
-    /**
-     * Return a string representation of this type.
-     */
-    toString() {
-        return `${this.operator} ${this.target.toString()}`;
-    }
 }

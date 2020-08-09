@@ -47,15 +47,4 @@ export class ReflectionType extends Type {
     equals(type: ReflectionType): boolean {
         return type === this;
     }
-
-    /**
-     * Return a string representation of this type.
-     */
-    toString() {
-        if (!this.declaration.children && this.declaration.signatures) {
-            return 'function';
-        } else {
-            return 'object';
-        }
-    }
 }

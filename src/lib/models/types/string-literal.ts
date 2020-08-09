@@ -47,11 +47,4 @@ export class StringLiteralType extends Type {
         return type instanceof StringLiteralType &&
             type.value === this.value;
     }
-
-    /**
-     * Return a string representation of this type.
-     */
-    toString(): string {
-        return '"' + this.value + '"';
-    }
 }

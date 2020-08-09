@@ -1,5 +1,6 @@
 export { Application } from './lib/application';
 export { CliApplication } from './lib/cli';
+export { stringifyType } from './lib/stringifiers';
 
 export { EventDispatcher, Event } from './lib/utils/events';
 export { resetReflectionID } from './lib/models/reflections/abstract';

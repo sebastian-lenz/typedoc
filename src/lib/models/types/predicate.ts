@@ -73,16 +73,4 @@ export class PredicateType extends Type {
             && this.asserts === type.asserts
             && (this.targetType?.equals(type.targetType!) ?? true);
     }
-
-    /**
-     * Return a string representation of this type.
-     */
-    toString() {
-        const out = this.asserts ? ['asserts', this.name] : [this.name];
-        if (this.targetType) {
-            out.push('is', this.targetType.toString());
-        }
-
-        return out.join(' ');
-    }
 }

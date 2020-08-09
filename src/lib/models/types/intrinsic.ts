@@ -47,11 +47,4 @@ export class IntrinsicType extends Type {
         return type instanceof IntrinsicType &&
             type.name === this.name;
     }
-
-    /**
-     * Return a string representation of this type.
-     */
-    toString() {
-        return this.name;
-    }
 }

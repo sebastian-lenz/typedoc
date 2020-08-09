@@ -47,11 +47,4 @@ export class ConditionalType extends Type {
             this.trueType.equals(type.trueType) &&
             this.falseType.equals(type.falseType);
     }
-
-    /**
-     * Return a string representation of this type.
-     */
-    toString() {
-        return this.checkType + ' extends ' + this.extendsType + ' ? ' + this.trueType + ' : ' + this.falseType;
-    }
 }

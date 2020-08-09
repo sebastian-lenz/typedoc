@@ -43,11 +43,4 @@ export class UnknownType extends Type {
         return type instanceof UnknownType &&
             type.name === this.name;
     }
-
-    /**
-     * Return a string representation of this type.
-     */
-    toString() {
-        return this.name;
-    }
 }

@@ -87,20 +87,4 @@ export class ReferenceType extends Type {
     equals(other: ReferenceType): boolean {
         return other instanceof ReferenceType && (other.symbolFullyQualifiedName === this.symbolFullyQualifiedName || other.reflection === this.reflection);
     }
-
-    /**
-     * Return a string representation of this type.
-     * @example EventEmitter<any>
-     */
-    toString() {
-        const name = this.reflection ? this.reflection.name : this.name;
-        let typeArgs = '';
-        if (this.typeArguments) {
-            typeArgs += '<';
-            typeArgs += this.typeArguments.map(arg => arg.toString()).join(', ');
-            typeArgs += '>';
-        }
-
-        return name + typeArgs;
-    }
 }

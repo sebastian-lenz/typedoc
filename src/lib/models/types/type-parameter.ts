@@ -55,11 +55,4 @@ export class TypeParameterType extends Type {
             return false;
         }
     }
-
-    /**
-     * Return a string representation of this type.
-     */
-    toString() {
-        return this.name;
-    }
 }

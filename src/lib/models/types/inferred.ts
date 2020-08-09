@@ -38,11 +38,4 @@ export class InferredType extends Type {
         }
         return this.name === type.name;
     }
-
-    /**
-     * Return a string representation of this type.
-     */
-    toString() {
-        return `infer ${this.name}`;
-    }
 }

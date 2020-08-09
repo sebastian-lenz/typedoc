@@ -25,8 +25,4 @@ export class QueryType extends Type {
     equals(other: Type) {
         return other instanceof QueryType && this.queryType.equals(other.queryType);
     }
-
-    toString() {
-        return `typeof ${this.queryType.toString()}`;
-    }
 }

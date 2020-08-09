@@ -39,11 +39,4 @@ export class IndexedAccessType extends Type {
         }
         return type.objectType.equals(this.objectType) && type.indexType.equals(this.indexType);
     }
-
-    /**
-     * Return a string representation of this type.
-     */
-    toString() {
-        return `${this.objectType.toString()}[${this.indexType.toString()}]`;
-    }
 }

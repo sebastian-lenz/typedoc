@@ -49,16 +49,4 @@ export class TupleType extends Type {
         }
         return Type.isTypeListEqual(type.elements, this.elements);
     }
-
-    /**
-     * Return a string representation of this type.
-     */
-    toString() {
-        const names: string[] = [];
-        this.elements.forEach((element) => {
-            names.push(element.toString());
-        });
-
-        return '[' + names.join(', ') + ']';
-    }
 }

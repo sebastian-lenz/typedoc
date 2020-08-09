@@ -1,3 +1,5 @@
+import { stringifyType } from '../../stringifiers';
+
 /**
  * Base class of all type definitions.
  *
@@ -31,7 +33,7 @@ export abstract class Type {
      * Return a string representation of this type.
      */
     toString(): string {
-        return 'void';
+        return stringifyType(this);
     }
 
     /**

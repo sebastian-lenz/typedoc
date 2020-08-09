@@ -1,4 +1,4 @@
-import { Type, UnionType, IntersectionType } from './index';
+import { Type } from './index';
 
 /**
  * Represents an array type.
@@ -49,17 +49,5 @@ export class ArrayType extends Type {
             return false;
         }
         return type.elementType.equals(this.elementType);
-    }
-
-    /**
-     * Return a string representation of this type.
-     */
-    toString() {
-        const elementTypeStr = this.elementType.toString();
-        if (this.elementType instanceof UnionType || this.elementType instanceof IntersectionType) {
-            return '(' + elementTypeStr + ')[]';
-        } else {
-            return elementTypeStr + '[]';
-        }
     }
 }
