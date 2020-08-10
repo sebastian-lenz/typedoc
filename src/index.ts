@@ -27,11 +27,3 @@ export {
   MapDeclarationOption,
   DeclarationOptionToOptionType,
 } from "./lib/utils/options";
-
-import * as TypeScript from "typescript";
-export { TypeScript };
-
-import * as Preact from "preact";
-export { Preact };
-import * as PreactRender from "preact-render-to-string";
-export { PreactRender };

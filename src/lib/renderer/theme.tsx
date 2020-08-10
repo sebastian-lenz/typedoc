@@ -90,6 +90,7 @@ export function buildTheme(
             router={router}
             parseMarkdown={boundParseMarkdown}
             templates={themeTemplates}
+            highlighter={highlighter}
           />,
           null,
           { pretty: false }

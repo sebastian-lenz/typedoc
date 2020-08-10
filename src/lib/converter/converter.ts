@@ -331,7 +331,7 @@ export class Converter extends EventEmitter<ConverterEventMap> {
     assert(node); // According to the TS source of typeToString, this is a bug if it does not hold.
 
     // HACK: This ought not be necessary, but we need some way to discover recursively
-    // typed symbols. See the `recursive` symbol in the variables test.
+    // typed symbols which do not have type nodes. See the `recursive` symbol in the variables test.
     const symbol = typeOrNode.getSymbol();
     if (symbol) {
       if (

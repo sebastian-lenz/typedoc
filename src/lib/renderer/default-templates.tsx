@@ -5,6 +5,7 @@ import {
   ReflectionKind,
   ReflectionKindToModel,
   SomeReflection,
+  Reflection,
 } from "../models";
 import { TypeTemplates } from "./type-templates";
 
@@ -193,7 +194,15 @@ export const DefaultTemplates: Templates = {
   },
 
   Reflection(props) {
-    const { reflection, templates, hooks, router, displayName } = props;
+    const {
+      reflection,
+      templates,
+      hooks,
+      router,
+      highlighter,
+      parseMarkdown,
+      displayName,
+    } = props;
 
     const templateMap: {
       [K in ReflectionKind]: (
@@ -243,7 +252,12 @@ export const DefaultTemplates: Templates = {
           {displayName && <h3>{displayName}</h3>}
           {hooks.emit("reflection.begin", reflection)}
           <Template
-            {...props}
+            // Don't just use {...props} here because we don't want to pass displayName through
+            templates={templates}
+            hooks={hooks}
+            router={router}
+            parseMarkdown={parseMarkdown}
+            highlighter={highlighter}
             // Discriminated unions don't play nicely here... TS infers the required type to be `never`
             reflection={reflection as never}
           />
@@ -334,9 +348,14 @@ export const DefaultTemplates: Templates = {
     );
   },
   Interface(props) {
-    const { reflection } = props;
+    const { templates } = props;
 
-    return <Fragment>TODO {reflection.name}</Fragment>;
+    return (
+      <Fragment>
+        <templates.Comment {...props} />
+        <templates.PageChildren {...props} />
+      </Fragment>
+    );
   },
   TypeAlias(props) {
     const { reflection, templates } = props;
@@ -355,14 +374,24 @@ export const DefaultTemplates: Templates = {
     );
   },
   Enum(props) {
-    const { reflection } = props;
+    const { templates } = props;
 
-    return <Fragment>TODO {reflection.name}</Fragment>;
+    return (
+      <Fragment>
+        <templates.Comment {...props} />
+        <templates.PageChildren {...props} />
+      </Fragment>
+    );
   },
   EnumMember(props) {
-    const { reflection } = props;
+    const { templates, reflection } = props;
 
-    return <Fragment>TODO {reflection.name}</Fragment>;
+    return (
+      <Fragment>
+        {reflection.name} = {JSON.stringify(reflection.value)}
+        <templates.Comment {...props} />
+      </Fragment>
+    );
   },
   Function(props) {
     const { reflection, templates } = props;
@@ -376,9 +405,14 @@ export const DefaultTemplates: Templates = {
     );
   },
   Class(props) {
-    const { reflection } = props;
+    const { templates } = props;
 
-    return <Fragment>TODO {reflection.name}</Fragment>;
+    return (
+      <Fragment>
+        <templates.Comment {...props} />
+        <templates.PageChildren {...props} />
+      </Fragment>
+    );
   },
   Object(props) {
     const { reflection } = props;
@@ -391,40 +425,66 @@ export const DefaultTemplates: Templates = {
     return <Fragment>TODO {reflection.name}</Fragment>;
   },
   Property(props) {
-    const { reflection } = props;
+    const { reflection, templates } = props;
 
-    return <Fragment>TODO {reflection.name}</Fragment>;
+    return (
+      <Fragment>
+        {reflection.name}: <templates.Type {...props} type={reflection.type} />
+        <templates.Comment {...props} />
+      </Fragment>
+    );
   },
   Accessor(props) {
-    const { reflection } = props;
+    const { reflection, templates } = props;
 
-    return <Fragment>TODO {reflection.name}</Fragment>;
+    const type = reflection.hasGetter
+      ? reflection.hasSetter
+        ? "get/set"
+        : "get"
+      : "set";
+
+    return (
+      <Fragment>
+        {type} {reflection.name}:{" "}
+        <templates.Type {...props} type={reflection.type} />
+        <templates.Comment {...props} />
+      </Fragment>
+    );
   },
   Variable(props) {
-    const { reflection } = props;
+    const { reflection, templates } = props;
 
-    return <Fragment>TODO {reflection.name}</Fragment>;
+    return (
+      <Fragment>
+        {reflection.name}: <templates.Type {...props} type={reflection.type} />
+        {reflection.defaultValue && ` = ${reflection.defaultValue}`}
+        <templates.Comment {...props} />
+      </Fragment>
+    );
   },
   Signature(props) {
     const { reflection, templates } = props;
 
-    const typeArgs = reflection.typeParameters.length
-      ? `<${reflection.typeParameters.map((param) => param.toString())}>`
-      : "";
+    const typeArgs = (
+      <templates.TypeParameters {...props} params={reflection.typeParameters} />
+    );
 
-    const parameters = reflection.parameters
-      .map((s) => {
-        const rest = s.isRest ? "..." : "";
-        const sep = s.isOptional ? "?: " : ": ";
-        const init = s.defaultValue == null ? "" : ` = ${s.defaultValue}`;
-        // TODO: Use templates.Type here.
-        return rest + s.name + sep + s.type.toString() + init;
-      })
-      .join(", ");
+    const parameters = reflection.parameters.map((s, i) => {
+      const rest = s.isRest ? "..." : "";
+      const sep = s.isOptional ? "?: " : ": ";
+      const init = s.defaultValue == null ? null : `= ${s.defaultValue}`;
+      const comma = i === reflection.parameters.length - 1 ? null : ", ";
+      return (
+        <Fragment>
+          {rest + s.name + sep}
+          <templates.Type {...props} type={s.type} />
+          {init}
+          {comma}
+        </Fragment>
+      );
+    });
 
-    const signature = `${reflection.name}${typeArgs}(${parameters}): ${reflection.returnType}`;
-
-    const renderedParameters = reflection.parameters.length && (
+    const renderedParameters = reflection.parameters.length ? (
       <Fragment>
         <h4>Parameters</h4>
         <ul>
@@ -435,11 +495,15 @@ export const DefaultTemplates: Templates = {
           ))}
         </ul>
       </Fragment>
-    );
+    ) : null;
 
     return (
       <Fragment>
-        <div class="signature">{signature}</div>
+        <div class="signature">
+          {reflection.name}
+          {typeArgs}({parameters}):{" "}
+          <templates.Type {...props} type={reflection.returnType} />
+        </div>
         <templates.Comment {...props} />
         {renderedParameters}
       </Fragment>
@@ -473,12 +537,49 @@ export const DefaultTemplates: Templates = {
   },
 
   Type(props) {
+    const { reflection, router, type } = props;
     if ("id" in props.type) {
       return <props.templates.Object {...props} reflection={props.type} />;
     }
 
-    const Template = TypeTemplates[props.type.kind];
-    return <Template {...props} type={props.type as never} />;
+    const linkTargets: (Reflection | string)[] = [];
+    const template = TypeTemplates[props.type.kind];
+    const typeString = template({
+      ...props,
+      type: type as never,
+      linkTargets,
+    });
+
+    // Doesn't matter if we use ts/tsx here. There are no type assertions or
+    // TSX elements within types. For now, the template will put all output on one line,
+    // so we can just grab the first line.
+    const tokens = props.highlighter.getTokens(`type _=${typeString}`, "ts")[0];
+    tokens.splice(0, tokens.findIndex((t) => t.content === "=") + 1);
+
+    let targetIndex = 0;
+
+    return (
+      <Fragment>
+        {tokens.map((token) => {
+          const target = linkTargets[targetIndex];
+          if (target instanceof Reflection && token.content === target.name) {
+            targetIndex++;
+            return (
+              <a
+                href={router.createLink(reflection, target)}
+                class={token.class}
+              >
+                {token.content}
+              </a>
+            );
+          } else if (target === token.content) {
+            targetIndex++;
+            return <span class={token.class}>{token.content}</span>;
+          }
+          return <span class={token.class}>{token.content}</span>;
+        })}
+      </Fragment>
+    );
   },
 
   TypeParameters(props) {

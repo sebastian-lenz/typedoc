@@ -24,6 +24,8 @@ const supportedLanguages: Set<string> = new Set([
   ...otherLangIds,
 ]);
 
+export type HighlightedToken = { content: string; class: string };
+
 export class DoubleHighlighter {
   // light | dark => class
   private schemes = new Map<string, string>();
@@ -51,22 +53,44 @@ export class DoubleHighlighter {
   ) {}
 
   highlight(code: string, lang: string): string {
-    // We don't know what this language is... just return the text.
+    // We don't know what this language is... just return the text,
+    // escaped since code blocks ought not hold HTML.
     if (!supportedLanguages.has(lang)) {
-      return code;
+      return render(<Fragment>{code}</Fragment>);
     }
 
-    const lightTokens = this.light.codeToThemedTokens(code, lang as TLang, {
+    const children: JSX.Element[] = [];
+
+    for (const line of this.getTokens(code, lang as TLang)) {
+      for (const token of line) {
+        children.push(<span class={token.class}>{token.content}</span>);
+      }
+      children.push(<br />);
+    }
+
+    return render(<Fragment>{children}</Fragment>);
+  }
+
+  /**
+   * Alternative version of {@link highlight} which can be used with extra information is needed
+   * rather than directly rendering to a string.
+   * @param code
+   * @param lang
+   */
+  getTokens(code: string, lang: TLang): HighlightedToken[][] {
+    assert(supportedLanguages.has(lang));
+
+    const lightTokens = this.light.codeToThemedTokens(code, lang, {
       includeExplanation: false,
     });
-    const darkTokens = this.dark.codeToThemedTokens(code, lang as TLang, {
+    const darkTokens = this.dark.codeToThemedTokens(code, lang, {
       includeExplanation: false,
     });
 
     // If this fails... something went *very* wrong.
     assert(lightTokens.length === darkTokens.length);
 
-    const docEls: JSX.Element[][] = [];
+    const codeTokens: HighlightedToken[][] = [];
 
     for (let line = 0; line < lightTokens.length; line++) {
       const lightLine = lightTokens[line];
@@ -76,27 +100,25 @@ export class DoubleHighlighter {
       // sets of tokens.Example: light_plus and dark_plus tokenize " = " differently in the `schemes`
       // declaration for this file.
 
-      const lineEls: JSX.Element[] = [];
+      const lineTokens: HighlightedToken[] = [];
 
       while (lightLine.length && darkLine.length) {
         // Simple case, same token.
         if (lightLine[0].content.length === darkLine[0].content.length) {
-          lineEls.push(
-            <span class={this.getClass(lightLine[0].color, darkLine[0].color)}>
-              {lightLine[0].content}
-            </span>
-          );
+          lineTokens.push({
+            class: this.getClass(lightLine[0].color, darkLine[0].color),
+            content: lightLine[0].content,
+          });
           lightLine.shift();
           darkLine.shift();
           continue;
         }
 
         if (lightLine[0].content.length < darkLine[0].content.length) {
-          lineEls.push(
-            <span class={this.getClass(lightLine[0].color, darkLine[0].color)}>
-              {lightLine[0].content}
-            </span>
-          );
+          lineTokens.push({
+            class: this.getClass(lightLine[0].color, darkLine[0].color),
+            content: lightLine[0].content,
+          });
           darkLine[0].content = darkLine[0].content.substr(
             lightLine[0].content.length
           );
@@ -104,22 +126,20 @@ export class DoubleHighlighter {
           continue;
         }
 
-        lineEls.push(
-          <span class={this.getClass(lightLine[0].color, darkLine[0].color)}>
-            {darkLine[0].content}
-          </span>
-        );
+        lineTokens.push({
+          class: this.getClass(lightLine[0].color, darkLine[0].color),
+          content: darkLine[0].content,
+        });
         lightLine[0].content = lightLine[0].content.substr(
           darkLine[0].content.length
         );
         darkLine.shift();
       }
 
-      lineEls.push(<br />);
-      docEls.push(lineEls);
+      codeTokens.push(lineTokens);
     }
 
-    return render(<Fragment>{docEls}</Fragment>);
+    return codeTokens;
   }
 
   getStyles(): string {

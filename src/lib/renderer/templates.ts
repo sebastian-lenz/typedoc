@@ -23,6 +23,7 @@ import type { ObjectReflection } from "../models/reflections/object";
 import type { AccessorReflection } from "../models/reflections/property";
 import type { EventHooks } from "../utils/hooks";
 import type { ThemeRouter } from "./router";
+import type { DoubleHighlighter } from "./highlight";
 
 export type TemplateProps<R extends SomeReflection> = {
   reflection: R;
@@ -30,6 +31,7 @@ export type TemplateProps<R extends SomeReflection> = {
   hooks: EventHooks<TemplateHooks, VNode | null>;
   router: ThemeRouter;
   parseMarkdown: (markdown: string, reflection: SomeReflection) => string;
+  highlighter: DoubleHighlighter;
 };
 
 export type TypeProps<T extends SomeType | ObjectReflection> = {
@@ -41,6 +43,7 @@ export type TypeProps<T extends SomeType | ObjectReflection> = {
   hooks: EventHooks<TemplateHooks, VNode | null>;
   router: ThemeRouter;
   parseMarkdown: (markdown: string, reflection: SomeReflection) => string;
+  highlighter: DoubleHighlighter;
 };
 
 /**

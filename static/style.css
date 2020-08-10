@@ -4,6 +4,8 @@
 
 /* Theme colors, you can override these by including a custom style sheet with --style */
 :root {
+  --toolbar-size: 60px;
+
   --light-border: #eeeeee;
   --light-text: #222222;
   --light-text-aside: #808080;
@@ -56,12 +58,18 @@ body {
 }
 
 header {
+  padding-top: var(--toolbar-size);
   border-bottom: 1px solid var(--theme-border);
 }
 
 .toolbar {
   display: flex;
   border-bottom: 1px solid var(--theme-border);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: var(--toolbar-size);
+  background: var(--theme-background);
 }
 
 .toolbar a {

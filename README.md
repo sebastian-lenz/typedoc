@@ -29,20 +29,18 @@ Like the TypeScript compiler, TypeDoc comes with a binary that can be called fro
 if you install TypeDoc as a global module. The name of the executable is `typedoc`.
 
 ```bash
-$ npm install typedoc --global
-$ typedoc
+$ npx typedoc
 ```
 
 ## Usage
 
 ### Shell
 
-TypeDoc accepts most of the command line arguments that the TypeScript compiler accepts. One major
-difference is the fact that one may pass an entire directory instead of individual files to the documentation
-generator. So in order to create a documentation for an entire project you simply type:
+TypeDoc accepts most of the command line arguments that the TypeScript compiler accepts, but
+will also read your `tsconfig.json` to read compiler options.
 
 ```bash
-$ typedoc --out path/to/documentation/ path/to/typescript/project/
+$ typedoc --out path/to/documentation/ --tsconfig path/to/tsconfig.json path/to/entry/point.ts
 ```
 
 ### Arguments
@@ -51,14 +49,10 @@ For a complete list of the command line arguments run `typedoc --help` or visit 
 
 - `--out <path/to/documentation/>`<br>
   Specifies the location the documentation should be written to. Defaults to `./docs`
-- `--mode <file|modules>`<br>
-  Specifies the output mode the project is used to be compiled with.
 - `--options`<br>
   Specify a json option file that should be loaded. If not specified TypeDoc will look for 'typedoc.json' in the current directory.
 - `--json <path/to/output.json>`<br>
-  Specifies the location and file name a json file describing the project is written to. When specified no documentation will be generated.
-- `--ignoreCompilerErrors`<br>
-  Allows TypeDoc to still generate documentation pages even after the compiler has returned errors.
+  Specifies the location and file name a json file describing the project is written to.
 
 #### Source file handling
 
