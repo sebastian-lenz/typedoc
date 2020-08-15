@@ -174,13 +174,13 @@
       ]
     },
     {
-      "id": 12,
+      "id": 7,
       "name": "destructuring",
       "kind": 2,
       "kindString": "module",
       "children": [
         {
-          "id": 13,
+          "id": 8,
           "name": "drawText",
           "kind": 64,
           "kindString": "function",
@@ -191,7 +191,7 @@
           },
           "children": [
             {
-              "id": 15,
+              "id": 10,
               "name": "drawText",
               "kind": 8192,
               "kindString": "signature",
@@ -202,7 +202,7 @@
               },
               "parameters": [
                 {
-                  "id": 14,
+                  "id": 9,
                   "name": "__0",
                   "kind": 16384,
                   "kindString": "parameter",
@@ -264,13 +264,13 @@
       ]
     },
     {
-      "id": 7,
+      "id": 11,
       "name": "literal",
       "kind": 2,
       "kindString": "module",
       "children": [
         {
-          "id": 8,
+          "id": 12,
           "name": "objectLiteral",
           "kind": 32,
           "kindString": "variable",
@@ -481,7 +481,7 @@
           "defaultValue": "{\n  valueZ: \"foo\",\n  valueY: function () {\n    return \"foo\";\n  },\n  valueX: {\n    valueZ: \"foo\",\n    valueY: (z: string) => {\n      return { a: \"test\", b: z };\n    },\n    valueA: [100, 200, 300],\n  },\n  valueA: 100,\n  valueB: true,\n  [Symbol.toStringTag]: \"computed\",\n  [x]: true,\n  [\"literal2\"]: true,\n}"
         },
         {
-          "id": 9,
+          "id": 13,
           "name": "recursive",
           "kind": 32,
           "kindString": "variable",
@@ -514,7 +514,7 @@
           "defaultValue": "{\n  property: () => recursive,\n}"
         },
         {
-          "id": 10,
+          "id": 14,
           "name": "typeLiteral",
           "kind": 32,
           "kindString": "variable",
@@ -688,7 +688,7 @@
           }
         },
         {
-          "id": 11,
+          "id": 15,
           "name": "x",
           "kind": 32,
           "kindString": "variable",

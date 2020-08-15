@@ -91,7 +91,7 @@ export async function expandDirectories(
 
   await Promise.all(entryPoint.map((file) => add(resolve(file), true)));
 
-  return files;
+  return files.sort();
 }
 
 /**
