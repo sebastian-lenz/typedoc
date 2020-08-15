@@ -22,6 +22,7 @@ import { addTypeConverters, TypeConverter } from "./types";
 import { getCommonDirectory } from "../utils/fs";
 import { getCommentForNodes } from "./comments";
 import { discoverProjectInfo } from "./utils";
+import { filterMap } from "../utils/array";
 
 interface ConverterEventMap {
   begin: [ProjectReflection, ts.Program];
@@ -137,35 +138,27 @@ export class Converter extends EventEmitter<ConverterEventMap> {
     const context = new Context(program, this, project, project);
 
     // Due to the order juggling necessary to only document each item once, the module
-    // converter is not a standard converter.
-    for (const entry of entryPoints) {
-      const entryStart = Date.now();
-      this.logger.verbose(`First pass: ${entry}`);
-
+    // converter is not a standard converter. First, prepare the data for each entry point.
+    const entries = filterMap(entryPoints, (entry) => {
       const file = program.getSourceFile(entry);
       if (!file) {
         this.logger.error(
           `Failed to find source file for entry point ${entry}`
         );
-        continue;
+        return;
       }
 
       const fileSymbol = this.getSourceFileSymbol(file, checker);
       if (!fileSymbol) {
         this.logger.error(`Provided entry point ${entry} is not a module.`);
-        continue;
+        return;
       }
 
       const name = relative(rootDir, file.fileName)
         .replace(/(\.d)?\.[tj]sx?$/, "")
         .replace(/\\/g, "/");
 
-      const moduleReflection = new ModuleReflection(name);
-      moduleReflection.comment = getCommentForNodes([file]);
-      project.registerReflection(moduleReflection, fileSymbol);
-      project.addChild(moduleReflection);
-      await this.emit(Converter.EVENT_MODULE_CREATED, moduleReflection, file);
-
+      // [resolved, exported]
       const exportSymbols = this.getExportsOfModule(
         file,
         checker
@@ -175,37 +168,56 @@ export class Converter extends EventEmitter<ConverterEventMap> {
           : ([symbol, symbol] as const)
       );
 
-      for (const exportSymbol of exportSymbols) {
-        // First time through, skip symbols which are re-exports.
-        if (exportSymbol[0].getDeclarations()?.[0]?.getSourceFile() !== file) {
-          continue;
-        }
+      return { name, file, fileSymbol, exportSymbols };
+    });
 
-        await this.convertSymbol(
-          exportSymbol[0],
-          context.withContainer(moduleReflection)
-        );
+    // Now do a first pass of each module, documenting symbols which are directly exported.
+    for (const { name, file, fileSymbol, exportSymbols } of entries) {
+      const entryStart = Date.now();
+      this.logger.verbose(`First pass: ${name}`);
+
+      const moduleReflection = new ModuleReflection(name);
+      moduleReflection.comment = getCommentForNodes([file]);
+      project.registerReflection(moduleReflection, fileSymbol);
+      project.addChild(moduleReflection);
+      await this.emit(Converter.EVENT_MODULE_CREATED, moduleReflection, file);
+
+      for (const exportSymbol of exportSymbols) {
+        if (documentInFirstPass(exportSymbol[0], file)) {
+          await this.convertSymbol(
+            exportSymbol[1],
+            context.withContainer(moduleReflection)
+          );
+        }
       }
 
-      const secondStart = Date.now();
       this.logger.verbose(
-        `[Perf] First pass of ${name} took ${secondStart - entryStart}ms`
+        `[Perf] First pass of ${name} took ${Date.now() - entryStart}ms`
       );
+    }
+
+    // Now do a second pass. This time, pick up symbols which were not directly exported and
+    // can therefore be attached to any entry point.
+    for (const { name, file, fileSymbol, exportSymbols } of entries) {
+      const entryStart = Date.now();
+      this.logger.verbose(`Second pass: ${name}`);
+
+      const moduleReflection = this._project
+        .getReflectionsFromSymbol(fileSymbol)
+        .values()
+        .next().value;
 
       for (const exportSymbol of exportSymbols) {
-        // Second time through, only convert re-exports.
-        if (exportSymbol[0].getDeclarations()?.[0]?.getSourceFile() === file) {
-          continue;
+        if (!documentInFirstPass(exportSymbol[0], file)) {
+          await this.convertSymbol(
+            exportSymbol[1],
+            context.withContainer(moduleReflection)
+          );
         }
-
-        await this.convertSymbol(
-          exportSymbol[1],
-          context.withContainer(moduleReflection)
-        );
       }
 
       this.logger.verbose(
-        `[Perf] Second pass of ${name} took ${Date.now() - secondStart}ms`
+        `[Perf] Second pass of ${name} took ${Date.now() - entryStart}ms`
       );
     }
 
@@ -221,7 +233,7 @@ export class Converter extends EventEmitter<ConverterEventMap> {
     symbol: ts.Symbol,
     context: Context<U>
   ): Promise<void> {
-    this.logger.verbose(`Converting symbol: ${symbol.name}`);
+    this.logger.verbose(`\tConverting symbol: ${symbol.name}`);
 
     const overrideName =
       symbol.flags & ts.SymbolFlags.Alias ? symbol.name : null;
@@ -275,7 +287,7 @@ export class Converter extends EventEmitter<ConverterEventMap> {
       child.comment = getCommentForNodes(nodes);
       child.name = overrideName ?? child.name;
       // TS isn't smart enough to know this is safe. The converters are carefully structured so that it is.
-      context.container.addChild(child as any);
+      context.container.addChild(child as never);
       await this.emit(Converter.EVENT_REFLECTION_CREATED, child, symbol, nodes);
     }
   }
@@ -391,4 +403,14 @@ export class Converter extends EventEmitter<ConverterEventMap> {
     const symbol = this.getSourceFileSymbol(file, checker);
     return symbol ? checker.getExportsOfModule(symbol) : [];
   }
+}
+
+function documentInFirstPass(symbol: ts.Symbol, file: ts.SourceFile) {
+  const declaration = symbol.getDeclarations()?.[0];
+  if (!declaration) {
+    return false;
+  }
+
+  // Only document items which are declared in this file in the first pass.
+  return declaration.getSourceFile() === file;
 }

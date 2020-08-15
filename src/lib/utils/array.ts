@@ -105,3 +105,17 @@ export async function waterfall<T, U>(
   }
   return result;
 }
+
+export function filterMap<T, U>(
+  arr: Iterable<T>,
+  mapper: (item: T) => undefined | null | U
+): U[] {
+  const result: U[] = [];
+  for (const item of arr) {
+    const mapped = mapper(item);
+    if (mapped != null) {
+      result.push(mapped);
+    }
+  }
+  return result;
+}

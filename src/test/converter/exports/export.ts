@@ -10,4 +10,4 @@ function add(x: number, y: number) {
 
 // Note that this will show up in the docs, not the default function from mod2.
 // export * from './mod2' does *not* re-export the default function.
-export default function (a: number) {}
+export default function (_a: number) {}
