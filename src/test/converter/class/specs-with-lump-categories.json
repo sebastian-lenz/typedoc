@@ -950,13 +950,13 @@
       ]
     },
     {
-      "id": 60,
+      "id": 61,
       "name": "constructor-properties",
       "kind": 2,
       "kindString": "module",
       "children": [
         {
-          "id": 61,
+          "id": 62,
           "name": "Vector2",
           "kind": 128,
           "kindString": "class",
@@ -967,7 +967,7 @@
           },
           "children": [
             {
-              "id": 64,
+              "id": 65,
               "name": "name",
               "kind": 1024,
               "kindString": "property",
@@ -979,7 +979,7 @@
               "visibility": "public"
             },
             {
-              "id": 62,
+              "id": 63,
               "name": "x",
               "kind": 1024,
               "kindString": "property",
@@ -991,7 +991,7 @@
               "visibility": "public"
             },
             {
-              "id": 63,
+              "id": 64,
               "name": "y",
               "kind": 1024,
               "kindString": "property",
@@ -1009,7 +1009,7 @@
           "implementedTypes": []
         },
         {
-          "id": 65,
+          "id": 66,
           "name": "Vector3",
           "kind": 128,
           "kindString": "class",
@@ -1020,7 +1020,7 @@
           },
           "children": [
             {
-              "id": 68,
+              "id": 69,
               "name": "name",
               "kind": 1024,
               "kindString": "property",
@@ -1032,7 +1032,7 @@
               "visibility": "public"
             },
             {
-              "id": 66,
+              "id": 67,
               "name": "y",
               "kind": 1024,
               "kindString": "property",
@@ -1044,7 +1044,7 @@
               "visibility": "public"
             },
             {
-              "id": 67,
+              "id": 68,
               "name": "z",
               "kind": 1024,
               "kindString": "property",
@@ -1065,13 +1065,13 @@
             "kindString": "reference",
             "name": "Vector2",
             "typeArguments": [],
-            "target": 61
+            "target": 62
           }
         }
       ]
     },
     {
-      "id": 69,
+      "id": 60,
       "name": "decorators",
       "kind": 2,
       "kindString": "module",

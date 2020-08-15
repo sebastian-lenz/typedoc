@@ -550,6 +550,14 @@ export const DefaultTemplates: Templates = {
       linkTargets,
     });
 
+    // Rather arbitrary cutoff here. With inferred types, the resulting type can be HUGE.
+    // If we give Shiki a type which is too large, it will take an incredibly long time to
+    // highlight... so disable highlighting for those types. See GH#1346 for a motivating example
+    // where the inferred type results in a string >1MB in size.
+    if (typeString.length > 200) {
+      return <Fragment>{typeString}</Fragment>;
+    }
+
     // Doesn't matter if we use ts/tsx here. There are no type assertions or
     // TSX elements within types. For now, the template will put all output on one line,
     // so we can just grab the first line.

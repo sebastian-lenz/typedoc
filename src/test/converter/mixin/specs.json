@@ -158,10 +158,9 @@
                                   "kind": 1,
                                   "kindString": "array",
                                   "elementType": {
-                                    "kind": 1024,
-                                    "kindString": "reference",
-                                    "name": "T",
-                                    "typeArguments": []
+                                    "kind": 32,
+                                    "kindString": "intrinsic",
+                                    "name": "any"
                                   }
                                 }
                               }
@@ -577,10 +576,9 @@
                             "kind": 1,
                             "kindString": "array",
                             "elementType": {
-                              "kind": 1024,
-                              "kindString": "reference",
-                              "name": "T",
-                              "typeArguments": []
+                              "kind": 32,
+                              "kindString": "intrinsic",
+                              "name": "any"
                             }
                           }
                         }
@@ -691,10 +689,9 @@
                             "kind": 1,
                             "kindString": "array",
                             "elementType": {
-                              "kind": 1024,
-                              "kindString": "reference",
-                              "name": "T",
-                              "typeArguments": []
+                              "kind": 32,
+                              "kindString": "intrinsic",
+                              "name": "any"
                             }
                           }
                         }
@@ -805,10 +802,9 @@
                             "kind": 1,
                             "kindString": "array",
                             "elementType": {
-                              "kind": 1024,
-                              "kindString": "reference",
-                              "name": "T",
-                              "typeArguments": []
+                              "kind": 32,
+                              "kindString": "intrinsic",
+                              "name": "any"
                             }
                           }
                         }

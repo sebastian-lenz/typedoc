@@ -67,10 +67,9 @@ const arrayTypeNodeConverter: TypeConverter<
     return new M.ArrayType(converter.convertType(node.elementType));
   },
   convertType(converter, type) {
-    assert(type.target.typeParameters);
-    return new M.ArrayType(
-      converter.convertType(type.target.typeParameters[0])
-    );
+    const params = converter.checker.getTypeArguments(type);
+    assert(params.length === 1);
+    return new M.ArrayType(converter.convertType(params[0]));
   },
 };
 

@@ -24,7 +24,9 @@ export const TypeTemplates: {
   ) => string;
 } = {
   [TypeKind.Array](props) {
-    return toString({ ...props, type: props.type.elementType }) + "[]";
+    return (
+      toString({ ...props, type: props.type.elementType, wrapped: true }) + "[]"
+    );
   },
   [TypeKind.Conditional](props) {
     const { type, wrapped } = props;
@@ -104,7 +106,7 @@ export const TypeTemplates: {
         toString({ ...props, type: prop })
       ),
     ];
-    return `{ ${members.join(";")} }`;
+    return `{ ${members.join(", ")} }`;
   },
   [TypeKind.Property](props) {
     const { type } = props;
@@ -112,7 +114,14 @@ export const TypeTemplates: {
     if (type.isReadonly) {
       children.push("readonly ");
     }
-    children.push(type.name, type.isOptional ? "?: " : ": ");
+    // Checking if it is a valid identifier & thus doesn't need to be quoted is... ridiculuous.
+    // Instead, use an intentionally simplistic check. https://stackoverflow.com/a/9337047/7186598
+    if (/^[A-Za-z0-9_$]+$/.test(type.name)) {
+      children.push(type.name);
+    } else {
+      children.push(JSON.stringify(type.name));
+    }
+    children.push(type.isOptional ? "?: " : ": ");
     children.push(toString({ ...props, type: type.propertyType }));
 
     return children.join("");

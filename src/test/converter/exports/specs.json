@@ -5,7 +5,7 @@
   "kindString": "project",
   "children": [
     {
-      "id": 4,
+      "id": 10,
       "name": "export",
       "kind": 2,
       "kindString": "module",
@@ -15,49 +15,49 @@
           "name": "a",
           "kind": 65536,
           "kindString": "reference",
-          "target": 15
+          "target": 21
         },
         {
           "id": 30,
           "name": "b",
           "kind": 65536,
           "kindString": "reference",
-          "target": 15
+          "target": 21
         },
         {
           "id": 26,
           "name": "c",
           "kind": 65536,
           "kindString": "reference",
-          "target": 15
+          "target": 21
         },
         {
           "id": 31,
           "name": "hidden",
           "kind": 65536,
           "kindString": "reference",
-          "target": 18
+          "target": 24
         },
         {
           "id": 27,
           "name": "Mod",
           "kind": 65536,
           "kindString": "reference",
-          "target": 12
+          "target": 18
         },
         {
           "id": 28,
           "name": "ModDefault",
           "kind": 65536,
           "kindString": "reference",
-          "target": 13
+          "target": 19
         },
         {
           "id": 53,
           "name": "ThisModule",
           "kind": 65536,
           "kindString": "reference",
-          "target": 12
+          "target": 18
         },
         {
           "id": 32,
@@ -272,19 +272,19 @@
           ]
         },
         {
-          "id": 8,
+          "id": 14,
           "name": "add",
           "kind": 64,
           "kindString": "function",
           "children": [
             {
-              "id": 11,
+              "id": 17,
               "name": "add",
               "kind": 8192,
               "kindString": "signature",
               "parameters": [
                 {
-                  "id": 9,
+                  "id": 15,
                   "name": "x",
                   "kind": 16384,
                   "kindString": "parameter",
@@ -295,7 +295,7 @@
                   }
                 },
                 {
-                  "id": 10,
+                  "id": 16,
                   "name": "y",
                   "kind": 16384,
                   "kindString": "parameter",
@@ -316,19 +316,19 @@
           ]
         },
         {
-          "id": 5,
+          "id": 11,
           "name": "default",
           "kind": 64,
           "kindString": "function",
           "children": [
             {
-              "id": 7,
+              "id": 13,
               "name": "default",
               "kind": 8192,
               "kindString": "signature",
               "parameters": [
                 {
-                  "id": 6,
+                  "id": 12,
                   "name": "_a",
                   "kind": 16384,
                   "kindString": "parameter",
@@ -379,13 +379,13 @@
       ]
     },
     {
-      "id": 20,
+      "id": 4,
       "name": "export-with-local",
       "kind": 2,
       "kindString": "module",
       "children": [
         {
-          "id": 25,
+          "id": 9,
           "name": "x",
           "kind": 32,
           "kindString": "variable",
@@ -397,19 +397,19 @@
           "defaultValue": "5"
         },
         {
-          "id": 21,
+          "id": 5,
           "name": "add",
           "kind": 64,
           "kindString": "function",
           "children": [
             {
-              "id": 24,
+              "id": 8,
               "name": "add",
               "kind": 8192,
               "kindString": "signature",
               "parameters": [
                 {
-                  "id": 22,
+                  "id": 6,
                   "name": "x",
                   "kind": 16384,
                   "kindString": "parameter",
@@ -420,7 +420,7 @@
                   }
                 },
                 {
-                  "id": 23,
+                  "id": 7,
                   "name": "y",
                   "kind": 16384,
                   "kindString": "parameter",
@@ -443,24 +443,24 @@
       ]
     },
     {
-      "id": 12,
+      "id": 18,
       "name": "mod",
       "kind": 2,
       "kindString": "module",
       "children": [
         {
-          "id": 16,
+          "id": 22,
           "name": "b",
           "kind": 65536,
           "kindString": "reference",
-          "target": 15
+          "target": 21
         },
         {
-          "id": 17,
+          "id": 23,
           "name": "c",
           "kind": 65536,
           "kindString": "reference",
-          "target": 15
+          "target": 21
         },
         {
           "id": 54,
@@ -470,14 +470,14 @@
           "target": 32
         },
         {
-          "id": 19,
+          "id": 25,
           "name": "ThisModule",
           "kind": 65536,
           "kindString": "reference",
-          "target": 12
+          "target": 18
         },
         {
-          "id": 15,
+          "id": 21,
           "name": "a",
           "kind": 32,
           "kindString": "variable",
@@ -494,7 +494,7 @@
           "defaultValue": "1"
         },
         {
-          "id": 18,
+          "id": 24,
           "name": "hidden",
           "kind": 32,
           "kindString": "variable",
@@ -517,7 +517,7 @@
           "defaultValue": "true"
         },
         {
-          "id": 13,
+          "id": 19,
           "name": "default",
           "kind": 64,
           "kindString": "function",
@@ -528,7 +528,7 @@
           },
           "children": [
             {
-              "id": 14,
+              "id": 20,
               "name": "default",
               "kind": 8192,
               "kindString": "signature",
