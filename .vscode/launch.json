@@ -7,7 +7,7 @@
     {
       "name": "Debug rebuild_specs",
       "program": "${workspaceFolder}/scripts/rebuild_specs.js",
-      "args": ["converter", "variables"],
+      "args": ["converter", "types"],
       "request": "launch",
       "skipFiles": ["<node_internals>/**"],
       "type": "node",

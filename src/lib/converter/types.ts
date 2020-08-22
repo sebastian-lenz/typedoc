@@ -42,6 +42,7 @@ export function addTypeConverters(converter: Converter): void {
     literalTypeNodeConverter,
     literalBooleanConverter,
     mappedConverter,
+    namedTupleMemberConverter,
     operatorTypeNodeConverter,
     parenthesizedTypeNodeConverter,
     predicateTypeNodeConverter,
@@ -219,7 +220,7 @@ const intersectionTypeNodeConverter: TypeConverter<
   },
 };
 
-const keywordToTypeName: Record<ts.KeywordTypeNode["kind"], string> = {
+const keywordToTypeName: Record<ts.KeywordTypeSyntaxKind, string> = {
   [ts.SyntaxKind.AnyKeyword]: "any",
   [ts.SyntaxKind.UnknownKeyword]: "unknown",
   [ts.SyntaxKind.NumberKeyword]: "number",
@@ -228,10 +229,8 @@ const keywordToTypeName: Record<ts.KeywordTypeNode["kind"], string> = {
   [ts.SyntaxKind.BooleanKeyword]: "boolean",
   [ts.SyntaxKind.StringKeyword]: "string",
   [ts.SyntaxKind.SymbolKeyword]: "symbol",
-  [ts.SyntaxKind.ThisKeyword]: "this",
   [ts.SyntaxKind.VoidKeyword]: "void",
   [ts.SyntaxKind.UndefinedKeyword]: "undefined",
-  [ts.SyntaxKind.NullKeyword]: "null",
   [ts.SyntaxKind.NeverKeyword]: "never",
 };
 
@@ -275,6 +274,8 @@ const literalTypeNodeConverter: TypeConverter<
         const value = node.literal.text.replace(/^[+-]|n$/g, "");
         return new M.LiteralType({ negative, value });
       }
+      case ts.SyntaxKind.NullKeyword:
+        return new M.LiteralType(null);
       default:
         return requestBugReport(converter, node.literal);
     }
@@ -353,6 +354,22 @@ const mappedConverter: TypeConverter<
       converter.convertType(type.templateType)
     );
   },
+};
+
+const namedTupleMemberConverter: TypeConverter<
+  ts.NamedTupleMember,
+  ts.Type,
+  M.TupleNamedMemberType
+> = {
+  kind: [ts.SyntaxKind.NamedTupleMember],
+  convert(converter, node) {
+    return new M.TupleNamedMemberType(
+      node.name.text,
+      hasQuestionToken(node),
+      converter.convertType(node.type)
+    );
+  },
+  convertType: requestBugReport,
 };
 
 const operators = {
@@ -525,12 +542,27 @@ const tupleTypeNodeConverter: TypeConverter<
 > = {
   kind: [ts.SyntaxKind.TupleType],
   convert(converter, node) {
-    return new M.TupleType(node.elementTypes.map(converter.convertType));
+    return new M.TupleType(node.elements.map(converter.convertType));
   },
-  convertType(converter, type) {
-    return new M.TupleType(
-      converter.checker.getTypeArguments(type).map(converter.convertType)
-    );
+  convertType(converter, type, node) {
+    const elements = converter.checker.getTypeArguments(type);
+    const tuple = new M.TupleType(elements.map(converter.convertType));
+
+    // When converting a tuple with named elements and we get the elements as types,
+    // they lose their names, so we restore it afterwards. This is only a problem in
+    // type land, and requires a somewhat contrived example to produce it, but it could happen.
+    if (elements.length > 0 && ts.isNamedTupleMember(node.elements[0])) {
+      for (let i = 0; i < elements.length; ++i) {
+        const element = node.elements[i] as ts.NamedTupleMember;
+        tuple.elements[i] = new M.TupleNamedMemberType(
+          element.name.text,
+          hasQuestionToken(element),
+          tuple.elements[i]
+        );
+      }
+    }
+
+    return tuple;
   },
 };
 

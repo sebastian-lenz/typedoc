@@ -66,7 +66,7 @@ export const TypeTemplates: {
   [TypeKind.Literal](props) {
     const { type } = props;
 
-    if (typeof type.value === "object") {
+    if (typeof type.value === "object" && type.value) {
       return `${type.value.negative ? "-" : ""}${type.value.value}n`;
     }
 
@@ -215,6 +215,12 @@ export const TypeTemplates: {
   [TypeKind.Tuple](props) {
     const { type } = props;
     return `[${type.elements.map((type) => toString({ ...props, type }))}]`;
+  },
+  [TypeKind.TupleMember](props) {
+    const { type, linkTargets } = props;
+    linkTargets.push(type.name);
+    const opt = type.isOptional ? "?" : "";
+    return `${type.name}${opt}: ${toString({ ...props, type: type.type })}`;
   },
   [TypeKind.TypeOperator](props) {
     const { type } = props;

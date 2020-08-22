@@ -6,12 +6,90 @@
   "children": [
     {
       "id": 1,
+      "name": "index",
+      "kind": 2,
+      "kindString": "module",
+      "children": [
+        {
+          "id": 2,
+          "name": "NamedTuple",
+          "kind": 32768,
+          "kindString": "alias",
+          "typeParameters": [],
+          "type": {
+            "kind": 32768,
+            "kindString": "tuple",
+            "elements": [
+              {
+                "kind": 2097152,
+                "kindString": "tupleMember",
+                "name": "name",
+                "isOptional": false,
+                "type": {
+                  "kind": 32,
+                  "kindString": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "kind": 2097152,
+                "kindString": "tupleMember",
+                "name": "optionalName",
+                "isOptional": true,
+                "type": {
+                  "kind": 32,
+                  "kindString": "intrinsic",
+                  "name": "number"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": 3,
+          "name": "namedTuple",
+          "kind": 32,
+          "kindString": "variable",
+          "type": {
+            "kind": 32768,
+            "kindString": "tuple",
+            "elements": [
+              {
+                "kind": 2097152,
+                "kindString": "tupleMember",
+                "name": "name",
+                "isOptional": false,
+                "type": {
+                  "kind": 32,
+                  "kindString": "intrinsic",
+                  "name": "string"
+                }
+              },
+              {
+                "kind": 2097152,
+                "kindString": "tupleMember",
+                "name": "optionalName",
+                "isOptional": true,
+                "type": {
+                  "kind": 32,
+                  "kindString": "intrinsic",
+                  "name": "number"
+                }
+              }
+            ]
+          },
+          "defaultValue": "returnMapped<NamedTuple>()"
+        }
+      ]
+    },
+    {
+      "id": 4,
       "name": "mapped",
       "kind": 2,
       "kindString": "module",
       "children": [
         {
-          "id": 9,
+          "id": 12,
           "name": "MappedObj",
           "kind": 32768,
           "kindString": "alias",
@@ -33,7 +111,7 @@
                   "kindString": "reference",
                   "name": "Obj",
                   "typeArguments": [],
-                  "target": 6
+                  "target": 9
                 }
               }
             },
@@ -56,26 +134,26 @@
                     "kindString": "reference",
                     "name": "Obj",
                     "typeArguments": [],
-                    "target": 6
+                    "target": 9
                   }
                 },
                 {
-                  "kind": 32,
-                  "kindString": "intrinsic",
-                  "name": "null"
+                  "kind": 16384,
+                  "kindString": "literal",
+                  "value": null
                 }
               ]
             }
           }
         },
         {
-          "id": 6,
+          "id": 9,
           "name": "Obj",
           "kind": 32768,
           "kindString": "alias",
           "typeParameters": [],
           "type": {
-            "id": 5,
+            "id": 8,
             "name": "TODO",
             "kind": 512,
             "kindString": "object",
@@ -86,7 +164,7 @@
           }
         },
         {
-          "id": 8,
+          "id": 11,
           "name": "Partial",
           "kind": 32768,
           "kindString": "alias",
@@ -137,7 +215,7 @@
           }
         },
         {
-          "id": 7,
+          "id": 10,
           "name": "Readonly",
           "kind": 32768,
           "kindString": "alias",
@@ -188,19 +266,19 @@
           }
         },
         {
-          "id": 2,
+          "id": 5,
           "name": "MappedReturn",
           "kind": 64,
           "kindString": "function",
           "children": [
             {
-              "id": 4,
+              "id": 7,
               "name": "MappedReturn",
               "kind": 8192,
               "kindString": "signature",
               "parameters": [
                 {
-                  "id": 3,
+                  "id": 6,
                   "name": "x",
                   "kind": 16384,
                   "kindString": "parameter",
@@ -252,13 +330,13 @@
       ]
     },
     {
-      "id": 10,
+      "id": 13,
       "name": "query",
       "kind": 2,
       "kindString": "module",
       "children": [
         {
-          "id": 12,
+          "id": 15,
           "name": "TypeOfX",
           "kind": 32768,
           "kindString": "alias",
@@ -271,12 +349,12 @@
               "kindString": "reference",
               "name": "x",
               "typeArguments": [],
-              "target": 11
+              "target": 14
             }
           }
         },
         {
-          "id": 11,
+          "id": 14,
           "name": "x",
           "kind": 32,
           "kindString": "variable",
@@ -290,13 +368,13 @@
       ]
     },
     {
-      "id": 13,
+      "id": 16,
       "name": "union-or-intersection",
       "kind": 2,
       "kindString": "module",
       "children": [
         {
-          "id": 14,
+          "id": 17,
           "name": "FirstType",
           "kind": 256,
           "kindString": "interface",
@@ -307,7 +385,7 @@
           },
           "children": [
             {
-              "id": 15,
+              "id": 18,
               "name": "firstProperty",
               "kind": 1024,
               "kindString": "property",
@@ -330,7 +408,7 @@
           "extendedTypes": []
         },
         {
-          "id": 16,
+          "id": 19,
           "name": "SecondType",
           "kind": 256,
           "kindString": "interface",
@@ -341,7 +419,7 @@
           },
           "children": [
             {
-              "id": 17,
+              "id": 20,
               "name": "secondProperty",
               "kind": 1024,
               "kindString": "property",
@@ -364,7 +442,7 @@
           "extendedTypes": []
         },
         {
-          "id": 18,
+          "id": 21,
           "name": "ThirdType",
           "kind": 256,
           "kindString": "interface",
@@ -375,7 +453,7 @@
           },
           "children": [
             {
-              "id": 21,
+              "id": 24,
               "name": "thirdComplexProperty",
               "kind": 1024,
               "kindString": "property",
@@ -403,14 +481,14 @@
                             "kindString": "reference",
                             "name": "FirstType",
                             "typeArguments": [],
-                            "target": 14
+                            "target": 17
                           },
                           {
                             "kind": 1024,
                             "kindString": "reference",
                             "name": "SecondType",
                             "typeArguments": [],
-                            "target": 16
+                            "target": 19
                           }
                         ]
                       }
@@ -426,7 +504,7 @@
               "visibility": "public"
             },
             {
-              "id": 20,
+              "id": 23,
               "name": "thirdIntersectionProperty",
               "kind": 1024,
               "kindString": "property",
@@ -444,21 +522,21 @@
                     "kindString": "reference",
                     "name": "FirstType",
                     "typeArguments": [],
-                    "target": 14
+                    "target": 17
                   },
                   {
                     "kind": 1024,
                     "kindString": "reference",
                     "name": "ThirdType",
                     "typeArguments": [],
-                    "target": 18
+                    "target": 21
                   }
                 ]
               },
               "visibility": "public"
             },
             {
-              "id": 19,
+              "id": 22,
               "name": "thirdUnionProperty",
               "kind": 1024,
               "kindString": "property",
@@ -476,14 +554,14 @@
                     "kindString": "reference",
                     "name": "FirstType",
                     "typeArguments": [],
-                    "target": 14
+                    "target": 17
                   },
                   {
                     "kind": 1024,
                     "kindString": "reference",
                     "name": "SecondType",
                     "typeArguments": [],
-                    "target": 16
+                    "target": 19
                   }
                 ]
               },

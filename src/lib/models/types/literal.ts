@@ -29,9 +29,9 @@ export class LiteralType extends Type {
   /**
    * The literal value.
    */
-  value: string | number | boolean | PseudoBigInt;
+  value: null | string | number | boolean | PseudoBigInt;
 
-  constructor(value: string | number | boolean | PseudoBigInt) {
+  constructor(value: LiteralType["value"]) {
     super();
     this.value = value;
   }
@@ -43,7 +43,7 @@ export class LiteralType extends Type {
 
   /** @inheritdoc */
   stringify(): string {
-    if (typeof this.value === "object") {
+    if (typeof this.value === "object" && this.value) {
       return `${this.value.negative ? "-" : ""}${this.value.value}n`;
     }
     return JSON.stringify(this.value);
