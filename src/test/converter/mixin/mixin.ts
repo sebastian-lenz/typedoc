@@ -34,8 +34,8 @@ export const Mixin1Func = <T extends AnyConstructor<Base>>(base: T) =>
   class Mixin1Class extends base {
     property1 = "init";
 
-    method1(arg: Mixin1Type): Mixin1Type[] {
-      return [arg, this];
+    method1(arg: Mixin1Type[]): Mixin1Type[] {
+      return [...arg, this];
     }
   };
 

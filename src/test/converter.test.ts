@@ -3,100 +3,6 @@ import * as FS from "fs";
 import * as Path from "path";
 import { JsxEmit, ModuleKind, ScriptTarget } from "typescript";
 import { Application, ProjectReflection, resetReflectionID } from "..";
-import {
-  ReflectionKind,
-  SomeSerializedContainerReflection,
-  SomeSerializedReflection,
-} from "../lib/models";
-import { zip } from "../lib/utils/array";
-import type { SerializedSignatureReflection } from "../lib/models/reflections/signature";
-
-function omit<T, K extends keyof T>(obj: T, ...keys: K[]): Omit<T, K> {
-  const data = { ...obj };
-  for (const key of keys) {
-    delete data[key];
-  }
-  return data;
-}
-
-function omitDeep(obj: object, ...keys: string[]): object {
-  if (Array.isArray(obj)) {
-    return obj.map((o) => (typeof o === "object" ? omitDeep(o, ...keys) : o));
-  } else {
-    const result = {} as any;
-    for (const [key, val] of Object.entries(obj)) {
-      if (!keys.includes(key)) {
-        result[key] = typeof val === "object" ? omitDeep(val, ...keys) : val;
-      }
-    }
-    return result;
-  }
-}
-
-// We need this instead of using deepStrictEqual because converters are async and thus
-// might happen out of order, resulting in reflections which are otherwise identical having
-// different `id` fields or different ordering within `children` arrays.
-function assertSpecsEqual(
-  a: SomeSerializedReflection,
-  b: SomeSerializedReflection
-) {
-  ok(a.kind === b.kind, "Different reflections!");
-
-  switch (a.kind) {
-    case ReflectionKind.Project:
-    case ReflectionKind.Module:
-    case ReflectionKind.Namespace:
-    case ReflectionKind.Enum:
-    case ReflectionKind.Class:
-    case ReflectionKind.Interface:
-    case ReflectionKind.Object:
-    case ReflectionKind.Function:
-    case ReflectionKind.Method:
-      assertContainerSpecsEqual(a, b as SomeSerializedContainerReflection);
-      return;
-    case ReflectionKind.Signature:
-      assertSignatureSpecsEqual(a, b as SerializedSignatureReflection);
-      return;
-  }
-
-  deepStrictEqual(omitDeep(a, "id"), omitDeep(b, "id"));
-}
-
-const assertContainerSpecsEqual = makeAssertSpecsEqualWithChildren<
-  SomeSerializedContainerReflection
->("children");
-
-const assertSignatureSpecsEqual = makeAssertSpecsEqualWithChildren<
-  SerializedSignatureReflection
->("parameters");
-
-type KeysOfType<T, U> = {
-  [K in keyof T]-?: T[K] extends U ? K : never;
-}[keyof T];
-
-function makeAssertSpecsEqualWithChildren<T extends SomeSerializedReflection>(
-  childKey: KeysOfType<T, SomeSerializedReflection[]>
-) {
-  return (a: T, b: T) => {
-    const aChildren = [
-      ...((a[childKey] as any) as SomeSerializedReflection[]),
-    ].sort((a, b) => a.name.localeCompare(b.name));
-
-    const bChildren = [
-      ...((b[childKey] as any) as SomeSerializedReflection[]),
-    ].sort((a, b) => a.name.localeCompare(b.name));
-
-    ok(aChildren.length === bChildren.length, "Different number of children!");
-    deepStrictEqual(
-      omit(omitDeep(a, "id"), childKey as never),
-      omit(omitDeep(b, "id"), childKey as never)
-    );
-
-    for (const [a, b] of zip(aChildren, bChildren)) {
-      assertSpecsEqual(a, b);
-    }
-  };
-}
 
 describe("Converter", function () {
   const base = Path.join(__dirname, "converter");
@@ -179,7 +85,7 @@ describe("Converter", function () {
           );
           data = data.split(base.replace(/\\/g, "/")).join("%BASE%");
 
-          assertSpecsEqual(JSON.parse(data), specs);
+          deepStrictEqual(JSON.parse(data), specs);
         });
       }
     });

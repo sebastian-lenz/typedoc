@@ -7,7 +7,7 @@
     {
       "name": "Debug rebuild_specs",
       "program": "${workspaceFolder}/scripts/rebuild_specs.js",
-      "args": ["converter", "types"],
+      "args": ["converter", "exports"],
       "request": "launch",
       "skipFiles": ["<node_internals>/**"],
       "type": "node",
@@ -40,12 +40,11 @@
       "name": "Debug Tests",
       "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
       "cwd": "${workspaceRoot}",
-      "args": ["--no-timeouts", "dist/test/**/*.js"],
+      "args": ["--no-timeouts", "dist/test/**/*.test.js", "-g", "function"],
       "outFiles": [
         "${workspaceRoot}/lib/**/*.js",
         "${workspaceRoot}/test/**/*.js"
       ],
-      "preLaunchTask": "build",
       "sourceMaps": true
     }
   ]

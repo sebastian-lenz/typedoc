@@ -266,7 +266,7 @@
             {
               "kind": 1024,
               "kindString": "reference",
-              "name": "TextRange",
+              "name": "ReadonlyTextRange",
               "typeArguments": []
             }
           ]

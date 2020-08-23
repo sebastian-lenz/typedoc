@@ -30,35 +30,35 @@ export interface TypeConverter<
 
 export function addTypeConverters(converter: Converter): void {
   for (const typeNodeConverter of [
-    arrayTypeNodeConverter,
-    conditionalTypeNodeConverter,
-    constructorTypeNodeConverter,
-    exprWithTypeArgsTypeNodeConverter,
-    functionTypeNodeConverter,
-    indexedAccessTypeNodeConverter,
-    inferTypeNodeConverter,
-    intersectionTypeNodeConverter,
-    keywordTypeNodeConverter,
-    literalTypeNodeConverter,
+    arrayConverter,
+    conditionalConverter,
+    constructorConverter,
+    exprWithTypeArgsConverter,
+    functionConverter,
+    indexedAccessConverter,
+    inferConverter,
+    intersectionConverter,
+    keywordConverter,
+    literalConverter,
     literalBooleanConverter,
     mappedConverter,
     namedTupleMemberConverter,
-    operatorTypeNodeConverter,
-    parenthesizedTypeNodeConverter,
-    predicateTypeNodeConverter,
-    queryTypeNodeConverter,
-    referenceTypeNodeConverter,
-    thisTypeNodeConverter,
-    tupleTypeNodeConverter,
+    operatorConverter,
+    parenthesizedConverter,
+    predicateConverter,
+    queryConverter,
+    referenceConverter,
+    thisConverter,
+    tupleConverter,
     typeLiteralConverter,
-    unionTypeNodeConverter,
+    unionConverter,
   ]) {
     converter.addTypeNodeConverter(typeNodeConverter);
   }
 }
 
 // T[], Array<T>
-const arrayTypeNodeConverter: TypeConverter<
+const arrayConverter: TypeConverter<
   ts.ArrayTypeNode,
   ts.TypeReference,
   M.ArrayType
@@ -75,7 +75,7 @@ const arrayTypeNodeConverter: TypeConverter<
 };
 
 // Check extends Extends ? True : False
-const conditionalTypeNodeConverter: TypeConverter<
+const conditionalConverter: TypeConverter<
   ts.ConditionalTypeNode,
   ts.ConditionalType,
   M.ConditionalType
@@ -100,7 +100,7 @@ const conditionalTypeNodeConverter: TypeConverter<
 };
 
 // new () => Obj
-const constructorTypeNodeConverter: TypeConverter<
+const constructorConverter: TypeConverter<
   ts.ConstructorTypeNode,
   ts.Type,
   M.ConstructorType
@@ -123,7 +123,7 @@ const constructorTypeNodeConverter: TypeConverter<
   },
 };
 
-const exprWithTypeArgsTypeNodeConverter: TypeConverter<
+const exprWithTypeArgsConverter: TypeConverter<
   ts.ExpressionWithTypeArguments,
   ts.Type,
   M.SomeType
@@ -148,7 +148,7 @@ const exprWithTypeArgsTypeNodeConverter: TypeConverter<
   convertType: requestBugReport,
 };
 
-const functionTypeNodeConverter: TypeConverter<
+const functionConverter: TypeConverter<
   ts.FunctionTypeNode,
   ts.Type,
   M.SignatureType
@@ -172,7 +172,7 @@ const functionTypeNodeConverter: TypeConverter<
 };
 
 // T['a']
-const indexedAccessTypeNodeConverter: TypeConverter<
+const indexedAccessConverter: TypeConverter<
   ts.IndexedAccessTypeNode,
   ts.Type,
   M.IndexedAccessType | M.UnknownType
@@ -191,7 +191,7 @@ const indexedAccessTypeNodeConverter: TypeConverter<
 };
 
 // T extends infer Infer...
-const inferTypeNodeConverter: TypeConverter<
+const inferConverter: TypeConverter<
   ts.InferTypeNode,
   ts.Type,
   M.InferredType
@@ -206,7 +206,7 @@ const inferTypeNodeConverter: TypeConverter<
 };
 
 // T & U
-const intersectionTypeNodeConverter: TypeConverter<
+const intersectionConverter: TypeConverter<
   ts.IntersectionTypeNode,
   ts.IntersectionType,
   M.IntersectionType
@@ -234,7 +234,7 @@ const keywordToTypeName: Record<ts.KeywordTypeSyntaxKind, string> = {
   [ts.SyntaxKind.NeverKeyword]: "never",
 };
 
-const keywordTypeNodeConverter: TypeConverter<
+const keywordConverter: TypeConverter<
   ts.KeywordTypeNode,
   ts.Type,
   M.IntrinsicType
@@ -252,41 +252,52 @@ const keywordTypeNodeConverter: TypeConverter<
 
 // Note: Literal types are not the same as type literals! SyntaxKind.TypeLiteral is an object.
 // 1, 1e7, 100n, 'str'
-const literalTypeNodeConverter: TypeConverter<
+// null (as of TS 4.0)
+const literalConverter: TypeConverter<
   ts.LiteralTypeNode,
   ts.LiteralType,
   M.LiteralType | M.UnknownType
 > = {
   kind: [ts.SyntaxKind.LiteralType],
   convert(converter, node) {
-    switch (node.literal.kind) {
+    const literal = node.literal;
+    switch (literal.kind) {
       case ts.SyntaxKind.TrueKeyword:
         return new M.LiteralType(true);
       case ts.SyntaxKind.FalseKeyword:
         return new M.LiteralType(false);
-      case ts.SyntaxKind.StringLiteral:
-        return new M.LiteralType(node.literal.text);
-      case ts.SyntaxKind.PrefixUnaryExpression:
-      case ts.SyntaxKind.NumericLiteral:
-        return new M.LiteralType(Number(node.literal.getText()));
-      case ts.SyntaxKind.BigIntLiteral: {
-        const negative = node.literal.text[0] === "-";
-        const value = node.literal.text.replace(/^[+-]|n$/g, "");
-        return new M.LiteralType({ negative, value });
-      }
       case ts.SyntaxKind.NullKeyword:
         return new M.LiteralType(null);
-      default:
-        return requestBugReport(converter, node.literal);
+      case ts.SyntaxKind.StringLiteral:
+        return new M.LiteralType(literal.text);
+      case ts.SyntaxKind.PrefixUnaryExpression:
+      case ts.SyntaxKind.NumericLiteral:
+        return new M.LiteralType(Number(literal.getText()));
+      case ts.SyntaxKind.BigIntLiteral: {
+        const negative = literal.text[0] === "-";
+        const value = literal.text.replace(/^[+-]|n$/g, "");
+        return new M.LiteralType({ negative, value });
+      }
     }
+    return requestBugReport(converter, literal);
   },
-  convertType(_converter, type) {
+  convertType(_converter, type, node) {
     if (typeof type.value === "object") {
       return new M.LiteralType({
         value: type.value.base10Value,
         negative: type.value.negative,
       });
     }
+
+    // This is unfortunate... `type.value` is undefined in this case.
+    // Seems like a bug. https://github.com/microsoft/TypeScript/issues/26075
+    switch (node.literal.kind) {
+      case ts.SyntaxKind.TrueKeyword:
+        return new M.LiteralType(true);
+      case ts.SyntaxKind.FalseKeyword:
+        return new M.LiteralType(false);
+    }
+
     return new M.LiteralType(type.value);
   },
 };
@@ -379,7 +390,7 @@ const operators = {
 } as const;
 
 // keyof T, readonly T, unique symbol
-const operatorTypeNodeConverter: TypeConverter<
+const operatorConverter: TypeConverter<
   ts.TypeOperatorNode,
   ts.Type,
   M.TypeOperatorType
@@ -422,7 +433,7 @@ const operatorTypeNodeConverter: TypeConverter<
 
 // Just collapse these...
 // ((number))
-const parenthesizedTypeNodeConverter: TypeConverter<ts.ParenthesizedTypeNode> = {
+const parenthesizedConverter: TypeConverter<ts.ParenthesizedTypeNode> = {
   kind: [ts.SyntaxKind.ParenthesizedType],
   convert(converter, node) {
     return converter.convertType(node.type);
@@ -431,7 +442,7 @@ const parenthesizedTypeNodeConverter: TypeConverter<ts.ParenthesizedTypeNode> = 
 };
 
 // function foo(x: any): asserts x is String;
-const predicateTypeNodeConverter: TypeConverter<
+const predicateConverter: TypeConverter<
   ts.TypePredicateNode,
   ts.Type,
   M.PredicateType
@@ -451,11 +462,7 @@ const predicateTypeNodeConverter: TypeConverter<
 };
 
 // typeof Foo.bar
-const queryTypeNodeConverter: TypeConverter<
-  ts.TypeQueryNode,
-  ts.Type,
-  M.QueryType
-> = {
+const queryConverter: TypeConverter<ts.TypeQueryNode, ts.Type, M.QueryType> = {
   kind: [ts.SyntaxKind.TypeQuery],
   convert(converter, node) {
     const symbol = converter.getSymbolAtLocation(node.exprName);
@@ -482,7 +489,7 @@ const queryTypeNodeConverter: TypeConverter<
 };
 
 // Array<Foo>, Generic<A, B, C>
-const referenceTypeNodeConverter: TypeConverter<
+const referenceConverter: TypeConverter<
   ts.TypeReferenceNode,
   ts.TypeReference,
   M.SomeType
@@ -520,7 +527,7 @@ const referenceTypeNodeConverter: TypeConverter<
 };
 
 // method(): this
-const thisTypeNodeConverter: TypeConverter<
+const thisConverter: TypeConverter<
   ts.ThisTypeNode,
   ts.Type,
   M.IntrinsicType
@@ -535,7 +542,7 @@ const thisTypeNodeConverter: TypeConverter<
 };
 
 // [T, U]
-const tupleTypeNodeConverter: TypeConverter<
+const tupleConverter: TypeConverter<
   ts.TupleTypeNode,
   ts.TypeReference,
   M.TupleType
@@ -672,7 +679,7 @@ const typeLiteralConverter: TypeConverter<
 };
 
 // T | U
-const unionTypeNodeConverter: TypeConverter<
+const unionConverter: TypeConverter<
   ts.UnionTypeNode,
   ts.UnionType,
   M.UnionType

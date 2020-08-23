@@ -238,9 +238,9 @@
                         "typeArguments": []
                       },
                       {
-                        "kind": 32,
-                        "kindString": "intrinsic",
-                        "name": "null"
+                        "kind": 16384,
+                        "kindString": "literal",
+                        "value": null
                       },
                       {
                         "kind": 32,
@@ -753,9 +753,9 @@
                         "typeArguments": []
                       },
                       {
-                        "kind": 32,
-                        "kindString": "intrinsic",
-                        "name": "null"
+                        "kind": 16384,
+                        "kindString": "literal",
+                        "value": null
                       },
                       {
                         "kind": 32,

@@ -608,7 +608,7 @@
               ]
             }
           },
-          "defaultValue": "<T extends AnyConstructor<Base>>(base: T) =>\n  /**\n   * Internal class of the Mixin1\n   */\n  class Mixin1Class extends base {\n    property1 = \"init\";\n\n    method1(arg: Mixin1Type): Mixin1Type[] {\n      return [arg, this];\n    }\n  }"
+          "defaultValue": "<T extends AnyConstructor<Base>>(base: T) =>\n  /**\n   * Internal class of the Mixin1\n   */\n  class Mixin1Class extends base {\n    property1 = \"init\";\n\n    method1(arg: Mixin1Type[]): Mixin1Type[] {\n      return [...arg, this];\n    }\n  }"
         },
         {
           "id": 11,
