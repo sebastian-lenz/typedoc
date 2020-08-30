@@ -1,6 +1,6 @@
 /** A mapped generic type */
 export type StringyValues<T extends {} = { prop: never }> = {
-  [K in keyof T]-?: T[K] extends string ? T[K] : never
+  [K in keyof T]-?: T[K] extends string ? T[K] : never;
 }[keyof T];
 
 /** Unwraps a promise type. */

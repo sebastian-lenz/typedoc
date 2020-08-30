@@ -33,9 +33,19 @@ body {
   --theme-bg-lightness: var(--light-bg-lightness);
   --theme-bg-alpha: var(--light-bg-alpha);
 
-  --theme-background: hsla(var(--theme-bg-hue), var(--theme-bg-saturation), var(--theme-bg-lightness), var(--theme-bg-alpha));
+  --theme-background: hsla(
+    var(--theme-bg-hue),
+    var(--theme-bg-saturation),
+    var(--theme-bg-lightness),
+    var(--theme-bg-alpha)
+  );
 
-  --theme-offset-background: hsla(var(--theme-bg-hue), var(--theme-bg-saturation), calc(var(--theme-bg-lightness) - 5%), var(--theme-bg-alpha));
+  --theme-offset-background: hsla(
+    var(--theme-bg-hue),
+    var(--theme-bg-saturation),
+    calc(var(--theme-bg-lightness) - 5%),
+    var(--theme-bg-alpha)
+  );
 }
 
 body.dark {
@@ -50,7 +60,12 @@ body.dark {
   --theme-bg-lightness: var(--dark-bg-lightness);
   --theme-bg-alpha: var(--dark-bg-alpha);
 
-  --theme-offset-background: hsla(var(--theme-bg-hue), var(--theme-bg-saturation), calc(var(--theme-bg-lightness) + 10%), var(--theme-bg-alpha));
+  --theme-offset-background: hsla(
+    var(--theme-bg-hue),
+    var(--theme-bg-saturation),
+    calc(var(--theme-bg-lightness) + 10%),
+    var(--theme-bg-alpha)
+  );
 }
 
 a {
@@ -94,7 +109,9 @@ body {
   border-bottom: 0;
 }
 
-#search, #search::placeholder, #theme {
+#search,
+#search::placeholder,
+#theme {
   color: var(--theme-text);
   background: var(--theme-offset-background);
   outline: none;
