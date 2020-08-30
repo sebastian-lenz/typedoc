@@ -47,8 +47,8 @@ export function buildTheme(
     const themeTemplates: Templates = { ...DefaultTemplates, ...templates };
     // TODO: These ought to be configurable.
     const highlighter = await DoubleHighlighter.create(
-      "light_plus",
-      "monokai_dimmed"
+      "light-plus",
+      "dark-plus"
     );
 
     app.renderer.hooks.on("body.begin", () => (

@@ -1,3 +1,0 @@
-#!/bin/sh
-cd ${0%/*}
-node ../../bin/typedoc --module commonjs --includes inc/ --media media/ --target ES5 --json json.json --out doc/ src/

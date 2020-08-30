@@ -64,23 +64,42 @@ export const DefaultTemplates: Templates = {
         </head>
         <body>
           {hooks.emit("body.begin", reflection)}
-          <templates.Header {...props} />
+          <templates.Toolbar {...props} />
           <main>
+            <templates.Header {...props} />
             <templates.Navigation {...props} />
             <section id="main">
               <templates.Reflection {...props} />
             </section>
+            <templates.Footer {...props} />
           </main>
-          <templates.Footer {...props} />
           {hooks.emit("body.end", reflection)}
         </body>
       </html>
     );
   },
 
-  Header(props) {
-    const { templates, reflection, router } = props;
+  Toolbar(props) {
+    const { reflection, router } = props;
     assert(reflection.project);
+
+    return (
+      <div class="toolbar">
+        <a href={router.createLink(reflection, reflection.project)}>
+          {reflection.project.name}
+        </a>
+        <input id="search" placeholder="Click or press S for search" />
+        <select id="theme">
+          <option value="native">Native</option>
+          <option value="dark">Dark</option>
+          <option value="light">Light</option>
+        </select>
+      </div>
+    );
+  },
+
+  Header(props) {
+    const { templates, reflection } = props;
 
     let displayName = reflection.name;
     if (
@@ -94,17 +113,6 @@ export const DefaultTemplates: Templates = {
 
     return (
       <header>
-        <div class="toolbar">
-          <a href={router.createLink(reflection, reflection.project)}>
-            {reflection.project.name}
-          </a>
-          <input id="search" placeholder="Click or press S for search" />
-          <select id="theme">
-            <option value="native">Native</option>
-            <option value="dark">Dark</option>
-            <option value="light">Light</option>
-          </select>
-        </div>
         <div class="title">
           <templates.Breadcrumbs {...props} />
           <h1>
@@ -129,13 +137,9 @@ export const DefaultTemplates: Templates = {
 
     return (
       <nav>
-        <ul>
-          {navMembers.map((member) => (
-            <li>
-              <a href={router.createLink(reflection, member)}>{member.name}</a>
-            </li>
-          ))}
-        </ul>
+        {navMembers.map((member) => (
+          <a href={router.createLink(reflection, member)}>{member.name}</a>
+        ))}
       </nav>
     );
   },
@@ -240,6 +244,8 @@ export const DefaultTemplates: Templates = {
       );
     }
 
+    const slug = router.createSlug(reflection) || "#";
+
     return (
       <Fragment>
         {hooks.emit("reflection.before", reflection)}
@@ -247,9 +253,13 @@ export const DefaultTemplates: Templates = {
           class={`reflection reflection-${ReflectionKind.toKindString(
             reflection.kind
           )}`}
-          id={router.createSlug(reflection) || "#"} // Empty ID isn't valid HTML, and the slugger won't produce a `#`
+          id={slug} // Empty ID isn't valid HTML, and the slugger won't produce a `#`
         >
-          {displayName && <h3>{displayName}</h3>}
+          {displayName && (
+            <h3>
+              <a href={"#" + slug}>#</a> {displayName}
+            </h3>
+          )}
           {hooks.emit("reflection.begin", reflection)}
           <Template
             // Don't just use {...props} here because we don't want to pass displayName through
@@ -337,6 +347,7 @@ export const DefaultTemplates: Templates = {
       </Fragment>
     );
   },
+
   Namespace(props) {
     const { templates } = props;
 
@@ -347,6 +358,7 @@ export const DefaultTemplates: Templates = {
       </Fragment>
     );
   },
+
   Interface(props) {
     const { templates } = props;
 
@@ -357,6 +369,7 @@ export const DefaultTemplates: Templates = {
       </Fragment>
     );
   },
+
   TypeAlias(props) {
     const { reflection, templates } = props;
 
@@ -373,26 +386,43 @@ export const DefaultTemplates: Templates = {
       </Fragment>
     );
   },
+
   Enum(props) {
-    const { templates } = props;
+    const { templates, reflection } = props;
 
     return (
       <Fragment>
         <templates.Comment {...props} />
-        <templates.PageChildren {...props} />
+        <table class="enum">
+          <tbody>
+            {reflection.children.map((child) => (
+              <templates.EnumMember {...props} reflection={child} />
+            ))}
+          </tbody>
+        </table>
       </Fragment>
     );
   },
+
   EnumMember(props) {
     const { templates, reflection } = props;
 
     return (
       <Fragment>
-        {reflection.name} = {JSON.stringify(reflection.value)}
-        <templates.Comment {...props} />
+        <tr>
+          <td>
+            <p>
+              {reflection.name} = {JSON.stringify(reflection.value)}
+            </p>
+          </td>
+          <td>
+            <templates.Comment {...props} />
+          </td>
+        </tr>
       </Fragment>
     );
   },
+
   Function(props) {
     const { reflection, templates } = props;
 
@@ -404,6 +434,7 @@ export const DefaultTemplates: Templates = {
       </Fragment>
     );
   },
+
   Class(props) {
     const { templates } = props;
 
@@ -414,16 +445,25 @@ export const DefaultTemplates: Templates = {
       </Fragment>
     );
   },
+
   Object(props) {
     const { reflection } = props;
 
     return <Fragment>TODO {reflection.name}</Fragment>;
   },
-  Method(props) {
-    const { reflection } = props;
 
-    return <Fragment>TODO {reflection.name}</Fragment>;
+  Method(props) {
+    const { reflection, templates } = props;
+
+    return (
+      <Fragment>
+        {reflection.children.map((s) => {
+          return <templates.Reflection {...props} reflection={s} />;
+        })}
+      </Fragment>
+    );
   },
+
   Property(props) {
     const { reflection, templates } = props;
 
@@ -434,6 +474,7 @@ export const DefaultTemplates: Templates = {
       </Fragment>
     );
   },
+
   Accessor(props) {
     const { reflection, templates } = props;
 
@@ -451,6 +492,7 @@ export const DefaultTemplates: Templates = {
       </Fragment>
     );
   },
+
   Variable(props) {
     const { reflection, templates } = props;
 
@@ -462,6 +504,7 @@ export const DefaultTemplates: Templates = {
       </Fragment>
     );
   },
+
   Signature(props) {
     const { reflection, templates } = props;
 
@@ -509,6 +552,7 @@ export const DefaultTemplates: Templates = {
       </Fragment>
     );
   },
+
   Parameter(props) {
     const { reflection, templates } = props;
     return (
@@ -520,6 +564,7 @@ export const DefaultTemplates: Templates = {
       </Fragment>
     );
   },
+
   Reference({ reflection, router }) {
     const referenced = reflection.resolve();
     if (referenced) {
@@ -561,8 +606,20 @@ export const DefaultTemplates: Templates = {
     // Doesn't matter if we use ts/tsx here. There are no type assertions or
     // TSX elements within types. For now, the template will put all output on one line,
     // so we can just grab the first line.
-    const tokens = props.highlighter.getTokens(`type _=${typeString}`, "ts")[0];
-    tokens.splice(0, tokens.findIndex((t) => t.content === "=") + 1);
+    const tokens = props.highlighter.getTokens(
+      `type _ = ${typeString}`,
+      "ts"
+    )[0];
+    tokens.splice(
+      0,
+      tokens.findIndex((t) => /^\s*=/.test(t.content))
+    );
+
+    if (/^\s*=\s*$/.test(tokens[0].content)) {
+      tokens.splice(0, 1);
+    } else {
+      tokens[0].content = tokens[0].content.replace(/^\s*=\s*/, "");
+    }
 
     let targetIndex = 0;
 

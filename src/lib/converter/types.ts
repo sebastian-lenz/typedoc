@@ -270,13 +270,25 @@ const literalConverter: TypeConverter<
         return new M.LiteralType(null);
       case ts.SyntaxKind.StringLiteral:
         return new M.LiteralType(literal.text);
-      case ts.SyntaxKind.PrefixUnaryExpression:
       case ts.SyntaxKind.NumericLiteral:
         return new M.LiteralType(Number(literal.getText()));
       case ts.SyntaxKind.BigIntLiteral: {
         const negative = literal.text[0] === "-";
         const value = literal.text.replace(/^[+-]|n$/g, "");
         return new M.LiteralType({ negative, value });
+      }
+      case ts.SyntaxKind.PrefixUnaryExpression: {
+        const operand = (literal as ts.PrefixUnaryExpression).operand;
+        switch (operand.kind) {
+          case ts.SyntaxKind.NumericLiteral:
+            return new M.LiteralType(Number(literal.getText()));
+          case ts.SyntaxKind.BigIntLiteral:
+            // + cannot be present in a big int literal, this must be -123n
+            return new M.LiteralType({
+              value: operand.getText().replace("n", ""),
+              negative: true,
+            });
+        }
       }
     }
     return requestBugReport(converter, literal);

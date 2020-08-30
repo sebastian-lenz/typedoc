@@ -90,7 +90,7 @@ export const TypeTemplates: {
         [OptionalModifier.Add]: "?: ",
         [OptionalModifier.Remove]: "-?: ",
       }[type.optionalModifier],
-      toString({ ...props, type: type.type }),
+      toString({ ...props, type: type.type, wrapped: false }),
       " }",
     ];
 
@@ -114,7 +114,7 @@ export const TypeTemplates: {
     if (type.isReadonly) {
       children.push("readonly ");
     }
-    // Checking if it is a valid identifier & thus doesn't need to be quoted is... ridiculuous.
+    // Checking if it is a valid identifier & thus doesn't need to be quoted is... ridiculous.
     // Instead, use an intentionally simplistic check. https://stackoverflow.com/a/9337047/7186598
     if (/^[A-Za-z0-9_$]+$/.test(type.name)) {
       children.push(type.name);
@@ -122,7 +122,9 @@ export const TypeTemplates: {
       children.push(JSON.stringify(type.name));
     }
     children.push(type.isOptional ? "?: " : ": ");
-    children.push(toString({ ...props, type: type.propertyType }));
+    children.push(
+      toString({ ...props, type: type.propertyType, wrapped: false })
+    );
 
     return children.join("");
   },
@@ -147,7 +149,7 @@ export const TypeTemplates: {
     linkTargets.push(type.reflection ?? type.name);
 
     let typeArgs = type.typeArguments
-      .map((arg) => toString({ ...props, type: arg }))
+      .map((arg) => toString({ ...props, type: arg, wrapped: false }))
       .join(", ");
     if (typeArgs.length) {
       typeArgs = `<${typeArgs}>`;
@@ -159,11 +161,11 @@ export const TypeTemplates: {
     const { type } = props;
 
     const parameters = type.parameters
-      .map((param) => toString({ ...props, type: param }))
+      .map((param) => toString({ ...props, type: param, wrapped: false }))
       .join(", ");
 
     let typeParameters = type.typeParameters
-      .map((param) => toString({ ...props, type: param }))
+      .map((param) => toString({ ...props, type: param, wrapped: false }))
       .join(", ");
     if (typeParameters.length) {
       typeParameters = `<${typeParameters}>`;
@@ -181,11 +183,11 @@ export const TypeTemplates: {
     const { type } = props;
 
     const parameters = type.parameters
-      .map((param) => toString({ ...props, type: param }))
+      .map((param) => toString({ ...props, type: param, wrapped: false }))
       .join(", ");
 
     let typeParameters = type.typeParameters
-      .map((param) => toString({ ...props, type: param }))
+      .map((param) => toString({ ...props, type: param, wrapped: false }))
       .join(", ");
     if (typeParameters.length) {
       typeParameters = `<${typeParameters}>`;
@@ -196,6 +198,7 @@ export const TypeTemplates: {
       `new ${typeParameters}(${parameters}): ${toString({
         ...props,
         type: type.returnType,
+        wrapped: false,
       })}`
     );
   },
@@ -214,7 +217,9 @@ export const TypeTemplates: {
   },
   [TypeKind.Tuple](props) {
     const { type } = props;
-    return `[${type.elements.map((type) => toString({ ...props, type }))}]`;
+    return `[${type.elements
+      .map((type) => toString({ ...props, type }))
+      .join(", ")}]`;
   },
   [TypeKind.TupleMember](props) {
     const { type, linkTargets } = props;

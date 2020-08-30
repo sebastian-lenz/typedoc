@@ -78,6 +78,11 @@ export interface Templates {
   Page(props: TemplateProps<SomeReflection>): VNode;
 
   /**
+   * Create fixed the page toolbar, used within the {@link Page} template.
+   */
+  Toolbar(props: TemplateProps<SomeReflection>): VNode;
+
+  /**
    * Create the page header, used within the {@link Page} template.
    */
   Header(props: TemplateProps<SomeReflection>): VNode;

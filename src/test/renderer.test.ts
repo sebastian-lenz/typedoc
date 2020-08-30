@@ -1,64 +1,59 @@
 import { Application, ProjectReflection } from "..";
-import * as FS from "fs";
-import * as Path from "path";
-import Assert = require("assert");
+import { promises as fs } from "fs";
 import { ScriptTarget, ModuleKind } from "typescript";
+import { join, relative } from "path";
+import { deepStrictEqual, ok, strictEqual } from "assert";
+import { tmpdir } from "os";
 
-function getFileIndex(base: string, dir = "", results: string[] = []) {
-  const files = FS.readdirSync(Path.join(base, dir));
-  files.forEach(function (file) {
-    file = Path.join(dir, file);
-    if (FS.statSync(Path.join(base, file)).isDirectory()) {
-      getFileIndex(base, file, results);
-    } else {
-      results.push(file);
+const ignoredPaths = new Set(["assets"]);
+
+async function getFileIndex(base: string) {
+  const queue = [base];
+  const results: string[] = [];
+
+  let path: string | undefined;
+  while ((path = queue.pop())) {
+    if (ignoredPaths.has(relative(base, path))) {
+      continue;
     }
-  });
+
+    const stats = await fs.stat(path);
+    if (stats.isDirectory()) {
+      for (const child of await fs.readdir(path)) {
+        queue.push(join(path, child));
+      }
+    } else {
+      results.push(relative(base, path));
+    }
+  }
 
   return results.sort();
 }
 
-function compareDirectories(a: string, b: string) {
-  const aFiles = getFileIndex(a);
-  const bFiles = getFileIndex(b);
-  Assert.deepEqual(
-    aFiles,
-    bFiles,
-    `Generated files differ. between "${a}" and "${b}"`
-  );
+async function compareDirectories(actualDir: string, expectedDir: string) {
+  const [actualFiles, expectedFiles] = await Promise.all([
+    getFileIndex(actualDir),
+    getFileIndex(expectedDir),
+  ]);
+  deepStrictEqual(actualFiles, expectedFiles);
 
-  const gitHubRegExp = /https:\/\/github.com\/[A-Za-z0-9-]+\/typedoc\/blob\/[^/]*\/examples/g;
-  aFiles.forEach(function (file) {
-    const aSrc = FS.readFileSync(Path.join(a, file), { encoding: "utf-8" })
-      .replace("\r", "")
-      .replace(gitHubRegExp, "%GITHUB%");
-    const bSrc = FS.readFileSync(Path.join(b, file), { encoding: "utf-8" })
-      .replace("\r", "")
-      .replace(gitHubRegExp, "%GITHUB%");
-
-    Assert.strictEqual(bSrc, aSrc, `File contents of "${file}" differ.`);
-  });
+  for (const file of actualFiles) {
+    const [actualContent, expectedContent] = await Promise.all([
+      fs.readFile(join(actualDir, file), "utf-8"),
+      fs.readFile(join(expectedDir, file), "utf-8"),
+    ]);
+    strictEqual(actualContent, expectedContent);
+  }
 }
 
-describe.skip("Renderer", function () {
-  const src = Path.join(__dirname, "..", "..", "examples", "basic", "src");
-  const out = Path.join(__dirname, "..", "tmp", "test");
+describe("Renderer", function () {
   let app: Application, project: ProjectReflection | undefined;
-
-  before(function () {
-    FS.rmdirSync(out, { recursive: true });
-  });
-
-  after(function () {
-    FS.rmdirSync(out, { recursive: true });
-  });
 
   it("constructs", function () {
     app = new Application();
     app.bootstrap({
       logger: "console",
       target: ScriptTarget.ES5,
-      readme: Path.join(src, "..", "README.md"),
       module: ModuleKind.CommonJS,
       gaSite: "foo.com", // verify theme option without modifying output
       name: "typedoc",
@@ -68,11 +63,13 @@ describe.skip("Renderer", function () {
 
   it("converts basic example", async function () {
     this.timeout(0);
-    app.options.setValue("entryPoint", [src]);
+    app.options.setValue("entryPoint", [
+      join(__dirname, "renderer", "project", "index.ts"),
+    ]);
     project = await app.convert();
 
-    Assert(!app.logger.hasErrors(), "Application.convert returned errors");
-    Assert(
+    ok(!app.logger.hasErrors(), "Application.convert returned errors");
+    ok(
       project instanceof ProjectReflection,
       "Application.convert did not return a reflection"
     );
@@ -80,9 +77,14 @@ describe.skip("Renderer", function () {
 
   it("renders basic example", async function () {
     this.timeout(0);
-    Assert(project);
-    await app.generateDocs(project, out);
+    ok(project);
 
-    compareDirectories(Path.join(__dirname, "renderer", "specs"), out);
+    const tmp = await fs.mkdtemp(join(tmpdir(), "typedoc_rendered_specs"));
+    await app.generateDocs(project, tmp);
+    try {
+      await compareDirectories(tmp, join(__dirname, "renderer", "specs"));
+    } finally {
+      await fs.rmdir(tmp, { recursive: true });
+    }
   });
 });

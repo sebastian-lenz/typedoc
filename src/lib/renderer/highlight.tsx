@@ -1,27 +1,22 @@
 import { ok as assert } from "assert";
 
-import {
-  getHighlighter,
-  getTheme,
-  commonLangIds,
-  commonLangAliases,
-  otherLangIds,
-} from "@gerrit0/shiki";
+import { getHighlighter, getTheme } from "shiki";
 // This is bad... but Shiki doesn't export it from the root.
-import type { Highlighter } from "@gerrit0/shiki/dist/highlighter";
-
-import type { TLang } from "shiki-languages";
-import type { TTheme } from "shiki-themes";
+import type { Highlighter } from "shiki/dist/highlighter";
 
 import { createElement, JSX, Fragment } from "preact";
 import { render } from "preact-render-to-string";
 
 import * as Color from "color";
 
+export type Theme = Parameters<typeof getTheme>[0];
+
 const supportedLanguages: Set<string> = new Set([
-  ...commonLangIds,
-  ...commonLangAliases,
-  ...otherLangIds,
+  "ts",
+  "typescript",
+  "tsx",
+  "js",
+  "javascript",
 ]);
 
 export type HighlightedToken = { content: string; class: string };
@@ -33,8 +28,8 @@ export class DoubleHighlighter {
   private reverseSchemes = new Map<string, [string?, string?]>();
 
   static async create(
-    lightTheme: TTheme,
-    darkTheme: TTheme
+    lightTheme: Theme,
+    darkTheme: Theme
   ): Promise<DoubleHighlighter> {
     const light = getTheme(lightTheme).bg;
     const dark = getTheme(darkTheme).bg;
@@ -61,7 +56,7 @@ export class DoubleHighlighter {
 
     const children: JSX.Element[] = [];
 
-    for (const line of this.getTokens(code, lang as TLang)) {
+    for (const line of this.getTokens(code, lang)) {
       for (const token of line) {
         children.push(<span class={token.class}>{token.content}</span>);
       }
@@ -77,7 +72,7 @@ export class DoubleHighlighter {
    * @param code
    * @param lang
    */
-  getTokens(code: string, lang: TLang): HighlightedToken[][] {
+  getTokens(code: string, lang: string): HighlightedToken[][] {
     assert(supportedLanguages.has(lang));
 
     const lightTokens = this.light.codeToThemedTokens(code, lang, {

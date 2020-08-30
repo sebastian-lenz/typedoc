@@ -4,9 +4,9 @@
 
 /* Theme colors, you can override these by including a custom style sheet with --style */
 :root {
-  --toolbar-size: 60px;
+  --toolbar-size: 40px;
 
-  --light-border: #eeeeee;
+  --light-border: #8c8c8c;
   --light-text: #222222;
   --light-text-aside: #808080;
   --light-text-link: #4da6ff;
@@ -15,18 +15,10 @@
   --dark-text: #ffffff;
   --dark-text-aside: #dddddd;
   --dark-text-link: #389fff;
-
-  /* The base components are set by the highlighter, we generate colors here from them. */
-  --light-background: hsla(var(--light-bg-hue), var(--light-bg-saturation), var(--light-bg-lightness), var(--light-bg-alpha));
-  --light-offset-background: hsla(var(--light-bg-hue), var(--light-bg-saturation), calc(var(--light-bg-lightness) - 10%), var(--light-bg-alpha));
-
-  --dark-background: hsla(var(--dark-bg-hue), var(--dark-bg-saturation), var(--dark-bg-lightness), var(--dark-bg-alpha));
-  --dark-offset-background: hsla(var(--dark-bg-hue), var(--dark-bg-saturation), calc(var(--dark-bg-lightness) + 10%), var(--dark-bg-alpha));
 }
 
-html,
-body {
-  height: 100%;
+* {
+  box-sizing: border-box;
 }
 
 body {
@@ -34,8 +26,16 @@ body {
   --theme-text: var(--light-text);
   --theme-text-aside: var(--light-text-aside);
   --theme-text-link: var(--light-text-link);
-  --theme-background: var(--light-background);
   --theme-offset-background: var(--light-offset-background);
+
+  --theme-bg-hue: var(--light-bg-hue);
+  --theme-bg-saturation: var(--light-bg-saturation);
+  --theme-bg-lightness: var(--light-bg-lightness);
+  --theme-bg-alpha: var(--light-bg-alpha);
+
+  --theme-background: hsla(var(--theme-bg-hue), var(--theme-bg-saturation), var(--theme-bg-lightness), var(--theme-bg-alpha));
+
+  --theme-offset-background: hsla(var(--theme-bg-hue), var(--theme-bg-saturation), calc(var(--theme-bg-lightness) - 5%), var(--theme-bg-alpha));
 }
 
 body.dark {
@@ -43,8 +43,14 @@ body.dark {
   --theme-text: var(--dark-text);
   --theme-text-aside: var(--dark-text-aside);
   --theme-text-link: var(--dark-text-link);
-  --theme-background: var(--dark-background);
   --theme-offset-background: var(--dark-offset-background);
+
+  --theme-bg-hue: var(--dark-bg-hue);
+  --theme-bg-saturation: var(--dark-bg-saturation);
+  --theme-bg-lightness: var(--dark-bg-lightness);
+  --theme-bg-alpha: var(--dark-bg-alpha);
+
+  --theme-offset-background: hsla(var(--theme-bg-hue), var(--theme-bg-saturation), calc(var(--theme-bg-lightness) + 10%), var(--theme-bg-alpha));
 }
 
 a {
@@ -57,25 +63,23 @@ body {
   background: var(--theme-background);
 }
 
-header {
-  padding-top: var(--toolbar-size);
-  border-bottom: 1px solid var(--theme-border);
-}
-
 .toolbar {
+  position: sticky;
+  top: 0;
+
   display: flex;
   border-bottom: 1px solid var(--theme-border);
-  position: fixed;
-  top: 0;
   width: 100%;
   height: var(--toolbar-size);
   background: var(--theme-background);
+  z-index: 99;
 }
 
 .toolbar a {
-  padding: 1rem;
+  padding: calc(var(--toolbar-size) / 5);
   text-decoration: none;
-  font-size: 1.5rem;
+  font-size: calc(var(--toolbar-size) / 2);
+  color: var(--theme-text);
 }
 
 #search {
@@ -116,42 +120,71 @@ header {
   text-decoration: underline;
 }
 
-.title h1 {
-  margin: 0;
-  margin-bottom: 0.4em;
-}
-/* No breadcrumbs */
-.title h1:first-child {
-  margin-top: 0.4em;
-}
-
 main {
-  display: flex;
+  display: grid;
+  grid-template-areas:
+    "nav header ."
+    "nav body ."
+    "nav footer .";
+  grid-template-columns: auto 800px 1fr;
+  grid-template-rows: auto 1fr auto;
+  height: calc(100vh - var(--toolbar-size));
+  max-height: calc(100vh - var(--toolbar-size));
+  overflow: auto;
 }
-
-main,
-.title {
-  margin: auto;
-  max-width: 1200px;
-}
-
-#main {
-  width: 800px;
-}
-
 main > nav {
+  grid-area: nav;
   min-width: 200px;
+  border-right: 1px solid var(--theme-border);
+}
+main > nav {
+  position: sticky;
+  top: 0;
+  max-height: calc(100vh - var(--toolbar-size));
+  overflow: auto;
+  list-style-type: none;
+  padding: 1em 0;
+  background: var(--theme-offset-background);
+}
+main > nav a {
+  display: block;
+  padding: 0.15em 1em;
+  text-decoration: none;
+  color: var(--theme-text);
+}
+main > nav a:hover {
+  background: var(--theme-background);
 }
 
-code {
-  white-space: pre-wrap;
-}
-
-.reflection:not([id="#"]) {
+main > header {
+  grid-area: header;
+  border-bottom: 1px solid var(--theme-border);
   padding: 1em;
-  margin: 1em 0;
-  border: 1px solid var(--theme-border);
 }
-.reflection h3:first-child {
-  margin-top: 0;
+.breadcrumbs {
+  margin: 0;
+}
+main > header h1 {
+  margin: 0;
+}
+
+main > #main {
+  grid-area: body;
+  padding-left: 1em;
+  border-bottom: 1px solid var(--theme-border);
+}
+main > footer {
+  grid-area: footer;
+  text-align: center;
+}
+
+table.enum {
+  width: 100%;
+  border-spacing: 0;
+  background: var(--theme-offset-background);
+}
+table.enum td {
+  vertical-align: top;
+  border-top: 1px solid var(--theme-border);
+  padding: 0 0.5em;
 }

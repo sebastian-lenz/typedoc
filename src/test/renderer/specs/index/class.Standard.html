@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html><head><meta charSet="utf-8" /><meta name="description" content="Documentation for typedoc" /><meta name="viewport" content="width=device-width, initial-scale=1" /><meta name="generator" content="typedoc" /><title>Standard | typedoc</title><link rel="stylesheet" href="../assets/style.css" /><link rel="stylesheet" href="../assets/theme.css" /></head><body><script>(function (theme) {
+  const media = window.matchMedia("(prefers-color-scheme: dark)");
+  setTheme();
+  function setTheme() {
+    document.body.classList.toggle(
+      "dark",
+      {
+        native: media.matches,
+        dark: true,
+        light: false,
+      }[theme]
+    );
+  }
+  media.addEventListener("change", setTheme);
+  addEventListener("load", () => {
+    const select = document.getElementById("theme");
+    select.value = theme;
+    select.addEventListener("input", () => {
+      localStorage.setItem("theme", (theme = select.value));
+      setTheme();
+    });
+  });
+})(localStorage.getItem("theme") || "native");</script><div class="toolbar"><a href="../index.html">typedoc</a><input id="search" placeholder="Click or press S for search" /><select id="theme"><option value="native">Native</option><option value="dark">Dark</option><option value="light">Light</option></select></div><main><header><div class="title"><ul class="breadcrumbs"><li><a href="../index.html">typedoc</a></li><li><a href="../module.index.html">index</a></li></ul><h1>Class Standard</h1></div></header><nav><a href="class.Standard.html#property">property</a><a href="class.Standard.html#propertydefinedinmergedinterface">propertyDefinedInMergedInterface</a><a href="class.Standard.html#data">data</a><a href="class.Standard.html#setproperty">setProperty</a></nav><section id="main"><div class="reflection reflection-class" id="#"><div class="comment markdown"><p>A basic class</p>
+</div><div class="reflection reflection-property" id="property"><h3><a href="#property">#</a> Property property</h3>property: <span class="hl-2">string</span></div><div class="reflection reflection-property" id="propertydefinedinmergedinterface"><h3><a href="#propertydefinedinmergedinterface">#</a> Property propertyDefinedInMergedInterface</h3>propertyDefinedInMergedInterface: <span class="hl-2">string</span></div><div class="reflection reflection-accessor" id="data"><h3><a href="#data">#</a> Accessor data</h3>get data: <span class="hl-2">string</span></div><div class="reflection reflection-method" id="setproperty"><h3><a href="#setproperty">#</a> Method setProperty</h3><div class="reflection reflection-signature" id="setproperty-1"><div class="signature">setProperty(value: <span class="hl-2">string</span>): <span class="hl-2">void</span></div><div class="comment markdown"><p>Method with inferred void return type</p>
+</div><h4>Parameters</h4><ul><li><div class="reflection reflection-parameter" id="setproperty-value"><b>value</b>: <span class="hl-2">string</span><br /></div></li></ul></div></div></div></section><footer><p>Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer></main></body></html>
