@@ -17,6 +17,9 @@ describe("Converter", function () {
     name: "typedoc",
     excludeExternals: true,
     disableSources: true,
+    strict: true,
+    strictPropertyInitialization: false,
+    noImplicitAny: false,
   });
 
   const checks: [string, () => void, () => void][] = [

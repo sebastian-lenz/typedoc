@@ -29,10 +29,11 @@ export enum TypeKind {
   Unknown = 524288,
   Mapped = 1048576,
   TupleMember = 2097152,
+  Optional = 4194304,
 }
 
 export namespace TypeKind {
-  const LAST_KIND = TypeKind.TupleMember;
+  const LAST_KIND = TypeKind.Optional;
 
   export const All: TypeKind = LAST_KIND * 2 - 1;
 

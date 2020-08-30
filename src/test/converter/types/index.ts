@@ -6,3 +6,7 @@ export const namedTuple = returnMapped<NamedTuple>();
 function returnMapped<T>() {
   return {} as any as { [K in keyof T]: T[K] };
 }
+
+export type OptionalTuple = [string?];
+
+export const optionalTuple = returnMapped<OptionalTuple>();

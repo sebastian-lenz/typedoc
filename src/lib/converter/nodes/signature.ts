@@ -3,7 +3,7 @@ import * as ts from "typescript";
 import { SignatureReflection, ParameterReflection } from "../../models";
 import type { Converter } from "../converter";
 import { getCommentForNodes } from "../comments";
-import { convertTypeParameters } from "../utils";
+import { convertTypeParameters, excludeUndefined } from "../utils";
 import { waterfall } from "../../utils/array";
 
 export async function convertSignatureDeclaration(
@@ -30,12 +30,16 @@ export async function convertSignatureDeclaration(
       paramDeclaration.type ??
         converter.checker.getTypeOfSymbolAtLocation(param, paramDeclaration)
     );
+    const isOptional =
+      !!paramDeclaration.questionToken || !!paramDeclaration.initializer;
 
     const parameter = new ParameterReflection(
       param.name,
-      paramType,
+      "kind" in paramType || !isOptional
+        ? paramType
+        : excludeUndefined(paramType),
       paramDeclaration.initializer?.getText(),
-      !!paramDeclaration.questionToken || !!paramDeclaration.initializer,
+      isOptional,
       !!paramDeclaration.dotDotDotToken
     );
     parameter.comment = getCommentForNodes([paramDeclaration]);

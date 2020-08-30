@@ -507,7 +507,7 @@
                     "kindString": "intrinsic",
                     "name": "boolean"
                   },
-                  "defaultValue": "null"
+                  "defaultValue": "false"
                 }
               ],
               "typeParameters": [],

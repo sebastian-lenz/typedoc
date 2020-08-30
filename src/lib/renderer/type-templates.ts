@@ -257,4 +257,10 @@ export const TypeTemplates: {
     // in the type displayed after this type...
     return props.type.name;
   },
+  [TypeKind.Optional](props) {
+    return wrap(
+      props.wrapped,
+      toString({ ...props, type: props.type.type, wrapped: true }) + "?"
+    );
+  },
 };

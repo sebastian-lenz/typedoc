@@ -69,7 +69,7 @@ export function functionWithDefaults(
   valueB: number = 100,
   valueC: number = Number.NaN,
   valueD: boolean = true,
-  valueE: boolean = null
+  valueE: boolean = false
 ): string {
   return valueA;
 }

@@ -22,6 +22,9 @@ app.bootstrap({
   name: "typedoc",
   excludeExternals: true,
   disableSources: true,
+  strict: true,
+  strictPropertyInitialization: false,
+  noImplicitAny: false,
 });
 
 // Note that this uses the test files in dist, not in src, this is important since

@@ -3,7 +3,27 @@ import { promises as fs } from "fs";
 import * as ts from "typescript";
 import * as M from "../models";
 import type { Converter } from "./converter";
-import { Visibility } from "../models";
+import { SomeType, TypeKind, Visibility } from "../models";
+
+export function excludeUndefined(type: SomeType): SomeType {
+  if (type.kind === TypeKind.Union) {
+    const undefIndex = type.types.findIndex(
+      (t) => t.kind === TypeKind.Intrinsic && t.name === "undefined"
+    );
+    if (undefIndex !== -1) {
+      type.types.splice(undefIndex, 1);
+    }
+
+    if (type.types.length > 1) {
+      return type;
+    } else {
+      return type.types[0];
+    }
+  }
+
+  // If this isn't a union, nothing to exclude.
+  return type;
+}
 
 export function convertTypeParameters(
   converter: Converter,

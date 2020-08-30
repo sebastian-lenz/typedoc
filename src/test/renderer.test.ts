@@ -58,6 +58,9 @@ describe("Renderer", function () {
       gaSite: "foo.com", // verify theme option without modifying output
       name: "typedoc",
       disableSources: true,
+      strict: true,
+      strictPropertyInitialization: false,
+      noImplicitAny: false,
     });
   });
 

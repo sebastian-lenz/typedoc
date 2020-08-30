@@ -19,6 +19,7 @@ import type {
   SerializedObjectType,
   SerializedPropertyType,
 } from "./object";
+import type { OptionalType, SerializedOptionalType } from "./optional";
 import type { PredicateType, SerializedPredicateType } from "./predicate";
 import type { QueryType, SerializedQueryType } from "./query";
 import type { ReferenceType, SerializedReferenceType } from "./reference";
@@ -45,7 +46,6 @@ import type {
 } from "./type-parameter";
 import type { SerializedUnionType, UnionType } from "./union";
 import type { SerializedUnknownType, UnknownType } from "./unknown";
-
 export { Type, TypeKind } from "./abstract";
 export { ArrayType, SerializedArrayType } from "./array";
 export { ConditionalType, SerializedConditionalType } from "./conditional";
@@ -64,6 +64,7 @@ export {
   SerializedObjectType,
   SerializedPropertyType,
 } from "./object";
+export { OptionalType, SerializedOptionalType } from "./optional";
 export { PredicateType, SerializedPredicateType } from "./predicate";
 export { QueryType, SerializedQueryType } from "./query";
 export { ReferenceType, SerializedReferenceType } from "./reference";
@@ -111,6 +112,7 @@ export interface TypeKindToModel {
   [TypeKind.Unknown]: UnknownType;
   [TypeKind.Mapped]: MappedType;
   [TypeKind.TupleMember]: TupleNamedMemberType;
+  [TypeKind.Optional]: OptionalType;
 }
 
 export interface TypeKindToSerialized {
@@ -136,6 +138,7 @@ export interface TypeKindToSerialized {
   [TypeKind.Unknown]: SerializedUnknownType;
   [TypeKind.Mapped]: SerializedMappedType;
   [TypeKind.TupleMember]: SerializedTupleNamedMemberType;
+  [TypeKind.Optional]: SerializedOptionalType;
 }
 
 export type SomeType = TypeKindToModel[TypeKind];

@@ -8,6 +8,7 @@ import {
   hasReadonlyModifier,
   convertTypeParameterDeclarations,
   convertParameterSymbols,
+  excludeUndefined,
 } from "./utils";
 import { OptionalModifier } from "../models/types/mapped";
 
@@ -44,6 +45,7 @@ export function addTypeConverters(converter: Converter): void {
     mappedConverter,
     namedTupleMemberConverter,
     operatorConverter,
+    optionalConverter,
     parenthesizedConverter,
     predicateConverter,
     queryConverter,
@@ -350,15 +352,20 @@ const mappedConverter: TypeConverter<
     ])[0];
     assert(parameter.constraint, "this should have caused a compiler error.");
 
+    const optionalModifier = node.questionToken
+      ? tokenToModifier[node.questionToken.kind]
+      : OptionalModifier.None;
+    const targetType = converter.convertType(node.type);
+
     return new M.MappedType(
       node.readonlyToken
         ? tokenToModifier[node.readonlyToken.kind]
         : OptionalModifier.None,
       parameter as M.TypeParameterType & { constraint: M.SomeType },
-      node.questionToken
-        ? tokenToModifier[node.questionToken.kind]
-        : OptionalModifier.None,
-      converter.convertType(node.type)
+      optionalModifier,
+      optionalModifier === OptionalModifier.Add
+        ? excludeUndefined(targetType)
+        : targetType
     );
   },
   convertType(converter, type, node) {
@@ -366,15 +373,20 @@ const mappedConverter: TypeConverter<
     const parameter = convertTypeParameters(converter, [type.typeParameter])[0];
     parameter.constraint = converter.convertType(type.constraintType);
 
+    const optionalModifier = node.questionToken
+      ? tokenToModifier[node.questionToken.kind]
+      : OptionalModifier.None;
+    const targetType = converter.convertType(node.type);
+
     return new M.MappedType(
       node.readonlyToken
         ? tokenToModifier[node.readonlyToken.kind]
         : OptionalModifier.None,
       parameter as M.TypeParameterType & { constraint: M.SomeType },
-      node.questionToken
-        ? tokenToModifier[node.questionToken.kind]
-        : OptionalModifier.None,
-      converter.convertType(type.templateType)
+      optionalModifier,
+      optionalModifier === OptionalModifier.Add
+        ? excludeUndefined(targetType)
+        : targetType
     );
   },
 };
@@ -389,7 +401,7 @@ const namedTupleMemberConverter: TypeConverter<
     return new M.TupleNamedMemberType(
       node.name.text,
       hasQuestionToken(node),
-      converter.convertType(node.type)
+      excludeUndefined(converter.convertType(node.type))
     );
   },
   convertType: requestBugReport,
@@ -441,6 +453,18 @@ const operatorConverter: TypeConverter<
     // to have a type node. This shouldn't ever happen.
     return requestBugReport(converter, type);
   },
+};
+
+// type Z = [string?]
+//           ^^^^^^^
+const optionalConverter: TypeConverter<ts.OptionalTypeNode> = {
+  kind: [ts.SyntaxKind.OptionalType],
+  convert(converter, node) {
+    return new M.OptionalType(converter.convertType(node.type));
+  },
+  // When we only have a type, this is never created. We can have optional types within
+  // tuples on the type side, but they must be handled by the type converter for tuples.
+  convertType: requestBugReport,
 };
 
 // Just collapse these...
@@ -567,6 +591,16 @@ const tupleConverter: TypeConverter<
     const elements = converter.checker.getTypeArguments(type);
     const tuple = new M.TupleType(elements.map(converter.convertType));
 
+    // We might have optional elements, but we can't know this when converting
+    // the elements... so deal with it here.
+    for (let i = 0; i < elements.length; ++i) {
+      if (ts.isOptionalTypeNode(node.elements[i])) {
+        tuple.elements[i] = new M.OptionalType(
+          excludeUndefined(tuple.elements[i])
+        );
+      }
+    }
+
     // When converting a tuple with named elements and we get the elements as types,
     // they lose their names, so we restore it afterwards. This is only a problem in
     // type land, and requires a somewhat contrived example to produce it, but it could happen.
@@ -576,7 +610,9 @@ const tupleConverter: TypeConverter<
         tuple.elements[i] = new M.TupleNamedMemberType(
           element.name.text,
           hasQuestionToken(element),
-          tuple.elements[i]
+          hasQuestionToken(element)
+            ? excludeUndefined(tuple.elements[i])
+            : tuple.elements[i]
         );
       }
     }
@@ -601,7 +637,7 @@ const typeLiteralConverter: TypeConverter<
             getPropertyName(prop.name),
             hasReadonlyModifier(prop),
             hasQuestionToken(prop),
-            converter.convertType(prop.type)
+            excludeUndefined(converter.convertType(prop.type))
           )
       );
 
