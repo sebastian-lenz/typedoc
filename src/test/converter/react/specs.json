@@ -5,95 +5,87 @@
   "kindString": "project",
   "children": [
     {
-      "id": 1,
-      "name": "react",
-      "kind": 2,
-      "kindString": "module",
+      "id": 4,
+      "name": "Demo",
+      "kind": 128,
+      "kindString": "class",
       "children": [
         {
           "id": 5,
-          "name": "Demo",
-          "kind": 128,
-          "kindString": "class",
+          "name": "foo",
+          "kind": 1024,
+          "kindString": "property",
+          "type": {
+            "kind": 32,
+            "kindString": "intrinsic",
+            "name": "number"
+          },
+          "visibility": "private"
+        },
+        {
+          "id": 6,
+          "name": "render",
+          "kind": 4096,
+          "kindString": "method",
           "children": [
-            {
-              "id": 6,
-              "name": "foo",
-              "kind": 1024,
-              "kindString": "property",
-              "type": {
-                "kind": 32,
-                "kindString": "intrinsic",
-                "name": "number"
-              },
-              "visibility": "private"
-            },
             {
               "id": 7,
               "name": "render",
-              "kind": 4096,
-              "kindString": "method",
-              "children": [
-                {
-                  "id": 8,
-                  "name": "render",
-                  "kind": 8192,
-                  "kindString": "signature",
-                  "parameters": [],
-                  "typeParameters": [],
-                  "returnType": {
-                    "kind": 1024,
-                    "kindString": "reference",
-                    "name": "Element",
-                    "typeArguments": []
-                  }
-                }
-              ],
-              "visibility": "public"
+              "kind": 8192,
+              "kindString": "signature",
+              "parameters": [],
+              "typeParameters": [],
+              "returnType": {
+                "kind": 1024,
+                "kindString": "reference",
+                "name": "Element",
+                "typeArguments": []
+              }
             }
           ],
-          "signatures": [],
-          "constructSignatures": [],
-          "typeParameters": [],
-          "implementedTypes": []
+          "visibility": "public"
+        }
+      ],
+      "signatures": [],
+      "constructSignatures": [],
+      "typeParameters": [],
+      "implementedTypes": []
+    },
+    {
+      "id": 1,
+      "name": "DemoProps",
+      "kind": 256,
+      "kindString": "interface",
+      "children": [
+        {
+          "id": 3,
+          "name": "age",
+          "kind": 1024,
+          "kindString": "property",
+          "type": {
+            "kind": 32,
+            "kindString": "intrinsic",
+            "name": "number"
+          },
+          "visibility": "public"
         },
         {
           "id": 2,
-          "name": "DemoProps",
-          "kind": 256,
-          "kindString": "interface",
-          "children": [
-            {
-              "id": 4,
-              "name": "age",
-              "kind": 1024,
-              "kindString": "property",
-              "type": {
-                "kind": 32,
-                "kindString": "intrinsic",
-                "name": "number"
-              },
-              "visibility": "public"
-            },
-            {
-              "id": 3,
-              "name": "name",
-              "kind": 1024,
-              "kindString": "property",
-              "type": {
-                "kind": 32,
-                "kindString": "intrinsic",
-                "name": "string"
-              },
-              "visibility": "public"
-            }
-          ],
-          "signatures": [],
-          "constructSignatures": [],
-          "typeParameters": [],
-          "extendedTypes": []
+          "name": "name",
+          "kind": 1024,
+          "kindString": "property",
+          "type": {
+            "kind": 32,
+            "kindString": "intrinsic",
+            "name": "string"
+          },
+          "visibility": "public"
         }
-      ]
+      ],
+      "signatures": [],
+      "constructSignatures": [],
+      "typeParameters": [],
+      "extendedTypes": []
     }
   ]
 }

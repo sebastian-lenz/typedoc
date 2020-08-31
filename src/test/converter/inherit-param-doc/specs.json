@@ -5,22 +5,33 @@
   "kindString": "project",
   "children": [
     {
-      "id": 1,
-      "name": "inherit-param-doc",
-      "kind": 2,
-      "kindString": "module",
+      "id": 3,
+      "name": "Class1",
+      "kind": 128,
+      "kindString": "class",
       "children": [
         {
           "id": 4,
-          "name": "Class1",
-          "kind": 128,
-          "kindString": "class",
+          "name": "method1",
+          "kind": 4096,
+          "kindString": "method",
+          "comment": {
+            "shortText": "",
+            "text": "",
+            "tags": [
+              {
+                "tagName": "inheritdoc",
+                "text": "",
+                "paramName": ""
+              }
+            ]
+          },
           "children": [
             {
-              "id": 5,
+              "id": 7,
               "name": "method1",
-              "kind": 4096,
-              "kindString": "method",
+              "kind": 8192,
+              "kindString": "signature",
               "comment": {
                 "shortText": "",
                 "text": "",
@@ -32,82 +43,87 @@
                   }
                 ]
               },
-              "children": [
+              "parameters": [
                 {
-                  "id": 8,
-                  "name": "method1",
-                  "kind": 8192,
-                  "kindString": "signature",
-                  "comment": {
-                    "shortText": "",
-                    "text": "",
-                    "tags": [
-                      {
-                        "tagName": "inheritdoc",
-                        "text": "",
-                        "paramName": ""
-                      }
-                    ]
-                  },
-                  "parameters": [
-                    {
-                      "id": 6,
-                      "name": "a",
-                      "kind": 16384,
-                      "kindString": "parameter",
-                      "type": {
-                        "kind": 32,
-                        "kindString": "intrinsic",
-                        "name": "number"
-                      }
-                    },
-                    {
-                      "id": 7,
-                      "name": "b",
-                      "kind": 16384,
-                      "kindString": "parameter",
-                      "type": {
-                        "kind": 32,
-                        "kindString": "intrinsic",
-                        "name": "string"
-                      }
-                    }
-                  ],
-                  "typeParameters": [],
-                  "returnType": {
+                  "id": 5,
+                  "name": "a",
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
-                    "name": "void"
+                    "name": "number"
+                  }
+                },
+                {
+                  "id": 6,
+                  "name": "b",
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "type": {
+                    "kind": 32,
+                    "kindString": "intrinsic",
+                    "name": "string"
                   }
                 }
               ],
-              "visibility": "public"
+              "typeParameters": [],
+              "returnType": {
+                "kind": 32,
+                "kindString": "intrinsic",
+                "name": "void"
+              }
             }
           ],
-          "signatures": [],
-          "constructSignatures": [],
-          "typeParameters": [],
-          "implementedTypes": [
-            {
-              "kind": 1024,
-              "kindString": "reference",
-              "name": "Base",
-              "typeArguments": [],
-              "target": 2
-            }
-          ]
-        },
+          "visibility": "public"
+        }
+      ],
+      "signatures": [],
+      "constructSignatures": [],
+      "typeParameters": [],
+      "implementedTypes": [
+        {
+          "kind": 1024,
+          "kindString": "reference",
+          "name": "Base",
+          "typeArguments": [],
+          "target": 1
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "Class2",
+      "kind": 128,
+      "kindString": "class",
+      "children": [
         {
           "id": 9,
-          "name": "Class2",
-          "kind": 128,
-          "kindString": "class",
+          "name": "method1",
+          "kind": 4096,
+          "kindString": "method",
+          "comment": {
+            "shortText": "",
+            "text": "",
+            "tags": [
+              {
+                "tagName": "inheritdoc",
+                "text": "\n",
+                "paramName": ""
+              },
+              {
+                "tagName": "param",
+                "text": "a\n",
+                "paramName": "Custom parameter A doc."
+              }
+            ]
+          },
           "children": [
             {
-              "id": 10,
+              "id": 12,
               "name": "method1",
-              "kind": 4096,
-              "kindString": "method",
+              "kind": 8192,
+              "kindString": "signature",
               "comment": {
                 "shortText": "",
                 "text": "",
@@ -124,87 +140,87 @@
                   }
                 ]
               },
-              "children": [
+              "parameters": [
                 {
-                  "id": 13,
-                  "name": "method1",
-                  "kind": 8192,
-                  "kindString": "signature",
-                  "comment": {
-                    "shortText": "",
-                    "text": "",
-                    "tags": [
-                      {
-                        "tagName": "inheritdoc",
-                        "text": "\n",
-                        "paramName": ""
-                      },
-                      {
-                        "tagName": "param",
-                        "text": "a\n",
-                        "paramName": "Custom parameter A doc."
-                      }
-                    ]
-                  },
-                  "parameters": [
-                    {
-                      "id": 11,
-                      "name": "a",
-                      "kind": 16384,
-                      "kindString": "parameter",
-                      "type": {
-                        "kind": 32,
-                        "kindString": "intrinsic",
-                        "name": "number"
-                      }
-                    },
-                    {
-                      "id": 12,
-                      "name": "b",
-                      "kind": 16384,
-                      "kindString": "parameter",
-                      "type": {
-                        "kind": 32,
-                        "kindString": "intrinsic",
-                        "name": "string"
-                      }
-                    }
-                  ],
-                  "typeParameters": [],
-                  "returnType": {
+                  "id": 10,
+                  "name": "a",
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
-                    "name": "void"
+                    "name": "number"
+                  }
+                },
+                {
+                  "id": 11,
+                  "name": "b",
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "type": {
+                    "kind": 32,
+                    "kindString": "intrinsic",
+                    "name": "string"
                   }
                 }
               ],
-              "visibility": "public"
+              "typeParameters": [],
+              "returnType": {
+                "kind": 32,
+                "kindString": "intrinsic",
+                "name": "void"
+              }
             }
           ],
-          "signatures": [],
-          "constructSignatures": [],
-          "typeParameters": [],
-          "implementedTypes": [
-            {
-              "kind": 1024,
-              "kindString": "reference",
-              "name": "Base",
-              "typeArguments": [],
-              "target": 2
-            }
-          ]
-        },
+          "visibility": "public"
+        }
+      ],
+      "signatures": [],
+      "constructSignatures": [],
+      "typeParameters": [],
+      "implementedTypes": [
+        {
+          "kind": 1024,
+          "kindString": "reference",
+          "name": "Base",
+          "typeArguments": [],
+          "target": 1
+        }
+      ]
+    },
+    {
+      "id": 13,
+      "name": "Class3",
+      "kind": 128,
+      "kindString": "class",
+      "children": [
         {
           "id": 14,
-          "name": "Class3",
-          "kind": 128,
-          "kindString": "class",
+          "name": "method1",
+          "kind": 4096,
+          "kindString": "method",
+          "comment": {
+            "shortText": "",
+            "text": "",
+            "tags": [
+              {
+                "tagName": "inheritdoc",
+                "text": "\n",
+                "paramName": ""
+              },
+              {
+                "tagName": "param",
+                "text": "c\n",
+                "paramName": "Custom second parameter doc with name change."
+              }
+            ]
+          },
           "children": [
             {
-              "id": 15,
+              "id": 17,
               "name": "method1",
-              "kind": 4096,
-              "kindString": "method",
+              "kind": 8192,
+              "kindString": "signature",
               "comment": {
                 "shortText": "",
                 "text": "",
@@ -221,113 +237,89 @@
                   }
                 ]
               },
-              "children": [
+              "parameters": [
                 {
-                  "id": 18,
-                  "name": "method1",
-                  "kind": 8192,
-                  "kindString": "signature",
-                  "comment": {
-                    "shortText": "",
-                    "text": "",
-                    "tags": [
-                      {
-                        "tagName": "inheritdoc",
-                        "text": "\n",
-                        "paramName": ""
-                      },
-                      {
-                        "tagName": "param",
-                        "text": "c\n",
-                        "paramName": "Custom second parameter doc with name change."
-                      }
-                    ]
-                  },
-                  "parameters": [
-                    {
-                      "id": 16,
-                      "name": "a",
-                      "kind": 16384,
-                      "kindString": "parameter",
-                      "type": {
-                        "kind": 32,
-                        "kindString": "intrinsic",
-                        "name": "number"
-                      }
-                    },
-                    {
-                      "id": 17,
-                      "name": "c",
-                      "kind": 16384,
-                      "kindString": "parameter",
-                      "type": {
-                        "kind": 32,
-                        "kindString": "intrinsic",
-                        "name": "string"
-                      }
-                    }
-                  ],
-                  "typeParameters": [],
-                  "returnType": {
+                  "id": 15,
+                  "name": "a",
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "type": {
                     "kind": 32,
                     "kindString": "intrinsic",
-                    "name": "void"
+                    "name": "number"
+                  }
+                },
+                {
+                  "id": 16,
+                  "name": "c",
+                  "kind": 16384,
+                  "kindString": "parameter",
+                  "type": {
+                    "kind": 32,
+                    "kindString": "intrinsic",
+                    "name": "string"
                   }
                 }
               ],
-              "visibility": "public"
+              "typeParameters": [],
+              "returnType": {
+                "kind": 32,
+                "kindString": "intrinsic",
+                "name": "void"
+              }
             }
           ],
-          "signatures": [],
-          "constructSignatures": [],
-          "typeParameters": [],
-          "implementedTypes": [
-            {
-              "kind": 1024,
-              "kindString": "reference",
-              "name": "Base",
-              "typeArguments": [],
-              "target": 2
-            }
-          ]
-        },
+          "visibility": "public"
+        }
+      ],
+      "signatures": [],
+      "constructSignatures": [],
+      "typeParameters": [],
+      "implementedTypes": [
         {
-          "id": 2,
+          "kind": 1024,
+          "kindString": "reference",
           "name": "Base",
-          "kind": 256,
-          "kindString": "interface",
-          "children": [
-            {
-              "id": 3,
-              "name": "method1",
-              "kind": 4096,
-              "kindString": "method",
-              "comment": {
-                "shortText": "",
-                "text": "",
-                "tags": [
-                  {
-                    "tagName": "param",
-                    "text": "a",
-                    "paramName": "Parameter A."
-                  },
-                  {
-                    "tagName": "param",
-                    "text": "b\n",
-                    "paramName": "Parameter B."
-                  }
-                ]
-              },
-              "children": [],
-              "visibility": "public"
-            }
-          ],
-          "signatures": [],
-          "constructSignatures": [],
-          "typeParameters": [],
-          "extendedTypes": []
+          "typeArguments": [],
+          "target": 1
         }
       ]
+    },
+    {
+      "id": 1,
+      "name": "Base",
+      "kind": 256,
+      "kindString": "interface",
+      "children": [
+        {
+          "id": 2,
+          "name": "method1",
+          "kind": 4096,
+          "kindString": "method",
+          "comment": {
+            "shortText": "",
+            "text": "",
+            "tags": [
+              {
+                "tagName": "param",
+                "text": "a",
+                "paramName": "Parameter A."
+              },
+              {
+                "tagName": "param",
+                "text": "b\n",
+                "paramName": "Parameter B."
+              }
+            ]
+          },
+          "children": [],
+          "visibility": "public"
+        }
+      ],
+      "signatures": [],
+      "constructSignatures": [],
+      "typeParameters": [],
+      "extendedTypes": []
     }
   ]
 }

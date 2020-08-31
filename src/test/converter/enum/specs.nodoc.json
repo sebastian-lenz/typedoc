@@ -5,200 +5,192 @@
   "kindString": "project",
   "children": [
     {
-      "id": 1,
-      "name": "enum",
-      "kind": 2,
-      "kindString": "module",
+      "id": 9,
+      "name": "ModuleEnum",
+      "kind": 4,
+      "kindString": "namespace",
+      "comment": {
+        "shortText": "This is a module extending an enumeration.",
+        "text": "",
+        "tags": []
+      },
       "children": [
         {
-          "id": 10,
-          "name": "ModuleEnum",
-          "kind": 4,
-          "kindString": "namespace",
+          "id": 12,
+          "name": "enumValue",
+          "kind": 32,
+          "kindString": "variable",
           "comment": {
-            "shortText": "This is a module extending an enumeration.",
+            "shortText": "This is a variable appended to an enumeration.",
+            "text": "",
+            "tags": []
+          },
+          "type": {
+            "kind": 32,
+            "kindString": "intrinsic",
+            "name": "string"
+          }
+        },
+        {
+          "id": 10,
+          "name": "enumFunction",
+          "kind": 64,
+          "kindString": "function",
+          "comment": {
+            "shortText": "This is a function appended to an enumeration.",
             "text": "",
             "tags": []
           },
           "children": [
             {
-              "id": 13,
-              "name": "enumValue",
-              "kind": 32,
-              "kindString": "variable",
-              "comment": {
-                "shortText": "This is a variable appended to an enumeration.",
-                "text": "",
-                "tags": []
-              },
-              "type": {
-                "kind": 32,
-                "kindString": "intrinsic",
-                "name": "string"
-              }
-            },
-            {
               "id": 11,
               "name": "enumFunction",
-              "kind": 64,
-              "kindString": "function",
+              "kind": 8192,
+              "kindString": "signature",
               "comment": {
                 "shortText": "This is a function appended to an enumeration.",
                 "text": "",
                 "tags": []
               },
-              "children": [
-                {
-                  "id": 12,
-                  "name": "enumFunction",
-                  "kind": 8192,
-                  "kindString": "signature",
-                  "comment": {
-                    "shortText": "This is a function appended to an enumeration.",
-                    "text": "",
-                    "tags": []
-                  },
-                  "parameters": [],
-                  "typeParameters": [],
-                  "returnType": {
-                    "kind": 32,
-                    "kindString": "intrinsic",
-                    "name": "void"
-                  }
-                }
-              ]
+              "parameters": [],
+              "typeParameters": [],
+              "returnType": {
+                "kind": 32,
+                "kindString": "intrinsic",
+                "name": "void"
+              }
             }
           ]
-        },
-        {
-          "id": 14,
-          "name": "ConstEnum",
-          "kind": 8,
-          "kindString": "enum",
-          "comment": {
-            "shortText": "This is a const enum.",
-            "text": "",
-            "tags": []
-          },
-          "children": [
-            {
-              "id": 15,
-              "name": "a",
-              "kind": 16,
-              "kindString": "enumMember",
-              "value": 1
-            },
-            {
-              "id": 16,
-              "name": "b",
-              "kind": 16,
-              "kindString": "enumMember",
-              "value": 2
-            }
-          ],
-          "isConst": true
-        },
-        {
-          "id": 6,
-          "name": "ModuleEnum",
-          "kind": 8,
-          "kindString": "enum",
-          "comment": {
-            "shortText": "This is an enumeration extended by a module.",
-            "text": "",
-            "tags": []
-          },
-          "children": [
-            {
-              "id": 7,
-              "name": "EnumValue1",
-              "kind": 16,
-              "kindString": "enumMember",
-              "comment": {
-                "shortText": "This is the first enum member.",
-                "text": "",
-                "tags": []
-              },
-              "value": 1
-            },
-            {
-              "id": 8,
-              "name": "EnumValue2",
-              "kind": 16,
-              "kindString": "enumMember",
-              "comment": {
-                "shortText": "This is the second enum member.",
-                "text": "",
-                "tags": []
-              },
-              "value": 2
-            },
-            {
-              "id": 9,
-              "name": "EnumValue3",
-              "kind": 16,
-              "kindString": "enumMember",
-              "comment": {
-                "shortText": "This is the third enum member.",
-                "text": "",
-                "tags": []
-              },
-              "value": 4
-            }
-          ],
-          "isConst": false
-        },
-        {
-          "id": 2,
-          "name": "SimpleEnum",
-          "kind": 8,
-          "kindString": "enum",
-          "comment": {
-            "shortText": "This is a simple enumeration.",
-            "text": "",
-            "tags": []
-          },
-          "children": [
-            {
-              "id": 3,
-              "name": "EnumValue1",
-              "kind": 16,
-              "kindString": "enumMember",
-              "comment": {
-                "shortText": "This is the first enum member.",
-                "text": "",
-                "tags": []
-              },
-              "value": 1
-            },
-            {
-              "id": 4,
-              "name": "EnumValue2",
-              "kind": 16,
-              "kindString": "enumMember",
-              "comment": {
-                "shortText": "This is the second enum member.",
-                "text": "",
-                "tags": []
-              },
-              "value": 2
-            },
-            {
-              "id": 5,
-              "name": "EnumValue3",
-              "kind": 16,
-              "kindString": "enumMember",
-              "comment": {
-                "shortText": "This is the third enum member.",
-                "text": "",
-                "tags": []
-              },
-              "value": 4
-            }
-          ],
-          "isConst": false
         }
       ]
+    },
+    {
+      "id": 13,
+      "name": "ConstEnum",
+      "kind": 8,
+      "kindString": "enum",
+      "comment": {
+        "shortText": "This is a const enum.",
+        "text": "",
+        "tags": []
+      },
+      "children": [
+        {
+          "id": 14,
+          "name": "a",
+          "kind": 16,
+          "kindString": "enumMember",
+          "value": 1
+        },
+        {
+          "id": 15,
+          "name": "b",
+          "kind": 16,
+          "kindString": "enumMember",
+          "value": 2
+        }
+      ],
+      "isConst": true
+    },
+    {
+      "id": 5,
+      "name": "ModuleEnum",
+      "kind": 8,
+      "kindString": "enum",
+      "comment": {
+        "shortText": "This is an enumeration extended by a module.",
+        "text": "",
+        "tags": []
+      },
+      "children": [
+        {
+          "id": 6,
+          "name": "EnumValue1",
+          "kind": 16,
+          "kindString": "enumMember",
+          "comment": {
+            "shortText": "This is the first enum member.",
+            "text": "",
+            "tags": []
+          },
+          "value": 1
+        },
+        {
+          "id": 7,
+          "name": "EnumValue2",
+          "kind": 16,
+          "kindString": "enumMember",
+          "comment": {
+            "shortText": "This is the second enum member.",
+            "text": "",
+            "tags": []
+          },
+          "value": 2
+        },
+        {
+          "id": 8,
+          "name": "EnumValue3",
+          "kind": 16,
+          "kindString": "enumMember",
+          "comment": {
+            "shortText": "This is the third enum member.",
+            "text": "",
+            "tags": []
+          },
+          "value": 4
+        }
+      ],
+      "isConst": false
+    },
+    {
+      "id": 1,
+      "name": "SimpleEnum",
+      "kind": 8,
+      "kindString": "enum",
+      "comment": {
+        "shortText": "This is a simple enumeration.",
+        "text": "",
+        "tags": []
+      },
+      "children": [
+        {
+          "id": 2,
+          "name": "EnumValue1",
+          "kind": 16,
+          "kindString": "enumMember",
+          "comment": {
+            "shortText": "This is the first enum member.",
+            "text": "",
+            "tags": []
+          },
+          "value": 1
+        },
+        {
+          "id": 3,
+          "name": "EnumValue2",
+          "kind": 16,
+          "kindString": "enumMember",
+          "comment": {
+            "shortText": "This is the second enum member.",
+            "text": "",
+            "tags": []
+          },
+          "value": 2
+        },
+        {
+          "id": 4,
+          "name": "EnumValue3",
+          "kind": 16,
+          "kindString": "enumMember",
+          "comment": {
+            "shortText": "This is the third enum member.",
+            "text": "",
+            "tags": []
+          },
+          "value": 4
+        }
+      ],
+      "isConst": false
     }
   ]
 }
