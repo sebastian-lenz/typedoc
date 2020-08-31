@@ -38,10 +38,13 @@ jobs:
         with:
           node-version: "12"
       - name: Install
+        if: steps.check.outputs.changed == 'true'
         run: npm i
       - name: Setup publish token
+        if: steps.check.outputs.changed == 'true'
         run: echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" > .npmrc
         env:
           NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
       - name: Publish
+        if: steps.check.outputs.changed == 'true'
         run: npm publish --tag dev
