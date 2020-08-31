@@ -11,7 +11,7 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
     - name: Set up Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v1
       with:
         node-version: '12'
     - name: Install
@@ -34,7 +34,7 @@ jobs:
       with:
         diff-search: true
     - name: Set up Node.js
-      uses: actions/setup-node@v2
+      uses: actions/setup-node@v1
       with:
         node-version: '12'
     - name: Install
