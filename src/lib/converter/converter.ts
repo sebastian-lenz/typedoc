@@ -27,7 +27,7 @@ import { filterMap } from "../utils/array";
 interface ConverterEventMap {
   begin: [ProjectReflection, ts.Program];
   reflectionCreated: [SomeReflection, ts.Symbol, ts.Node[]];
-  moduleCreated: [ModuleReflection, ts.SourceFile];
+  moduleCreated: [ModuleReflection | ProjectReflection, ts.SourceFile];
   end: [ProjectReflection];
 }
 
@@ -176,10 +176,13 @@ export class Converter extends EventEmitter<ConverterEventMap> {
       const entryStart = Date.now();
       this.logger.verbose(`First pass: ${name}`);
 
-      const moduleReflection = new ModuleReflection(name);
+      const moduleReflection =
+        entries.length === 1 ? project : new ModuleReflection(name);
       moduleReflection.comment = getCommentForNodes([file]);
       project.registerReflection(moduleReflection, fileSymbol);
-      project.addChild(moduleReflection);
+      if (!moduleReflection.isProject()) {
+        project.addChild(moduleReflection);
+      }
       await this.emit(Converter.EVENT_MODULE_CREATED, moduleReflection, file);
 
       for (const exportSymbol of exportSymbols) {

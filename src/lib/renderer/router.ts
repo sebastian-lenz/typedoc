@@ -162,19 +162,16 @@ export class ThemeRouter {
 
     let docReflection = this._getReflectionWithDocument(reflection);
     const pageReflection = docReflection;
-    while (docReflection !== this.project) {
+    while (docReflection.parent) {
       parts.unshift(this._getSafeFilename(docReflection.name));
-      assert(
-        docReflection.parent,
-        "Cannot create a document name for a reflection not in a project."
-      );
       docReflection = docReflection.parent;
     }
+    assert(
+      docReflection.isProject(),
+      "Cannot generate docs for a reflection not in a project."
+    );
 
-    if (
-      docReflection === reflection &&
-      this._anyChildrenHaveOwnDocument(reflection)
-    ) {
+    if (this._anyChildrenHaveOwnDocument(pageReflection)) {
       // Our children will be placed under our directory, so we should take index.html.
       return [...parts, "index.html"].join("/");
     }

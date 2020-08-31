@@ -1,21 +1,24 @@
 import type * as ts from "typescript";
-import type { IndependentReflection, ModuleReflection } from ".";
+import type { IndependentReflection, TopLevelReflection } from ".";
 import type {
   BaseSerialized,
   Serialized,
   Serializer,
 } from "../../serialization";
 import { ContainerReflection, Reflection, ReflectionKind } from "./abstract";
+import type { ModuleReflection } from "./module";
 import { ReferenceReflection } from "./reference";
 
 /**
  * A reflection that represents the root of the project.
  *
- * This reflection will contain {@link ModuleReflection}s for each entry point of the program.
- * When rendering, if there is only one module it is recommended to not render the top level
- * module, instead immediately rendering the children of that module.
+ * This reflection will either contain {@link ModuleReflection}s for each entry point of the program
+ * or, if the project only contains one module, that module will be elided and its children will be
+ * placed directly within the project.
  */
-export class ProjectReflection extends ContainerReflection<ModuleReflection> {
+export class ProjectReflection extends ContainerReflection<
+  TopLevelReflection | ModuleReflection
+> {
   readonly kind = ReflectionKind.Project;
 
   // Maps a TypeScript symbol to the reflection ID it refers to.

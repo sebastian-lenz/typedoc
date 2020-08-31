@@ -125,10 +125,7 @@ export const DefaultTemplates: Templates = {
 
   Navigation({ reflection, router }) {
     let navMembers: SomeReflection[];
-    // Special case for use with a single entry point, we go straight from the project to the entry point's members.
-    if (reflection.isProject() && reflection.children.length === 1) {
-      navMembers = reflection.children[0].children;
-    } else if (router.hasOwnDocument(reflection) && reflection.isContainer()) {
+    if (router.hasOwnDocument(reflection) && reflection.isContainer()) {
       navMembers = reflection.children;
     } else {
       assert(reflection.parent && reflection.parent.isContainer());
