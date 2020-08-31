@@ -8,40 +8,40 @@ jobs:
     name: test-lint
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-    - name: Set up Node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: '12'
-    - name: Install
-      run: npm i
-    - name: Build
-      run: npm run build
-    - name: Test
-      run: npm test
-    - name: Lint
-      run: npm run lint
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12"
+      - name: Install
+        run: npm i
+      - name: Build
+        run: npm run build
+      - name: Test
+        run: npm test
+      - name: Lint
+        run: npm run lint
   npm-publish:
     name: npm-publish
     needs: test-lint
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout repository
-      uses: actions/checkout@v2
-    - id: check
-      uses: EndBug/version-check@v1
-      with:
-        diff-search: true
-    - name: Set up Node.js
-      uses: actions/setup-node@v1
-      with:
-        node-version: '12'
-    - name: Install
-      run: npm i
-    - name: Setup publish token
-      run: echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" > .npmrc
-      env:
-        NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-    - name: Publish
-      run: npm publish --tag dev
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - id: check
+        uses: EndBug/version-check@v1
+        with:
+          diff-search: true
+      - name: Set up Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12"
+      - name: Install
+        run: npm i
+      - name: Setup publish token
+        run: echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" > .npmrc
+        env:
+          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+      - name: Publish
+        run: npm publish --tag dev
