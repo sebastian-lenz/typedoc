@@ -148,8 +148,8 @@ export class Converter extends EventEmitter<ConverterEventMap> {
         return;
       }
 
-      const fileSymbol = this.getSourceFileSymbol(file, checker);
-      if (!fileSymbol) {
+      const moduleSymbol = this.getModuleSymbol(file, checker);
+      if (!moduleSymbol) {
         this.logger.error(`Provided entry point ${entry} is not a module.`);
         return;
       }
@@ -168,18 +168,18 @@ export class Converter extends EventEmitter<ConverterEventMap> {
           : ([symbol, symbol] as const)
       );
 
-      return { name, file, fileSymbol, exportSymbols };
+      return { name, file, moduleSymbol, exportSymbols };
     });
 
     // Now do a first pass of each module, documenting symbols which are directly exported.
-    for (const { name, file, fileSymbol, exportSymbols } of entries) {
+    for (const { name, file, moduleSymbol, exportSymbols } of entries) {
       const entryStart = Date.now();
       this.logger.verbose(`First pass: ${name}`);
 
       const moduleReflection =
         entries.length === 1 ? project : new ModuleReflection(name);
       moduleReflection.comment = getCommentForNodes([file]);
-      project.registerReflection(moduleReflection, fileSymbol);
+      project.registerReflection(moduleReflection, moduleSymbol);
       if (!moduleReflection.isProject()) {
         project.addChild(moduleReflection);
       }
@@ -201,12 +201,12 @@ export class Converter extends EventEmitter<ConverterEventMap> {
 
     // Now do a second pass. This time, pick up symbols which were not directly exported and
     // can therefore be attached to any entry point.
-    for (const { name, file, fileSymbol, exportSymbols } of entries) {
+    for (const { name, file, moduleSymbol, exportSymbols } of entries) {
       const entryStart = Date.now();
       this.logger.verbose(`Second pass: ${name}`);
 
       const moduleReflection = this._project
-        .getReflectionsFromSymbol(fileSymbol)
+        .getReflectionsFromSymbol(moduleSymbol)
         .values()
         .next().value;
 
@@ -390,7 +390,7 @@ export class Converter extends EventEmitter<ConverterEventMap> {
       : symbol;
   }
 
-  private getSourceFileSymbol(file: ts.SourceFile, checker: ts.TypeChecker) {
+  private getModuleSymbol(file: ts.SourceFile, checker: ts.TypeChecker) {
     let symbol = checker.getSymbolAtLocation(file);
 
     if (!symbol && file.flags & ts.NodeFlags.JavaScriptFile) {
@@ -399,11 +399,28 @@ export class Converter extends EventEmitter<ConverterEventMap> {
       symbol = (file as any).symbol;
     }
 
+    // This is a bit of a hack... but it lets us support some declaration files better.
+    // Look for a global namespace defined in this file with the same name as the file name.
+    if (!symbol) {
+      const fileName = file.fileName.replace(
+        /^.*[\\/](\w+)(?:\.d)?\.tsx?$/i,
+        "$1"
+      );
+
+      symbol = checker
+        .getSymbolsInScope(file, ts.SymbolFlags.Module)
+        .find(
+          (mod) =>
+            mod.name === fileName &&
+            mod.getDeclarations()?.some((decl) => decl.getSourceFile() === file)
+        );
+    }
+
     return symbol;
   }
 
   private getExportsOfModule(file: ts.SourceFile, checker: ts.TypeChecker) {
-    const symbol = this.getSourceFileSymbol(file, checker);
+    const symbol = this.getModuleSymbol(file, checker);
     return symbol ? checker.getExportsOfModule(symbol) : [];
   }
 }
