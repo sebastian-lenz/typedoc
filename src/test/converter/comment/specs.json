@@ -68,7 +68,8 @@
                 "kindString": "intrinsic",
                 "name": "string"
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": false
             },
             {
               "id": 26,
@@ -91,7 +92,8 @@
                 "kindString": "intrinsic",
                 "name": "string"
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": false
             },
             {
               "id": 6,
@@ -108,7 +110,8 @@
                 "kindString": "intrinsic",
                 "name": "string"
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": false
             },
             {
               "id": 8,

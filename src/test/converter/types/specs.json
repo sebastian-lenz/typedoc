@@ -443,7 +443,8 @@
                 "kindString": "intrinsic",
                 "name": "string"
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": false
             }
           ],
           "signatures": [],
@@ -477,7 +478,8 @@
                 "kindString": "intrinsic",
                 "name": "number"
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": false
             }
           ],
           "signatures": [],
@@ -545,7 +547,8 @@
                   ]
                 }
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": false
             },
             {
               "id": 25,
@@ -577,7 +580,8 @@
                   }
                 ]
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": false
             },
             {
               "id": 24,
@@ -609,7 +613,8 @@
                   }
                 ]
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": false
             }
           ],
           "signatures": [],

@@ -1,14 +1,9 @@
 .DS_Store
 .idea
-.tscache
-.baseDir.js
-.baseDir.ts
 yarn.lock
 .nyc_output
 yarn-error.log
 
-/examples/*/doc
-/examples/basic/json.json
 /node_modules/
 /coverage/
 /dist/
@@ -17,3 +12,4 @@ typedoc*.tgz
 tmp
 
 src/test/renderer/specs/assets/*
+src/test/renderer/specs/specs.json

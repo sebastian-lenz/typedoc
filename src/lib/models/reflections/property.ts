@@ -33,6 +33,11 @@ export class PropertyReflection extends Reflection {
   visibility: Visibility;
 
   /**
+   * True if this property is marked with the `readonly` modifier.
+   */
+  isReadonly: boolean;
+
+  /**
    * If the property has an initializer, that initializer as a string.
    *
    * For the `bar` property of the following class, this would be set to `'bar'`.
@@ -48,11 +53,13 @@ export class PropertyReflection extends Reflection {
     name: string,
     type: SomeType | ObjectReflection,
     visibility: Visibility,
+    isReadonly: boolean,
     defaultValue?: string
   ) {
     super(name);
     this.type = type;
     this.visibility = visibility;
+    this.isReadonly = isReadonly;
     this.defaultValue = defaultValue;
   }
 
@@ -64,6 +71,7 @@ export class PropertyReflection extends Reflection {
       ...init,
       type: serializer.toObject(this.type),
       visibility: this.visibility,
+      isReadonly: this.isReadonly,
     };
 
     if (typeof this.defaultValue === "string") {
@@ -77,7 +85,7 @@ export class PropertyReflection extends Reflection {
 export interface SerializedPropertyReflection
   extends Serialized<
     PropertyReflection,
-    "type" | "visibility" | "defaultValue"
+    "type" | "visibility" | "defaultValue" | "isReadonly"
   > {}
 
 /**

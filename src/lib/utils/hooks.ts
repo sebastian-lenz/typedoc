@@ -1,5 +1,14 @@
 import { insertOrderSorted } from "./array";
 
+const momentos = new WeakMap<
+  EventHooksMomento<never, unknown>,
+  Map<any, { listener: Function; once?: boolean; order: number }[]>
+>();
+
+type EventHooksMomento<T extends Record<keyof T, unknown[]>, _R> = {
+  __eventHooksMomentoBrand: never;
+};
+
 /**
  * Event emitter which allows listeners to return a value.
  *
@@ -24,10 +33,10 @@ import { insertOrderSorted } from "./array";
 export class EventHooks<T extends Record<keyof T, unknown[]>, R> {
   // Function is *usually* not a good type to use, but here it lets us specify stricter
   // contracts in the methods while not casting everywhere this is used.
-  private _listeners: Map<
+  private _listeners = new Map<
     keyof T,
     { listener: Function; once?: boolean; order: number }[]
-  > = new Map();
+  >();
 
   /**
    * Starts listening to an event.
@@ -88,5 +97,32 @@ export class EventHooks<T extends Record<keyof T, unknown[]>, R> {
       listeners.filter(({ once }) => !once)
     );
     return listeners.map(({ listener }) => listener(...args));
+  }
+
+  saveMomento(): EventHooksMomento<T, R> {
+    const momento = {} as EventHooksMomento<T, R>;
+    const save = new Map<
+      keyof T,
+      { listener: Function; once?: boolean; order: number }[]
+    >();
+
+    for (const [key, val] of this._listeners) {
+      save.set(key, [...val]);
+    }
+
+    momentos.set(momento, save);
+    return momento;
+  }
+
+  restoreMomento(momento: EventHooksMomento<T, R>): void {
+    const saved = momentos.get(momento);
+    if (saved) {
+      this._listeners.clear();
+      for (const [key, val] of saved) {
+        this._listeners.set(key, [...val]);
+      }
+    } else {
+      throw new Error("Momento not found.");
+    }
   }
 }

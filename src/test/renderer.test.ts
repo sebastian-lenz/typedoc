@@ -5,7 +5,7 @@ import { join, relative } from "path";
 import { deepStrictEqual, ok, strictEqual } from "assert";
 import { tmpdir } from "os";
 
-const ignoredPaths = new Set(["assets"]);
+const ignoredPaths = new Set(["assets", "specs.json"]);
 
 async function getFileIndex(base: string) {
   const queue = [base];

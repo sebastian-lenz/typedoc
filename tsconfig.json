@@ -14,7 +14,6 @@
     "rootDir": "src/",
     "experimentalDecorators": true,
     "newLine": "LF",
-    "resolveJsonModule": true,
     "jsx": "react",
     "jsxFactory": "createElement",
 

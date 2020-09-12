@@ -104,8 +104,7 @@ export class Application {
     const entryPoints = await expandDirectories(
       this.options.getValue("entryPoint"),
       this.options.getValue("exclude"),
-      !!this.options.getCompilerOptions().allowJs,
-      this.options.getValue("includeDeclarations")
+      !!this.options.getCompilerOptions().allowJs
     );
 
     const start = Date.now();

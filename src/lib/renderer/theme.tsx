@@ -1,140 +1,81 @@
-import * as assert from "assert";
-import { promises as fs, readFileSync } from "fs";
-import { dirname, join } from "path";
+import { readFileSync } from "fs";
+import { join } from "path";
 import { createElement } from "preact";
-import { render } from "preact-render-to-string";
-import type { Application } from "../application";
-import type { ProjectReflection, Reflection, SomeReflection } from "../models";
+
+import { copy, copyFile, writeFile } from "../utils/fs";
 import { DefaultTemplates } from "./default-templates";
-import {
-  MinimalThemeRouter,
-  ThemeRouter,
-  ThemeRouterConstructor,
-} from "./router";
-import type { Templates } from "./templates";
-import { parseMarkdown, replaceMedia, replaceIncludes } from "./comment";
-import { DoubleHighlighter } from "./highlight";
-import { copy } from "../utils/fs";
+import type { ThemeContext } from "./renderer";
+import { MinimalThemeRouter, ThemeRouter } from "./router";
 
 const STATIC_DIR = join(__dirname, "../../../static");
 
 // Keep this small, it will be inlined on EVERY page.
 const THEME_JS = readFileSync(join(STATIC_DIR, "theme.js"), "utf-8").trim();
+const STYLE_CSS = readFileSync(join(STATIC_DIR, "style.css"), "utf-8").trim();
 
-const writeFile = async (path: string, content: string) => {
-  await fs.mkdir(dirname(path), { recursive: true });
-  await fs.writeFile(path, content);
-};
+export const defaultThemeDefinition = {
+  router: ThemeRouter,
 
-const copyFile = async (src: string, dest: string) => {
-  await fs.mkdir(dirname(dest), { recursive: true });
-  await fs.copyFile(src, dest);
-};
+  templates: DefaultTemplates,
 
-export type Theme = (
-  app: Application,
-  project: ProjectReflection,
-  outDir: string
-) => Promise<void>;
+  preRender: {
+    "default:theme-switcher": ({ hooks }: ThemeContext) => {
+      hooks.on("body.begin", () => (
+        <script dangerouslySetInnerHTML={{ __html: THEME_JS }} />
+      ));
+    },
+    "default:style.css": ({ hooks, router }: ThemeContext) => {
+      hooks.on("head.end", (reflection) => (
+        <link
+          rel="stylesheet"
+          href={router.createAssetLink(reflection, "style.css")}
+        />
+      ));
+    },
+    "default:theme.css": ({ hooks, router }: ThemeContext) => {
+      hooks.on("head.end", (reflection) => (
+        <link
+          rel="stylesheet"
+          href={router.createAssetLink(reflection, "theme.css")}
+        />
+      ));
+    },
+  },
 
-export function buildTheme(
-  routerCtor: ThemeRouterConstructor,
-  templates?: Partial<Templates>
-): Theme {
-  return async (app, project, outDir) => {
-    const start = Date.now();
-    const router = new routerCtor(project);
-    const themeTemplates: Templates = { ...DefaultTemplates, ...templates };
-    // TODO: These ought to be configurable.
-    const highlighter = await DoubleHighlighter.create(
-      "light-plus",
-      "dark-plus"
-    );
-
-    app.renderer.hooks.on("body.begin", () => (
-      <script dangerouslySetInnerHTML={{ __html: THEME_JS }} />
-    ));
-
-    const pages: Reflection[] = [project];
-    const tasks: Promise<void>[] = [];
-
-    function boundParseMarkdown(markdown: string, reflection: Reflection) {
-      let result = replaceIncludes(
-        app.options.getValue("includes"),
-        markdown,
-        app.logger
-      );
-      result = replaceMedia(
-        app.options.getValue("media"),
-        result,
-        app.logger,
-        reflection,
-        router
-      );
-      result = parseMarkdown(markdown, reflection, router, highlighter);
-      return result;
-    }
-
-    let page = pages.shift();
-    while (page) {
-      assert(router.hasOwnDocument(page));
-
-      const path = router.getDocumentName(page);
-      app.logger.verbose(`${page.getFullName()} ===> ${path}`);
-      const content =
-        "<!DOCTYPE html>\n" +
-        render(
-          <themeTemplates.Page
-            hooks={app.renderer.hooks}
-            reflection={page as SomeReflection}
-            router={router}
-            parseMarkdown={boundParseMarkdown}
-            templates={themeTemplates}
-            highlighter={highlighter}
-          />,
-          null,
-          { pretty: false }
-        );
-      tasks.push(writeFile(join(outDir, path), content));
-
-      if (page.isContainer()) {
-        pages.push(
-          ...page.children.filter((child) => router.hasOwnDocument(child))
-        );
-      }
-
-      page = pages.shift();
-    }
-
-    // Copy static files
-    tasks.push(
-      copyFile(
+  postRender: {
+    "default:style.css": ({ outDir, router }: ThemeContext) => {
+      return copyFile(
         join(STATIC_DIR, "style.css"),
         join(outDir, router.getAssetDirectory(), "style.css")
-      )
-    );
-
-    // Write theme css
-    tasks.push(
-      writeFile(
+      );
+    },
+    "default:theme.css": ({ outDir, router, highlighter }: ThemeContext) => {
+      return writeFile(
         join(outDir, router.getAssetDirectory(), "theme.css"),
         highlighter.getStyles()
-      )
-    );
-
-    if (app.options.getValue("media")) {
-      tasks.push(
-        copy(
+      );
+    },
+    "default:media": ({ app, outDir, router }: ThemeContext) => {
+      if (app.options.getValue("media")) {
+        return copy(
           app.options.getValue("media"),
           join(outDir, router.getMediaDirectory())
-        )
-      );
-    }
+        );
+      }
+    },
+  },
+} as const;
 
-    await Promise.all(tasks);
-    app.logger.verbose(`[Perf] Theme output took ${Date.now() - start}ms`);
-  };
-}
-
-export const defaultTheme = buildTheme(ThemeRouter);
-export const minimalTheme = buildTheme(MinimalThemeRouter);
+export const minimalThemeDefinition = {
+  router: MinimalThemeRouter,
+  preRender: {
+    "minimal:style": ({ hooks }: ThemeContext) => {
+      hooks.on("head.end", () => (
+        <style dangerouslySetInnerHTML={{ __html: STYLE_CSS }} />
+      ));
+    },
+  },
+  // Unfortunately, we can't disable default:theme.css here...
+  // This should be possible if/when https://github.com/shikijs/shiki/issues/33#issuecomment-678589764 is done.
+  suppress: ["default:style.css"],
+} as const;

@@ -48,7 +48,8 @@
                 "kindString": "intrinsic",
                 "name": "string"
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": false
             },
             {
               "id": 10,
@@ -71,7 +72,8 @@
                 "kindString": "intrinsic",
                 "name": "string"
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": false
             },
             {
               "id": 11,
@@ -362,7 +364,8 @@
                 "kindString": "intrinsic",
                 "name": "string"
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": false
             },
             {
               "id": 51,
@@ -374,7 +377,8 @@
                 "kindString": "intrinsic",
                 "name": "boolean"
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": false
             },
             {
               "id": 52,
@@ -386,7 +390,8 @@
                 "kindString": "intrinsic",
                 "name": "boolean"
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": false
             }
           ],
           "signatures": [],
@@ -410,7 +415,8 @@
                 "kindString": "intrinsic",
                 "name": "string"
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": false
             },
             {
               "id": 44,
@@ -442,7 +448,8 @@
                 "kindString": "intrinsic",
                 "name": "string"
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": false
             },
             {
               "id": 47,
@@ -515,7 +522,8 @@
                   "name": "number"
                 }
               },
-              "visibility": "private"
+              "visibility": "private",
+              "isReadonly": false
             },
             {
               "id": 17,
@@ -532,7 +540,8 @@
                 "kindString": "intrinsic",
                 "name": "string"
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": false
             },
             {
               "id": 27,
@@ -745,7 +754,8 @@
                 "kindString": "intrinsic",
                 "name": "string"
               },
-              "visibility": "private"
+              "visibility": "private",
+              "isReadonly": false
             },
             {
               "id": 36,
@@ -757,7 +767,8 @@
                 "kindString": "intrinsic",
                 "name": "number"
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": false
             },
             {
               "id": 37,
@@ -769,7 +780,8 @@
                 "kindString": "intrinsic",
                 "name": "any"
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": false
             },
             {
               "id": 38,
@@ -882,7 +894,8 @@
                 "kindString": "intrinsic",
                 "name": "number"
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": false
             }
           ],
           "signatures": [],
@@ -976,7 +989,8 @@
                 "kindString": "intrinsic",
                 "name": "string"
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": true
             },
             {
               "id": 62,
@@ -988,7 +1002,8 @@
                 "kindString": "intrinsic",
                 "name": "number"
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": false
             },
             {
               "id": 63,
@@ -1000,7 +1015,8 @@
                 "kindString": "intrinsic",
                 "name": "number"
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": false
             }
           ],
           "signatures": [],
@@ -1029,7 +1045,8 @@
                 "kindString": "intrinsic",
                 "name": "string"
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": true
             },
             {
               "id": 66,
@@ -1041,7 +1058,8 @@
                 "kindString": "intrinsic",
                 "name": "number"
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": false
             },
             {
               "id": 67,
@@ -1053,7 +1071,8 @@
                 "kindString": "intrinsic",
                 "name": "number"
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": false
             }
           ],
           "signatures": [],
@@ -1185,7 +1204,8 @@
                 "name": "T",
                 "typeArguments": []
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": false
             }
           ],
           "signatures": [],
@@ -1238,7 +1258,8 @@
                 "kindString": "intrinsic",
                 "name": "string"
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": false
             },
             {
               "id": 81,
@@ -1250,7 +1271,8 @@
                 "kindString": "intrinsic",
                 "name": "number"
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": false
             }
           ],
           "signatures": [],

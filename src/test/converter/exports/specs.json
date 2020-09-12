@@ -83,7 +83,8 @@
                   }
                 ]
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": true
             },
             {
               "id": 34,
@@ -96,7 +97,8 @@
                 "name": "NodeFlags",
                 "typeArguments": []
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": true
             },
             {
               "id": 33,
@@ -109,7 +111,8 @@
                 "name": "SyntaxKind",
                 "typeArguments": []
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": true
             },
             {
               "id": 36,
@@ -122,7 +125,8 @@
                 "name": "ModifiersArray",
                 "typeArguments": []
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": true
             },
             {
               "id": 37,
@@ -136,7 +140,8 @@
                 "typeArguments": [],
                 "target": 32
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": true
             },
             {
               "id": 52,

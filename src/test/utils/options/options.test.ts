@@ -117,7 +117,7 @@ describe("Options", () => {
   });
 
   it("Supports directly getting values", () => {
-    equal(options.getRawValues().toc, []);
+    equal(options.getRawValues().entryPoint, []);
   });
 
   it("Supports getting by scope", () => {

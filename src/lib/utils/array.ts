@@ -2,7 +2,7 @@ import { ok as assert } from "assert";
 
 /**
  * Inserts an item into an array sorted by order. If two items have the same order,
- * the item inserted later will be placed earlier in the array.
+ * the item inserted later will be placed later in the array.
  * @param arr modified by inserting item.
  * @param item
  */
@@ -12,7 +12,7 @@ export function insertOrderSorted<T extends { order?: number }>(
 ): T[] {
   const index = binaryFindPartition(
     arr,
-    (v) => (v.order ?? 0) >= (item.order ?? 0)
+    (v) => (v.order ?? 0) > (item.order ?? 0)
   );
   arr.splice(index === -1 ? arr.length : index, 0, item);
   return arr;

@@ -6,7 +6,8 @@ import { convertSignatureDeclaration } from "./signature";
 import { convertTypeParameterDeclarations } from "../utils";
 import { waterfall } from "../../utils/array";
 
-// TODO: GERRIT This and the interface implementation can be simplified / merged.
+// Note: While this converter is structurally very similar to the interface converter, it is
+// different in one important way - classes can have static members.
 
 export const classConverter: ReflectionConverter<
   ts.ClassDeclaration,

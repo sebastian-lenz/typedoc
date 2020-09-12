@@ -52,14 +52,6 @@ export const DefaultTemplates: Templates = {
               ? reflection.name
               : `${reflection.name} | ${reflection.project.name}`}
           </title>
-          <link
-            rel="stylesheet"
-            href={props.router.createAssetLink(reflection, "style.css")}
-          />
-          <link
-            rel="stylesheet"
-            href={props.router.createAssetLink(reflection, "theme.css")}
-          />
           {hooks.emit("head.end", reflection)}
         </head>
         <body>
@@ -466,6 +458,7 @@ export const DefaultTemplates: Templates = {
 
     return (
       <Fragment>
+        {reflection.isReadonly && "readonly "}
         {reflection.name}: <templates.Type {...props} type={reflection.type} />
         <templates.Comment {...props} />
       </Fragment>

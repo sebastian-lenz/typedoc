@@ -56,47 +56,55 @@ export type TypeDocAndTSOptions = TypeDocOptions &
  * External consumers should likely use either [[TypeDocAndTSOptions]] or [[TypeDocOptions]].
  */
 export interface TypeDocOptionMap {
+  // Where to get options
   options: string;
   tsconfig: string;
 
+  // What to document
   entryPoint: string[];
-  includeDeclarations: boolean;
   exclude: string[];
-  externalPattern: string[];
-  excludeExternals: boolean;
-  excludeNotExported: boolean;
+
+  excludeExternals: boolean; // If set, ignore node_modules
   excludePrivate: boolean;
   excludeProtected: boolean;
   excludeNotDocumented: boolean;
-  disableSources: boolean;
+
+  // HTML generation
+  html: string;
   includes: string;
   media: string;
-
-  out: string;
-  json: string;
-
   theme: string;
-  name: string;
-  includeVersion: boolean;
-  excludeTags: string[];
-  readme: string;
-  defaultCategory: string;
-  categoryOrder: string[];
-  categorizeByGroup: boolean;
-  gitRevision: string;
-  gitRemote: string;
-  gaID: string;
-  gaSite: string;
-  hideGenerator: boolean;
-  toc: string[];
   cleanOutputDir: boolean;
 
-  help: boolean;
-  version: boolean;
-  plugin: string[];
-  logger: unknown; // string | Function
-  logLevel: typeof LogLevel;
-  listInvalidSymbolLinks: boolean;
+  hideGenerator: boolean;
+  gaID: string;
+  gaSite: string;
+
+  // JSON generation
+  json: string;
+
+  // Modify generated reflections
+  name: string; // Set project name
+  includeVersion: boolean; // Append version from package.json to project name
+  excludeTags: string[]; // Remove some tags from comments when parsing
+  readme: string; // Specify the path to the project readme
+
+  disableSources: boolean; // Don't generate the sources key
+  gitRevision: string; // Specify the git revision to link to (commit-ish)
+  gitRemote: string; // Specify the git remote to link to (origin)
+
+  // TODO: Not really clear on how these ought to work yet. Need to write the categorization
+  // code to figure it out.
+  categorizeByGroup: boolean;
+  defaultCategory: string;
+  categoryOrder: string[];
+
+  // Miscellaneous
+  help: boolean; // Print help + exit
+  version: boolean; // Print version + exit
+  plugin: string[]; // Specify plugins to load
+  logger: unknown; // string | Function - specify what logger to use.
+  logLevel: typeof LogLevel; // Which log messages should be printed?
 }
 
 /**

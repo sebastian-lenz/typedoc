@@ -20,7 +20,8 @@
             "kindString": "intrinsic",
             "name": "number"
           },
-          "visibility": "private"
+          "visibility": "private",
+          "isReadonly": false
         },
         {
           "id": 6,
@@ -67,7 +68,8 @@
             "kindString": "intrinsic",
             "name": "number"
           },
-          "visibility": "public"
+          "visibility": "public",
+          "isReadonly": false
         },
         {
           "id": 2,
@@ -79,7 +81,8 @@
             "kindString": "intrinsic",
             "name": "string"
           },
-          "visibility": "public"
+          "visibility": "public",
+          "isReadonly": false
         }
       ],
       "signatures": [],

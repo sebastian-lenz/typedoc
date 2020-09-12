@@ -980,7 +980,8 @@
                 "kindString": "intrinsic",
                 "name": "number"
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": false
             },
             {
               "id": 52,
@@ -992,7 +993,8 @@
                 "kindString": "intrinsic",
                 "name": "number"
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": false
             }
           ],
           "signatures": [],

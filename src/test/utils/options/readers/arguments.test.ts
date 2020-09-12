@@ -59,8 +59,8 @@ describe("Options - ArgumentsReader", () => {
     equal(options.getValue("entryPoint"), ["foo", "bar"]);
   });
 
-  test("Works with string options", ["--out", "outDir"], () => {
-    equal(options.getValue("out"), "outDir");
+  test("Works with string options", ["--html", "outDir"], () => {
+    equal(options.getValue("html"), "outDir");
   });
 
   test("Works with number options", ["-no", "123"], () => {
@@ -106,23 +106,23 @@ describe("Options - ArgumentsReader", () => {
     equal(options.getValue("logger"), "word");
   });
 
-  test("Works with array options", ["--exclude", "a"], () => {
-    equal(options.getValue("exclude"), ["a"]);
+  test("Works with array options", ["--entryPoint", "a"], () => {
+    equal(options.getValue("entryPoint"), ["a"]);
   });
 
   test(
     "Splits array options (backward compatibility)",
-    ["--exclude", "a,b"],
+    ["--entryPoint", "a,b"],
     () => {
-      equal(options.getValue("exclude"), ["a", "b"]);
+      equal(options.getValue("entryPoint"), ["a", "b"]);
     }
   );
 
   test(
     "Works with array options passed multiple times",
-    ["--exclude", "a", "--exclude", "b"],
+    ["--entryPoint", "a", "--entryPoint", "b"],
     () => {
-      equal(options.getValue("exclude"), ["a", "b"]);
+      equal(options.getValue("entryPoint"), ["a", "b"]);
     }
   );
 

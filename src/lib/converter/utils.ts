@@ -174,9 +174,10 @@ export async function discoverProjectInfo(
     }
   }
 
-  const readme = readmeFile
-    ? await fs.readFile(readmeFile, "utf-8")
-    : "No readme found.";
+  const readme =
+    readmeFile && readmeFile !== "none"
+      ? await fs.readFile(readmeFile, "utf-8")
+      : "";
 
   return { name, readme };
 }

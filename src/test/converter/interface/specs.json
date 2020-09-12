@@ -61,7 +61,8 @@
                 "kindString": "intrinsic",
                 "name": "string"
               },
-              "visibility": "private"
+              "visibility": "private",
+              "isReadonly": false
             },
             {
               "id": 8,
@@ -169,7 +170,8 @@
                       "target": 15
                     }
                   },
-                  "visibility": "private"
+                  "visibility": "private",
+                  "isReadonly": false
                 },
                 {
                   "id": 35,
@@ -421,7 +423,8 @@
                     ],
                     "target": 33
                   },
-                  "visibility": "public"
+                  "visibility": "public",
+                  "isReadonly": false
                 },
                 {
                   "id": 22,
@@ -433,7 +436,8 @@
                     "kindString": "intrinsic",
                     "name": "any"
                   },
-                  "visibility": "public"
+                  "visibility": "public",
+                  "isReadonly": false
                 },
                 {
                   "id": 21,
@@ -454,7 +458,8 @@
                     ],
                     "target": 14
                   },
-                  "visibility": "public"
+                  "visibility": "public",
+                  "isReadonly": false
                 },
                 {
                   "id": 23,
@@ -466,7 +471,8 @@
                     "kindString": "intrinsic",
                     "name": "number"
                   },
-                  "visibility": "public"
+                  "visibility": "public",
+                  "isReadonly": false
                 },
                 {
                   "id": 25,
@@ -650,7 +656,8 @@
                     "kindString": "intrinsic",
                     "name": "any"
                   },
-                  "visibility": "public"
+                  "visibility": "public",
+                  "isReadonly": false
                 },
                 {
                   "id": 16,
@@ -671,7 +678,8 @@
                     ],
                     "target": 14
                   },
-                  "visibility": "public"
+                  "visibility": "public",
+                  "isReadonly": false
                 },
                 {
                   "id": 17,
@@ -683,7 +691,8 @@
                     "kindString": "intrinsic",
                     "name": "number"
                   },
-                  "visibility": "public"
+                  "visibility": "public",
+                  "isReadonly": false
                 },
                 {
                   "id": 19,

@@ -10,14 +10,14 @@ describe("FS Utils", () => {
     const accessFile = join(classDir, "access.ts");
 
     it("expands directories", async () => {
-      const expanded = await expandDirectories([classDir], [], false, false);
+      const expanded = await expandDirectories([classDir], [], false);
 
       assert(expanded.includes(join(classDir, "class.ts")));
       assert(!expanded.includes(classDir));
     });
 
     it("expands files", async () => {
-      const expanded = await expandDirectories([classFile], [], false, false);
+      const expanded = await expandDirectories([classFile], [], false);
       assert(expanded.includes(classFile));
     });
 
@@ -27,7 +27,6 @@ describe("FS Utils", () => {
       const expanded = await expandDirectories(
         [classFile],
         ["**/class.ts"],
-        false,
         false
       );
       assert(expanded.includes(classFile));
@@ -37,7 +36,6 @@ describe("FS Utils", () => {
       const expanded = await expandDirectories(
         [classDir],
         ["**/+(class|access).ts"],
-        false,
         false
       );
       assert(!expanded.includes(classFile));
@@ -48,7 +46,6 @@ describe("FS Utils", () => {
       const expanded = await expandDirectories(
         [classDir],
         ["**/class.ts", "**/access.ts"],
-        false,
         false
       );
       assert(!expanded.includes(classFile));
@@ -60,7 +57,6 @@ describe("FS Utils", () => {
       const expanded = await expandDirectories(
         [entryPoint],
         ["**/alias"],
-        false,
         false
       );
       assert(expanded.includes(join(entryPoint, "class", "class.ts")));
@@ -72,7 +68,6 @@ describe("FS Utils", () => {
       const expanded = await expandDirectories(
         [entryPoint],
         ["**/!(alias)/"],
-        false,
         false
       );
       assert(!expanded.includes(join(entryPoint, "class", "class.ts")));

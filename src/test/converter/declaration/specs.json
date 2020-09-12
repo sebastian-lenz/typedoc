@@ -26,7 +26,8 @@
                 "kindString": "intrinsic",
                 "name": "number"
               },
-              "visibility": "public"
+              "visibility": "public",
+              "isReadonly": false
             }
           ],
           "signatures": [],

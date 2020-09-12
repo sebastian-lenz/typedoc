@@ -2,7 +2,7 @@
 
 > Documentation generator for TypeScript projects.
 
-[![Build Status](https://travis-ci.org/TypeStrong/typedoc.svg?branch=master)](https://travis-ci.org/TypeStrong/typedoc)
+[![Build Status](https://github.com/TypeStrong/typedoc/workflows/CI/badge.svg)](https://github.com/TypeStrong/typedoc/actions)
 [![NPM Version](https://badge.fury.io/js/typedoc.svg)](https://badge.fury.io/js/typedoc)
 [![Chat on Gitter](https://badges.gitter.im/TypeStrong/typedoc.svg)](https://gitter.im/TypeStrong/typedoc?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
@@ -25,68 +25,35 @@ in your project's directory as usual:
 $ npm install typedoc --save-dev
 ```
 
-Like the TypeScript compiler, TypeDoc comes with a binary that can be called from anywhere
-if you install TypeDoc as a global module. The name of the executable is `typedoc`.
+Like the TypeScript compiler, TypeDoc comes with a binary that can be run with `npx`.
 
 ```bash
-$ npx typedoc
+$ npx typedoc path/to/entry.ts
 ```
 
 ## Usage
 
-### Shell
+To run TypeDoc, pass it your library's entry point. TypeDoc will use the TypeScript compiler to
+determine what has been exported and document those items. If you specify a directory as an
+entry point, TypeDoc will treat all files and folders within that directory as entry points.
 
-TypeDoc accepts most of the command line arguments that the TypeScript compiler accepts, but
-will also read your `tsconfig.json` to read compiler options.
+TypeDoc will try to discover your tsconfig.json file, but if it fails, you can specify the path
+to it with `--tsconfig`.
 
 ```bash
-$ typedoc --out path/to/documentation/ --tsconfig path/to/tsconfig.json path/to/entry/point.ts
+$ typedoc --tsconfig path/to/tsconfig.json path/to/entry.ts
 ```
 
-### Arguments
+### Common Arguments
 
 For a complete list of the command line arguments run `typedoc --help` or visit [our website](https://typedoc.org/guides/options/).
 
-- `--out <path/to/documentation/>`<br>
+- `--html <path/to/documentation/>`<br>
   Specifies the location the documentation should be written to. Defaults to `./docs`
-- `--options`<br>
-  Specify a json option file that should be loaded. If not specified TypeDoc will look for 'typedoc.json' in the current directory.
-- `--json <path/to/output.json>`<br>
-  Specifies the location and file name a json file describing the project is written to.
-
-#### Source file handling
-
-- `--exclude <pattern>`<br>
-  Exclude files by the given pattern when a path is provided as source. Supports standard minimatch patterns (see [#170](https://github.com/TypeStrong/typedoc/issues/170))
-- `--excludeExternals`<br>
-  Do not document external files, highly recommended if turning on `--includeDeclarations`.
-- `--excludeNotDocumented`<br>
-  Do not include the code symbols, that don't have doc comments. This option is useful,
-  if you want to document only small part of your symbols and do not show the remaining ones in the documentation.
-
-#### TypeScript compiler
-
-- `--tsconfig <path/to/tsconfig.json>`<br>
-  Specify a typescript config file that should be loaded. If not specified TypeDoc will look for 'tsconfig.json' in the current directory.
-
-#### Theming
-
 - `--theme <default|minimal|path/to/theme>`<br>
   Specify the path to the theme that should be used.
-- `--name <Documentation title>`<br>
-  Set the name of the project that will be used in the header of the template.
-- `--readme <path/to/readme|none>`<br>
-  Path to the readme file that should be displayed on the index page. Pass `none` to disable the index page
-  and start the documentation on the globals page.
-
-#### Miscellaneous
-
-- `--listInvalidSymbolLinks`<br>
-  Display the list of links that don't point to actual code symbols.
-- `--version`<br>
-  Display the version number of TypeDoc.
-- `--help`<br>
-  Display all TypeDoc options.
+- `--json <path/to/output.json>`<br>
+  Specifies the location and file name a json file describing the project is written to.
 
 ## Contributing
 

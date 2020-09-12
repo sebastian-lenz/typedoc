@@ -99,4 +99,17 @@ describe("EventHooks", () => {
 
     equal(emitter.emit("a"), [2, 1]);
   });
+
+  it("Has a working momento mechanism", () => {
+    const emitter = new EventHooks<{ a: [] }, number>();
+
+    emitter.on("a", () => 1);
+    const momento = emitter.saveMomento();
+    emitter.on("a", () => 2);
+
+    equal(emitter.emit("a"), [1, 2]);
+
+    emitter.restoreMomento(momento);
+    equal(emitter.emit("a"), [1]);
+  });
 });

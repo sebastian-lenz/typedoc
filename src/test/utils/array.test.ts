@@ -28,9 +28,13 @@ describe("Array utils", () => {
       equal(insertOrderSorted([item2, item3], item4), [item2, item3, item4]);
     });
 
-    it("inserts new items first", () => {
-      const item0 = { order: 1, first: true };
-      equal(insertOrderSorted([item1], item0), [item0, item1]);
+    it("inserts new items last", () => {
+      const itemNew = { order: 1, first: true };
+      equal(insertOrderSorted([item1, item1], itemNew), [
+        item1,
+        item1,
+        itemNew,
+      ]);
     });
   });
 

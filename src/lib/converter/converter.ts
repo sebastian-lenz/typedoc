@@ -394,7 +394,7 @@ export class Converter extends EventEmitter<ConverterEventMap> {
     let symbol = checker.getSymbolAtLocation(file);
 
     if (!symbol && file.flags & ts.NodeFlags.JavaScriptFile) {
-      // FIXME: It seems like there really ought to be a way to do this without relying on the internal symbol property.
+      // TS INTERNAL: It seems like there really ought to be a way to do this without relying on the internal symbol property.
       // we need to do this for CommonJS users with module.exports=, exports.foo= https://stackoverflow.com/q/62865648/7186598
       symbol = (file as any).symbol;
     }

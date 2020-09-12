@@ -1,10 +1,11 @@
 // @ts-check
 
 const fs = require("fs").promises;
-const { existsSync } = require("fs");
+const { existsSync, readdirSync } = require("fs");
 const path = require("path");
 const TypeDoc = require("..");
 const ts = require("typescript");
+const { join } = require("path");
 
 const app = new TypeDoc.Application();
 app.bootstrap({
@@ -43,16 +44,6 @@ const conversions = [
     },
   ],
   [
-    "specs.d",
-    () => app.options.setValue("includeDeclarations", true),
-    () => app.options.setValue("includeDeclarations", false),
-  ],
-  [
-    "specs-without-exported",
-    () => app.options.setValue("excludeNotExported", true),
-    () => app.options.setValue("excludeNotExported", false),
-  ],
-  [
     "specs-with-lump-categories",
     () => app.options.setValue("categorizeByGroup", false),
     () => app.options.setValue("categorizeByGroup", true),
@@ -71,7 +62,10 @@ const conversions = [
 async function rebuildConverterTests(dirs) {
   for (const fullPath of dirs) {
     console.log(fullPath);
-    app.options.setValue("entryPoint", [fullPath]);
+    app.options.setValue(
+      "entryPoint",
+      readdirSync(fullPath).map((p) => join(fullPath, p))
+    );
 
     for (const [file, before, after] of conversions) {
       const out = path.join(fullPath, `${file}.json`);
@@ -99,6 +93,8 @@ async function rebuildRendererTest() {
   app.options.setValue("entryPoint", [src]);
   const project = await app.convert();
   await app.generateDocs(project, out);
+  // For reference, not tested.
+  await app.generateJson(project, path.join(out, "specs.json"));
 }
 
 async function main(command = "all", filter = "") {

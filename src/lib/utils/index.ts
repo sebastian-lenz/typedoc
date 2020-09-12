@@ -30,6 +30,44 @@ export type IfInternal<T, F> = InternalOnly extends true ? T : F;
  */
 export type NeverIfInternal<T> = IfInternal<never, T>;
 
+/**
+ * Helper type to convert a string union into any string if strict mode is off.
+ * Note that this uses `string & {}`, which prevents TS from eagerly collapsing the union
+ * to `string`
+ */
+export type StringIfExternal<T extends string> =
+  | T
+  | NeverIfInternal<string & {}>;
+
+type Primitive =
+  | string
+  | number
+  | boolean
+  | bigint
+  | null
+  | void
+  | symbol
+  | Function;
+
+/**
+ * Like `Partial<T>`, but applies `Partial` recursively to contained objects.
+ */
+export type DeepPartial<T> = T extends Primitive
+  ? T
+  : {
+      [K in keyof T]?: DeepPartial<T[K]>;
+    };
+
+/**
+ * Inverse of `Readonly<T>`
+ */
+export type Writable<T> = { -readonly [K in keyof T]: T[K] };
+
+/**
+ * A distributive `keyof`.
+ */
+export type Keys<T> = T extends any ? keyof T : never;
+
 export {
   Options,
   ParameterType,
@@ -42,6 +80,8 @@ export {
 
 export { insertOrderSorted, removeIfPresent, uniq } from "./array";
 
-export { expandDirectories } from "./fs";
+export { expandDirectories, remove } from "./fs";
 export { Logger, LogLevel, ConsoleLogger, CallbackLogger } from "./loggers";
 export { loadPlugins } from "./plugins";
+
+export { EventHooks } from "./hooks";

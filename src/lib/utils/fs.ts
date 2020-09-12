@@ -34,14 +34,12 @@ export function getCommonDirectory(files: readonly string[]): string {
  * @param entryPoint The list of files that should be expanded.
  * @param excludePatterns Patterns to test files not in the entryPoint parameter against for exclusion.
  * @param allowJs Whether or not to include JS files in the result.
- * @param includeDeclarations Whether or not to include declaration files in the result.
  * @returns The list of input files with expanded directories.
  */
 export async function expandDirectories(
   entryPoint: readonly string[],
   excludePatterns: readonly string[],
   allowJs: boolean,
-  includeDeclarations: boolean,
   logger?: Logger
 ): Promise<string[]> {
   const files: string[] = [];
@@ -77,7 +75,10 @@ export async function expandDirectories(
       return;
     }
 
-    if (!entryPoint && !includeDeclarations && isDeclarationFile(file)) {
+    // If someone gave us a directory with allowJs set, they probably have both js and d.ts
+    // files. We should only expand the js files - the d.ts files will be pulled in by the
+    // compiler as needed.
+    if (!entryPoint && allowJs && isDeclarationFile(file)) {
       return;
     }
 
@@ -92,6 +93,16 @@ export async function expandDirectories(
   await Promise.all(entryPoint.map((file) => add(resolve(file), true)));
 
   return files.sort();
+}
+
+export async function writeFile(path: string, content: string): Promise<void> {
+  await fs.mkdir(dirname(path), { recursive: true });
+  await fs.writeFile(path, content);
+}
+
+export async function copyFile(src: string, dest: string): Promise<void> {
+  await fs.mkdir(dirname(dest), { recursive: true });
+  await fs.copyFile(src, dest);
 }
 
 /**

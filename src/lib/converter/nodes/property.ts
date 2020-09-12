@@ -6,7 +6,7 @@ import {
   DynamicPropertyReflection,
 } from "../../models";
 import { convertSignatureDeclaration } from "./signature";
-import { getVisibility } from "../utils";
+import { getVisibility, hasReadonlyModifier } from "../utils";
 
 export const propertyConverter: ReflectionConverter<
   ts.PropertySignature | ts.PropertyDeclaration,
@@ -35,7 +35,8 @@ export const propertyConverter: ReflectionConverter<
       await context.converter.convertTypeOrObject(
         node.type ?? context.checker.getTypeOfSymbolAtLocation(symbol, node)
       ),
-      getVisibility(node)
+      getVisibility(node),
+      hasReadonlyModifier(node)
     );
     context.project.registerReflection(property, symbol);
     return property;
@@ -79,7 +80,8 @@ export const parameterPropertyConverter: ReflectionConverter<
       await context.converter.convertTypeOrObject(
         node.type ?? context.checker.getTypeOfSymbolAtLocation(symbol, node)
       ),
-      getVisibility(node)
+      getVisibility(node),
+      hasReadonlyModifier(node)
     );
     context.project.registerReflection(property, symbol);
     return property;

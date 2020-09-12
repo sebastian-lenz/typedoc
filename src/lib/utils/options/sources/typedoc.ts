@@ -26,28 +26,13 @@ export function addTypeDocOptions(options: Options): void {
   });
 
   options.addDeclaration({
-    name: "includeDeclarations",
-    help: "Turn on parsing of .d.ts declaration files.",
-    type: ParameterType.Boolean,
-  });
-  options.addDeclaration({
     name: "exclude",
     help: "Define patterns for excluded files when specifying paths.",
     type: ParameterType.Array,
   });
   options.addDeclaration({
-    name: "externalPattern",
-    help: "Define patterns for files that should be considered being external.",
-    type: ParameterType.Array,
-  });
-  options.addDeclaration({
     name: "excludeExternals",
-    help: "Prevent externally resolved TypeScript files from being documented.",
-    type: ParameterType.Boolean,
-  });
-  options.addDeclaration({
-    name: "excludeNotExported",
-    help: "Prevent symbols that are not exported from being documented.",
+    help: "Prevent items originating in node_modules from being documented.",
     type: ParameterType.Boolean,
   });
   options.addDeclaration({
@@ -85,7 +70,7 @@ export function addTypeDocOptions(options: Options): void {
   });
 
   options.addDeclaration({
-    name: "out",
+    name: "html",
     help: "Specifies the location the documentation should be written to.",
     hint: ParameterHint.Directory,
   });
@@ -166,12 +151,6 @@ export function addTypeDocOptions(options: Options): void {
     type: ParameterType.Boolean,
   });
   options.addDeclaration({
-    name: "toc",
-    help:
-      "Define the contents of the top level table of contents as a comma-separated list of global symbols.",
-    type: ParameterType.Array,
-  });
-  options.addDeclaration({
     name: "cleanOutputDir",
     help: "If set, will clean up the output directory before creating files.",
     type: ParameterType.Boolean,
@@ -208,11 +187,5 @@ export function addTypeDocOptions(options: Options): void {
     type: ParameterType.Map,
     map: LogLevel,
     defaultValue: LogLevel.Info,
-  });
-  options.addDeclaration({
-    name: "listInvalidSymbolLinks",
-    help:
-      "Emits a list of broken symbol [[navigation]] links after documentation generation",
-    type: ParameterType.Boolean,
   });
 }

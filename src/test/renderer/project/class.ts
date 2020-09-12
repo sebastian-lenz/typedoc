@@ -2,6 +2,8 @@
 export class Generic<T extends string = "foo"> {
   property?: T;
 
+  readonly readonlyProp = 5;
+
   /**
    * Specialized toString method with a stronger type
    */
@@ -21,6 +23,12 @@ export class Generic<T extends string = "foo"> {
 /** A basic class */
 export class Standard {
   property!: string;
+
+  /** Static method with the same name as an instance method. */
+  static setProperty() {}
+
+  /** Static property with the same name as an instance property. */
+  static property = "str";
 
   /** Method with inferred void return type */
   setProperty(value: string) {

@@ -51,16 +51,16 @@ async function main() {
     return 1;
   }
 
-  const out = app.options.getValue("out");
+  const html = app.options.getValue("html");
   const json = app.options.getValue("json");
 
   if (json) {
     await app.generateJson(project, json);
   }
-  if (out) {
-    await app.generateDocs(project, out);
+  if (html) {
+    await app.generateDocs(project, html);
   }
-  if (!json && !out) {
+  if (!json && !html) {
     await app.generateDocs(project, "./docs");
   }
 
