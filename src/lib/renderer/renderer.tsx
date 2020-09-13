@@ -211,7 +211,7 @@ export class Renderer {
       throw new Error(`The theme "${name}" has already been defined.`);
     }
 
-    const definition: Writable<ThemeDefinition> = cloneDefinition(
+    const definition = cloneDefinition(
       theme.parent ? this.getTheme(theme.parent) : defaultThemeDefinition
     );
 
@@ -228,12 +228,12 @@ export class Renderer {
     }
 
     if (theme.postRender) {
-      Object.assign(definition.preRender, theme.postRender);
+      Object.assign(definition.postRender, theme.postRender);
     }
 
     for (const item in theme.suppress ?? []) {
-      delete definition.postRender[item];
       delete definition.preRender[item];
+      delete definition.postRender[item];
     }
 
     this._themes.set(name, definition);
@@ -249,7 +249,7 @@ export class Renderer {
 }
 
 // No need to pull in a new package for deep cloning... we only need one level.
-function cloneDefinition(def: ThemeDefinition): ThemeDefinition {
+function cloneDefinition(def: ThemeDefinition): Writable<ThemeDefinition> {
   return {
     router: def.router,
     templates: { ...def.templates },
