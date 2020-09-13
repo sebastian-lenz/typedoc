@@ -72,8 +72,6 @@ export interface ThemeConfiguration extends DeepPartial<ThemeDefinition> {
 
   /**
    * Any pre-render or post-render actions which need to be disabled by this theme.
-   * Note: `string & {}` is used here to trick TS into providing autocomplete for
-   * the builtin actions while also allowing any string.
    */
   readonly suppress?: readonly StringIfExternal<BuiltinThemeActions>[];
 }
@@ -83,6 +81,7 @@ export class Renderer {
 
   /**
    * Hooks which plugins can use to modify the rendered output.
+   * Any hooks added during a render will only be retained for that render call.
    */
   readonly hooks = new EventHooks<TemplateHooks, VNode | null>();
 
@@ -95,6 +94,11 @@ export class Renderer {
     return this.application.logger;
   }
 
+  /**
+   * Renders the given project using the currently selected theme.
+   * @param project
+   * @param out
+   */
   async render(project: ProjectReflection, out: string): Promise<void> {
     const start = Date.now();
     const theme = this.getTheme(this.application.options.getValue("theme"));
@@ -206,6 +210,11 @@ export class Renderer {
     this.logger.verbose(`[Perf] Full render took ${afterPost - start}ms`);
   }
 
+  /**
+   * Adds a theme to TypeDoc that can be specified with `--theme`.
+   * @param name
+   * @param theme
+   */
   addTheme(name: string, theme: ThemeConfiguration): void {
     if (this._themes.has(name)) {
       throw new Error(`The theme "${name}" has already been defined.`);
@@ -239,6 +248,12 @@ export class Renderer {
     this._themes.set(name, definition);
   }
 
+  /**
+   * Gets a defined theme, throws if it does not exist.
+   *
+   * Note: `string & {}` is used here to trick TS into providing autocomplete for
+   * the builtin actions while also allowing any string.
+   */
   private getTheme(name: TypeDocThemes | (string & {})): ThemeDefinition {
     const theme = this._themes.get(name);
     if (!theme) {
