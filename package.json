@@ -23,30 +23,30 @@
     "@types/color": "^3.0.1",
     "color": "^3.1.2",
     "lunr": "^2.3.9",
-    "marked": "1.1.1",
+    "marked": "1.2.0",
     "minimatch": "^3.0.0",
-    "preact": "^10.4.8",
+    "preact": "^10.5.3",
     "preact-render-to-string": "^5.1.10",
     "shelljs": "^0.8.4",
-    "shiki": "^0.2.2"
+    "shiki": "^0.2.6"
   },
   "peerDependencies": {
-    "typescript": ">=4.0.2"
+    "typescript": ">=4.0.0"
   },
   "devDependencies": {
     "@types/lunr": "^2.3.3",
     "@types/marked": "^1.1.0",
     "@types/minimatch": "3.0.3",
     "@types/mocha": "^8.0.3",
-    "@types/node": "^14.6.2",
+    "@types/node": "^14.11.2",
     "@types/shelljs": "^0.8.8",
-    "@typescript-eslint/eslint-plugin": "^3.10.1",
-    "@typescript-eslint/parser": "^3.10.1",
-    "eslint": "^7.7.0",
+    "@typescript-eslint/eslint-plugin": "^4.3.0",
+    "@typescript-eslint/parser": "^4.3.0",
+    "eslint": "^7.10.0",
     "mocha": "^8.1.3",
     "nyc": "15.1.0",
-    "prettier": "2.1.1",
-    "typescript": "^4.0.2"
+    "prettier": "2.1.2",
+    "typescript": "^4.0.3"
   },
   "files": [
     "bin",

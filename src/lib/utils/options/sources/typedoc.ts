@@ -1,6 +1,7 @@
 import type { Options } from "..";
 import { ParameterType, ParameterHint } from "../declaration";
 import { LogLevel } from "../../loggers";
+import { BUNDLED_THEMES } from "shiki";
 
 export function addTypeDocOptions(options: Options): void {
   options.addDeclaration({
@@ -88,6 +89,35 @@ export function addTypeDocOptions(options: Options): void {
     type: ParameterType.String,
     defaultValue: "default",
   });
+  options.addDeclaration({
+    name: "lightTheme",
+    help: "Specify the light theme to be used for syntax highlighting.",
+    type: ParameterType.String,
+    defaultValue: "light-plus",
+    convert(value: unknown) {
+      if (BUNDLED_THEMES.includes(value as string)) {
+        return value as string;
+      }
+      throw new Error(
+        `Expected lightTheme to be one of: ${BUNDLED_THEMES.join(", ")}`
+      );
+    },
+  });
+  options.addDeclaration({
+    name: "darkTheme",
+    help: "Specify the dark theme to be used for syntax highlighting.",
+    type: ParameterType.String,
+    defaultValue: "dark-plus",
+    convert(value: unknown) {
+      if (BUNDLED_THEMES.includes(value as string)) {
+        return value as string;
+      }
+      throw new Error(
+        `Expected darkTheme to be one of: ${BUNDLED_THEMES.join(", ")}`
+      );
+    },
+  });
+
   options.addDeclaration({
     name: "name",
     help:

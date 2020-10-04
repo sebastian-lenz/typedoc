@@ -17,7 +17,7 @@ import {
 import { waterfall } from "../utils/array";
 import { writeFile } from "../utils/fs";
 import { parseMarkdown, replaceIncludes, replaceMedia } from "./comment";
-import { DoubleHighlighter } from "./highlight";
+import { DoubleHighlighter, Theme } from "./highlight";
 import type { ThemeRouter, ThemeRouterConstructor } from "./router";
 import type { TemplateHooks, Templates } from "./templates";
 import { defaultThemeDefinition, minimalThemeDefinition } from "./theme";
@@ -109,10 +109,9 @@ export class Renderer {
     }
 
     const router = new theme.router(project);
-    // TODO: These ought to be configurable.
     const highlighter = await DoubleHighlighter.create(
-      "light-plus",
-      "dark-plus"
+      this.application.options.getValue("lightTheme") as Theme,
+      this.application.options.getValue("darkTheme") as Theme
     );
 
     const context: ThemeContext = {

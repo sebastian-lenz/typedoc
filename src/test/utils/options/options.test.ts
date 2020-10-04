@@ -7,6 +7,7 @@ import {
 import type {
   MapDeclarationOption,
   NumberDeclarationOption,
+  StringDeclarationOption,
 } from "../../../lib/utils/options";
 import { deepStrictEqual as equal, throws } from "assert";
 import type { DeclarationOption } from "../../../lib/utils/options";
@@ -15,6 +16,7 @@ describe("Options", () => {
   const logger = new Logger();
   const options = new Options(logger) as Options & {
     addDeclaration(declaration: Readonly<DeclarationOption>): void;
+    setValue(name: string, value: unknown): unknown;
     getValue(name: string): unknown;
   };
   options.addDefaultDeclarations();
@@ -84,6 +86,28 @@ describe("Options", () => {
       defaultValue: 0,
     };
     options.addDeclaration(declaration);
+    options.removeDeclarationByName(declaration.name);
+  });
+
+  it("Supports custom validation functions", () => {
+    const declaration: StringDeclarationOption = {
+      name: "testStringWithCustomValidation",
+      help: "",
+      defaultValue: "a",
+      convert(x: unknown) {
+        if (x !== "a") {
+          throw new Error("Invalid");
+        }
+        return x;
+      },
+    };
+
+    options.addDeclaration(declaration);
+
+    options.setValue(declaration.name, "a");
+    throws(() => options.setValue(declaration.name, "b"));
+    equal(options.getValue(declaration.name), "a");
+
     options.removeDeclarationByName(declaration.name);
   });
 

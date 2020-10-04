@@ -74,6 +74,8 @@ export interface TypeDocOptionMap {
   includes: string;
   media: string;
   theme: string;
+  lightTheme: string;
+  darkTheme: string;
   cleanOutputDir: boolean;
 
   hideGenerator: boolean;
@@ -186,6 +188,12 @@ export interface StringDeclarationOption extends DeclarationOptionBase {
    * An optional hint for the type of input expected, will be displayed in the help output.
    */
   hint?: ParameterHint;
+
+  /**
+   * Optional conversion function, should throw an `Error` with a descriptive message
+   * if the value to be set is not valid.
+   */
+  convert?: (value: unknown) => string;
 }
 
 export interface NumberDeclarationOption extends DeclarationOptionBase {
@@ -205,6 +213,12 @@ export interface NumberDeclarationOption extends DeclarationOptionBase {
    * If not specified defaults to 0.
    */
   defaultValue?: number;
+
+  /**
+   * Optional conversion function, should throw an `Error` with a descriptive message
+   * if the value to be set is not valid.
+   */
+  convert?: (value: unknown) => number;
 }
 
 export interface BooleanDeclarationOption extends DeclarationOptionBase {
@@ -214,6 +228,12 @@ export interface BooleanDeclarationOption extends DeclarationOptionBase {
    * If not specified defaults to false.
    */
   defaultValue?: boolean;
+
+  /**
+   * Optional conversion function, should throw an `Error` with a descriptive message
+   * if the value to be set is not valid.
+   */
+  convert?: (value: unknown) => boolean;
 }
 
 export interface ArrayDeclarationOption extends DeclarationOptionBase {
@@ -223,6 +243,12 @@ export interface ArrayDeclarationOption extends DeclarationOptionBase {
    * If not specified defaults to an empty array.
    */
   defaultValue?: string[];
+
+  /**
+   * Optional conversion function, should throw an `Error` with a descriptive message
+   * if the value to be set is not valid.
+   */
+  convert?: (value: unknown) => string[];
 }
 
 export interface MixedDeclarationOption extends DeclarationOptionBase {
@@ -232,6 +258,12 @@ export interface MixedDeclarationOption extends DeclarationOptionBase {
    * If not specified defaults to undefined.
    */
   defaultValue?: unknown;
+
+  /**
+   * Optional conversion function, should throw an `Error` with a descriptive message
+   * if the value to be set is not valid.
+   */
+  convert?: (value: unknown) => unknown;
 }
 
 export interface MapDeclarationOption<T> extends DeclarationOptionBase {
@@ -291,10 +323,11 @@ export function convert<T extends DeclarationOption>(
   value: unknown,
   option: T
 ): DeclarationOptionToOptionType<T>;
-export function convert<T extends DeclarationOption>(
-  value: unknown,
-  option: T
-): unknown {
+export function convert(value: unknown, option: DeclarationOption): unknown {
+  if (option.type !== ParameterType.Map && option.convert) {
+    return option.convert(value);
+  }
+
   switch (option.type) {
     case undefined:
     case ParameterType.String:
