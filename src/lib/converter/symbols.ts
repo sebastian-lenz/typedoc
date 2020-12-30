@@ -239,14 +239,15 @@ function convertFunctionOrMethod(
     }
 
     const parentSymbol = context.project.getSymbolFromReflection(context.scope);
-    assert(parentSymbol, "Missing parent symbol when converting function");
 
     const locationDeclaration =
         parentSymbol
             ?.getDeclarations()
             ?.find(
                 (d) => ts.isClassDeclaration(d) || ts.isInterfaceDeclaration(d)
-            ) ?? parentSymbol.getDeclarations()?.[0]?.getSourceFile();
+            ) ??
+        parentSymbol?.getDeclarations()?.[0]?.getSourceFile() ??
+        symbol.getDeclarations()?.[0]?.getSourceFile();
     assert(locationDeclaration, "Missing declaration context");
 
     const type = context.checker.getTypeOfSymbolAtLocation(
@@ -265,9 +266,6 @@ function convertFunctionOrMethod(
         // All method signatures must have the same modifier flags.
         setModifiers(declarations[0], reflection);
 
-        const parentSymbol = context.project.getSymbolFromReflection(
-            context.scope
-        );
         assert(parentSymbol, "Tried to convert a method without a parent.");
         if (
             parentSymbol
