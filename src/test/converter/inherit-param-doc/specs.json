@@ -8,21 +8,21 @@
     {
       "id": 6,
       "name": "Class1",
-      "kind": 128,
+      "kind": 64,
       "kindString": "Class",
       "flags": {},
       "children": [
         {
           "id": 7,
           "name": "constructor",
-          "kind": 512,
+          "kind": 256,
           "kindString": "Constructor",
           "flags": {},
           "signatures": [
             {
               "id": 8,
               "name": "new Class1",
-              "kind": 16384,
+              "kind": 4096,
               "kindString": "Constructor signature",
               "flags": {},
               "type": {
@@ -36,14 +36,14 @@
         {
           "id": 9,
           "name": "method1",
-          "kind": 2048,
+          "kind": 1024,
           "kindString": "Method",
           "flags": {},
           "signatures": [
             {
               "id": 10,
               "name": "method1",
-              "kind": 4096,
+              "kind": 2048,
               "kindString": "Call signature",
               "flags": {},
               "comment": {},
@@ -51,7 +51,7 @@
                 {
                   "id": 11,
                   "name": "a",
-                  "kind": 32768,
+                  "kind": 16384,
                   "kindString": "Parameter",
                   "flags": {},
                   "comment": {
@@ -65,7 +65,7 @@
                 {
                   "id": 12,
                   "name": "b",
-                  "kind": 32768,
+                  "kind": 16384,
                   "kindString": "Parameter",
                   "flags": {},
                   "comment": {
@@ -98,14 +98,14 @@
       "groups": [
         {
           "title": "Constructors",
-          "kind": 512,
+          "kind": 256,
           "children": [
             7
           ]
         },
         {
           "title": "Methods",
-          "kind": 2048,
+          "kind": 1024,
           "children": [
             9
           ]
@@ -122,21 +122,21 @@
     {
       "id": 13,
       "name": "Class2",
-      "kind": 128,
+      "kind": 64,
       "kindString": "Class",
       "flags": {},
       "children": [
         {
           "id": 14,
           "name": "constructor",
-          "kind": 512,
+          "kind": 256,
           "kindString": "Constructor",
           "flags": {},
           "signatures": [
             {
               "id": 15,
               "name": "new Class2",
-              "kind": 16384,
+              "kind": 4096,
               "kindString": "Constructor signature",
               "flags": {},
               "type": {
@@ -150,14 +150,14 @@
         {
           "id": 16,
           "name": "method1",
-          "kind": 2048,
+          "kind": 1024,
           "kindString": "Method",
           "flags": {},
           "signatures": [
             {
               "id": 17,
               "name": "method1",
-              "kind": 4096,
+              "kind": 2048,
               "kindString": "Call signature",
               "flags": {},
               "comment": {},
@@ -165,7 +165,7 @@
                 {
                   "id": 18,
                   "name": "a",
-                  "kind": 32768,
+                  "kind": 16384,
                   "kindString": "Parameter",
                   "flags": {},
                   "comment": {
@@ -179,7 +179,7 @@
                 {
                   "id": 19,
                   "name": "b",
-                  "kind": 32768,
+                  "kind": 16384,
                   "kindString": "Parameter",
                   "flags": {},
                   "comment": {
@@ -212,14 +212,14 @@
       "groups": [
         {
           "title": "Constructors",
-          "kind": 512,
+          "kind": 256,
           "children": [
             14
           ]
         },
         {
           "title": "Methods",
-          "kind": 2048,
+          "kind": 1024,
           "children": [
             16
           ]
@@ -236,21 +236,21 @@
     {
       "id": 20,
       "name": "Class3",
-      "kind": 128,
+      "kind": 64,
       "kindString": "Class",
       "flags": {},
       "children": [
         {
           "id": 21,
           "name": "constructor",
-          "kind": 512,
+          "kind": 256,
           "kindString": "Constructor",
           "flags": {},
           "signatures": [
             {
               "id": 22,
               "name": "new Class3",
-              "kind": 16384,
+              "kind": 4096,
               "kindString": "Constructor signature",
               "flags": {},
               "type": {
@@ -264,14 +264,14 @@
         {
           "id": 23,
           "name": "method1",
-          "kind": 2048,
+          "kind": 1024,
           "kindString": "Method",
           "flags": {},
           "signatures": [
             {
               "id": 24,
               "name": "method1",
-              "kind": 4096,
+              "kind": 2048,
               "kindString": "Call signature",
               "flags": {},
               "comment": {},
@@ -279,7 +279,7 @@
                 {
                   "id": 25,
                   "name": "a",
-                  "kind": 32768,
+                  "kind": 16384,
                   "kindString": "Parameter",
                   "flags": {},
                   "comment": {
@@ -293,7 +293,7 @@
                 {
                   "id": 26,
                   "name": "c",
-                  "kind": 32768,
+                  "kind": 16384,
                   "kindString": "Parameter",
                   "flags": {},
                   "comment": {
@@ -326,14 +326,14 @@
       "groups": [
         {
           "title": "Constructors",
-          "kind": 512,
+          "kind": 256,
           "children": [
             21
           ]
         },
         {
           "title": "Methods",
-          "kind": 2048,
+          "kind": 1024,
           "children": [
             23
           ]
@@ -350,21 +350,21 @@
     {
       "id": 1,
       "name": "Base",
-      "kind": 256,
+      "kind": 128,
       "kindString": "Interface",
       "flags": {},
       "children": [
         {
           "id": 2,
           "name": "method1",
-          "kind": 2048,
+          "kind": 1024,
           "kindString": "Method",
           "flags": {},
           "signatures": [
             {
               "id": 3,
               "name": "method1",
-              "kind": 4096,
+              "kind": 2048,
               "kindString": "Call signature",
               "flags": {},
               "comment": {},
@@ -372,7 +372,7 @@
                 {
                   "id": 4,
                   "name": "a",
-                  "kind": 32768,
+                  "kind": 16384,
                   "kindString": "Parameter",
                   "flags": {},
                   "comment": {
@@ -386,7 +386,7 @@
                 {
                   "id": 5,
                   "name": "b",
-                  "kind": 32768,
+                  "kind": 16384,
                   "kindString": "Parameter",
                   "flags": {},
                   "comment": {
@@ -409,7 +409,7 @@
       "groups": [
         {
           "title": "Methods",
-          "kind": 2048,
+          "kind": 1024,
           "children": [
             2
           ]
@@ -437,7 +437,7 @@
   "groups": [
     {
       "title": "Classes",
-      "kind": 128,
+      "kind": 64,
       "children": [
         6,
         13,
@@ -446,7 +446,7 @@
     },
     {
       "title": "Interfaces",
-      "kind": 256,
+      "kind": 128,
       "children": [
         1
       ]

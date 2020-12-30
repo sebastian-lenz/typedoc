@@ -220,9 +220,6 @@ export class Converter extends ChildableComponent<
             ],
             [ReflectionKind.GetSignature]: [ts.SyntaxKind.GetAccessor],
             [ReflectionKind.SetSignature]: [ts.SyntaxKind.SetAccessor],
-            [ReflectionKind.ObjectLiteral]: [
-                ts.SyntaxKind.ObjectLiteralExpression,
-            ],
             [ReflectionKind.TypeAlias]: [ts.SyntaxKind.TypeAliasDeclaration],
             [ReflectionKind.Event]: [], /// this needs to go away
             [ReflectionKind.Reference]: [

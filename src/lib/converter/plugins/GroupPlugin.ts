@@ -37,7 +37,6 @@ export class GroupPlugin extends ConverterComponent {
         ReflectionKind.Function,
         ReflectionKind.Accessor,
         ReflectionKind.Method,
-        ReflectionKind.ObjectLiteral,
 
         ReflectionKind.Parameter,
         ReflectionKind.TypeParameter,

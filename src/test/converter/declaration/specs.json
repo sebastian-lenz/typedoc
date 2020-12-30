@@ -14,21 +14,21 @@
         {
           "id": 2,
           "name": "Decl",
-          "kind": 128,
+          "kind": 64,
           "kindString": "Class",
           "flags": {},
           "children": [
             {
               "id": 3,
               "name": "constructor",
-              "kind": 512,
+              "kind": 256,
               "kindString": "Constructor",
               "flags": {},
               "signatures": [
                 {
                   "id": 4,
                   "name": "new Decl",
-                  "kind": 16384,
+                  "kind": 4096,
                   "kindString": "Constructor signature",
                   "flags": {},
                   "type": {
@@ -42,7 +42,7 @@
             {
               "id": 5,
               "name": "prop",
-              "kind": 1024,
+              "kind": 512,
               "kindString": "Property",
               "flags": {},
               "type": {
@@ -54,14 +54,14 @@
           "groups": [
             {
               "title": "Constructors",
-              "kind": 512,
+              "kind": 256,
               "children": [
                 3
               ]
             },
             {
               "title": "Properties",
-              "kind": 1024,
+              "kind": 512,
               "children": [
                 5
               ]
@@ -71,11 +71,9 @@
         {
           "id": 6,
           "name": "x",
-          "kind": 32,
+          "kind": 16,
           "kindString": "Variable",
-          "flags": {
-            "isConst": true
-          },
+          "flags": {},
           "type": {
             "type": "intrinsic",
             "name": "number"
@@ -85,14 +83,14 @@
       "groups": [
         {
           "title": "Classes",
-          "kind": 128,
+          "kind": 64,
           "children": [
             2
           ]
         },
         {
           "title": "Variables",
-          "kind": 32,
+          "kind": 16,
           "children": [
             6
           ]
@@ -109,21 +107,21 @@
         {
           "id": 8,
           "name": "Exported",
-          "kind": 128,
+          "kind": 64,
           "kindString": "Class",
           "flags": {},
           "children": [
             {
               "id": 9,
               "name": "constructor",
-              "kind": 512,
+              "kind": 256,
               "kindString": "Constructor",
               "flags": {},
               "signatures": [
                 {
                   "id": 10,
                   "name": "new Exported",
-                  "kind": 16384,
+                  "kind": 4096,
                   "kindString": "Constructor signature",
                   "flags": {},
                   "type": {
@@ -138,7 +136,7 @@
           "groups": [
             {
               "title": "Constructors",
-              "kind": 512,
+              "kind": 256,
               "children": [
                 9
               ]
@@ -148,21 +146,21 @@
         {
           "id": 11,
           "name": "NotExported",
-          "kind": 128,
+          "kind": 64,
           "kindString": "Class",
           "flags": {},
           "children": [
             {
               "id": 12,
               "name": "constructor",
-              "kind": 512,
+              "kind": 256,
               "kindString": "Constructor",
               "flags": {},
               "signatures": [
                 {
                   "id": 13,
                   "name": "new NotExported",
-                  "kind": 16384,
+                  "kind": 4096,
                   "kindString": "Constructor signature",
                   "flags": {},
                   "type": {
@@ -177,7 +175,7 @@
           "groups": [
             {
               "title": "Constructors",
-              "kind": 512,
+              "kind": 256,
               "children": [
                 12
               ]
@@ -188,7 +186,7 @@
       "groups": [
         {
           "title": "Classes",
-          "kind": 128,
+          "kind": 64,
           "children": [
             8,
             11
@@ -213,7 +211,7 @@
             {
               "id": 20,
               "name": "PrimitiveType",
-              "kind": 4194304,
+              "kind": 1048576,
               "kindString": "Type alias",
               "flags": {},
               "type": {
@@ -241,11 +239,9 @@
             {
               "id": 21,
               "name": "Value",
-              "kind": 32,
+              "kind": 16,
               "kindString": "Variable",
-              "flags": {
-                "isConst": true
-              },
+              "flags": {},
               "type": {
                 "type": "intrinsic",
                 "name": "string"
@@ -255,14 +251,14 @@
           "groups": [
             {
               "title": "Type aliases",
-              "kind": 4194304,
+              "kind": 1048576,
               "children": [
                 20
               ]
             },
             {
               "title": "Variables",
-              "kind": 32,
+              "kind": 16,
               "children": [
                 21
               ]
@@ -279,7 +275,7 @@
             {
               "id": 18,
               "name": "Foo",
-              "kind": 16777216,
+              "kind": 4194304,
               "kindString": "Reference",
               "flags": {},
               "target": 15
@@ -288,7 +284,7 @@
           "groups": [
             {
               "title": "References",
-              "kind": 16777216,
+              "kind": 4194304,
               "children": [
                 18
               ]
@@ -298,14 +294,14 @@
         {
           "id": 15,
           "name": "Foo",
-          "kind": 256,
+          "kind": 128,
           "kindString": "Interface",
           "flags": {},
           "children": [
             {
               "id": 16,
               "name": "prop",
-              "kind": 1024,
+              "kind": 512,
               "kindString": "Property",
               "flags": {},
               "type": {
@@ -317,7 +313,7 @@
           "groups": [
             {
               "title": "Properties",
-              "kind": 1024,
+              "kind": 512,
               "children": [
                 16
               ]
@@ -336,7 +332,7 @@
         },
         {
           "title": "Interfaces",
-          "kind": 256,
+          "kind": 128,
           "children": [
             15
           ]

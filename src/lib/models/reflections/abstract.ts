@@ -39,28 +39,26 @@ export enum ReflectionKind {
     Module = 0x1,
     Namespace = 0x2,
     Enum = 0x4,
-    // what happened to 8?
-    EnumMember = 0x10,
-    Variable = 0x20,
-    Function = 0x40,
-    Class = 0x80,
-    Interface = 0x100,
-    Constructor = 0x200,
-    Property = 0x400,
-    Method = 0x800,
-    CallSignature = 0x1000,
-    IndexSignature = 0x2000,
-    ConstructorSignature = 0x4000,
-    Parameter = 0x8000,
-    TypeLiteral = 0x10000,
-    TypeParameter = 0x20000,
-    Accessor = 0x40000,
-    GetSignature = 0x80000,
-    SetSignature = 0x100000,
-    ObjectLiteral = 0x200000,
-    TypeAlias = 0x400000,
-    Event = 0x800000,
-    Reference = 0x1000000,
+    EnumMember = 0x8,
+    Variable = 0x10,
+    Function = 0x20,
+    Class = 0x40,
+    Interface = 0x80,
+    Constructor = 0x100,
+    Property = 0x200,
+    Method = 0x400,
+    CallSignature = 0x800,
+    IndexSignature = 0x1000,
+    ConstructorSignature = 0x1000,
+    Parameter = 0x4000,
+    TypeLiteral = 0x8000,
+    TypeParameter = 0x10000,
+    Accessor = 0x20000,
+    GetSignature = 0x40000,
+    SetSignature = 0x80000,
+    TypeAlias = 0x100000,
+    Event = 0x200000,
+    Reference = 0x400000,
 }
 
 export namespace ReflectionKind {
@@ -68,32 +66,9 @@ export namespace ReflectionKind {
 
     export const ClassOrInterface =
         ReflectionKind.Class | ReflectionKind.Interface;
-    export const VariableOrProperty =
-        ReflectionKind.Variable | ReflectionKind.Property;
     export const FunctionOrMethod =
         ReflectionKind.Function | ReflectionKind.Method;
-    export const ClassMember =
-        ReflectionKind.Accessor |
-        ReflectionKind.Constructor |
-        ReflectionKind.Method |
-        ReflectionKind.Property |
-        ReflectionKind.Event;
-    export const SomeSignature =
-        ReflectionKind.CallSignature |
-        ReflectionKind.IndexSignature |
-        ReflectionKind.ConstructorSignature |
-        ReflectionKind.GetSignature |
-        ReflectionKind.SetSignature;
     export const SomeModule = ReflectionKind.Namespace | ReflectionKind.Module;
-    export const SomeType =
-        ReflectionKind.Interface |
-        ReflectionKind.TypeLiteral |
-        ReflectionKind.TypeParameter |
-        ReflectionKind.TypeAlias;
-    export const SomeValue =
-        ReflectionKind.Variable |
-        ReflectionKind.Function |
-        ReflectionKind.ObjectLiteral;
 }
 
 export enum ReflectionFlag {
@@ -102,28 +77,20 @@ export enum ReflectionFlag {
     Protected = 2,
     Public = 4,
     Static = 8,
-    ExportAssignment = 16,
-    External = 32,
-    Optional = 64,
-    DefaultValue = 128,
-    Rest = 256,
-    Abstract = 512,
-    Const = 1024,
-    Let = 2048,
-    Readonly = 4096,
+    External = 16,
+    Optional = 32,
+    Rest = 64,
+    Abstract = 256,
+    Readonly = 512,
 }
 
 const relevantFlags: ReflectionFlag[] = [
     ReflectionFlag.Private,
     ReflectionFlag.Protected,
     ReflectionFlag.Static,
-    ReflectionFlag.ExportAssignment,
     ReflectionFlag.Optional,
-    ReflectionFlag.DefaultValue,
     ReflectionFlag.Rest,
     ReflectionFlag.Abstract,
-    ReflectionFlag.Let,
-    ReflectionFlag.Const,
     ReflectionFlag.Readonly,
 ];
 
@@ -188,20 +155,8 @@ export class ReflectionFlags extends Array<string> {
         return this.hasFlag(ReflectionFlag.Rest);
     }
 
-    get hasExportAssignment(): boolean {
-        return this.hasFlag(ReflectionFlag.ExportAssignment);
-    }
-
     get isAbstract(): boolean {
         return this.hasFlag(ReflectionFlag.Abstract);
-    }
-
-    get isConst() {
-        return this.hasFlag(ReflectionFlag.Const);
-    }
-
-    get isLet() {
-        return this.hasFlag(ReflectionFlag.Let);
     }
 
     get isReadonly() {
@@ -230,14 +185,6 @@ export class ReflectionFlags extends Array<string> {
                     this.setFlag(ReflectionFlag.Private, false);
                     this.setFlag(ReflectionFlag.Protected, false);
                 }
-                break;
-            case ReflectionFlag.Const:
-            case ReflectionFlag.Let:
-                this.setSingleFlag(flag, set);
-                this.setSingleFlag(
-                    (ReflectionFlag.Let | ReflectionFlag.Const) ^ flag,
-                    !set
-                );
                 break;
             default:
                 this.setSingleFlag(flag, set);

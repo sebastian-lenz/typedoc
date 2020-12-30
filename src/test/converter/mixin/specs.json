@@ -8,7 +8,7 @@
     {
       "id": 13,
       "name": "Base",
-      "kind": 128,
+      "kind": 64,
       "kindString": "Class",
       "flags": {},
       "comment": {
@@ -18,14 +18,14 @@
         {
           "id": 14,
           "name": "constructor",
-          "kind": 512,
+          "kind": 256,
           "kindString": "Constructor",
           "flags": {},
           "signatures": [
             {
               "id": 15,
               "name": "new Base",
-              "kind": 16384,
+              "kind": 4096,
               "kindString": "Constructor signature",
               "flags": {},
               "type": {
@@ -39,7 +39,7 @@
         {
           "id": 16,
           "name": "baseProperty",
-          "kind": 1024,
+          "kind": 512,
           "kindString": "Property",
           "flags": {},
           "type": {
@@ -51,14 +51,14 @@
         {
           "id": 17,
           "name": "baseMethod",
-          "kind": 2048,
+          "kind": 1024,
           "kindString": "Method",
           "flags": {},
           "signatures": [
             {
               "id": 18,
               "name": "baseMethod",
-              "kind": 4096,
+              "kind": 2048,
               "kindString": "Call signature",
               "flags": {},
               "type": {
@@ -72,21 +72,21 @@
       "groups": [
         {
           "title": "Constructors",
-          "kind": 512,
+          "kind": 256,
           "children": [
             14
           ]
         },
         {
           "title": "Properties",
-          "kind": 1024,
+          "kind": 512,
           "children": [
             16
           ]
         },
         {
           "title": "Methods",
-          "kind": 2048,
+          "kind": 1024,
           "children": [
             17
           ]
@@ -96,7 +96,7 @@
     {
       "id": 58,
       "name": "SomeClassWithMixin",
-      "kind": 128,
+      "kind": 64,
       "kindString": "Class",
       "flags": {},
       "comment": {
@@ -106,14 +106,14 @@
         {
           "id": 59,
           "name": "constructor",
-          "kind": 512,
+          "kind": 256,
           "kindString": "Constructor",
           "flags": {},
           "signatures": [
             {
               "id": 60,
               "name": "new SomeClassWithMixin",
-              "kind": 16384,
+              "kind": 4096,
               "kindString": "Constructor signature",
               "flags": {},
               "type": {
@@ -127,7 +127,7 @@
         {
           "id": 76,
           "name": "baseProperty",
-          "kind": 1024,
+          "kind": 512,
           "kindString": "Property",
           "flags": {},
           "type": {
@@ -139,7 +139,7 @@
         {
           "id": 61,
           "name": "classWithMixinProperty",
-          "kind": 1024,
+          "kind": 512,
           "kindString": "Property",
           "flags": {},
           "type": {
@@ -151,7 +151,7 @@
         {
           "id": 72,
           "name": "property1",
-          "kind": 1024,
+          "kind": 512,
           "kindString": "Property",
           "flags": {},
           "type": {
@@ -163,7 +163,7 @@
         {
           "id": 64,
           "name": "property2",
-          "kind": 1024,
+          "kind": 512,
           "kindString": "Property",
           "flags": {},
           "type": {
@@ -175,14 +175,14 @@
         {
           "id": 77,
           "name": "baseMethod",
-          "kind": 2048,
+          "kind": 1024,
           "kindString": "Method",
           "flags": {},
           "signatures": [
             {
               "id": 78,
               "name": "baseMethod",
-              "kind": 4096,
+              "kind": 2048,
               "kindString": "Call signature",
               "flags": {},
               "type": {
@@ -195,14 +195,14 @@
         {
           "id": 62,
           "name": "classWithMixinMethod",
-          "kind": 2048,
+          "kind": 1024,
           "kindString": "Method",
           "flags": {},
           "signatures": [
             {
               "id": 63,
               "name": "classWithMixinMethod",
-              "kind": 4096,
+              "kind": 2048,
               "kindString": "Call signature",
               "flags": {},
               "type": {
@@ -215,21 +215,21 @@
         {
           "id": 73,
           "name": "method1",
-          "kind": 2048,
+          "kind": 1024,
           "kindString": "Method",
           "flags": {},
           "signatures": [
             {
               "id": 74,
               "name": "method1",
-              "kind": 4096,
+              "kind": 2048,
               "kindString": "Call signature",
               "flags": {},
               "parameters": [
                 {
                   "id": 75,
                   "name": "arg",
-                  "kind": 32768,
+                  "kind": 16384,
                   "kindString": "Parameter",
                   "flags": {},
                   "type": {
@@ -256,21 +256,21 @@
         {
           "id": 65,
           "name": "method2",
-          "kind": 2048,
+          "kind": 1024,
           "kindString": "Method",
           "flags": {},
           "signatures": [
             {
               "id": 66,
               "name": "method2",
-              "kind": 4096,
+              "kind": 2048,
               "kindString": "Call signature",
               "flags": {},
               "parameters": [
                 {
                   "id": 67,
                   "name": "arg",
-                  "kind": 32768,
+                  "kind": 16384,
                   "kindString": "Parameter",
                   "flags": {},
                   "type": {
@@ -285,14 +285,14 @@
                             "declaration": {
                               "id": 68,
                               "name": "__type",
-                              "kind": 65536,
+                              "kind": 32768,
                               "kindString": "Type literal",
                               "flags": {},
                               "children": [
                                 {
                                   "id": 69,
                                   "name": "prototype",
-                                  "kind": 2048,
+                                  "kind": 1024,
                                   "kindString": "Method",
                                   "flags": {}
                                 }
@@ -300,7 +300,7 @@
                               "groups": [
                                 {
                                   "title": "Methods",
-                                  "kind": 2048,
+                                  "kind": 1024,
                                   "children": [
                                     69
                                   ]
@@ -337,14 +337,14 @@
                           "declaration": {
                             "id": 70,
                             "name": "__type",
-                            "kind": 65536,
+                            "kind": 32768,
                             "kindString": "Type literal",
                             "flags": {},
                             "children": [
                               {
                                 "id": 71,
                                 "name": "prototype",
-                                "kind": 2048,
+                                "kind": 1024,
                                 "kindString": "Method",
                                 "flags": {}
                               }
@@ -352,7 +352,7 @@
                             "groups": [
                               {
                                 "title": "Methods",
-                                "kind": 2048,
+                                "kind": 1024,
                                 "children": [
                                   71
                                 ]
@@ -381,14 +381,14 @@
       "groups": [
         {
           "title": "Constructors",
-          "kind": 512,
+          "kind": 256,
           "children": [
             59
           ]
         },
         {
           "title": "Properties",
-          "kind": 1024,
+          "kind": 512,
           "children": [
             76,
             61,
@@ -398,7 +398,7 @@
         },
         {
           "title": "Methods",
-          "kind": 2048,
+          "kind": 1024,
           "children": [
             77,
             62,
@@ -423,14 +423,14 @@
                       "declaration": {
                         "id": 79,
                         "name": "__type",
-                        "kind": 65536,
+                        "kind": 32768,
                         "kindString": "Type literal",
                         "flags": {},
                         "children": [
                           {
                             "id": 80,
                             "name": "prototype",
-                            "kind": 2048,
+                            "kind": 1024,
                             "kindString": "Method",
                             "flags": {}
                           }
@@ -438,7 +438,7 @@
                         "groups": [
                           {
                             "title": "Methods",
-                            "kind": 2048,
+                            "kind": 1024,
                             "children": [
                               80
                             ]
@@ -500,7 +500,7 @@
     {
       "id": 25,
       "name": "Mixin1Type",
-      "kind": 256,
+      "kind": 128,
       "kindString": "Interface",
       "flags": {},
       "comment": {
@@ -510,7 +510,7 @@
         {
           "id": 30,
           "name": "baseProperty",
-          "kind": 1024,
+          "kind": 512,
           "kindString": "Property",
           "flags": {},
           "type": {
@@ -522,7 +522,7 @@
         {
           "id": 26,
           "name": "property1",
-          "kind": 1024,
+          "kind": 512,
           "kindString": "Property",
           "flags": {},
           "type": {
@@ -534,14 +534,14 @@
         {
           "id": 31,
           "name": "baseMethod",
-          "kind": 2048,
+          "kind": 1024,
           "kindString": "Method",
           "flags": {},
           "signatures": [
             {
               "id": 32,
               "name": "baseMethod",
-              "kind": 4096,
+              "kind": 2048,
               "kindString": "Call signature",
               "flags": {},
               "type": {
@@ -554,21 +554,21 @@
         {
           "id": 27,
           "name": "method1",
-          "kind": 2048,
+          "kind": 1024,
           "kindString": "Method",
           "flags": {},
           "signatures": [
             {
               "id": 28,
               "name": "method1",
-              "kind": 4096,
+              "kind": 2048,
               "kindString": "Call signature",
               "flags": {},
               "parameters": [
                 {
                   "id": 29,
                   "name": "arg",
-                  "kind": 32768,
+                  "kind": 16384,
                   "kindString": "Parameter",
                   "flags": {},
                   "type": {
@@ -596,7 +596,7 @@
       "groups": [
         {
           "title": "Properties",
-          "kind": 1024,
+          "kind": 512,
           "children": [
             30,
             26
@@ -604,7 +604,7 @@
         },
         {
           "title": "Methods",
-          "kind": 2048,
+          "kind": 1024,
           "children": [
             31,
             27
@@ -632,7 +632,7 @@
     {
       "id": 39,
       "name": "Mixin2",
-      "kind": 256,
+      "kind": 128,
       "kindString": "Interface",
       "flags": {},
       "comment": {
@@ -642,7 +642,7 @@
         {
           "id": 48,
           "name": "baseProperty",
-          "kind": 1024,
+          "kind": 512,
           "kindString": "Property",
           "flags": {},
           "type": {
@@ -654,7 +654,7 @@
         {
           "id": 44,
           "name": "property1",
-          "kind": 1024,
+          "kind": 512,
           "kindString": "Property",
           "flags": {},
           "type": {
@@ -666,7 +666,7 @@
         {
           "id": 40,
           "name": "property2",
-          "kind": 1024,
+          "kind": 512,
           "kindString": "Property",
           "flags": {},
           "type": {
@@ -678,14 +678,14 @@
         {
           "id": 49,
           "name": "baseMethod",
-          "kind": 2048,
+          "kind": 1024,
           "kindString": "Method",
           "flags": {},
           "signatures": [
             {
               "id": 50,
               "name": "baseMethod",
-              "kind": 4096,
+              "kind": 2048,
               "kindString": "Call signature",
               "flags": {},
               "type": {
@@ -698,21 +698,21 @@
         {
           "id": 45,
           "name": "method1",
-          "kind": 2048,
+          "kind": 1024,
           "kindString": "Method",
           "flags": {},
           "signatures": [
             {
               "id": 46,
               "name": "method1",
-              "kind": 4096,
+              "kind": 2048,
               "kindString": "Call signature",
               "flags": {},
               "parameters": [
                 {
                   "id": 47,
                   "name": "arg",
-                  "kind": 32768,
+                  "kind": 16384,
                   "kindString": "Parameter",
                   "flags": {},
                   "type": {
@@ -739,21 +739,21 @@
         {
           "id": 41,
           "name": "method2",
-          "kind": 2048,
+          "kind": 1024,
           "kindString": "Method",
           "flags": {},
           "signatures": [
             {
               "id": 42,
               "name": "method2",
-              "kind": 4096,
+              "kind": 2048,
               "kindString": "Call signature",
               "flags": {},
               "parameters": [
                 {
                   "id": 43,
                   "name": "arg",
-                  "kind": 32768,
+                  "kind": 16384,
                   "kindString": "Parameter",
                   "flags": {},
                   "type": {
@@ -826,7 +826,7 @@
       "groups": [
         {
           "title": "Properties",
-          "kind": 1024,
+          "kind": 512,
           "children": [
             48,
             44,
@@ -835,7 +835,7 @@
         },
         {
           "title": "Methods",
-          "kind": 2048,
+          "kind": 1024,
           "children": [
             49,
             45,
@@ -864,7 +864,7 @@
     {
       "id": 6,
       "name": "AnyConstructor",
-      "kind": 4194304,
+      "kind": 1048576,
       "kindString": "Type alias",
       "flags": {},
       "comment": {
@@ -874,7 +874,7 @@
         {
           "id": 10,
           "name": "A",
-          "kind": 131072,
+          "kind": 65536,
           "kindString": "Type parameter",
           "flags": {},
           "default": {
@@ -888,21 +888,21 @@
         "declaration": {
           "id": 7,
           "name": "__type",
-          "kind": 512,
+          "kind": 256,
           "kindString": "Constructor",
           "flags": {},
           "signatures": [
             {
               "id": 8,
               "name": "__type",
-              "kind": 16384,
+              "kind": 4096,
               "kindString": "Constructor signature",
               "flags": {},
               "parameters": [
                 {
                   "id": 9,
                   "name": "input",
-                  "kind": 32768,
+                  "kind": 16384,
                   "kindString": "Parameter",
                   "flags": {
                     "isRest": true
@@ -928,7 +928,7 @@
     {
       "id": 1,
       "name": "AnyFunction",
-      "kind": 4194304,
+      "kind": 1048576,
       "kindString": "Type alias",
       "flags": {},
       "comment": {
@@ -938,7 +938,7 @@
         {
           "id": 5,
           "name": "A",
-          "kind": 131072,
+          "kind": 65536,
           "kindString": "Type parameter",
           "flags": {},
           "default": {
@@ -952,21 +952,21 @@
         "declaration": {
           "id": 2,
           "name": "__type",
-          "kind": 65536,
+          "kind": 32768,
           "kindString": "Type literal",
           "flags": {},
           "signatures": [
             {
               "id": 3,
               "name": "__type",
-              "kind": 4096,
+              "kind": 2048,
               "kindString": "Call signature",
               "flags": {},
               "parameters": [
                 {
                   "id": 4,
                   "name": "input",
-                  "kind": 32768,
+                  "kind": 16384,
                   "kindString": "Parameter",
                   "flags": {
                     "isRest": true
@@ -992,7 +992,7 @@
     {
       "id": 11,
       "name": "Mixin",
-      "kind": 4194304,
+      "kind": 1048576,
       "kindString": "Type alias",
       "flags": {},
       "comment": {
@@ -1002,7 +1002,7 @@
         {
           "id": 12,
           "name": "T",
-          "kind": 131072,
+          "kind": 65536,
           "kindString": "Type parameter",
           "flags": {},
           "type": {
@@ -1044,7 +1044,7 @@
     {
       "id": 57,
       "name": "Mixin3",
-      "kind": 4194304,
+      "kind": 1048576,
       "kindString": "Type alias",
       "flags": {},
       "comment": {
@@ -1069,16 +1069,14 @@
     {
       "id": 19,
       "name": "Mixin1Func",
-      "kind": 64,
+      "kind": 32,
       "kindString": "Function",
-      "flags": {
-        "isConst": true
-      },
+      "flags": {},
       "signatures": [
         {
           "id": 20,
           "name": "Mixin1Func",
-          "kind": 4096,
+          "kind": 2048,
           "kindString": "Call signature",
           "flags": {},
           "comment": {
@@ -1088,7 +1086,7 @@
             {
               "id": 21,
               "name": "T",
-              "kind": 131072,
+              "kind": 65536,
               "kindString": "Type parameter",
               "flags": {},
               "type": {
@@ -1109,7 +1107,7 @@
             {
               "id": 22,
               "name": "base",
-              "kind": 32768,
+              "kind": 16384,
               "kindString": "Parameter",
               "flags": {},
               "type": {
@@ -1126,14 +1124,14 @@
                 "declaration": {
                   "id": 23,
                   "name": "__type",
-                  "kind": 65536,
+                  "kind": 32768,
                   "kindString": "Type literal",
                   "flags": {},
                   "children": [
                     {
                       "id": 24,
                       "name": "prototype",
-                      "kind": 2048,
+                      "kind": 1024,
                       "kindString": "Method",
                       "flags": {}
                     }
@@ -1141,7 +1139,7 @@
                   "groups": [
                     {
                       "title": "Methods",
-                      "kind": 2048,
+                      "kind": 1024,
                       "children": [
                         24
                       ]
@@ -1161,16 +1159,14 @@
     {
       "id": 33,
       "name": "Mixin2",
-      "kind": 64,
+      "kind": 32,
       "kindString": "Function",
-      "flags": {
-        "isConst": true
-      },
+      "flags": {},
       "signatures": [
         {
           "id": 34,
           "name": "Mixin2",
-          "kind": 4096,
+          "kind": 2048,
           "kindString": "Call signature",
           "flags": {},
           "comment": {
@@ -1180,7 +1176,7 @@
             {
               "id": 35,
               "name": "T",
-              "kind": 131072,
+              "kind": 65536,
               "kindString": "Type parameter",
               "flags": {},
               "type": {
@@ -1211,7 +1207,7 @@
             {
               "id": 36,
               "name": "base",
-              "kind": 32768,
+              "kind": 16384,
               "kindString": "Parameter",
               "flags": {},
               "type": {
@@ -1228,14 +1224,14 @@
                 "declaration": {
                   "id": 37,
                   "name": "__type",
-                  "kind": 65536,
+                  "kind": 32768,
                   "kindString": "Type literal",
                   "flags": {},
                   "children": [
                     {
                       "id": 38,
                       "name": "prototype",
-                      "kind": 2048,
+                      "kind": 1024,
                       "kindString": "Method",
                       "flags": {}
                     }
@@ -1243,7 +1239,7 @@
                   "groups": [
                     {
                       "title": "Methods",
-                      "kind": 2048,
+                      "kind": 1024,
                       "children": [
                         38
                       ]
@@ -1263,16 +1259,14 @@
     {
       "id": 51,
       "name": "Mixin3",
-      "kind": 64,
+      "kind": 32,
       "kindString": "Function",
-      "flags": {
-        "isConst": true
-      },
+      "flags": {},
       "signatures": [
         {
           "id": 52,
           "name": "Mixin3",
-          "kind": 4096,
+          "kind": 2048,
           "kindString": "Call signature",
           "flags": {},
           "comment": {
@@ -1282,7 +1276,7 @@
             {
               "id": 53,
               "name": "T",
-              "kind": 131072,
+              "kind": 65536,
               "kindString": "Type parameter",
               "flags": {},
               "type": {
@@ -1302,7 +1296,7 @@
             {
               "id": 54,
               "name": "base",
-              "kind": 32768,
+              "kind": 16384,
               "kindString": "Parameter",
               "flags": {},
               "type": {
@@ -1319,14 +1313,14 @@
                 "declaration": {
                   "id": 55,
                   "name": "__type",
-                  "kind": 65536,
+                  "kind": 32768,
                   "kindString": "Type literal",
                   "flags": {},
                   "children": [
                     {
                       "id": 56,
                       "name": "prototype",
-                      "kind": 2048,
+                      "kind": 1024,
                       "kindString": "Method",
                       "flags": {}
                     }
@@ -1334,7 +1328,7 @@
                   "groups": [
                     {
                       "title": "Methods",
-                      "kind": 2048,
+                      "kind": 1024,
                       "children": [
                         56
                       ]
@@ -1355,7 +1349,7 @@
   "groups": [
     {
       "title": "Classes",
-      "kind": 128,
+      "kind": 64,
       "children": [
         13,
         58
@@ -1363,7 +1357,7 @@
     },
     {
       "title": "Interfaces",
-      "kind": 256,
+      "kind": 128,
       "children": [
         25,
         39
@@ -1371,7 +1365,7 @@
     },
     {
       "title": "Type aliases",
-      "kind": 4194304,
+      "kind": 1048576,
       "children": [
         6,
         1,
@@ -1381,7 +1375,7 @@
     },
     {
       "title": "Functions",
-      "kind": 64,
+      "kind": 32,
       "children": [
         19,
         33,

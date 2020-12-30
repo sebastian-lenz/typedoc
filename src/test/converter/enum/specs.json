@@ -18,11 +18,9 @@
         {
           "id": 12,
           "name": "enumValue",
-          "kind": 32,
+          "kind": 16,
           "kindString": "Variable",
-          "flags": {
-            "isLet": true
-          },
+          "flags": {},
           "comment": {
             "shortText": "This is a variable appended to an enumeration."
           },
@@ -34,14 +32,14 @@
         {
           "id": 10,
           "name": "enumFunction",
-          "kind": 64,
+          "kind": 32,
           "kindString": "Function",
           "flags": {},
           "signatures": [
             {
               "id": 11,
               "name": "enumFunction",
-              "kind": 4096,
+              "kind": 2048,
               "kindString": "Call signature",
               "flags": {},
               "comment": {
@@ -58,14 +56,14 @@
       "groups": [
         {
           "title": "Variables",
-          "kind": 32,
+          "kind": 16,
           "children": [
             12
           ]
         },
         {
           "title": "Functions",
-          "kind": 64,
+          "kind": 32,
           "children": [
             10
           ]
@@ -77,9 +75,7 @@
       "name": "ConstEnum",
       "kind": 4,
       "kindString": "Enumeration",
-      "flags": {
-        "isConst": true
-      },
+      "flags": {},
       "comment": {
         "shortText": "This is a const enum."
       },
@@ -87,7 +83,7 @@
         {
           "id": 14,
           "name": "a",
-          "kind": 16,
+          "kind": 8,
           "kindString": "Enumeration member",
           "flags": {},
           "defaultValue": "1"
@@ -95,7 +91,7 @@
         {
           "id": 15,
           "name": "b",
-          "kind": 16,
+          "kind": 8,
           "kindString": "Enumeration member",
           "flags": {},
           "defaultValue": "2"
@@ -104,7 +100,7 @@
       "groups": [
         {
           "title": "Enumeration members",
-          "kind": 16,
+          "kind": 8,
           "children": [
             14,
             15
@@ -125,7 +121,7 @@
         {
           "id": 6,
           "name": "EnumValue1",
-          "kind": 16,
+          "kind": 8,
           "kindString": "Enumeration member",
           "flags": {},
           "comment": {
@@ -136,7 +132,7 @@
         {
           "id": 7,
           "name": "EnumValue2",
-          "kind": 16,
+          "kind": 8,
           "kindString": "Enumeration member",
           "flags": {},
           "comment": {
@@ -147,7 +143,7 @@
         {
           "id": 8,
           "name": "EnumValue3",
-          "kind": 16,
+          "kind": 8,
           "kindString": "Enumeration member",
           "flags": {},
           "comment": {
@@ -159,7 +155,7 @@
       "groups": [
         {
           "title": "Enumeration members",
-          "kind": 16,
+          "kind": 8,
           "children": [
             6,
             7,
@@ -181,7 +177,7 @@
         {
           "id": 2,
           "name": "EnumValue1",
-          "kind": 16,
+          "kind": 8,
           "kindString": "Enumeration member",
           "flags": {},
           "comment": {
@@ -192,7 +188,7 @@
         {
           "id": 3,
           "name": "EnumValue2",
-          "kind": 16,
+          "kind": 8,
           "kindString": "Enumeration member",
           "flags": {},
           "comment": {
@@ -203,7 +199,7 @@
         {
           "id": 4,
           "name": "EnumValue3",
-          "kind": 16,
+          "kind": 8,
           "kindString": "Enumeration member",
           "flags": {},
           "comment": {
@@ -215,7 +211,7 @@
       "groups": [
         {
           "title": "Enumeration members",
-          "kind": 16,
+          "kind": 8,
           "children": [
             2,
             3,

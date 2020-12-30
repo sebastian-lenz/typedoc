@@ -14,7 +14,7 @@
         {
           "id": 31,
           "name": "Mod",
-          "kind": 16777216,
+          "kind": 4194304,
           "kindString": "Reference",
           "flags": {},
           "target": 22
@@ -22,7 +22,7 @@
         {
           "id": 32,
           "name": "ModDefault",
-          "kind": 16777216,
+          "kind": 4194304,
           "kindString": "Reference",
           "flags": {},
           "target": 23
@@ -30,7 +30,7 @@
         {
           "id": 36,
           "name": "ThisModule",
-          "kind": 16777216,
+          "kind": 4194304,
           "kindString": "Reference",
           "flags": {},
           "target": 22
@@ -38,7 +38,7 @@
         {
           "id": 34,
           "name": "b",
-          "kind": 16777216,
+          "kind": 4194304,
           "kindString": "Reference",
           "flags": {},
           "target": 25
@@ -46,7 +46,7 @@
         {
           "id": 30,
           "name": "c",
-          "kind": 16777216,
+          "kind": 4194304,
           "kindString": "Reference",
           "flags": {},
           "target": 25
@@ -54,11 +54,9 @@
         {
           "id": 33,
           "name": "a",
-          "kind": 32,
+          "kind": 16,
           "kindString": "Variable",
-          "flags": {
-            "isConst": true
-          },
+          "flags": {},
           "comment": {
             "shortText": "A simple named export that will be exported from export.ts"
           },
@@ -71,21 +69,21 @@
         {
           "id": 18,
           "name": "add",
-          "kind": 64,
+          "kind": 32,
           "kindString": "Function",
           "flags": {},
           "signatures": [
             {
               "id": 19,
               "name": "add",
-              "kind": 4096,
+              "kind": 2048,
               "kindString": "Call signature",
               "flags": {},
               "parameters": [
                 {
                   "id": 20,
                   "name": "x",
-                  "kind": 32768,
+                  "kind": 16384,
                   "kindString": "Parameter",
                   "flags": {},
                   "type": {
@@ -96,7 +94,7 @@
                 {
                   "id": 21,
                   "name": "y",
-                  "kind": 32768,
+                  "kind": 16384,
                   "kindString": "Parameter",
                   "flags": {},
                   "type": {
@@ -115,21 +113,21 @@
         {
           "id": 15,
           "name": "default",
-          "kind": 64,
+          "kind": 32,
           "kindString": "Function",
           "flags": {},
           "signatures": [
             {
               "id": 16,
               "name": "default",
-              "kind": 4096,
+              "kind": 2048,
               "kindString": "Call signature",
               "flags": {},
               "parameters": [
                 {
                   "id": 17,
                   "name": "a",
-                  "kind": 32768,
+                  "kind": 16384,
                   "kindString": "Parameter",
                   "flags": {},
                   "type": {
@@ -149,7 +147,7 @@
       "groups": [
         {
           "title": "References",
-          "kind": 16777216,
+          "kind": 4194304,
           "children": [
             31,
             32,
@@ -160,14 +158,14 @@
         },
         {
           "title": "Variables",
-          "kind": 32,
+          "kind": 16,
           "children": [
             33
           ]
         },
         {
           "title": "Functions",
-          "kind": 64,
+          "kind": 32,
           "children": [
             18,
             15
@@ -185,21 +183,21 @@
         {
           "id": 2,
           "name": "export=",
-          "kind": 64,
+          "kind": 32,
           "kindString": "Function",
           "flags": {},
           "signatures": [
             {
               "id": 3,
               "name": "export=",
-              "kind": 4096,
+              "kind": 2048,
               "kindString": "Call signature",
               "flags": {},
               "parameters": [
                 {
                   "id": 4,
                   "name": "x",
-                  "kind": 32768,
+                  "kind": 16384,
                   "kindString": "Parameter",
                   "flags": {},
                   "type": {
@@ -210,7 +208,7 @@
                 {
                   "id": 5,
                   "name": "y",
-                  "kind": 32768,
+                  "kind": 16384,
                   "kindString": "Parameter",
                   "flags": {},
                   "type": {
@@ -230,7 +228,7 @@
       "groups": [
         {
           "title": "Functions",
-          "kind": 64,
+          "kind": 32,
           "children": [
             2
           ]
@@ -247,11 +245,9 @@
         {
           "id": 7,
           "name": "default",
-          "kind": 32,
+          "kind": 16,
           "kindString": "Variable",
-          "flags": {
-            "isConst": true
-          },
+          "flags": {},
           "type": {
             "type": "literal",
             "value": 5
@@ -262,7 +258,7 @@
       "groups": [
         {
           "title": "Variables",
-          "kind": 32,
+          "kind": 16,
           "children": [
             7
           ]
@@ -279,11 +275,9 @@
         {
           "id": 13,
           "name": "x",
-          "kind": 32,
+          "kind": 16,
           "kindString": "Variable",
-          "flags": {
-            "isConst": true
-          },
+          "flags": {},
           "type": {
             "type": "literal",
             "value": 5
@@ -293,21 +287,21 @@
         {
           "id": 9,
           "name": "add",
-          "kind": 64,
+          "kind": 32,
           "kindString": "Function",
           "flags": {},
           "signatures": [
             {
               "id": 10,
               "name": "add",
-              "kind": 4096,
+              "kind": 2048,
               "kindString": "Call signature",
               "flags": {},
               "parameters": [
                 {
                   "id": 11,
                   "name": "x",
-                  "kind": 32768,
+                  "kind": 16384,
                   "kindString": "Parameter",
                   "flags": {},
                   "type": {
@@ -318,7 +312,7 @@
                 {
                   "id": 12,
                   "name": "y",
-                  "kind": 32768,
+                  "kind": 16384,
                   "kindString": "Parameter",
                   "flags": {},
                   "type": {
@@ -338,14 +332,14 @@
       "groups": [
         {
           "title": "Variables",
-          "kind": 32,
+          "kind": 16,
           "children": [
             13
           ]
         },
         {
           "title": "Functions",
-          "kind": 64,
+          "kind": 32,
           "children": [
             9
           ]
@@ -362,7 +356,7 @@
         {
           "id": 29,
           "name": "ThisModule",
-          "kind": 16777216,
+          "kind": 4194304,
           "kindString": "Reference",
           "flags": {},
           "target": 22
@@ -370,7 +364,7 @@
         {
           "id": 26,
           "name": "b",
-          "kind": 16777216,
+          "kind": 4194304,
           "kindString": "Reference",
           "flags": {},
           "target": 25
@@ -378,7 +372,7 @@
         {
           "id": 27,
           "name": "c",
-          "kind": 16777216,
+          "kind": 4194304,
           "kindString": "Reference",
           "flags": {},
           "target": 25
@@ -386,11 +380,9 @@
         {
           "id": 25,
           "name": "a",
-          "kind": 32,
+          "kind": 16,
           "kindString": "Variable",
-          "flags": {
-            "isConst": true
-          },
+          "flags": {},
           "comment": {
             "shortText": "A simple named export that will be exported from export.ts"
           },
@@ -403,14 +395,14 @@
         {
           "id": 23,
           "name": "default",
-          "kind": 64,
+          "kind": 32,
           "kindString": "Function",
           "flags": {},
           "signatures": [
             {
               "id": 24,
               "name": "default",
-              "kind": 4096,
+              "kind": 2048,
               "kindString": "Call signature",
               "flags": {},
               "comment": {
@@ -427,7 +419,7 @@
       "groups": [
         {
           "title": "References",
-          "kind": 16777216,
+          "kind": 4194304,
           "children": [
             29,
             26,
@@ -436,14 +428,14 @@
         },
         {
           "title": "Variables",
-          "kind": 32,
+          "kind": 16,
           "children": [
             25
           ]
         },
         {
           "title": "Functions",
-          "kind": 64,
+          "kind": 32,
           "children": [
             23
           ]

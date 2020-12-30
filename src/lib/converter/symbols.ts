@@ -126,10 +126,6 @@ function convertEnum(
         nameOverride
     );
 
-    if (symbol.flags & ts.SymbolFlags.ConstEnum) {
-        reflection.setFlag(ReflectionFlag.Const);
-    }
-
     convertSymbols(
         context.withScope(reflection),
         getSymbolExportsWithFlag(symbol, ts.SymbolFlags.EnumMember)
@@ -705,14 +701,6 @@ function convertVariable(
 
     setModifiers(declaration, reflection);
 
-    // Does anyone care about this? I doubt it...
-    if (hasFlag(symbol.flags, ts.SymbolFlags.BlockScopedVariable)) {
-        reflection.setFlag(
-            ReflectionFlag.Const,
-            hasFlag(declaration.parent.flags, ts.NodeFlags.Const)
-        );
-    }
-
     reflection.defaultValue = convertDefaultValue(declaration);
 }
 
@@ -734,13 +722,6 @@ function convertVariableAsFunction(
         nameOverride
     );
     setModifiers(declaration, reflection);
-    // Does anyone care about this? I doubt it...
-    if (hasFlag(symbol.flags, ts.SymbolFlags.BlockScopedVariable)) {
-        reflection.setFlag(
-            ReflectionFlag.Const,
-            hasFlag(declaration.parent.flags, ts.NodeFlags.Const)
-        );
-    }
 
     const reflectionContext = context.withScope(reflection);
 
