@@ -1,0 +1,32 @@
+name: Publish Beta
+on:
+    push:
+        branches:
+            - beta
+jobs:
+    npm-publish:
+        name: npm-publish
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout repository
+              uses: actions/checkout@v2
+            - id: check
+              uses: EndBug/version-check@v1
+              with:
+                  diff-search: true
+            - name: Set up Node
+              if: steps.check.outputs.changed == 'true'
+              uses: actions/setup-node@v1
+              with:
+                  node-version: "14"
+            - name: Install
+              if: steps.check.outputs.changed == 'true'
+              run: npm ci
+            - name: Setup publish token
+              if: steps.check.outputs.changed == 'true'
+              run: echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" > .npmrc
+              env:
+                  NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
+            - name: Publish
+              if: steps.check.outputs.changed == 'true'
+              run: npm publish --tag beta
