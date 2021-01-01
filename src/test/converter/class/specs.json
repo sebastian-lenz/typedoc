@@ -2897,8 +2897,8 @@
                 "shortText": "Generic property."
               },
               "type": {
-                "type": "reference",
-                "name": "T"
+                "type": "intrinsic",
+                "name": "string"
               },
               "inheritedFrom": {
                 "type": "reference",
@@ -2920,8 +2920,8 @@
               "type": {
                 "type": "array",
                 "elementType": {
-                  "type": "reference",
-                  "name": "T"
+                  "type": "intrinsic",
+                  "name": "string"
                 }
               },
               "inheritedFrom": {

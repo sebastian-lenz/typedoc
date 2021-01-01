@@ -6,7 +6,10 @@
         "experimentalDecorators": true,
         "resolveJsonModule": true,
         "rootDir": ".",
-        "strictNullChecks": true
+        "strictNullChecks": true,
+        "allowJs": true,
+        "noEmit": true,
+        "outDir": "dist"
     },
     "include": ["."]
 }

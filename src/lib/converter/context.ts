@@ -59,6 +59,18 @@ export class Context {
      */
     readonly scope: Reflection;
 
+    /** @internal */
+    isConvertingTypeNode(): boolean {
+        return this.convertingTypeNode;
+    }
+
+    /** @internal */
+    setConvertingTypeNode() {
+        this.convertingTypeNode = true;
+    }
+
+    private convertingTypeNode = false;
+
     /**
      * Create a new Context instance.
      *
@@ -231,6 +243,7 @@ export class Context {
             this.project,
             scope
         );
+        context.convertingTypeNode = this.convertingTypeNode;
         context.setActiveProgram(this._program);
         return context;
     }

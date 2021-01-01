@@ -1,0 +1,511 @@
+{
+  "id": 0,
+  "name": "typedoc",
+  "kind": 0,
+  "kindString": "Project",
+  "flags": {},
+  "children": [
+    {
+      "id": 6,
+      "name": "AlsoInterfaceIsh",
+      "kind": 256,
+      "kindString": "Interface",
+      "flags": {},
+      "comment": {
+        "shortText": "docs for interface"
+      },
+      "children": [
+        {
+          "id": 8,
+          "name": "bar",
+          "kind": 1024,
+          "kindString": "Property",
+          "flags": {},
+          "comment": {
+            "shortText": "can also use prop tag"
+          },
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        },
+        {
+          "id": 7,
+          "name": "foo",
+          "kind": 1024,
+          "kindString": "Property",
+          "flags": {},
+          "comment": {
+            "shortText": "docs for property"
+          },
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "kind": 1024,
+          "children": [
+            8,
+            7
+          ]
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "InterfaceIsh",
+      "kind": 256,
+      "kindString": "Interface",
+      "flags": {},
+      "children": [
+        {
+          "id": 5,
+          "name": "foo",
+          "kind": 1024,
+          "kindString": "Property",
+          "flags": {},
+          "comment": {
+            "shortText": "docs for property\nmore docs for property"
+          },
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "kind": 1024,
+          "children": [
+            5
+          ]
+        }
+      ]
+    },
+    {
+      "id": 33,
+      "name": "Foo",
+      "kind": 4194304,
+      "kindString": "Type alias",
+      "flags": {},
+      "type": {
+        "type": "reflection",
+        "declaration": {
+          "id": 34,
+          "name": "__type",
+          "kind": 65536,
+          "kindString": "Type literal",
+          "flags": {},
+          "signatures": [
+            {
+              "id": 35,
+              "name": "__type",
+              "kind": 4096,
+              "kindString": "Call signature",
+              "flags": {},
+              "parameters": [
+                {
+                  "id": 36,
+                  "name": "args",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {
+                    "isRest": true
+                  },
+                  "type": {
+                    "type": "array",
+                    "elementType": {
+                      "type": "intrinsic",
+                      "name": "string"
+                    }
+                  }
+                }
+              ],
+              "type": {
+                "type": "intrinsic",
+                "name": "number"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 19,
+      "name": "HasReturnTag",
+      "kind": 4194304,
+      "kindString": "Type alias",
+      "flags": {},
+      "type": {
+        "type": "reflection",
+        "declaration": {
+          "id": 20,
+          "name": "__type",
+          "kind": 65536,
+          "kindString": "Type literal",
+          "flags": {},
+          "signatures": [
+            {
+              "id": 21,
+              "name": "__type",
+              "kind": 4096,
+              "kindString": "Call signature",
+              "flags": {},
+              "type": {
+                "type": "intrinsic",
+                "name": "string"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 31,
+      "name": "Identity",
+      "kind": 4194304,
+      "kindString": "Type alias",
+      "flags": {},
+      "comment": {
+        "shortText": "comment on alias"
+      },
+      "typeParameter": [
+        {
+          "id": 32,
+          "name": "T",
+          "kind": 131072,
+          "kindString": "Type parameter",
+          "flags": {},
+          "comment": {
+            "shortText": "comment on template"
+          }
+        }
+      ],
+      "type": {
+        "type": "reference",
+        "name": "T"
+      }
+    },
+    {
+      "id": 22,
+      "name": "IdentityFn",
+      "kind": 4194304,
+      "kindString": "Type alias",
+      "flags": {},
+      "typeParameter": [
+        {
+          "id": 26,
+          "name": "T",
+          "kind": 131072,
+          "kindString": "Type parameter",
+          "flags": {}
+        }
+      ],
+      "type": {
+        "type": "reflection",
+        "declaration": {
+          "id": 23,
+          "name": "__type",
+          "kind": 65536,
+          "kindString": "Type literal",
+          "flags": {},
+          "signatures": [
+            {
+              "id": 24,
+              "name": "__type",
+              "kind": 4096,
+              "kindString": "Call signature",
+              "flags": {},
+              "parameters": [
+                {
+                  "id": 25,
+                  "name": "data",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "type": {
+                    "type": "reference",
+                    "name": "T"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "name": "T"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 11,
+      "name": "IntersectionType",
+      "kind": 4194304,
+      "kindString": "Type alias",
+      "flags": {},
+      "comment": {
+        "shortText": "docs for alias"
+      },
+      "type": {
+        "type": "intersection",
+        "types": [
+          {
+            "type": "reflection",
+            "declaration": {
+              "id": 12,
+              "name": "__type",
+              "kind": 65536,
+              "kindString": "Type literal",
+              "flags": {},
+              "children": [
+                {
+                  "id": 13,
+                  "name": "x",
+                  "kind": 1024,
+                  "kindString": "Property",
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ],
+              "groups": [
+                {
+                  "title": "Properties",
+                  "kind": 1024,
+                  "children": [
+                    13
+                  ]
+                }
+              ]
+            }
+          },
+          {
+            "type": "reflection",
+            "declaration": {
+              "id": 14,
+              "name": "__type",
+              "kind": 65536,
+              "kindString": "Type literal",
+              "flags": {},
+              "children": [
+                {
+                  "id": 15,
+                  "name": "y",
+                  "kind": 1024,
+                  "kindString": "Property",
+                  "flags": {},
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "number"
+                  }
+                }
+              ],
+              "groups": [
+                {
+                  "title": "Properties",
+                  "kind": 1024,
+                  "children": [
+                    15
+                  ]
+                }
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": 16,
+      "name": "NoReturnTag",
+      "kind": 4194304,
+      "kindString": "Type alias",
+      "flags": {},
+      "type": {
+        "type": "reflection",
+        "declaration": {
+          "id": 17,
+          "name": "__type",
+          "kind": 65536,
+          "kindString": "Type literal",
+          "flags": {},
+          "signatures": [
+            {
+              "id": 18,
+              "name": "__type",
+              "kind": 4096,
+              "kindString": "Call signature",
+              "flags": {},
+              "type": {
+                "type": "intrinsic",
+                "name": "any"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 9,
+      "name": "ObjectAlias",
+      "kind": 4194304,
+      "kindString": "Type alias",
+      "flags": {},
+      "comment": {
+        "shortText": "type alias since it doesn't have a property tag"
+      },
+      "type": {
+        "type": "reference",
+        "name": "Object"
+      }
+    },
+    {
+      "id": 27,
+      "name": "OptionalArg",
+      "kind": 4194304,
+      "kindString": "Type alias",
+      "flags": {},
+      "type": {
+        "type": "reflection",
+        "declaration": {
+          "id": 28,
+          "name": "__type",
+          "kind": 65536,
+          "kindString": "Type literal",
+          "flags": {},
+          "signatures": [
+            {
+              "id": 29,
+              "name": "__type",
+              "kind": 4096,
+              "kindString": "Call signature",
+              "flags": {},
+              "parameters": [
+                {
+                  "id": 30,
+                  "name": "data",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {
+                    "isOptional": true
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "string"
+                  }
+                }
+              ],
+              "type": {
+                "type": "intrinsic",
+                "name": "any"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": 10,
+      "name": "UnionType",
+      "kind": 4194304,
+      "kindString": "Type alias",
+      "flags": {},
+      "comment": {
+        "shortText": "docs for alias"
+      },
+      "type": {
+        "type": "union",
+        "types": [
+          {
+            "type": "intrinsic",
+            "name": "string"
+          },
+          {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        ]
+      }
+    },
+    {
+      "id": 1,
+      "name": "usedFoo",
+      "kind": 64,
+      "kindString": "Function",
+      "flags": {
+        "isConst": true
+      },
+      "signatures": [
+        {
+          "id": 2,
+          "name": "usedFoo",
+          "kind": 4096,
+          "kindString": "Call signature",
+          "flags": {},
+          "comment": {},
+          "parameters": [
+            {
+              "id": 3,
+              "name": "args",
+              "kind": 32768,
+              "kindString": "Parameter",
+              "flags": {
+                "isRest": true
+              },
+              "type": {
+                "type": "array",
+                "elementType": {
+                  "type": "intrinsic",
+                  "name": "string"
+                }
+              }
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "number"
+          }
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "title": "Interfaces",
+      "kind": 256,
+      "children": [
+        6,
+        4
+      ]
+    },
+    {
+      "title": "Type aliases",
+      "kind": 4194304,
+      "children": [
+        33,
+        19,
+        31,
+        22,
+        11,
+        16,
+        9,
+        27,
+        10
+      ]
+    },
+    {
+      "title": "Functions",
+      "kind": 64,
+      "children": [
+        1
+      ]
+    }
+  ]
+}

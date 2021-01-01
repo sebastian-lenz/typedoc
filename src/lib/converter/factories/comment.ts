@@ -95,6 +95,19 @@ function getJSDocCommentRanges(node: ts.Node, text: string): ts.CommentRange[] {
  * @returns     The raw comment string or undefined if no comment could be found.
  */
 export function getRawComment(node: ts.Node): string | undefined {
+    // This happens if we are converting a JS project that has @typedef "interfaces"
+    // with an @property tag, a @typedef type alias, a callback with parameters, etc.
+    if (
+        ts.isJSDocTypedefTag(node) ||
+        ts.isJSDocPropertyTag(node) ||
+        ts.isJSDocParameterTag(node) ||
+        ts.isJSDocCallbackTag(node)
+    ) {
+        // Also strip off leading dashes:
+        // @property {string} name - docs
+        return node.comment?.replace(/^\s*-\s*/, "");
+    }
+
     if (
         node.parent &&
         node.parent.kind === ts.SyntaxKind.VariableDeclarationList

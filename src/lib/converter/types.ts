@@ -61,6 +61,7 @@ export function loadConverters() {
         indexedAccessConverter,
         inferredConverter,
         intersectionConverter,
+        jsDocVariadicTypeConverter,
         keywordConverter,
         parensConverter,
         predicateConverter,
@@ -108,12 +109,7 @@ export function convertType(
         if (converter) {
             return converter.convert(context, typeOrNode);
         }
-        context.logger.warn(
-            `Missing type node converter for kind ${typeOrNode.kind} (${
-                ts.SyntaxKind[typeOrNode.kind]
-            })`
-        );
-        return new UnknownType(typeOrNode.getText());
+        return requestBugReport(context, typeOrNode);
     }
 
     // IgnoreErrors is important, without it, we can't assert that we will get a node.
@@ -128,6 +124,7 @@ export function convertType(
     if (symbol) {
         if (
             node.kind !== ts.SyntaxKind.TypeReference &&
+            node.kind !== ts.SyntaxKind.ArrayType &&
             seenTypeSymbols.has(symbol)
         ) {
             const typeString = context.checker.typeToString(typeOrNode);
@@ -146,12 +143,7 @@ export function convertType(
         return result;
     }
 
-    context.logger.warn(
-        `Missing type converter for type: ${context.checker.typeToString(
-            typeOrNode
-        )} with kind ${ts.SyntaxKind[node.kind]} (${node.kind})`
-    );
-    return new UnknownType(context.checker.typeToString(typeOrNode));
+    return requestBugReport(context, typeOrNode);
 }
 
 const arrayConverter: TypeConverter<ts.ArrayTypeNode, ts.TypeReference> = {
@@ -205,6 +197,9 @@ const constructorConverter: TypeConverter<ts.ConstructorTypeNode, ts.Type> = {
             ReflectionKind.Constructor,
             context.scope
         );
+        const rc = context.withScope(reflection);
+        rc.setConvertingTypeNode();
+
         context.registerReflection(reflection, symbol);
         context.trigger(ConverterEvents.CREATE_DECLARATION, reflection, node);
 
@@ -214,7 +209,7 @@ const constructorConverter: TypeConverter<ts.ConstructorTypeNode, ts.Type> = {
             reflection
         );
         context.registerReflection(signature, void 0);
-        const signatureCtx = context.withScope(signature);
+        const signatureCtx = rc.withScope(signature);
 
         reflection.signatures = [signature];
         signature.type = convertType(signatureCtx, node.type);
@@ -225,7 +220,6 @@ const constructorConverter: TypeConverter<ts.ConstructorTypeNode, ts.Type> = {
         );
         signature.typeParameters = convertTypeParameterNodes(
             signatureCtx,
-            reflection,
             node.typeParameters
         );
 
@@ -297,6 +291,8 @@ const functionTypeConverter: TypeConverter<ts.FunctionTypeNode, ts.Type> = {
             ReflectionKind.TypeLiteral,
             context.scope
         );
+        const rc = context.withScope(reflection);
+
         context.registerReflection(reflection, symbol);
         context.trigger(ConverterEvents.CREATE_DECLARATION, reflection, node);
 
@@ -306,7 +302,7 @@ const functionTypeConverter: TypeConverter<ts.FunctionTypeNode, ts.Type> = {
             reflection
         );
         context.registerReflection(signature, void 0);
-        const signatureCtx = context.withScope(signature);
+        const signatureCtx = rc.withScope(signature);
 
         reflection.signatures = [signature];
         signature.type = convertType(signatureCtx, node.type);
@@ -317,7 +313,6 @@ const functionTypeConverter: TypeConverter<ts.FunctionTypeNode, ts.Type> = {
         );
         signature.typeParameters = convertTypeParameterNodes(
             signatureCtx,
-            reflection,
             node.typeParameters
         );
 
@@ -392,6 +387,15 @@ const intersectionConverter: TypeConverter<
             type.types.map((type) => convertType(context, type))
         );
     },
+};
+
+const jsDocVariadicTypeConverter: TypeConverter<ts.JSDocVariadicType> = {
+    kind: [ts.SyntaxKind.JSDocVariadicType],
+    convert(context, node) {
+        return new ArrayType(convertType(context, node.type));
+    },
+    // Should just be an ArrayType
+    convertType: requestBugReport,
 };
 
 const keywordNames = {
@@ -470,24 +474,23 @@ const typeLiteralConverter: TypeConverter<ts.TypeLiteralNode> = {
             ReflectionKind.TypeLiteral,
             context.scope
         );
+        const rc = context.withScope(reflection);
+        rc.setConvertingTypeNode();
+
         context.registerReflection(reflection, symbol);
         context.trigger(ConverterEvents.CREATE_DECLARATION, reflection, node);
 
         for (const prop of context.checker.getPropertiesOfType(type)) {
-            convertSymbol(context.withScope(reflection), prop);
+            convertSymbol(rc, prop);
         }
         for (const signature of type.getCallSignatures()) {
             reflection.signatures ??= [];
             reflection.signatures.push(
-                createSignature(
-                    context.withScope(reflection),
-                    ReflectionKind.CallSignature,
-                    signature
-                )
+                createSignature(rc, ReflectionKind.CallSignature, signature)
             );
         }
 
-        convertIndexSignature(context.withScope(reflection), symbol);
+        convertIndexSignature(rc, symbol);
 
         return new ReflectionType(reflection);
     },
@@ -577,10 +580,12 @@ const referenceConverter: TypeConverter<
     convertType(context, type) {
         const symbol = type.aliasSymbol ?? type.getSymbol();
         if (!symbol) {
-            // If we get in here, the user is doing something bad. Probably using mixins.
-            const broken = new UnknownType(context.checker.typeToString(type));
-            context.logger.warn(`Bad reference type: ${broken.name}`);
-            return broken;
+            // This happens when we get a reference to a type parameter
+            // created within a mapped type, `K` in: `{ [K in T]: string }`
+            return ReferenceType.createBrokenReference(
+                context.checker.typeToString(type),
+                context.project
+            );
         }
 
         const ref = new ReferenceType(
@@ -804,7 +809,9 @@ const tupleConverter: TypeConverter<ts.TupleTypeNode, ts.TupleType> = {
             convertType(context, type)
         );
 
-        if (node.elements.every(ts.isNamedTupleMember)) {
+        // elements was called elementTypes in TS 3.9.
+        // 3.9 doesn't have tuple members, so it's fine to skip this there.
+        if (node.elements && node.elements.every(ts.isNamedTupleMember)) {
             const namedMembers = node.elements as readonly ts.NamedTupleMember[];
             elements = elements?.map(
                 (el, i) =>

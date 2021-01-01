@@ -89,26 +89,44 @@ function convertParameters(
 ) {
     return parameters.map((param, i) => {
         const declaration = param.valueDeclaration;
-        assert(declaration && ts.isParameter(declaration));
+        assert(
+            declaration &&
+                (ts.isParameter(declaration) ||
+                    ts.isJSDocParameterTag(declaration))
+        );
         const paramRefl = new ParameterReflection(
             /__\d+/.test(param.name) ? "__namedParameters" : param.name,
             ReflectionKind.Parameter,
             sigRef
         );
         context.registerReflection(paramRefl, param);
+        context.trigger(
+            ConverterEvents.CREATE_PARAMETER,
+            paramRefl,
+            declaration
+        );
 
         paramRefl.type = context.converter.convertType(
             context.withScope(paramRefl),
             context.checker.getTypeOfSymbolAtLocation(param, declaration)
         );
 
-        if (declaration.questionToken) {
+        const isOptional = ts.isParameter(declaration)
+            ? !!declaration.questionToken
+            : declaration.isBracketed;
+        if (isOptional) {
             paramRefl.type = removeUndefined(paramRefl.type);
         }
 
         paramRefl.defaultValue = convertDefaultValue(parameterNodes?.[i]);
-        paramRefl.setFlag(ReflectionFlag.Optional, !!declaration.questionToken);
-        paramRefl.setFlag(ReflectionFlag.Rest, !!declaration.dotDotDotToken);
+        paramRefl.setFlag(ReflectionFlag.Optional, isOptional);
+        paramRefl.setFlag(
+            ReflectionFlag.Rest,
+            ts.isParameter(declaration)
+                ? !!declaration.dotDotDotToken
+                : !!declaration.typeExpression &&
+                      ts.isJSDocVariadicType(declaration.typeExpression.type)
+        );
         return paramRefl;
     });
 }
@@ -116,7 +134,7 @@ function convertParameters(
 export function convertParameterNodes(
     context: Context,
     sigRef: SignatureReflection,
-    parameters: readonly ts.ParameterDeclaration[]
+    parameters: readonly (ts.JSDocParameterTag | ts.ParameterDeclaration)[]
 ) {
     return parameters.map((param) => {
         const paramRefl = new ParameterReflection(
@@ -133,16 +151,25 @@ export function convertParameterNodes(
 
         paramRefl.type = context.converter.convertType(
             context.withScope(paramRefl),
-            param.type
+            ts.isParameter(param) ? param.type : param.typeExpression?.type
         );
 
-        if (param.questionToken) {
+        const isOptional = ts.isParameter(param)
+            ? !!param.questionToken
+            : param.isBracketed;
+        if (isOptional) {
             paramRefl.type = removeUndefined(paramRefl.type);
         }
 
         paramRefl.defaultValue = convertDefaultValue(param);
-        paramRefl.setFlag(ReflectionFlag.Optional, !!param.questionToken);
-        paramRefl.setFlag(ReflectionFlag.Rest, !!param.dotDotDotToken);
+        paramRefl.setFlag(ReflectionFlag.Optional, isOptional);
+        paramRefl.setFlag(
+            ReflectionFlag.Rest,
+            ts.isParameter(param)
+                ? !!param.dotDotDotToken
+                : !!param.typeExpression &&
+                      ts.isJSDocVariadicType(param.typeExpression.type)
+        );
         return paramRefl;
     });
 }
@@ -177,7 +204,6 @@ function convertTypeParameters(
 
 export function convertTypeParameterNodes(
     context: Context,
-    parent: Reflection,
     parameters: readonly ts.TypeParameterDeclaration[] | undefined
 ) {
     return parameters?.map((param) => {
@@ -191,10 +217,14 @@ export function convertTypeParameterNodes(
             param.name.text,
             constraint,
             defaultType,
-            parent
+            context.scope
         );
         context.registerReflection(paramRefl, undefined);
-        context.trigger(ConverterEvents.CREATE_TYPE_PARAMETER, paramRefl);
+        context.trigger(
+            ConverterEvents.CREATE_TYPE_PARAMETER,
+            paramRefl,
+            param
+        );
 
         return paramRefl;
     });

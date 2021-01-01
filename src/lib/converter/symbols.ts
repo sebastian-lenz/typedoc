@@ -15,6 +15,7 @@ import { convertDefaultValue } from "./convert-expression";
 import { ConverterEvents } from "./converter-events";
 import { convertIndexSignature } from "./factories/index-signature";
 import { createSignature } from "./factories/signature";
+import { convertJsDocCallback, convertJsDocTypedef } from "./jsdoc";
 
 function getSymbolExportsWithFlag(symbol: ts.Symbol, flag: ts.SymbolFlags) {
     const childSymbols: ts.Symbol[] = [];
@@ -172,21 +173,41 @@ function convertTypeAlias(
     symbol: ts.Symbol,
     nameOverride?: string
 ) {
-    const reflection = context.createDeclarationReflection(
-        ReflectionKind.TypeAlias,
-        symbol,
-        nameOverride
-    );
-
     const declaration = symbol
         ?.getDeclarations()
-        ?.find(ts.isTypeAliasDeclaration);
+        ?.find(
+            (
+                d
+            ): d is
+                | ts.TypeAliasDeclaration
+                | ts.JSDocTypedefTag
+                | ts.JSDocCallbackTag =>
+                ts.isTypeAliasDeclaration(d) ||
+                ts.isJSDocTypedefTag(d) ||
+                ts.isJSDocCallbackTag(d)
+        );
     assert(declaration);
-    reflection.type = context.converter.convertType(context, declaration.type);
 
-    reflection.typeParameters = declaration.typeParameters?.map((param) =>
-        createTypeParamReflection(param, context.withScope(reflection))
-    );
+    if (ts.isTypeAliasDeclaration(declaration)) {
+        const reflection = context.createDeclarationReflection(
+            ReflectionKind.TypeAlias,
+            symbol,
+            nameOverride
+        );
+
+        reflection.type = context.converter.convertType(
+            context.withScope(reflection),
+            declaration.type
+        );
+
+        reflection.typeParameters = declaration.typeParameters?.map((param) =>
+            createTypeParamReflection(param, context.withScope(reflection))
+        );
+    } else if (ts.isJSDocTypedefTag(declaration)) {
+        convertJsDocTypedef(context, symbol, declaration, nameOverride);
+    } else {
+        convertJsDocCallback(context, symbol, declaration, nameOverride);
+    }
 }
 
 function createTypeParamReflection(
@@ -525,7 +546,7 @@ function convertProperty(
     // parent node. This will probably break in a future TS version.
     reflection.type = context.converter.convertType(
         context,
-        parameterType ??
+        (context.isConvertingTypeNode() ? parameterType : void 0) ??
             context.checker.getTypeOfSymbolAtLocation(symbol, {} as any)
     );
 }

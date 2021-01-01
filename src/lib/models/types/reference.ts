@@ -33,11 +33,11 @@ export class ReferenceType extends Type {
      * The resolved reflection.
      */
     get reflection() {
-        if (this._target instanceof Reflection) {
-            return this._target;
+        if (typeof this._target === "number") {
+            return this._project.getReflectionById(this._target);
         }
         const resolved = this._project.getReflectionFromSymbol(this._target);
-        if (resolved) this._target = resolved;
+        if (resolved) this._target = resolved.id;
         return resolved;
     }
 
@@ -47,7 +47,7 @@ export class ReferenceType extends Type {
      */
     getReflection = () => this.reflection;
 
-    private _target: ts.Symbol | Reflection;
+    private _target: ts.Symbol | number;
     private _project: ProjectReflection;
 
     /**
@@ -55,13 +55,18 @@ export class ReferenceType extends Type {
      */
     constructor(
         name: string,
-        target: ts.Symbol | Reflection,
+        target: ts.Symbol | Reflection | number,
         project: ProjectReflection
     ) {
         super();
         this.name = name;
-        this._target = target;
+        this._target = target instanceof Reflection ? target.id : target;
         this._project = project;
+    }
+
+    /** @internal this is used for type parameters, which don't actually point to something */
+    static createBrokenReference(name: string, project: ProjectReflection) {
+        return new ReferenceType(name, -1, project);
     }
 
     /**

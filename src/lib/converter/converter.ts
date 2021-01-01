@@ -157,12 +157,18 @@ export class Converter extends ChildableComponent<
         return project;
     }
 
+    /** @internal */
+    convertSymbol(context: Context, symbol: ts.Symbol) {
+        convertSymbol(context, symbol);
+    }
+
     /**
      * Convert the given TypeScript type into its TypeDoc type reflection.
      *
      * @param context  The context object describing the current state the converter is in.
      * @param referenceTarget The target to be used to attempt to resolve reference types
      * @returns The TypeDoc type reflection representing the given node and type.
+     * @internal
      */
     convertType(
         context: Context,
@@ -171,6 +177,7 @@ export class Converter extends ChildableComponent<
         return convertType(context, node);
     }
 
+    /** @internal */
     getNodesForSymbol(symbol: ts.Symbol, kind: ReflectionKind) {
         const wantedKinds: ts.SyntaxKind[] = {
             [ReflectionKind.Project]: [ts.SyntaxKind.SourceFile],
@@ -187,11 +194,15 @@ export class Converter extends ChildableComponent<
                 ts.SyntaxKind.VariableDeclaration,
             ],
             [ReflectionKind.Class]: [ts.SyntaxKind.ClassDeclaration],
-            [ReflectionKind.Interface]: [ts.SyntaxKind.InterfaceDeclaration],
+            [ReflectionKind.Interface]: [
+                ts.SyntaxKind.InterfaceDeclaration,
+                ts.SyntaxKind.JSDocTypedefTag,
+            ],
             [ReflectionKind.Constructor]: [ts.SyntaxKind.Constructor],
             [ReflectionKind.Property]: [
                 ts.SyntaxKind.PropertyDeclaration,
                 ts.SyntaxKind.PropertySignature,
+                ts.SyntaxKind.JSDocPropertyTag,
             ],
             [ReflectionKind.Method]: [
                 ts.SyntaxKind.MethodDeclaration,
@@ -220,7 +231,10 @@ export class Converter extends ChildableComponent<
             ],
             [ReflectionKind.GetSignature]: [ts.SyntaxKind.GetAccessor],
             [ReflectionKind.SetSignature]: [ts.SyntaxKind.SetAccessor],
-            [ReflectionKind.TypeAlias]: [ts.SyntaxKind.TypeAliasDeclaration],
+            [ReflectionKind.TypeAlias]: [
+                ts.SyntaxKind.TypeAliasDeclaration,
+                ts.SyntaxKind.JSDocTypedefTag,
+            ],
             [ReflectionKind.Event]: [], /// this needs to go away
             [ReflectionKind.Reference]: [
                 ts.SyntaxKind.NamespaceExport,
