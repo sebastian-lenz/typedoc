@@ -204,14 +204,14 @@
         {
           "id": 15,
           "name": "gh1436",
-          "kind": 64,
+          "kind": 32,
           "kindString": "Function",
           "flags": {},
           "signatures": [
             {
               "id": 16,
               "name": "gh1436",
-              "kind": 4096,
+              "kind": 2048,
               "kindString": "Call signature",
               "flags": {},
               "type": {
@@ -225,7 +225,7 @@
       "groups": [
         {
           "title": "Functions",
-          "kind": 64,
+          "kind": 32,
           "children": [
             15
           ]

@@ -10,7 +10,6 @@ import {
     Logger,
     ConsoleLogger,
     CallbackLogger,
-    PluginHost,
     normalizePath,
 } from "./utils/index";
 import { createMinimatch } from "./utils/paths";
@@ -24,6 +23,7 @@ import {
 import { Options, BindOption } from "./utils";
 import { TypeDocOptions } from "./utils/options/declaration";
 import { flatMap } from "./utils/array";
+import { discoverNpmPlugins, loadPlugins } from "./utils/plugins";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const packageInfo = require("../../package.json") as {
@@ -76,8 +76,6 @@ export class Application extends ChildableComponent<
 
     options: Options;
 
-    plugins: PluginHost;
-
     @BindOption("logger")
     loggerType!: string | Function;
 
@@ -112,7 +110,6 @@ export class Application extends ChildableComponent<
         this.serializer = new Serializer();
         this.converter = this.addComponent<Converter>("converter", Converter);
         this.renderer = this.addComponent<Renderer>("renderer", Renderer);
-        this.plugins = this.addComponent("plugins", PluginHost);
     }
 
     /**
@@ -140,7 +137,11 @@ export class Application extends ChildableComponent<
         }
         this.logger.level = this.options.getValue("logLevel");
 
-        this.plugins.load();
+        let plugins = this.options.getValue("plugin");
+        if (plugins.length === 0) {
+            plugins = discoverNpmPlugins(this);
+        }
+        loadPlugins(this, plugins);
 
         this.options.reset();
         for (const [key, val] of Object.entries(options)) {
@@ -179,9 +180,7 @@ export class Application extends ChildableComponent<
      */
     public convert(): ProjectReflection | undefined {
         this.logger.verbose(
-            "Using TypeScript %s from %s",
-            this.getTypeScriptVersion(),
-            this.getTypeScriptPath()
+            `Using TypeScript ${this.getTypeScriptVersion()} from ${this.getTypeScriptPath()}`
         );
 
         if (
@@ -258,7 +257,7 @@ export class Application extends ChildableComponent<
                 "Documentation could not be generated due to the errors above."
             );
         } else {
-            this.logger.success("Documentation generated at %s", out);
+            this.logger.info(`Documentation generated at ${out}`);
         }
     }
 
@@ -282,7 +281,7 @@ export class Application extends ChildableComponent<
             end: eventData,
         });
         await FS.promises.writeFile(out, JSON.stringify(ser, null, "\t"));
-        this.logger.success("JSON written to %s", out);
+        this.logger.info(`JSON written to ${out}`);
     }
 
     /**
