@@ -70,9 +70,6 @@ export function loadConverters() {
         referenceConverter,
         namedTupleMemberConverter,
         mappedConverter,
-        ts3LiteralBooleanConverter,
-        ts3LiteralNullConverter,
-        ts3LiteralThisConverter,
         literalTypeConverter,
         templateLiteralConverter,
         thisConverter,
@@ -665,36 +662,6 @@ const mappedConverter: TypeConverter<
     },
 };
 
-const ts3LiteralBooleanConverter: TypeConverter<ts.TypeNode, ts.Type> = {
-    kind: [ts.SyntaxKind.TrueKeyword, ts.SyntaxKind.FalseKeyword],
-    convert(_context, node) {
-        return new LiteralType(node.kind === ts.SyntaxKind.TrueKeyword);
-    },
-    convertType(_context, _type, node) {
-        return new LiteralType(node.kind === ts.SyntaxKind.TrueKeyword);
-    },
-};
-
-const ts3LiteralNullConverter: TypeConverter<ts.TypeNode, ts.Type> = {
-    kind: [ts.SyntaxKind.NullKeyword],
-    convert() {
-        return new LiteralType(null);
-    },
-    convertType() {
-        return new LiteralType(null);
-    },
-};
-
-const ts3LiteralThisConverter: TypeConverter<ts.TypeNode, ts.Type> = {
-    kind: [ts.SyntaxKind.ThisKeyword],
-    convert() {
-        return new IntrinsicType("this");
-    },
-    convertType() {
-        return new IntrinsicType("this");
-    },
-};
-
 const literalTypeConverter: TypeConverter<
     ts.LiteralTypeNode,
     ts.LiteralType
@@ -799,9 +766,9 @@ const thisConverter: TypeConverter<ts.ThisTypeNode> = {
 const tupleConverter: TypeConverter<ts.TupleTypeNode, ts.TupleType> = {
     kind: [ts.SyntaxKind.TupleType],
     convert(context, node) {
-        // TS 3.9 support
-        const elementTypes = node.elements ?? (node as any).elementTypes;
-        const elements = elementTypes.map((node) => convertType(context, node));
+        const elements = node.elements.map((node) =>
+            convertType(context, node)
+        );
         return new TupleType(elements);
     },
     convertType(context, type, node) {
@@ -809,9 +776,7 @@ const tupleConverter: TypeConverter<ts.TupleTypeNode, ts.TupleType> = {
             convertType(context, type)
         );
 
-        // elements was called elementTypes in TS 3.9.
-        // 3.9 doesn't have tuple members, so it's fine to skip this there.
-        if (node.elements && node.elements.every(ts.isNamedTupleMember)) {
+        if (node.elements.every(ts.isNamedTupleMember)) {
             const namedMembers = node.elements as readonly ts.NamedTupleMember[];
             elements = elements?.map(
                 (el, i) =>
