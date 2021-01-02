@@ -58,7 +58,7 @@ export function createSignature(
     sigRef.parameters = convertParameters(
         context,
         sigRef,
-        signature.parameters,
+        signature.parameters as readonly (ts.Symbol & { type: ts.Type })[],
         declaration?.parameters
     );
 
@@ -84,15 +84,17 @@ export function createSignature(
 function convertParameters(
     context: Context,
     sigRef: SignatureReflection,
-    parameters: readonly ts.Symbol[],
+    parameters: readonly (ts.Symbol & { type: ts.Type })[],
     parameterNodes: readonly ts.ParameterDeclaration[] | undefined
 ) {
     return parameters.map((param, i) => {
-        const declaration = param.valueDeclaration;
+        const declaration = param.valueDeclaration as
+            | ts.Declaration
+            | undefined;
         assert(
-            declaration &&
-                (ts.isParameter(declaration) ||
-                    ts.isJSDocParameterTag(declaration))
+            !declaration ||
+                ts.isParameter(declaration) ||
+                ts.isJSDocParameterTag(declaration)
         );
         const paramRefl = new ParameterReflection(
             /__\d+/.test(param.name) ? "__namedParameters" : param.name,
@@ -108,25 +110,36 @@ function convertParameters(
 
         paramRefl.type = context.converter.convertType(
             context.withScope(paramRefl),
-            context.checker.getTypeOfSymbolAtLocation(param, declaration)
+            declaration
+                ? context.checker.getTypeOfSymbolAtLocation(param, declaration)
+                : param.type
         );
 
-        const isOptional = ts.isParameter(declaration)
-            ? !!declaration.questionToken
-            : declaration.isBracketed;
+        let isOptional = false;
+        if (declaration) {
+            isOptional = ts.isParameter(declaration)
+                ? !!declaration.questionToken
+                : declaration.isBracketed;
+        }
+
         if (isOptional) {
             paramRefl.type = removeUndefined(paramRefl.type);
         }
 
         paramRefl.defaultValue = convertDefaultValue(parameterNodes?.[i]);
         paramRefl.setFlag(ReflectionFlag.Optional, isOptional);
-        paramRefl.setFlag(
-            ReflectionFlag.Rest,
-            ts.isParameter(declaration)
+
+        // If we have no declaration, then this is an implicitly defined parameter in JS land
+        // because the method body uses `arguments`... which is always a rest argument
+        let isRest = true;
+        if (declaration) {
+            isRest = ts.isParameter(declaration)
                 ? !!declaration.dotDotDotToken
                 : !!declaration.typeExpression &&
-                      ts.isJSDocVariadicType(declaration.typeExpression.type)
-        );
+                  ts.isJSDocVariadicType(declaration.typeExpression.type);
+        }
+
+        paramRefl.setFlag(ReflectionFlag.Rest, isRest);
         return paramRefl;
     });
 }

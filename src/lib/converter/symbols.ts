@@ -100,6 +100,12 @@ export function convertSymbol(
         flags = removeFlag(flags, ts.SymbolFlags.ValueModule);
     }
 
+    if (hasFlag(symbol.flags, ts.SymbolFlags.Method)) {
+        // This happens when someone declares an object with methods:
+        // { methodProperty() {} }
+        flags = removeFlag(flags, ts.SymbolFlags.Property);
+    }
+
     for (const flag of getEnumFlags(flags)) {
         if (!(flag in symbolConverters)) {
             context.logger.verbose(
@@ -714,8 +720,7 @@ function convertVariable(
 
     reflection.type = context.converter.convertType(
         context.withScope(reflection),
-        typeNode ??
-            context.checker.getTypeOfSymbolAtLocation(symbol, declaration)
+        typeNode ?? type
     );
 
     setModifiers(declaration, reflection);

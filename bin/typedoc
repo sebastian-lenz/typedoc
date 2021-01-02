@@ -9,6 +9,7 @@ const ExitCodes = {
     NoEntryPoints: 2,
     CompileError: 3,
     OutputError: 4,
+    ExceptionThrown: 5,
 };
 
 const td = require("..");
@@ -24,11 +25,12 @@ app.options.addReader(new td.ArgumentsReader(300));
 app.bootstrap();
 
 run(app)
-    .then(process.exit)
     .catch((error) => {
         console.error("TypeDoc exiting with unexpected error:");
         console.error(error);
-    });
+        return ExitCodes.ExceptionThrown;
+    })
+    .then(process.exit);
 
 /** @param {td.Application} app */
 async function run(app) {
