@@ -12,9 +12,9 @@ import { Component, ConverterComponent } from "../components";
 import { parseComment, getRawComment } from "../factories/comment";
 import { Converter } from "../converter";
 import { Context } from "../context";
-import { partition, uniq } from "lodash";
 import { SourceReference } from "../../models";
 import { BindOption, removeIfPresent } from "../../utils";
+import { partition, unique } from "../../utils/array";
 
 /**
  * These tags are not useful to display in the generated documentation.
@@ -295,7 +295,7 @@ export class CommentPlugin extends ConverterComponent {
             project.removeReflection(reflection)
         );
         someRemoved.forEach((reflection) => {
-            reflection.sources = uniq(
+            reflection.sources = unique(
                 reflection.signatures!.reduce<SourceReference[]>(
                     (c, s) => c.concat(s.sources || []),
                     []

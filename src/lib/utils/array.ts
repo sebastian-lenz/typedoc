@@ -157,3 +157,17 @@ export function flatMap<T, U>(
 
     return result;
 }
+
+export function partition<T>(
+    arr: readonly T[],
+    fn: (item: T) => boolean
+): [T[], T[]] {
+    const yes: T[] = [];
+    const no: T[] = [];
+
+    for (const item of arr) {
+        (fn(item) ? yes : no).push(item);
+    }
+
+    return [yes, no];
+}

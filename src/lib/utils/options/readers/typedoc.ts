@@ -1,6 +1,5 @@
 import * as Path from "path";
 import * as FS from "fs";
-import { cloneDeep } from "lodash";
 
 import { OptionsReader } from "..";
 import { Logger } from "../../loggers";
@@ -69,7 +68,7 @@ export class TypeDocReader implements OptionsReader {
         }
 
         // clone option object to avoid of property changes in re-calling this file
-        const data: any = cloneDeep(fileContent);
+        const data: any = { ...fileContent };
         delete data["$schema"]; // Useful for better autocompletion, should not be read as a key.
 
         if ("extends" in data) {

@@ -1,5 +1,4 @@
 import * as ts from "typescript";
-import { toArray } from "lodash";
 
 import { Comment, CommentTag } from "../../models/comments/index";
 
@@ -75,10 +74,10 @@ function getJSDocCommentRanges(node: ts.Node, text: string): ts.CommentRange[] {
         ts.SyntaxKind.ParenthesizedExpression,
     ].includes(node.kind);
 
-    let commentRanges = toArray(ts.getLeadingCommentRanges(text, node.pos));
+    let commentRanges = ts.getLeadingCommentRanges(text, node.pos) ?? [];
     if (hasTrailingCommentRanges) {
-        commentRanges = toArray(
-            ts.getTrailingCommentRanges(text, node.pos)
+        commentRanges = (
+            ts.getTrailingCommentRanges(text, node.pos) ?? []
         ).concat(commentRanges);
     }
 

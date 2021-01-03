@@ -1,5 +1,4 @@
 import { isDeepStrictEqual } from "util";
-import * as _ from "lodash";
 import * as ts from "typescript";
 
 import {
@@ -227,7 +226,9 @@ export class Options {
      * Gets all of the TypeDoc option values defined in this option container.
      */
     getRawValues(): Partial<TypeDocOptions> {
-        return _.cloneDeep(this._values);
+        // A shallow clone is likely fine here - the one option that might cause problems is
+        // markedOptions, but it is treated properly by all TypeDoc code, so should be fine.
+        return { ...this._values };
     }
 
     /**
@@ -274,7 +275,7 @@ export class Options {
      * Gets the set compiler options.
      */
     getCompilerOptions(): ts.CompilerOptions {
-        return _.cloneDeep(this._compilerOptions);
+        return { ...this._compilerOptions };
     }
 
     /**
@@ -300,7 +301,7 @@ export class Options {
         projectReferences: readonly ts.ProjectReference[] | undefined
     ) {
         this._fileNames = fileNames;
-        this._compilerOptions = _.cloneDeep(options);
+        this._compilerOptions = { ...options };
         this._projectReferences = projectReferences ?? [];
     }
 

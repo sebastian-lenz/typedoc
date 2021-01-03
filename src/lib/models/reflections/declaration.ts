@@ -9,7 +9,6 @@ import { Type, ReflectionType } from "../types/index";
 import { ContainerReflection } from "./container";
 import { SignatureReflection } from "./signature";
 import { TypeParameterReflection } from "./type-parameter";
-import { toArray } from "lodash";
 
 /**
  * Stores hierarchical type data.
@@ -167,7 +166,7 @@ export class DeclarationReflection
      * @param callback  The callback function that should be applied for each child reflection.
      */
     traverse(callback: TraverseCallback) {
-        for (const parameter of toArray(this.typeParameters)) {
+        for (const parameter of this.typeParameters ?? []) {
             if (callback(parameter, TraverseProperty.TypeParameter) === false) {
                 return;
             }
@@ -184,7 +183,7 @@ export class DeclarationReflection
             }
         }
 
-        for (const signature of toArray(this.signatures)) {
+        for (const signature of this.signatures ?? []) {
             if (callback(signature, TraverseProperty.Signatures) === false) {
                 return;
             }

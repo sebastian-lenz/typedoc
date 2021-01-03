@@ -1,5 +1,4 @@
 import * as ts from "typescript";
-import * as _ from "lodash";
 import * as assert from "assert";
 import { resolve } from "path";
 

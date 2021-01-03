@@ -9,7 +9,6 @@ import {
 import { ContainerReflection } from "./container";
 import { ParameterReflection } from "./parameter";
 import { TypeParameterReflection } from "./type-parameter";
-import { toArray } from "lodash";
 
 export class SignatureReflection
     extends Reflection
@@ -78,13 +77,13 @@ export class SignatureReflection
             }
         }
 
-        for (const parameter of toArray(this.typeParameters)) {
+        for (const parameter of this.typeParameters ?? []) {
             if (callback(parameter, TraverseProperty.TypeParameter) === false) {
                 return;
             }
         }
 
-        for (const parameter of toArray(this.parameters)) {
+        for (const parameter of this.parameters ?? []) {
             if (callback(parameter, TraverseProperty.Parameters) === false) {
                 return;
             }
