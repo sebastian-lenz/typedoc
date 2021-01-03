@@ -15,18 +15,18 @@ jobs:
               with:
                   diff-search: true
             - name: Set up Node
-              if: steps.check.outputs.changed == 'true' && contains(step.checks.outputs.version, 'beta')
+              if: steps.check.outputs.changed == 'true' && contains(steps.checks.outputs.version, 'beta')
               uses: actions/setup-node@v1
               with:
                   node-version: "14"
             - name: Install
-              if: steps.check.outputs.changed == 'true' && contains(step.checks.outputs.version, 'beta')
+              if: steps.check.outputs.changed == 'true' && contains(steps.checks.outputs.version, 'beta')
               run: npm ci
             - name: Setup publish token
-              if: steps.check.outputs.changed == 'true' && contains(step.checks.outputs.version, 'beta')
+              if: steps.check.outputs.changed == 'true' && contains(steps.checks.outputs.version, 'beta')
               run: echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" > .npmrc
               env:
                   NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
             - name: Publish
-              if: steps.check.outputs.changed == 'true' && contains(step.checks.outputs.version, 'beta')
+              if: steps.check.outputs.changed == 'true' && contains(steps.checks.outputs.version, 'beta')
               run: npm publish --tag beta
