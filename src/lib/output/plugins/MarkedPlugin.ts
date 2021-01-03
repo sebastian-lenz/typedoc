@@ -106,8 +106,9 @@ export class MarkedPlugin extends ContextAwareRendererComponent {
         lang = lang || "typescript";
         lang = lang.toLowerCase();
         if (!isSupportedLanguage(lang)) {
+            // Extra newline because of the progress bar
             this.application.logger.warn(
-                `Unsupported highlight language "${lang}" will not be highlighted`
+                `\nUnsupported highlight language "${lang}" will not be highlighted. Run typedoc --help for a list of supported languages.`
             );
             return text;
         }

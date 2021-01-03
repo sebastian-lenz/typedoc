@@ -20,22 +20,8 @@ export class TSConfigReader implements OptionsReader {
     name = "tsconfig-json";
 
     read(container: Options, logger: Logger): void {
-        const tsconfigOpt = container.getValue("tsconfig");
+        const file = container.getValue("tsconfig");
 
-        if (!container.isDefault("tsconfig")) {
-            this._tryReadOptions(tsconfigOpt, container, logger);
-            return;
-        }
-
-        // Don't log errors if we try to read by default.
-        this._tryReadOptions(tsconfigOpt, container);
-    }
-
-    private _tryReadOptions(
-        file: string,
-        container: Options & { setValue(name: string, value: unknown): void },
-        logger?: Logger
-    ): void {
         let fileToRead: string | undefined = file;
         if (!isFile(fileToRead)) {
             fileToRead = ts.findConfigFile(
@@ -48,7 +34,10 @@ export class TSConfigReader implements OptionsReader {
         }
 
         if (!fileToRead || !isFile(fileToRead)) {
-            logger?.error(`The tsconfig file ${file} does not exist`);
+            // If the user didn't give us this option, we shouldn't complain about not being able to find it.
+            if (!container.isDefault("tsconfig")) {
+                logger.error(`The tsconfig file ${file} does not exist`);
+            }
             return;
         }
 
@@ -61,7 +50,7 @@ export class TSConfigReader implements OptionsReader {
             {
                 ...ts.sys,
                 onUnRecoverableConfigFileDiagnostic(error) {
-                    logger?.diagnostic(error);
+                    logger.diagnostic(error);
                     fatalError = true;
                 },
             }
@@ -71,11 +60,11 @@ export class TSConfigReader implements OptionsReader {
             return;
         }
 
-        logger?.diagnostics(parsed.errors);
+        logger.diagnostics(parsed.errors);
 
         const typedocOptions = parsed.raw?.typedocOptions ?? {};
         if (typedocOptions.options) {
-            logger?.error(
+            logger.error(
                 [
                     "typedocOptions in tsconfig file specifies an option file to read but the option",
                     "file has already been read. This is likely a misconfiguration.",
@@ -84,7 +73,7 @@ export class TSConfigReader implements OptionsReader {
             delete typedocOptions.options;
         }
         if (typedocOptions.tsconfig) {
-            logger?.error(
+            logger.error(
                 "typedocOptions in tsconfig file may not specify a tsconfig file to read"
             );
             delete typedocOptions.tsconfig;
@@ -97,9 +86,10 @@ export class TSConfigReader implements OptionsReader {
         );
         for (const [key, val] of Object.entries(typedocOptions || {})) {
             try {
-                container.setValue(key, val);
+                // We catch the error, so can ignore the strict type checks
+                container.setValue(key as never, val as never);
             } catch (error) {
-                logger?.error(error.message);
+                logger.error(error.message);
             }
         }
     }
