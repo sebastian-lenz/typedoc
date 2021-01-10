@@ -242,7 +242,7 @@
         {
           "id": 51,
           "name": "Bar",
-          "kind": 4194304,
+          "kind": 1048576,
           "kindString": "Type alias",
           "flags": {},
           "type": {
@@ -262,7 +262,7 @@
         {
           "id": 50,
           "name": "Foo",
-          "kind": 4194304,
+          "kind": 1048576,
           "kindString": "Type alias",
           "flags": {},
           "type": {
@@ -282,21 +282,21 @@
         {
           "id": 44,
           "name": "bar",
-          "kind": 64,
+          "kind": 32,
           "kindString": "Function",
           "flags": {},
           "signatures": [
             {
               "id": 45,
               "name": "bar",
-              "kind": 4096,
+              "kind": 2048,
               "kindString": "Call signature",
               "flags": {},
               "parameters": [
                 {
                   "id": 46,
                   "name": "x",
-                  "kind": 32768,
+                  "kind": 16384,
                   "kindString": "Parameter",
                   "flags": {},
                   "type": {
@@ -317,21 +317,21 @@
         {
           "id": 47,
           "name": "foo",
-          "kind": 64,
+          "kind": 32,
           "kindString": "Function",
           "flags": {},
           "signatures": [
             {
               "id": 48,
               "name": "foo",
-              "kind": 4096,
+              "kind": 2048,
               "kindString": "Call signature",
               "flags": {},
               "parameters": [
                 {
                   "id": 49,
                   "name": "x",
-                  "kind": 32768,
+                  "kind": 16384,
                   "kindString": "Parameter",
                   "flags": {},
                   "type": {
@@ -353,7 +353,7 @@
       "groups": [
         {
           "title": "Type aliases",
-          "kind": 4194304,
+          "kind": 1048576,
           "children": [
             51,
             50
@@ -361,7 +361,7 @@
         },
         {
           "title": "Functions",
-          "kind": 64,
+          "kind": 32,
           "children": [
             44,
             47

@@ -591,7 +591,7 @@
         {
           "id": 42,
           "name": "WithOptionalElements",
-          "kind": 4194304,
+          "kind": 1048576,
           "kindString": "Type alias",
           "flags": {},
           "type": {
@@ -621,7 +621,7 @@
         {
           "id": 38,
           "name": "WithRestType",
-          "kind": 4194304,
+          "kind": 1048576,
           "kindString": "Type alias",
           "flags": {},
           "type": {
@@ -647,7 +647,7 @@
         {
           "id": 40,
           "name": "WithRestTypeNames",
-          "kind": 4194304,
+          "kind": 1048576,
           "kindString": "Type alias",
           "flags": {},
           "type": {
@@ -711,11 +711,9 @@
         {
           "id": 43,
           "name": "withOptionalElements",
-          "kind": 32,
+          "kind": 16,
           "kindString": "Variable",
-          "flags": {
-            "isConst": true
-          },
+          "flags": {},
           "type": {
             "type": "tuple",
             "elements": [
@@ -744,11 +742,9 @@
         {
           "id": 39,
           "name": "withRestType",
-          "kind": 32,
+          "kind": 16,
           "kindString": "Variable",
-          "flags": {
-            "isConst": true
-          },
+          "flags": {},
           "type": {
             "type": "tuple",
             "elements": [
@@ -773,11 +769,9 @@
         {
           "id": 41,
           "name": "withRestTypeNames",
-          "kind": 32,
+          "kind": 16,
           "kindString": "Variable",
-          "flags": {
-            "isConst": true
-          },
+          "flags": {},
           "type": {
             "type": "tuple",
             "elements": [
@@ -812,21 +806,21 @@
         {
           "id": 32,
           "name": "gh1449",
-          "kind": 64,
+          "kind": 32,
           "kindString": "Function",
           "flags": {},
           "signatures": [
             {
               "id": 33,
               "name": "gh1449",
-              "kind": 4096,
+              "kind": 2048,
               "kindString": "Call signature",
               "flags": {},
               "typeParameter": [
                 {
                   "id": 34,
                   "name": "T",
-                  "kind": 131072,
+                  "kind": 65536,
                   "kindString": "Type parameter",
                   "flags": {},
                   "type": {
@@ -858,7 +852,7 @@
                 {
                   "id": 35,
                   "name": "a",
-                  "kind": 32768,
+                  "kind": 16384,
                   "kindString": "Parameter",
                   "flags": {},
                   "type": {
@@ -898,7 +892,7 @@
         },
         {
           "title": "Functions",
-          "kind": 64,
+          "kind": 32,
           "children": [
             32
           ]

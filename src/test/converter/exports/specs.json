@@ -61,7 +61,7 @@
             {
               "id": 28,
               "name": "Foo",
-              "kind": 4194304,
+              "kind": 1048576,
               "kindString": "Type alias",
               "flags": {},
               "type": {
@@ -73,11 +73,9 @@
             {
               "id": 26,
               "name": "Member",
-              "kind": 32,
+              "kind": 16,
               "kindString": "Variable",
-              "flags": {
-                "isConst": true
-              },
+              "flags": {},
               "type": {
                 "type": "literal",
                 "value": 1
@@ -87,11 +85,9 @@
             {
               "id": 24,
               "name": "Module",
-              "kind": 32,
+              "kind": 16,
               "kindString": "Variable",
-              "flags": {
-                "isConst": true
-              },
+              "flags": {},
               "type": {
                 "type": "reference",
                 "id": 33,
@@ -102,11 +98,9 @@
             {
               "id": 27,
               "name": "TypedMember",
-              "kind": 32,
+              "kind": 16,
               "kindString": "Variable",
-              "flags": {
-                "isConst": true
-              },
+              "flags": {},
               "type": {
                 "type": "reference",
                 "id": 33,
@@ -117,11 +111,9 @@
             {
               "id": 25,
               "name": "TypedModule",
-              "kind": 32,
+              "kind": 16,
               "kindString": "Variable",
-              "flags": {
-                "isConst": true
-              },
+              "flags": {},
               "type": {
                 "type": "reference",
                 "id": 33,
@@ -133,14 +125,14 @@
           "groups": [
             {
               "title": "Type aliases",
-              "kind": 4194304,
+              "kind": 1048576,
               "children": [
                 28
               ]
             },
             {
               "title": "Variables",
-              "kind": 32,
+              "kind": 16,
               "children": [
                 26,
                 24,
@@ -160,7 +152,7 @@
             {
               "id": 32,
               "name": "PROP",
-              "kind": 32,
+              "kind": 16,
               "kindString": "Variable",
               "flags": {},
               "type": {
@@ -171,14 +163,14 @@
             {
               "id": 30,
               "name": "METHOD",
-              "kind": 64,
+              "kind": 32,
               "kindString": "Function",
               "flags": {},
               "signatures": [
                 {
                   "id": 31,
                   "name": "METHOD",
-                  "kind": 4096,
+                  "kind": 2048,
                   "kindString": "Call signature",
                   "flags": {},
                   "comment": {
@@ -195,14 +187,14 @@
           "groups": [
             {
               "title": "Variables",
-              "kind": 32,
+              "kind": 16,
               "children": [
                 32
               ]
             },
             {
               "title": "Functions",
-              "kind": 64,
+              "kind": 32,
               "children": [
                 30
               ]
@@ -212,7 +204,7 @@
         {
           "id": 49,
           "name": "GH1453Helper",
-          "kind": 4194304,
+          "kind": 1048576,
           "kindString": "Type alias",
           "flags": {},
           "type": {
@@ -335,7 +327,7 @@
         },
         {
           "title": "Type aliases",
-          "kind": 4194304,
+          "kind": 1048576,
           "children": [
             49
           ]
@@ -564,7 +556,7 @@
         {
           "id": 41,
           "name": "GH1453Helper",
-          "kind": 4194304,
+          "kind": 1048576,
           "kindString": "Type alias",
           "flags": {},
           "type": {
@@ -623,7 +615,7 @@
         },
         {
           "title": "Type aliases",
-          "kind": 4194304,
+          "kind": 1048576,
           "children": [
             41
           ]

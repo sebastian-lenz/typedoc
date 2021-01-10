@@ -824,9 +824,9 @@ const tupleConverter: TypeConverter<ts.TupleTypeNode, ts.TupleTypeReference> = {
         );
         return new TupleType(elements);
     },
-    convertType(context, type) {
+    convertType(context, type, node) {
         // We need to do this because of type argument constraints, see GH1449
-        const types = type.typeArguments?.slice(0, type.target.fixedLength);
+        const types = type.typeArguments?.slice(0, node.elements.length);
         let elements = types?.map((type) => convertType(context, type));
 
         if (type.target.labeledElementDeclarations) {

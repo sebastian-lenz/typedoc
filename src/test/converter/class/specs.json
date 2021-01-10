@@ -133,7 +133,7 @@
             {
               "id": 17,
               "name": "privateArrow",
-              "kind": 2048,
+              "kind": 1024,
               "kindString": "Method",
               "flags": {
                 "isPrivate": true
@@ -142,7 +142,7 @@
                 {
                   "id": 18,
                   "name": "privateArrow",
-                  "kind": 4096,
+                  "kind": 2048,
                   "kindString": "Call signature",
                   "flags": {},
                   "type": {
