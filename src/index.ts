@@ -36,7 +36,7 @@ export {
     DeclarationOptionToOptionType,
 } from "./lib/utils/options";
 
-export { JSONOutput } from "./lib/serialization";
+export { JSONOutput } from "./lib/json";
 
 import * as TypeScript from "typescript";
 export { TypeScript };

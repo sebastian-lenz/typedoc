@@ -90,7 +90,7 @@ describe("Converter", function () {
                         FS.readFileSync(specsFile, "utf-8")
                     );
                     let data = JSON.stringify(
-                        app.serializer.toObject(result),
+                        app.renderers.getRenderer("json").toObject(result),
                         null,
                         "  "
                     );

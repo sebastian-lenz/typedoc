@@ -3,7 +3,6 @@ export {
     SerializerComponent,
     TypeSerializerComponent,
 } from "./components";
-export { SerializeEvent } from "./events";
 export { Serializer } from "./serializer";
 export {
     ArrayTypeSerializer,

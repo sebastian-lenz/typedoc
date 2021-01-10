@@ -3,8 +3,7 @@ import * as FS from "fs";
 import * as ts from "typescript";
 
 import { Converter } from "./converter/index";
-import { Renderer } from "./output/renderer";
-import { Serializer } from "./serialization";
+import { RendererContainer } from "./renderer";
 import { ProjectReflection } from "./models/index";
 import {
     Logger,
@@ -60,14 +59,9 @@ export class Application extends ChildableComponent<
     converter: Converter;
 
     /**
-     * The renderer used to generate the documentation output.
+     * The renderers which will be used to produce output.
      */
-    renderer: Renderer;
-
-    /**
-     * The serializer used to generate JSON output.
-     */
-    serializer: Serializer;
+    renderers = new RendererContainer(this);
 
     /**
      * The logger that should be used to output messages.
@@ -107,9 +101,7 @@ export class Application extends ChildableComponent<
         this.logger = new ConsoleLogger();
         this.options = new Options(this.logger);
         this.options.addDefaultDeclarations();
-        this.serializer = new Serializer();
         this.converter = this.addComponent<Converter>("converter", Converter);
-        this.renderer = this.addComponent<Renderer>("renderer", Renderer);
     }
 
     /**
@@ -156,8 +148,16 @@ export class Application extends ChildableComponent<
 
     /**
      * Return the application / root component instance.
+     * @deprecated will be removed in 0.22.
      */
     get application(): Application {
+        return this;
+    }
+
+    /**
+     * @deprecated will be removed in 0.22
+     */
+    get owner(): Application {
         return this;
     }
 
@@ -244,20 +244,31 @@ export class Application extends ChildableComponent<
     }
 
     /**
+     * Renders the given project to the user specified output directories.
+     * @param project The project to write to the specified outputs
+     */
+    public async render(project: ProjectReflection) {
+        await this.renderers.render(project);
+    }
+
+    /**
      * Render HTML for the given project
+     * @deprecated Prefer setting the `out` option and calling {@link Application.render}
      */
     public async generateDocs(
         project: ProjectReflection,
         out: string
     ): Promise<void> {
-        out = Path.resolve(out);
-        await this.renderer.render(project, out);
-        if (this.logger.hasErrors()) {
-            this.logger.error(
-                "Documentation could not be generated due to the errors above."
-            );
-        } else {
-            this.logger.info(`Documentation generated at ${out}`);
+        this.logger.deprecated(
+            "Application.generateDocs is deprecated. Instead of calling this, set the `out` option and call Application.render"
+        );
+
+        const oldOut = this.options.getValue("out");
+        this.options.setValue("out", out);
+        try {
+            await this.renderers.getRenderer("html").render(project);
+        } finally {
+            this.options.setValue("out", oldOut);
         }
     }
 
@@ -266,22 +277,22 @@ export class Application extends ChildableComponent<
      *
      * @param out  The path and file name of the target file.
      * @returns TRUE if the json file could be written successfully, otherwise FALSE.
+     * @deprecated Prefer setting the `json` option and calling {@link Application.render}
      */
     public async generateJson(
         project: ProjectReflection,
         out: string
     ): Promise<void> {
-        out = Path.resolve(out);
-        const eventData = {
-            outputDirectory: Path.dirname(out),
-            outputFile: Path.basename(out),
-        };
-        const ser = this.serializer.projectToObject(project, {
-            begin: eventData,
-            end: eventData,
-        });
-        await FS.promises.writeFile(out, JSON.stringify(ser, null, "\t"));
-        this.logger.info(`JSON written to ${out}`);
+        this.logger.deprecated(
+            "Application.generateJson is deprecated. Instead of calling this, set the `json` option and call Application.render"
+        );
+        const oldJson = this.options.getValue("json");
+        this.options.setValue("json", out);
+        try {
+            await this.renderers.getRenderer("json").render(project);
+        } finally {
+            this.options.setValue("json", oldJson);
+        }
     }
 
     /**

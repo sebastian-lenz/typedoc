@@ -63,18 +63,7 @@ async function run(app) {
         return ExitCodes.CompileError;
     }
 
-    const out = app.options.getValue("out");
-    if (out) {
-        await app.generateDocs(project, out);
-    }
-    const json = app.options.getValue("json");
-    if (json) {
-        await app.generateJson(project, json);
-    }
-
-    if (!out && !json) {
-        await app.generateDocs(project, "./docs");
-    }
+    await app.render(project);
 
     if (app.logger.hasErrors()) {
         return ExitCodes.OutputError;

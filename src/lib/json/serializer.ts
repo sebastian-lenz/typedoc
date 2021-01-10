@@ -1,23 +1,16 @@
-import { EventDispatcher } from "../utils";
-import { ProjectReflection } from "../models";
+import { promises as fs } from "fs";
+import { dirname, resolve } from "path";
 
+import type { Application } from "../application";
+import type { ProjectReflection } from "../models";
+import type { Renderer } from "../renderer";
+import { insertPrioritySorted } from "../utils";
 import { SerializerComponent } from "./components";
-import { SerializeEvent, SerializeEventData } from "./events";
 import { ModelToObject } from "./schema";
 import * as S from "./serializers";
 
-export class Serializer extends EventDispatcher {
-    /**
-     * Triggered when the [[Serializer]] begins transforming a project.
-     * @event EVENT_BEGIN
-     */
-    static EVENT_BEGIN = "begin";
-
-    /**
-     * Triggered when the [[Serializer]] has finished transforming a project.
-     * @event EVENT_END
-     */
-    static EVENT_END = "end";
+export class Serializer implements Renderer {
+    readonly name = "json";
 
     /**
      * Serializers, sorted by their `serializeGroup` function to enable higher performance.
@@ -27,9 +20,20 @@ export class Serializer extends EventDispatcher {
         SerializerComponent<any>[]
     >();
 
-    constructor() {
-        super();
+    constructor(private app: Application) {
         addSerializers(this);
+    }
+
+    isEnabled(): boolean {
+        return !this.app.options.isDefault("json");
+    }
+
+    async render(project: ProjectReflection) {
+        const out = resolve(this.app.options.getValue("json") || "docs.json");
+        const json = this.toObject(project);
+        await fs.mkdir(dirname(out), { recursive: true });
+        await fs.writeFile(out, JSON.stringify(json, null, "\t"));
+        this.app.logger.info(`JSON written to ${out}`);
     }
 
     addSerializer(serializer: SerializerComponent<any>): void {
@@ -39,8 +43,7 @@ export class Serializer extends EventDispatcher {
             this.serializers.set(serializer.serializeGroup, (group = []));
         }
 
-        group.push(serializer);
-        group.sort((a, b) => b.priority - a.priority);
+        insertPrioritySorted(group, serializer);
     }
 
     toObject<T>(value: T, init?: object): ModelToObject<T>;
@@ -63,42 +66,6 @@ export class Serializer extends EventDispatcher {
             (result, curr) => curr.toObject(value, result),
             init
         );
-    }
-
-    /**
-     * Same as toObject but emits [[ Serializer#EVENT_BEGIN ]] and [[ Serializer#EVENT_END ]] events.
-     * @param value
-     * @param eventData Partial information to set in the event
-     */
-    projectToObject(
-        value: ProjectReflection,
-        eventData: { begin?: SerializeEventData; end?: SerializeEventData } = {}
-    ): ModelToObject<ProjectReflection> {
-        const eventBegin = new SerializeEvent(
-            Serializer.EVENT_BEGIN,
-            value,
-            {}
-        );
-        if (eventData.begin) {
-            eventBegin.outputDirectory = eventData.begin.outputDirectory;
-            eventBegin.outputFile = eventData.begin.outputFile;
-        }
-        this.trigger(eventBegin);
-
-        const project = this.toObject(value, eventBegin.output);
-
-        const eventEnd = new SerializeEvent(
-            Serializer.EVENT_END,
-            value,
-            project
-        );
-        if (eventData.end) {
-            eventBegin.outputDirectory = eventData.end.outputDirectory;
-            eventBegin.outputFile = eventData.end.outputFile;
-        }
-        this.trigger(eventEnd);
-
-        return project;
     }
 
     private findSerializers<T>(value: T): SerializerComponent<T>[] {
