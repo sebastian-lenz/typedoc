@@ -65,3 +65,11 @@ export namespace GH1330 {
 export namespace GH1408 {
     export declare function foo<T extends unknown[]>(): T;
 }
+
+export namespace GH1454 {
+    export type Foo = string | number;
+    export type Bar = string | number;
+
+    export declare function bar(x: Bar): Bar;
+    export declare function foo(x: Foo): Foo;
+}

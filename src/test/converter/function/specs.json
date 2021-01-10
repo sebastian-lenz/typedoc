@@ -516,16 +516,16 @@
                     "type": "union",
                     "types": [
                       {
-                        "type": "intrinsic",
-                        "name": "undefined"
+                        "type": "reference",
+                        "name": "T"
                       },
                       {
                         "type": "literal",
                         "value": null
                       },
                       {
-                        "type": "reference",
-                        "name": "T"
+                        "type": "intrinsic",
+                        "name": "undefined"
                       }
                     ]
                   }
@@ -1000,16 +1000,16 @@
                     "type": "union",
                     "types": [
                       {
-                        "type": "intrinsic",
-                        "name": "undefined"
+                        "type": "reference",
+                        "name": "T"
                       },
                       {
                         "type": "literal",
                         "value": null
                       },
                       {
-                        "type": "reference",
-                        "name": "T"
+                        "type": "intrinsic",
+                        "name": "undefined"
                       }
                     ]
                   }

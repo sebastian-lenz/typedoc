@@ -30,7 +30,7 @@ run(app)
         console.error(error);
         return ExitCodes.ExceptionThrown;
     })
-    .then(process.exit);
+    .then((exitCode) => (process.exitCode = exitCode));
 
 /** @param {td.Application} app */
 async function run(app) {

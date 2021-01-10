@@ -76,12 +76,18 @@ type _ModelToObject<T> =
         ? IntersectionType
         : T extends M.IntrinsicType
         ? IntrinsicType
+        : T extends M.OptionalType
+        ? OptionalType
         : T extends M.PredicateType
         ? PredicateType
+        : T extends M.QueryType
+        ? QueryType
         : T extends M.ReferenceType
         ? ReferenceType
         : T extends M.ReflectionType
         ? ReflectionType
+        : T extends M.RestType
+        ? RestType
         : T extends M.LiteralType
         ? LiteralType
         : T extends M.TupleType
@@ -221,9 +227,12 @@ export type SomeType =
     | IntersectionType
     | IntrinsicType
     | LiteralType
+    | OptionalType
     | PredicateType
+    | QueryType
     | ReferenceType
     | ReflectionType
+    | RestType
     | TupleType
     | TypeOperatorType
     | TypeParameterType
@@ -257,11 +266,15 @@ export interface IntrinsicType
     extends Type,
         S<M.IntrinsicType, "type" | "name"> {}
 
-export interface QueryType extends Type, S<M.QueryType, "type" | "queryType"> {}
+export interface OptionalType
+    extends Type,
+        S<M.OptionalType, "type" | "elementType"> {}
 
 export interface PredicateType
     extends Type,
         S<M.PredicateType, "type" | "name" | "asserts" | "targetType"> {}
+
+export interface QueryType extends Type, S<M.QueryType, "type" | "queryType"> {}
 
 export interface ReferenceType
     extends Type,
@@ -272,6 +285,8 @@ export interface ReferenceType
 export interface ReflectionType extends Type, S<M.ReflectionType, "type"> {
     declaration?: ModelToObject<M.ReflectionType["declaration"]>;
 }
+
+export interface RestType extends Type, S<M.RestType, "type" | "elementType"> {}
 
 export interface LiteralType extends Type, S<M.LiteralType, "type" | "value"> {}
 

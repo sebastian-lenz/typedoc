@@ -36,3 +36,5 @@ export { Node } from "typescript";
 
 // TS 3.8 namespace exports
 export * as ThisModule from "./mod";
+
+export type GH1453Helper = `1`;

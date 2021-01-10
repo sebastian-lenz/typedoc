@@ -15,4 +15,24 @@ export default function (a: number) {}
 import * as x from "./test.json";
 
 /** @hidden */
-const x2: string = x.issue;
+export const x2: string = x.issue;
+
+export namespace GH1453 {
+    export const Module = Mod;
+    export const TypedModule: typeof import("./mod") = Mod;
+    export const Member = Mod.a;
+    export const TypedMember: typeof import("./mod").a = Mod.a;
+
+    export type Foo = import("./mod").GH1453Helper;
+}
+
+export namespace GH1462 {
+    const sideEffects = {
+        /** method docs */
+        method() {},
+        /** prop docs */
+        prop: 1,
+    };
+
+    export const { method: METHOD, prop: PROP } = sideEffects;
+}

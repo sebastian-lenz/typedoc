@@ -12,47 +12,216 @@
       "flags": {},
       "children": [
         {
-          "id": 31,
+          "id": 43,
           "name": "Mod",
           "kind": 4194304,
           "kindString": "Reference",
           "flags": {},
-          "target": 22
+          "target": 33
         },
         {
-          "id": 32,
+          "id": 44,
           "name": "ModDefault",
           "kind": 4194304,
           "kindString": "Reference",
           "flags": {},
-          "target": 23
+          "target": 34
         },
         {
-          "id": 36,
+          "id": 48,
           "name": "ThisModule",
           "kind": 4194304,
           "kindString": "Reference",
           "flags": {},
-          "target": 22
+          "target": 33
         },
         {
-          "id": 34,
+          "id": 46,
           "name": "b",
           "kind": 4194304,
           "kindString": "Reference",
           "flags": {},
-          "target": 25
+          "target": 36
         },
         {
-          "id": 30,
+          "id": 42,
           "name": "c",
           "kind": 4194304,
           "kindString": "Reference",
           "flags": {},
-          "target": 25
+          "target": 36
         },
         {
-          "id": 33,
+          "id": 23,
+          "name": "GH1453",
+          "kind": 2,
+          "kindString": "Namespace",
+          "flags": {},
+          "children": [
+            {
+              "id": 28,
+              "name": "Foo",
+              "kind": 4194304,
+              "kindString": "Type alias",
+              "flags": {},
+              "type": {
+                "type": "reference",
+                "id": 33,
+                "name": "GH1453Helper"
+              }
+            },
+            {
+              "id": 26,
+              "name": "Member",
+              "kind": 32,
+              "kindString": "Variable",
+              "flags": {
+                "isConst": true
+              },
+              "type": {
+                "type": "literal",
+                "value": 1
+              },
+              "defaultValue": "..."
+            },
+            {
+              "id": 24,
+              "name": "Module",
+              "kind": 32,
+              "kindString": "Variable",
+              "flags": {
+                "isConst": true
+              },
+              "type": {
+                "type": "reference",
+                "id": 33,
+                "name": "__module"
+              },
+              "defaultValue": "..."
+            },
+            {
+              "id": 27,
+              "name": "TypedMember",
+              "kind": 32,
+              "kindString": "Variable",
+              "flags": {
+                "isConst": true
+              },
+              "type": {
+                "type": "reference",
+                "id": 33,
+                "name": "a"
+              },
+              "defaultValue": "..."
+            },
+            {
+              "id": 25,
+              "name": "TypedModule",
+              "kind": 32,
+              "kindString": "Variable",
+              "flags": {
+                "isConst": true
+              },
+              "type": {
+                "type": "reference",
+                "id": 33,
+                "name": "__module"
+              },
+              "defaultValue": "..."
+            }
+          ],
+          "groups": [
+            {
+              "title": "Type aliases",
+              "kind": 4194304,
+              "children": [
+                28
+              ]
+            },
+            {
+              "title": "Variables",
+              "kind": 32,
+              "children": [
+                26,
+                24,
+                27,
+                25
+              ]
+            }
+          ]
+        },
+        {
+          "id": 29,
+          "name": "GH1462",
+          "kind": 2,
+          "kindString": "Namespace",
+          "flags": {},
+          "children": [
+            {
+              "id": 32,
+              "name": "PROP",
+              "kind": 32,
+              "kindString": "Variable",
+              "flags": {},
+              "type": {
+                "type": "intrinsic",
+                "name": "number"
+              }
+            },
+            {
+              "id": 30,
+              "name": "METHOD",
+              "kind": 64,
+              "kindString": "Function",
+              "flags": {},
+              "signatures": [
+                {
+                  "id": 31,
+                  "name": "METHOD",
+                  "kind": 4096,
+                  "kindString": "Call signature",
+                  "flags": {},
+                  "comment": {
+                    "shortText": "method docs"
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "void"
+                  }
+                }
+              ]
+            }
+          ],
+          "groups": [
+            {
+              "title": "Variables",
+              "kind": 32,
+              "children": [
+                32
+              ]
+            },
+            {
+              "title": "Functions",
+              "kind": 64,
+              "children": [
+                30
+              ]
+            }
+          ]
+        },
+        {
+          "id": 49,
+          "name": "GH1453Helper",
+          "kind": 4194304,
+          "kindString": "Type alias",
+          "flags": {},
+          "type": {
+            "type": "literal",
+            "value": "1"
+          }
+        },
+        {
+          "id": 45,
           "name": "a",
           "kind": 16,
           "kindString": "Variable",
@@ -149,18 +318,33 @@
           "title": "References",
           "kind": 4194304,
           "children": [
-            31,
-            32,
-            36,
-            34,
-            30
+            43,
+            44,
+            48,
+            46,
+            42
+          ]
+        },
+        {
+          "title": "Namespaces",
+          "kind": 2,
+          "children": [
+            23,
+            29
+          ]
+        },
+        {
+          "title": "Type aliases",
+          "kind": 4194304,
+          "children": [
+            49
           ]
         },
         {
           "title": "Variables",
           "kind": 16,
           "children": [
-            33
+            45
           ]
         },
         {
@@ -347,38 +531,49 @@
       ]
     },
     {
-      "id": 22,
+      "id": 33,
       "name": "mod",
       "kind": 1,
       "kindString": "Module",
       "flags": {},
       "children": [
         {
-          "id": 29,
+          "id": 40,
           "name": "ThisModule",
           "kind": 4194304,
           "kindString": "Reference",
           "flags": {},
-          "target": 22
+          "target": 33
         },
         {
-          "id": 26,
+          "id": 37,
           "name": "b",
           "kind": 4194304,
           "kindString": "Reference",
           "flags": {},
-          "target": 25
+          "target": 36
         },
         {
-          "id": 27,
+          "id": 38,
           "name": "c",
           "kind": 4194304,
           "kindString": "Reference",
           "flags": {},
-          "target": 25
+          "target": 36
         },
         {
-          "id": 25,
+          "id": 41,
+          "name": "GH1453Helper",
+          "kind": 4194304,
+          "kindString": "Type alias",
+          "flags": {},
+          "type": {
+            "type": "literal",
+            "value": "1"
+          }
+        },
+        {
+          "id": 36,
           "name": "a",
           "kind": 16,
           "kindString": "Variable",
@@ -393,14 +588,14 @@
           "defaultValue": "1"
         },
         {
-          "id": 23,
+          "id": 34,
           "name": "default",
           "kind": 32,
           "kindString": "Function",
           "flags": {},
           "signatures": [
             {
-              "id": 24,
+              "id": 35,
               "name": "default",
               "kind": 2048,
               "kindString": "Call signature",
@@ -421,23 +616,30 @@
           "title": "References",
           "kind": 4194304,
           "children": [
-            29,
-            26,
-            27
+            40,
+            37,
+            38
+          ]
+        },
+        {
+          "title": "Type aliases",
+          "kind": 4194304,
+          "children": [
+            41
           ]
         },
         {
           "title": "Variables",
           "kind": 16,
           "children": [
-            25
+            36
           ]
         },
         {
           "title": "Functions",
           "kind": 32,
           "children": [
-            23
+            34
           ]
         }
       ]
@@ -452,7 +654,7 @@
         1,
         6,
         8,
-        22
+        33
       ]
     }
   ]

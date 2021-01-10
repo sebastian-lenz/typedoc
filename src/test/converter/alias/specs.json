@@ -233,6 +233,143 @@
       ]
     },
     {
+      "id": 43,
+      "name": "GH1454",
+      "kind": 2,
+      "kindString": "Namespace",
+      "flags": {},
+      "children": [
+        {
+          "id": 51,
+          "name": "Bar",
+          "kind": 4194304,
+          "kindString": "Type alias",
+          "flags": {},
+          "type": {
+            "type": "union",
+            "types": [
+              {
+                "type": "intrinsic",
+                "name": "string"
+              },
+              {
+                "type": "intrinsic",
+                "name": "number"
+              }
+            ]
+          }
+        },
+        {
+          "id": 50,
+          "name": "Foo",
+          "kind": 4194304,
+          "kindString": "Type alias",
+          "flags": {},
+          "type": {
+            "type": "union",
+            "types": [
+              {
+                "type": "intrinsic",
+                "name": "string"
+              },
+              {
+                "type": "intrinsic",
+                "name": "number"
+              }
+            ]
+          }
+        },
+        {
+          "id": 44,
+          "name": "bar",
+          "kind": 64,
+          "kindString": "Function",
+          "flags": {},
+          "signatures": [
+            {
+              "id": 45,
+              "name": "bar",
+              "kind": 4096,
+              "kindString": "Call signature",
+              "flags": {},
+              "parameters": [
+                {
+                  "id": 46,
+                  "name": "x",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "type": {
+                    "type": "reference",
+                    "id": 51,
+                    "name": "Bar"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "id": 51,
+                "name": "Bar"
+              }
+            }
+          ]
+        },
+        {
+          "id": 47,
+          "name": "foo",
+          "kind": 64,
+          "kindString": "Function",
+          "flags": {},
+          "signatures": [
+            {
+              "id": 48,
+              "name": "foo",
+              "kind": 4096,
+              "kindString": "Call signature",
+              "flags": {},
+              "parameters": [
+                {
+                  "id": 49,
+                  "name": "x",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "type": {
+                    "type": "reference",
+                    "id": 50,
+                    "name": "Foo"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "id": 50,
+                "name": "Foo"
+              }
+            }
+          ]
+        }
+      ],
+      "groups": [
+        {
+          "title": "Type aliases",
+          "kind": 4194304,
+          "children": [
+            51,
+            50
+          ]
+        },
+        {
+          "title": "Functions",
+          "kind": 64,
+          "children": [
+            44,
+            47
+          ]
+        }
+      ]
+    },
+    {
       "id": 21,
       "name": "HorribleRecursiveTypeThatShouldNotBeUsedByAnyone",
       "kind": 1048576,
@@ -740,7 +877,8 @@
       "kind": 2,
       "children": [
         28,
-        39
+        39,
+        43
       ]
     },
     {

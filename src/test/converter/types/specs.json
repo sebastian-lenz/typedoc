@@ -559,7 +559,7 @@
       "flags": {},
       "children": [
         {
-          "id": 32,
+          "id": 36,
           "name": "NamedTuple",
           "kind": 1048576,
           "kindString": "Type alias",
@@ -589,7 +589,96 @@
           }
         },
         {
-          "id": 33,
+          "id": 42,
+          "name": "WithOptionalElements",
+          "kind": 4194304,
+          "kindString": "Type alias",
+          "flags": {},
+          "type": {
+            "type": "tuple",
+            "elements": [
+              {
+                "type": "literal",
+                "value": 1
+              },
+              {
+                "type": "optional",
+                "elementType": {
+                  "type": "literal",
+                  "value": 2
+                }
+              },
+              {
+                "type": "optional",
+                "elementType": {
+                  "type": "literal",
+                  "value": 3
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": 38,
+          "name": "WithRestType",
+          "kind": 4194304,
+          "kindString": "Type alias",
+          "flags": {},
+          "type": {
+            "type": "tuple",
+            "elements": [
+              {
+                "type": "literal",
+                "value": 1
+              },
+              {
+                "type": "rest",
+                "elementType": {
+                  "type": "array",
+                  "elementType": {
+                    "type": "literal",
+                    "value": 2
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": 40,
+          "name": "WithRestTypeNames",
+          "kind": 4194304,
+          "kindString": "Type alias",
+          "flags": {},
+          "type": {
+            "type": "tuple",
+            "elements": [
+              {
+                "type": "named-tuple-member",
+                "name": "a",
+                "isOptional": false,
+                "element": {
+                  "type": "literal",
+                  "value": 123
+                }
+              },
+              {
+                "type": "named-tuple-member",
+                "name": "b",
+                "isOptional": false,
+                "element": {
+                  "type": "array",
+                  "elementType": {
+                    "type": "literal",
+                    "value": 456
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": 37,
           "name": "namedTuple",
           "kind": 16,
           "kindString": "Variable",
@@ -618,6 +707,172 @@
             ]
           },
           "defaultValue": "..."
+        },
+        {
+          "id": 43,
+          "name": "withOptionalElements",
+          "kind": 32,
+          "kindString": "Variable",
+          "flags": {
+            "isConst": true
+          },
+          "type": {
+            "type": "tuple",
+            "elements": [
+              {
+                "type": "literal",
+                "value": 1
+              },
+              {
+                "type": "optional",
+                "elementType": {
+                  "type": "literal",
+                  "value": 2
+                }
+              },
+              {
+                "type": "optional",
+                "elementType": {
+                  "type": "literal",
+                  "value": 3
+                }
+              }
+            ]
+          },
+          "defaultValue": "..."
+        },
+        {
+          "id": 39,
+          "name": "withRestType",
+          "kind": 32,
+          "kindString": "Variable",
+          "flags": {
+            "isConst": true
+          },
+          "type": {
+            "type": "tuple",
+            "elements": [
+              {
+                "type": "literal",
+                "value": 1
+              },
+              {
+                "type": "rest",
+                "elementType": {
+                  "type": "array",
+                  "elementType": {
+                    "type": "literal",
+                    "value": 2
+                  }
+                }
+              }
+            ]
+          },
+          "defaultValue": "..."
+        },
+        {
+          "id": 41,
+          "name": "withRestTypeNames",
+          "kind": 32,
+          "kindString": "Variable",
+          "flags": {
+            "isConst": true
+          },
+          "type": {
+            "type": "tuple",
+            "elements": [
+              {
+                "type": "named-tuple-member",
+                "name": "a",
+                "isOptional": false,
+                "element": {
+                  "type": "literal",
+                  "value": 123
+                }
+              },
+              {
+                "type": "rest",
+                "elementType": {
+                  "type": "named-tuple-member",
+                  "name": "b",
+                  "isOptional": false,
+                  "element": {
+                    "type": "array",
+                    "elementType": {
+                      "type": "literal",
+                      "value": 456
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "defaultValue": "..."
+        },
+        {
+          "id": 32,
+          "name": "gh1449",
+          "kind": 64,
+          "kindString": "Function",
+          "flags": {},
+          "signatures": [
+            {
+              "id": 33,
+              "name": "gh1449",
+              "kind": 4096,
+              "kindString": "Call signature",
+              "flags": {},
+              "typeParameter": [
+                {
+                  "id": 34,
+                  "name": "T",
+                  "kind": 131072,
+                  "kindString": "Type parameter",
+                  "flags": {},
+                  "type": {
+                    "type": "tuple",
+                    "elements": [
+                      {
+                        "type": "named-tuple-member",
+                        "name": "foo",
+                        "isOptional": false,
+                        "element": {
+                          "type": "intrinsic",
+                          "name": "any"
+                        }
+                      },
+                      {
+                        "type": "named-tuple-member",
+                        "name": "bar",
+                        "isOptional": true,
+                        "element": {
+                          "type": "intrinsic",
+                          "name": "any"
+                        }
+                      }
+                    ]
+                  }
+                }
+              ],
+              "parameters": [
+                {
+                  "id": 35,
+                  "name": "a",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "type": {
+                    "type": "reference",
+                    "name": "T"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "name": "T"
+              }
+            }
+          ]
         }
       ],
       "groups": [
@@ -625,27 +880,40 @@
           "title": "Type aliases",
           "kind": 1048576,
           "children": [
-            32
+            36,
+            42,
+            38,
+            40
           ]
         },
         {
           "title": "Variables",
           "kind": 16,
           "children": [
-            33
+            37,
+            43,
+            39,
+            41
+          ]
+        },
+        {
+          "title": "Functions",
+          "kind": 64,
+          "children": [
+            32
           ]
         }
       ]
     },
     {
-      "id": 34,
+      "id": 44,
       "name": "type-operator",
       "kind": 1,
       "kindString": "Module",
       "flags": {},
       "children": [
         {
-          "id": 36,
+          "id": 46,
           "name": "B",
           "kind": 1048576,
           "kindString": "Type alias",
@@ -663,7 +931,7 @@
           }
         },
         {
-          "id": 37,
+          "id": 47,
           "name": "C",
           "kind": 1048576,
           "kindString": "Type alias",
@@ -671,14 +939,14 @@
           "type": {
             "type": "reflection",
             "declaration": {
-              "id": 38,
+              "id": 48,
               "name": "__type",
               "kind": 32768,
               "kindString": "Type literal",
               "flags": {},
               "children": [
                 {
-                  "id": 39,
+                  "id": 49,
                   "name": "prop1",
                   "kind": 512,
                   "kindString": "Property",
@@ -689,7 +957,7 @@
                   }
                 },
                 {
-                  "id": 40,
+                  "id": 50,
                   "name": "prop2",
                   "kind": 512,
                   "kindString": "Property",
@@ -705,8 +973,8 @@
                   "title": "Properties",
                   "kind": 512,
                   "children": [
-                    39,
-                    40
+                    49,
+                    50
                   ]
                 }
               ]
@@ -714,7 +982,7 @@
           }
         },
         {
-          "id": 41,
+          "id": 51,
           "name": "D",
           "kind": 1048576,
           "kindString": "Type alias",
@@ -724,13 +992,13 @@
             "operator": "keyof",
             "target": {
               "type": "reference",
-              "id": 37,
+              "id": 47,
               "name": "C"
             }
           }
         },
         {
-          "id": 35,
+          "id": 45,
           "name": "a",
           "kind": 16,
           "kindString": "Variable",
@@ -751,29 +1019,29 @@
           "title": "Type aliases",
           "kind": 1048576,
           "children": [
-            36,
-            37,
-            41
+            46,
+            47,
+            51
           ]
         },
         {
           "title": "Variables",
           "kind": 16,
           "children": [
-            35
+            45
           ]
         }
       ]
     },
     {
-      "id": 42,
+      "id": 52,
       "name": "union-or-intersection",
       "kind": 1,
       "kindString": "Module",
       "flags": {},
       "children": [
         {
-          "id": 43,
+          "id": 53,
           "name": "FirstType",
           "kind": 128,
           "kindString": "Interface",
@@ -783,7 +1051,7 @@
           },
           "children": [
             {
-              "id": 44,
+              "id": 54,
               "name": "firstProperty",
               "kind": 512,
               "kindString": "Property",
@@ -802,13 +1070,13 @@
               "title": "Properties",
               "kind": 512,
               "children": [
-                44
+                54
               ]
             }
           ]
         },
         {
-          "id": 45,
+          "id": 55,
           "name": "SecondType",
           "kind": 128,
           "kindString": "Interface",
@@ -818,7 +1086,7 @@
           },
           "children": [
             {
-              "id": 46,
+              "id": 56,
               "name": "secondProperty",
               "kind": 512,
               "kindString": "Property",
@@ -837,13 +1105,13 @@
               "title": "Properties",
               "kind": 512,
               "children": [
-                46
+                56
               ]
             }
           ]
         },
         {
-          "id": 47,
+          "id": 57,
           "name": "ThirdType",
           "kind": 128,
           "kindString": "Interface",
@@ -853,7 +1121,7 @@
           },
           "children": [
             {
-              "id": 50,
+              "id": 60,
               "name": "thirdComplexProperty",
               "kind": 512,
               "kindString": "Property",
@@ -877,12 +1145,12 @@
                         "types": [
                           {
                             "type": "reference",
-                            "id": 43,
+                            "id": 53,
                             "name": "FirstType"
                           },
                           {
                             "type": "reference",
-                            "id": 45,
+                            "id": 55,
                             "name": "SecondType"
                           }
                         ]
@@ -893,7 +1161,7 @@
               }
             },
             {
-              "id": 49,
+              "id": 59,
               "name": "thirdIntersectionProperty",
               "kind": 512,
               "kindString": "Property",
@@ -906,19 +1174,19 @@
                 "types": [
                   {
                     "type": "reference",
-                    "id": 43,
+                    "id": 53,
                     "name": "FirstType"
                   },
                   {
                     "type": "reference",
-                    "id": 47,
+                    "id": 57,
                     "name": "ThirdType"
                   }
                 ]
               }
             },
             {
-              "id": 48,
+              "id": 58,
               "name": "thirdUnionProperty",
               "kind": 512,
               "kindString": "Property",
@@ -931,12 +1199,12 @@
                 "types": [
                   {
                     "type": "reference",
-                    "id": 43,
+                    "id": 53,
                     "name": "FirstType"
                   },
                   {
                     "type": "reference",
-                    "id": 45,
+                    "id": 55,
                     "name": "SecondType"
                   }
                 ]
@@ -948,9 +1216,9 @@
               "title": "Properties",
               "kind": 512,
               "children": [
-                50,
-                49,
-                48
+                60,
+                59,
+                58
               ]
             }
           ]
@@ -961,9 +1229,9 @@
           "title": "Interfaces",
           "kind": 128,
           "children": [
-            43,
-            45,
-            47
+            53,
+            55,
+            57
           ]
         }
       ]
@@ -979,8 +1247,8 @@
         24,
         28,
         31,
-        34,
-        42
+        44,
+        52
       ]
     }
   ]

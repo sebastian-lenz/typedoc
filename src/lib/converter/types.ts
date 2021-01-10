@@ -23,6 +23,8 @@ import {
     MappedType,
     SignatureReflection,
 } from "../models";
+import { OptionalType } from "../models/types/optional";
+import { RestType } from "../models/types/rest";
 import { TemplateLiteralType } from "../models/types/template-literal";
 import { zip } from "../utils/array";
 import { Context } from "./context";
@@ -58,16 +60,19 @@ export function loadConverters() {
         constructorConverter,
         exprWithTypeArgsConverter,
         functionTypeConverter,
+        importType,
         indexedAccessConverter,
         inferredConverter,
         intersectionConverter,
         jsDocVariadicTypeConverter,
         keywordConverter,
+        optionalConverter,
         parensConverter,
         predicateConverter,
         queryConverter,
         typeLiteralConverter,
         referenceConverter,
+        restConverter,
         namedTupleMemberConverter,
         mappedConverter,
         literalTypeConverter,
@@ -340,6 +345,21 @@ const functionTypeConverter: TypeConverter<ts.FunctionTypeNode, ts.Type> = {
     },
 };
 
+const importType: TypeConverter<ts.ImportTypeNode> = {
+    kind: [ts.SyntaxKind.ImportType],
+    convert(context, node) {
+        const name = node.qualifier?.getText() ?? "__module";
+        const symbol = context.checker.getSymbolAtLocation(node);
+        assert(symbol, "Missing symbol when converting import type node");
+        return new ReferenceType(name, symbol, context.project);
+    },
+    convertType(context, type) {
+        const symbol = type.getSymbol();
+        assert(symbol, "Missing symbol when converting import type"); // Should be a compiler error
+        return new ReferenceType("__module", symbol, context.project);
+    },
+};
+
 const indexedAccessConverter: TypeConverter<
     ts.IndexedAccessTypeNode,
     ts.IndexedAccessType
@@ -430,6 +450,17 @@ const keywordConverter: TypeConverter<ts.KeywordTypeNode> = {
     convertType(_context, _type, node) {
         return new IntrinsicType(keywordNames[node.kind]);
     },
+};
+
+const optionalConverter: TypeConverter<ts.OptionalTypeNode> = {
+    kind: [ts.SyntaxKind.OptionalType],
+    convert(context, node) {
+        return new OptionalType(
+            removeUndefined(convertType(context, node.type))
+        );
+    },
+    // Handled by the tuple converter
+    convertType: requestBugReport,
 };
 
 const parensConverter: TypeConverter<ts.ParenthesizedTypeNode> = {
@@ -560,6 +591,17 @@ const referenceConverter: TypeConverter<
 > = {
     kind: [ts.SyntaxKind.TypeReference],
     convert(context, node) {
+        const isArray =
+            context.checker.typeToTypeNode(
+                context.checker.getTypeAtLocation(node.typeName),
+                void 0,
+                ts.NodeBuilderFlags.IgnoreErrors
+            )?.kind === ts.SyntaxKind.ArrayType;
+
+        if (isArray) {
+            return new ArrayType(convertType(context, node.typeArguments?.[0]));
+        }
+
         const symbol = context.expectSymbolAtLocation(node.typeName);
 
         const name = node.typeName.getText();
@@ -596,6 +638,15 @@ const referenceConverter: TypeConverter<
         )?.map((ref) => convertType(context, ref));
         return ref;
     },
+};
+
+const restConverter: TypeConverter<ts.RestTypeNode> = {
+    kind: [ts.SyntaxKind.RestType],
+    convert(context, node) {
+        return new RestType(convertType(context, node.type));
+    },
+    // This is handled in the tuple converter
+    convertType: requestBugReport,
 };
 
 const namedTupleMemberConverter: TypeConverter<ts.NamedTupleMember> = {
@@ -698,6 +749,8 @@ const literalTypeConverter: TypeConverter<
                 return new LiteralType(
                     BigInt(node.literal.getText().replace("n", ""))
                 );
+            case ts.SyntaxKind.NoSubstitutionTemplateLiteral:
+                return new LiteralType(node.literal.text);
         }
 
         return requestBugReport(context, node.literal);
@@ -763,7 +816,7 @@ const thisConverter: TypeConverter<ts.ThisTypeNode> = {
     },
 };
 
-const tupleConverter: TypeConverter<ts.TupleTypeNode, ts.TupleType> = {
+const tupleConverter: TypeConverter<ts.TupleTypeNode, ts.TupleTypeReference> = {
     kind: [ts.SyntaxKind.TupleType],
     convert(context, node) {
         const elements = node.elements.map((node) =>
@@ -771,22 +824,48 @@ const tupleConverter: TypeConverter<ts.TupleTypeNode, ts.TupleType> = {
         );
         return new TupleType(elements);
     },
-    convertType(context, type, node) {
-        let elements = type.typeArguments?.map((type) =>
-            convertType(context, type)
-        );
+    convertType(context, type) {
+        // We need to do this because of type argument constraints, see GH1449
+        const types = type.typeArguments?.slice(0, type.target.fixedLength);
+        let elements = types?.map((type) => convertType(context, type));
 
-        if (node.elements.every(ts.isNamedTupleMember)) {
-            const namedMembers = node.elements as readonly ts.NamedTupleMember[];
+        if (type.target.labeledElementDeclarations) {
+            const namedDeclarations = type.target.labeledElementDeclarations;
             elements = elements?.map(
                 (el, i) =>
                     new NamedTupleMember(
-                        namedMembers[i].name.text,
-                        !!namedMembers[i].questionToken,
+                        namedDeclarations[i].name.getText(),
+                        !!namedDeclarations[i].questionToken,
                         removeUndefined(el)
                     )
             );
         }
+
+        elements = elements?.map((el, i) => {
+            if (type.target.elementFlags[i] & ts.ElementFlags.Variable) {
+                // In the node case, we don't need to add the wrapping Array type... but we do here.
+                if (el instanceof NamedTupleMember) {
+                    return new RestType(
+                        new NamedTupleMember(
+                            el.name,
+                            el.isOptional,
+                            new ArrayType(el.element)
+                        )
+                    );
+                }
+
+                return new RestType(new ArrayType(el));
+            }
+
+            if (
+                type.target.elementFlags[i] & ts.ElementFlags.Optional &&
+                !(el instanceof NamedTupleMember)
+            ) {
+                return new OptionalType(removeUndefined(el));
+            }
+
+            return el;
+        });
 
         return new TupleType(elements ?? []);
     },

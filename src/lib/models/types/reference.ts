@@ -103,7 +103,8 @@ export class ReferenceType extends Type {
     toString() {
         const name = this.reflection ? this.reflection.name : this.name;
         let typeArgs = "";
-        if (this.typeArguments) {
+
+        if (this.typeArguments && this.typeArguments.length > 0) {
             typeArgs += "<";
             typeArgs += this.typeArguments
                 .map((arg) => arg.toString())

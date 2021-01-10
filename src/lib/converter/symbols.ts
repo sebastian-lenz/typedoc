@@ -568,6 +568,7 @@ function convertArrowAsMethod(
         symbol,
         nameOverride
     );
+    setModifiers(arrow.parent as ts.PropertyDeclaration, reflection);
     const rc = context.withScope(reflection);
 
     const signature = context.checker.getSignatureFromDeclaration(arrow);
@@ -736,16 +737,18 @@ function convertVariableAsFunction(
     const declaration = symbol
         .getDeclarations()
         ?.find(ts.isVariableDeclaration);
-    assert(declaration);
 
-    const type = context.checker.getTypeOfSymbolAtLocation(symbol, declaration);
+    const type = context.checker.getTypeOfSymbolAtLocation(
+        symbol,
+        declaration ?? symbol.valueDeclaration
+    );
 
     const reflection = context.createDeclarationReflection(
         ReflectionKind.Function,
         symbol,
         nameOverride
     );
-    setModifiers(declaration, reflection);
+    setModifiers(declaration ?? symbol.valueDeclaration, reflection);
 
     const reflectionContext = context.withScope(reflection);
 

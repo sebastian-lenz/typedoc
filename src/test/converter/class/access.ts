@@ -50,4 +50,6 @@ export class PrivateClass {
      * @protected
      */
     fakeProtectedMethod() {}
+
+    private privateArrow = () => {};
 }

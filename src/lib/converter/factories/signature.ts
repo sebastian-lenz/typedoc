@@ -68,7 +68,9 @@ export function createSignature(
     } else {
         sigRef.type = context.converter.convertType(
             context.withScope(sigRef),
-            signature.getReturnType()
+            (declaration?.kind === ts.SyntaxKind.FunctionDeclaration &&
+                declaration.type) ||
+                signature.getReturnType()
         );
     }
 
@@ -108,11 +110,26 @@ function convertParameters(
             declaration
         );
 
+        let type: ts.Type | ts.TypeNode;
+        if (
+            declaration &&
+            ts.isParameter(declaration) &&
+            ts.isFunctionDeclaration(declaration.parent) &&
+            declaration.type
+        ) {
+            type = declaration.type;
+        } else if (declaration) {
+            type = context.checker.getTypeOfSymbolAtLocation(
+                param,
+                declaration
+            );
+        } else {
+            type = param.type;
+        }
+
         paramRefl.type = context.converter.convertType(
             context.withScope(paramRefl),
-            declaration
-                ? context.checker.getTypeOfSymbolAtLocation(param, declaration)
-                : param.type
+            type
         );
 
         let isOptional = false;
