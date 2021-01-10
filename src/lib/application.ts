@@ -151,6 +151,9 @@ export class Application extends ChildableComponent<
      * @deprecated will be removed in 0.22.
      */
     get application(): Application {
+        this.logger.deprecated(
+            "Application.application is deprecated, plugins are now passed the Application instance"
+        );
         return this;
     }
 
@@ -158,6 +161,9 @@ export class Application extends ChildableComponent<
      * @deprecated will be removed in 0.22
      */
     get owner(): Application {
+        this.logger.deprecated(
+            "Application.owner is deprecated, plugins are now passed the Application instance"
+        );
         return this;
     }
 
