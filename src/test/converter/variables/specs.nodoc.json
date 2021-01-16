@@ -354,11 +354,9 @@
         {
           "id": 22,
           "name": "objectLiteral",
-          "kind": 32,
+          "kind": 16,
           "kindString": "Variable",
-          "flags": {
-            "isConst": true
-          },
+          "flags": {},
           "comment": {
             "shortText": "An object literal."
           },
@@ -367,7 +365,7 @@
             "declaration": {
               "id": 23,
               "name": "__type",
-              "kind": 65536,
+              "kind": 32768,
               "kindString": "Type literal",
               "flags": {}
             }

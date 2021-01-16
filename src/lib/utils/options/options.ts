@@ -1,4 +1,3 @@
-import { isDeepStrictEqual } from "util";
 import * as ts from "typescript";
 
 import {
@@ -11,7 +10,7 @@ import {
     TypeDocOptionValues,
 } from "./declaration";
 import { Logger } from "../loggers";
-import { insertPrioritySorted, unique } from "../array";
+import { insertOrderSorted, unique } from "../array";
 import { addTypeDocOptions } from "./sources";
 import { Application } from "../../..";
 import { NeverIfInternal } from "..";
@@ -22,15 +21,15 @@ import { NeverIfInternal } from "..";
  */
 export interface OptionsReader {
     /**
-     * Readers will be processed according to their priority.
-     * A higher priority indicates that the reader should be called *later* so that
-     * it can override options set by lower priority readers.
+     * Readers will be processed according to their order.
+     * A higher order indicates that the reader should be called *later* so that
+     * it can override options set by lower order readers.
      *
      * Note that to preserve expected behavior, the argv reader must have both the lowest
-     * priority so that it may set the location of config files used by other readers and
-     * the highest priority so that it can override settings from lower priority readers.
+     * order so that it may set the location of config files used by other readers and
+     * the highest order so that it can override settings from lower order readers.
      */
-    priority: number;
+    order: number;
 
     /**
      * The name of this reader so that it may be removed by plugins without the plugin
@@ -120,7 +119,7 @@ export class Options {
      * @param reader
      */
     addReader(reader: OptionsReader): void {
-        insertPrioritySorted(this._readers, reader);
+        insertOrderSorted(this._readers, reader);
     }
 
     /**
@@ -208,21 +207,6 @@ export class Options {
      */
     getDeclarations(): Readonly<DeclarationOption>[] {
         return unique(this._declarations.values());
-    }
-
-    /**
-     * Checks if the given option's value is deeply strict equal to the default.
-     * @deprecated Will be removed in v0.21. Use `isSet` instead.
-     * @param name
-     */
-    isDefault(name: keyof TypeDocOptions): boolean;
-    isDefault(name: NeverIfInternal<string>): boolean;
-    isDefault(name: string): boolean {
-        // getValue will throw if the declaration does not exist.
-        return isDeepStrictEqual(
-            this.getValue(name as keyof TypeDocOptions),
-            this.getDefaultOptionValue(this.getDeclaration(name)!)
-        );
     }
 
     /**

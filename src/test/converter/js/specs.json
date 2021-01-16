@@ -90,7 +90,7 @@
     {
       "id": 8,
       "name": "ColumnType",
-      "kind": 4194304,
+      "kind": 1048576,
       "kindString": "Type alias",
       "flags": {},
       "type": {
@@ -448,25 +448,23 @@
     {
       "id": 4,
       "name": "ColumnType",
-      "kind": 32,
+      "kind": 16,
       "kindString": "Variable",
-      "flags": {
-        "isConst": true
-      },
+      "flags": {},
       "comment": {},
       "type": {
         "type": "reflection",
         "declaration": {
           "id": 5,
           "name": "__type",
-          "kind": 65536,
+          "kind": 32768,
           "kindString": "Type literal",
           "flags": {},
           "children": [
             {
               "id": 7,
               "name": "NUMBER",
-              "kind": 1024,
+              "kind": 512,
               "kindString": "Property",
               "flags": {},
               "type": {
@@ -478,7 +476,7 @@
             {
               "id": 6,
               "name": "STRING",
-              "kind": 1024,
+              "kind": 512,
               "kindString": "Property",
               "flags": {},
               "type": {
@@ -491,7 +489,7 @@
           "groups": [
             {
               "title": "Properties",
-              "kind": 1024,
+              "kind": 512,
               "children": [
                 7,
                 6
@@ -569,7 +567,7 @@
     },
     {
       "title": "Variables",
-      "kind": 32,
+      "kind": 16,
       "children": [
         4
       ]

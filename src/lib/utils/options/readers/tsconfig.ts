@@ -15,7 +15,7 @@ export class TSConfigReader implements OptionsReader {
     /**
      * Note: Runs after the [[TypeDocReader]].
      */
-    priority = 200;
+    order = 200;
 
     name = "tsconfig-json";
 

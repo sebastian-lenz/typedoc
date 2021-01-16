@@ -6,8 +6,11 @@ import {
     ContainerReflection as JSONContainerReflection,
     Reflection as JSONReflection,
 } from "../../schema";
+import { ReflectionSerializer } from "./abstract";
 
 export class ContainerReflectionSerializer extends ReflectionSerializerComponent<ContainerReflection> {
+    static PRIORITY = ReflectionSerializer.PRIORITY - 1;
+
     supports(t: unknown) {
         return t instanceof ContainerReflection;
     }

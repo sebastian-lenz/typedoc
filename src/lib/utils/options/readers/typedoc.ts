@@ -13,7 +13,7 @@ export class TypeDocReader implements OptionsReader {
     /**
      * Should run before the tsconfig reader so that it can specify a tsconfig file to read.
      */
-    priority = 100;
+    order = 100;
 
     name = "typedoc-json";
 

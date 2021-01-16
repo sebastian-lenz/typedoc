@@ -3,6 +3,7 @@ export { IfInternal, NeverIfInternal } from "./general";
 export { Options, ParameterType, ParameterHint, BindOption } from "./options";
 export {
     insertPrioritySorted,
+    insertOrderSorted,
     removeIfPresent,
     removeIf,
     filterMap,

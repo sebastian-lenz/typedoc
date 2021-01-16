@@ -76,7 +76,9 @@ function rebuildConverterTests(dirs) {
                 TypeDoc.resetReflectionID();
                 before();
                 const result = app.converter.convert(src, program);
-                const serialized = app.serializer.toObject(result);
+                const serialized = app.renderers
+                    .getRenderer("json")
+                    .toObject(result);
 
                 const data = JSON.stringify(serialized, null, "  ")
                     .split(TypeDoc.normalizePath(base))

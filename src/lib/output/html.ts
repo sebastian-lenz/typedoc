@@ -10,7 +10,7 @@ export class HtmlRenderer implements Renderer {
     constructor(private app: Application) {}
 
     isEnabled(): boolean {
-        return !this.app.options.isDefault("out");
+        return this.app.options.isSet("out");
     }
 
     async render(project: ProjectReflection) {

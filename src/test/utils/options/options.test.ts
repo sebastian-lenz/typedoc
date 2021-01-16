@@ -97,12 +97,6 @@ describe("Options", () => {
         equal(options.getRawValues().toc, []);
     });
 
-    it("[Deprecated] Supports checking if a value is default", () => {
-        options.setValue("excludePrivate", true);
-        equal(options.isDefault("excludePrivate"), false);
-        equal(options.isDefault("excludeProtected"), true);
-    });
-
     it("Supports checking if an option is set", () => {
         const options = new Options(new Logger());
         options.addDefaultDeclarations();

@@ -1,6 +1,7 @@
 import { deepStrictEqual as equal, doesNotThrow } from "assert";
 import {
     binaryFindPartition,
+    insertOrderSorted,
     insertPrioritySorted,
     removeIfPresent,
 } from "../../lib/utils/array";
@@ -17,11 +18,47 @@ describe("Array utils", () => {
         });
 
         it("inserts at the start", () => {
-            equal(insertPrioritySorted([item2], item1), [item1, item2]);
+            equal(insertPrioritySorted([item3, item2], item4), [
+                item4,
+                item3,
+                item2,
+            ]);
         });
 
         it("inserts in the middle", () => {
-            equal(insertPrioritySorted([item1, item3], item2), [
+            equal(insertPrioritySorted([item3, item1], item2), [
+                item3,
+                item2,
+                item1,
+            ]);
+        });
+
+        it("inserts at the end", () => {
+            equal(insertPrioritySorted([item2], item1), [item2, item1]);
+        });
+
+        it("inserts new items first", () => {
+            const item0 = { priority: 1, first: true };
+            equal(insertPrioritySorted([item1], item0), [item0, item1]);
+        });
+    });
+
+    describe("insertOrderSorted", () => {
+        const item1 = { order: 1 };
+        const item2 = { order: 2 };
+        const item3 = { order: 3 };
+        const item4 = { order: 4 };
+
+        it("works with an empty array", () => {
+            equal(insertOrderSorted([], item1), [item1]);
+        });
+
+        it("inserts at the start", () => {
+            equal(insertOrderSorted([item2], item1), [item1, item2]);
+        });
+
+        it("inserts in the middle", () => {
+            equal(insertOrderSorted([item1, item3], item2), [
                 item1,
                 item2,
                 item3,
@@ -29,7 +66,7 @@ describe("Array utils", () => {
         });
 
         it("inserts at the end", () => {
-            equal(insertPrioritySorted([item2, item3], item4), [
+            equal(insertOrderSorted([item2, item3], item4), [
                 item2,
                 item3,
                 item4,
@@ -37,8 +74,8 @@ describe("Array utils", () => {
         });
 
         it("inserts new items first", () => {
-            const item0 = { priority: 1, first: true };
-            equal(insertPrioritySorted([item1], item0), [item0, item1]);
+            const item0 = { order: 1, first: true };
+            equal(insertOrderSorted([item1], item0), [item0, item1]);
         });
     });
 

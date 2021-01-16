@@ -25,7 +25,7 @@ export class Serializer implements Renderer {
     }
 
     isEnabled(): boolean {
-        return !this.app.options.isDefault("json");
+        return this.app.options.isSet("json");
     }
 
     async render(project: ProjectReflection) {
