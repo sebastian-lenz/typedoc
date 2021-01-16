@@ -144,6 +144,7 @@ export class Application extends ChildableComponent<
             }
         }
         this.options.read(this.logger);
+        this.logger.level = this.options.getValue("logLevel");
     }
 
     /**
@@ -209,9 +210,9 @@ export class Application extends ChildableComponent<
 
         const programs = [
             ts.createProgram({
-                rootNames: this.application.options.getFileNames(),
-                options: this.application.options.getCompilerOptions(),
-                projectReferences: this.application.options.getProjectReferences(),
+                rootNames: this.options.getFileNames(),
+                options: this.options.getCompilerOptions(),
+                projectReferences: this.options.getProjectReferences(),
             }),
         ];
 

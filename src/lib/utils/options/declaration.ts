@@ -316,18 +316,25 @@ export function convert(value: unknown, option: DeclarationOption): unknown {
             return strArrValue;
         }
         case ParameterType.Map: {
-            const key = String(value).toLowerCase();
+            const key = String(value);
             if (option.map instanceof Map) {
                 if (option.map.has(key)) {
                     return option.map.get(key);
                 } else if ([...option.map.values()].includes(value)) {
                     return value;
                 }
-            } else if (key in option.map) {
-                return option.map[key];
-            } else if (Object.values(option.map).includes(value)) {
-                return value;
+            } else {
+                const isEnum = isTsEnum(option.map);
+                const existingValue = Object.values(option.map).includes(value);
+                if (isEnum && typeof value === "number" && existingValue) {
+                    return value;
+                } else if (key in option.map) {
+                    return option.map[key];
+                } else if (!isEnum && existingValue) {
+                    return value;
+                }
             }
+
             throw new Error(
                 option.mapError ?? getMapError(option.map, option.name)
             );
@@ -351,20 +358,19 @@ function getMapError(
     name: string
 ): string {
     let keys = map instanceof Map ? [...map.keys()] : Object.keys(map);
-    const getString = (key: string) =>
-        String(map instanceof Map ? map.get(key) : map[key]);
 
     // If the map is a TS numeric enum we need to filter out the numeric keys.
     // TS numeric enums have the property that every key maps to a value, which maps back to that key.
-    if (
-        !(map instanceof Map) &&
-        keys.every((key) => getString(getString(key)) === key)
-    ) {
+    if (!(map instanceof Map) && isTsEnum(map)) {
         // This works because TS enum keys may not be numeric.
         keys = keys.filter((key) => Number.isNaN(parseInt(key, 10)));
     }
 
     return `${name} must be one of ${keys.join(", ")}`;
+}
+
+function isTsEnum(map: Record<string | number, unknown>) {
+    return Object.keys(map).every((key) => map[String(map[key])] === key);
 }
 
 /**

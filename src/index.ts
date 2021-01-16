@@ -34,7 +34,8 @@ export {
     MixedDeclarationOption,
     MapDeclarationOption,
     DeclarationOptionToOptionType,
-} from "./lib/utils/options";
+    LogLevel,
+} from "./lib/utils";
 
 export { JSONOutput } from "./lib/json";
 

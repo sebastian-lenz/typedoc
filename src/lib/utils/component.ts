@@ -150,8 +150,8 @@ export abstract class AbstractComponent<O extends ComponentHost>
         super.trigger(name, ...args);
 
         if (
-            this.owner instanceof AbstractComponent &&
-            this._componentOwner !== DUMMY_APPLICATION_OWNER
+            this._componentOwner !== DUMMY_APPLICATION_OWNER &&
+            this.owner instanceof AbstractComponent
         ) {
             this.owner.bubble(name, ...args);
         }
@@ -170,9 +170,13 @@ export abstract class AbstractComponent<O extends ComponentHost>
      * Return the application / root component instance.
      */
     get application(): Application {
-        return this._componentOwner === DUMMY_APPLICATION_OWNER
-            ? ((this as any) as Application)
-            : this._componentOwner.application;
+        if (this._componentOwner === DUMMY_APPLICATION_OWNER) {
+            return (this as any) as Application;
+        }
+        if (this._componentOwner instanceof Application) {
+            return this._componentOwner;
+        }
+        return this._componentOwner.application;
     }
 
     /**

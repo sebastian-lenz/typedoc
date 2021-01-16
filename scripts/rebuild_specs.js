@@ -21,6 +21,7 @@ app.bootstrap({
         "tsconfig.json"
     ),
     externalPattern: ["**/node_modules/**"],
+    logLevel: "Warn",
 });
 
 // Note that this uses the test files in dist, not in src, this is important since
@@ -67,7 +68,6 @@ function rebuildConverterTests(dirs) {
     }
 
     for (const fullPath of dirs) {
-        console.log(fullPath);
         const src = app.expandInputFiles([fullPath]);
 
         for (const [file, before, after] of conversions) {
@@ -104,12 +104,15 @@ async function rebuildRendererTest() {
         gaSite: "foo.com",
         tsconfig: path.join(src, "..", "tsconfig.json"),
         externalPattern: ["**/node_modules/**"],
+        disableOutputCheck: true,
+        entryPoints: app.expandInputFiles([src]),
+        out: out,
+        json: path.join(out, "specs.json"),
+        logLevel: "Warn",
     });
 
-    app.options.setValue("entryPoints", app.expandInputFiles([src]));
     const project = app.convert();
-    await app.generateDocs(project, out);
-    await app.generateJson(project, path.join(out, "specs.json"));
+    await app.render(project);
 
     /**
      * Avoiding sync methods here is... difficult.
@@ -141,7 +144,7 @@ async function rebuildRendererTest() {
                     full,
                     text.replace(
                         gitHubRegExp,
-                        "https://github.com/sebastian-lenz/typedoc/blob/master/examples"
+                        "https://github.com/TypeStrong/typedoc/blob/master/examples"
                     )
                 )
             );

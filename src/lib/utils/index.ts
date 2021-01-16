@@ -1,6 +1,27 @@
 export { IfInternal, NeverIfInternal } from "./general";
 
-export { Options, ParameterType, ParameterHint, BindOption } from "./options";
+export {
+    Options,
+    OptionsReader,
+    TypeDocOptions,
+    TypeDocOptionMap,
+    KeyToDeclaration,
+    TSConfigReader,
+    TypeDocReader,
+    ArgumentsReader,
+    DeclarationOption,
+    DeclarationOptionBase,
+    StringDeclarationOption,
+    NumberDeclarationOption,
+    BooleanDeclarationOption,
+    ArrayDeclarationOption,
+    MixedDeclarationOption,
+    MapDeclarationOption,
+    DeclarationOptionToOptionType,
+    ParameterType,
+    ParameterHint,
+    BindOption,
+} from "./options";
 export {
     insertPrioritySorted,
     insertOrderSorted,

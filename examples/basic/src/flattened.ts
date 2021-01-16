@@ -41,7 +41,7 @@ export class FlattenedClass {
 
     /**
      * An object with multiple call signatures.
-     * @see https://github.com/sebastian-lenz/typedoc/issues/27
+     * @see https://github.com/TypeStrong/typedoc/issues/27
      */
     public multipleCallSignatures: {
         /**

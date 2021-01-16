@@ -151,7 +151,7 @@ export abstract class BaseClass implements NameInterface {
      *
      * @param param1 The first parameter needed by this function.
      * @param param2 The second parameter needed by this function.
-     * @see https://github.com/sebastian-lenz/typedoc/issues/37
+     * @see https://github.com/TypeStrong/typedoc/issues/37
      */
     public arrowFunction = (param2: string, param1: number): void => {};
 
@@ -174,7 +174,7 @@ export abstract class BaseClass implements NameInterface {
     }
 
     /**
-     * @see https://github.com/sebastian-lenz/typedoc/issues/42
+     * @see https://github.com/TypeStrong/typedoc/issues/42
      */
     public static caTest(
         originalValues: BaseClass,

@@ -9,9 +9,6 @@
         "strict": true,
         "alwaysStrict": true,
 
-        // For tests
-        "resolveJsonModule": true,
-
         // Linting
         "noUnusedLocals": true,
         "noUnusedParameters": true,
