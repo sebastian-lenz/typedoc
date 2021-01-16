@@ -1,13 +1,13 @@
 {
   "id": 0,
   "name": "typedoc",
-  "kind": 0,
+  "kind": 1,
   "flags": {},
   "children": [
     {
       "id": 1,
       "name": "comment",
-      "kind": 1,
+      "kind": 2,
       "kindString": "Module",
       "flags": {},
       "comment": {
@@ -17,7 +17,7 @@
         {
           "id": 5,
           "name": "CommentedClass",
-          "kind": 64,
+          "kind": 128,
           "kindString": "Class",
           "flags": {},
           "comment": {
@@ -38,14 +38,14 @@
             {
               "id": 6,
               "name": "constructor",
-              "kind": 256,
+              "kind": 512,
               "kindString": "Constructor",
               "flags": {},
               "signatures": [
                 {
                   "id": 7,
                   "name": "new CommentedClass",
-                  "kind": 4096,
+                  "kind": 16384,
                   "kindString": "Constructor signature",
                   "flags": {},
                   "type": {
@@ -59,7 +59,7 @@
             {
               "id": 8,
               "name": "prop",
-              "kind": 512,
+              "kind": 1024,
               "kindString": "Property",
               "flags": {},
               "comment": {
@@ -73,14 +73,14 @@
             {
               "id": 22,
               "name": "mixedHidden",
-              "kind": 1024,
+              "kind": 2048,
               "kindString": "Method",
               "flags": {},
               "signatures": [
                 {
                   "id": 25,
                   "name": "mixedHidden",
-                  "kind": 2048,
+                  "kind": 4096,
                   "kindString": "Call signature",
                   "flags": {},
                   "comment": {
@@ -90,7 +90,7 @@
                     {
                       "id": 26,
                       "name": "arg1",
-                      "kind": 16384,
+                      "kind": 32768,
                       "kindString": "Parameter",
                       "flags": {},
                       "type": {
@@ -101,7 +101,7 @@
                     {
                       "id": 27,
                       "name": "arg2",
-                      "kind": 16384,
+                      "kind": 32768,
                       "kindString": "Parameter",
                       "flags": {},
                       "type": {
@@ -121,21 +121,21 @@
           "groups": [
             {
               "title": "Constructors",
-              "kind": 256,
+              "kind": 512,
               "children": [
                 6
               ]
             },
             {
               "title": "Properties",
-              "kind": 512,
+              "kind": 1024,
               "children": [
                 8
               ]
             },
             {
               "title": "Methods",
-              "kind": 1024,
+              "kind": 2048,
               "children": [
                 22
               ]
@@ -145,14 +145,14 @@
         {
           "id": 2,
           "name": "gh1164",
-          "kind": 32,
+          "kind": 64,
           "kindString": "Function",
           "flags": {},
           "signatures": [
             {
               "id": 3,
               "name": "gh1164",
-              "kind": 2048,
+              "kind": 4096,
               "kindString": "Call signature",
               "flags": {},
               "comment": {
@@ -163,7 +163,7 @@
                 {
                   "id": 4,
                   "name": "scope",
-                  "kind": 16384,
+                  "kind": 32768,
                   "kindString": "Parameter",
                   "flags": {},
                   "comment": {
@@ -186,14 +186,14 @@
       "groups": [
         {
           "title": "Classes",
-          "kind": 64,
+          "kind": 128,
           "children": [
             5
           ]
         },
         {
           "title": "Functions",
-          "kind": 32,
+          "kind": 64,
           "children": [
             2
           ]
@@ -203,7 +203,7 @@
     {
       "id": 29,
       "name": "comment2",
-      "kind": 1,
+      "kind": 2,
       "kindString": "Module",
       "flags": {},
       "comment": {
@@ -213,21 +213,21 @@
         {
           "id": 30,
           "name": "multiply",
-          "kind": 32,
+          "kind": 64,
           "kindString": "Function",
           "flags": {},
           "signatures": [
             {
               "id": 31,
               "name": "multiply",
-              "kind": 2048,
+              "kind": 4096,
               "kindString": "Call signature",
               "flags": {},
               "parameters": [
                 {
                   "id": 32,
                   "name": "a",
-                  "kind": 16384,
+                  "kind": 32768,
                   "kindString": "Parameter",
                   "flags": {},
                   "type": {
@@ -238,7 +238,7 @@
                 {
                   "id": 33,
                   "name": "b",
-                  "kind": 16384,
+                  "kind": 32768,
                   "kindString": "Parameter",
                   "flags": {},
                   "type": {
@@ -258,7 +258,7 @@
       "groups": [
         {
           "title": "Functions",
-          "kind": 32,
+          "kind": 64,
           "children": [
             30
           ]
@@ -269,7 +269,7 @@
   "groups": [
     {
       "title": "Modules",
-      "kind": 1,
+      "kind": 2,
       "children": [
         1,
         29

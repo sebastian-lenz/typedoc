@@ -306,6 +306,11 @@ export class Converter extends ChildableComponent<
             // Special case for when we're giving a single entry point, we don't need to
             // create modules for each entry. Register the project as this module.
             context.project.registerReflection(context.project, symbol);
+            context.trigger(
+                Converter.EVENT_CREATE_DECLARATION,
+                context.project,
+                node
+            );
             moduleContext = context;
         } else {
             const reflection = context.createDeclarationReflection(

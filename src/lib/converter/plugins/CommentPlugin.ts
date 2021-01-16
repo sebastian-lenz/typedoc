@@ -39,26 +39,6 @@ const TAG_BLACKLIST = [
 ];
 
 /**
- * Structure used by [[ContainerCommentHandler]] to store discovered module comments.
- */
-interface ModuleComment {
-    /**
-     * The module reflection this comment is targeting.
-     */
-    reflection: Reflection;
-
-    /**
-     * The full text of the best matched comment.
-     */
-    fullText: string;
-
-    /**
-     * Has the full text been marked as being preferred?
-     */
-    isPreferred: boolean;
-}
-
-/**
  * A handler that parses TypeDoc comments and attaches [[Comment]] instances to
  * the generated reflections.
  */
@@ -68,46 +48,16 @@ export class CommentPlugin extends ConverterComponent {
     excludeTags!: string[];
 
     /**
-     * List of discovered module comments.
-     * Defined in this.onBegin
-     */
-    private comments!: { [id: number]: ModuleComment };
-
-    /**
      * Create a new CommentPlugin instance.
      */
     initialize() {
         this.listenTo(this.owner, {
-            [Converter.EVENT_BEGIN]: this.onBegin,
             [Converter.EVENT_CREATE_DECLARATION]: this.onDeclaration,
             [Converter.EVENT_CREATE_SIGNATURE]: this.onDeclaration,
             [Converter.EVENT_CREATE_TYPE_PARAMETER]: this.onCreateTypeParameter,
             [Converter.EVENT_RESOLVE_BEGIN]: this.onBeginResolve,
             [Converter.EVENT_RESOLVE]: this.onResolve,
         });
-    }
-
-    private storeModuleComment(comment: string, reflection: Reflection) {
-        const isPreferred = comment.toLowerCase().includes("@preferred");
-
-        if (this.comments[reflection.id]) {
-            const info = this.comments[reflection.id];
-            if (
-                !isPreferred &&
-                (info.isPreferred || info.fullText.length > comment.length)
-            ) {
-                return;
-            }
-
-            info.fullText = comment;
-            info.isPreferred = isPreferred;
-        } else {
-            this.comments[reflection.id] = {
-                reflection: reflection,
-                fullText: comment,
-                isPreferred: isPreferred,
-            };
-        }
     }
 
     /**
@@ -152,17 +102,14 @@ export class CommentPlugin extends ConverterComponent {
         }
 
         if (
-            reflection.kindOf(ReflectionKind.Module | ReflectionKind.Namespace)
+            reflection.kindOf(
+                ReflectionKind.Module |
+                    ReflectionKind.Namespace |
+                    ReflectionKind.Project
+            )
         ) {
             comment.removeTags("packagedocumentation");
         }
-    }
-
-    /**
-     * Triggered when the converter begins converting a project.
-     */
-    private onBegin(_context: Context) {
-        this.comments = {};
     }
 
     /**
@@ -227,14 +174,10 @@ export class CommentPlugin extends ConverterComponent {
             return;
         }
 
-        if (reflection.kindOf(ReflectionKind.Namespace)) {
-            this.storeModuleComment(rawComment, reflection);
-        } else {
-            const comment = parseComment(rawComment, reflection.comment);
-            this.applyModifiers(reflection, comment);
-            this.removeExcludedTags(comment);
-            reflection.comment = comment;
-        }
+        const comment = parseComment(rawComment, reflection.comment);
+        this.applyModifiers(reflection, comment);
+        this.removeExcludedTags(comment);
+        reflection.comment = comment;
 
         if (reflection.kindOf(ReflectionKind.Module)) {
             const tag = reflection.comment?.getTag("module");
@@ -251,14 +194,6 @@ export class CommentPlugin extends ConverterComponent {
      * @param context  The context object describing the current state the converter is in.
      */
     private onBeginResolve(context: Context) {
-        for (const info of Object.values(this.comments)) {
-            const comment = parseComment(info.fullText);
-            comment.removeTags("preferred");
-
-            this.applyModifiers(info.reflection, comment);
-            info.reflection.comment = comment;
-        }
-
         const excludeInternal = this.application.options.getValue(
             "excludeInternal"
         );

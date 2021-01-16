@@ -1,14 +1,23 @@
 {
   "id": 0,
   "name": "typedoc",
-  "kind": 0,
+  "kind": 1,
   "kindString": "Project",
   "flags": {},
+  "comment": {
+    "shortText": "not included anywhere",
+    "tags": [
+      {
+        "tag": "property",
+        "text": "{string} foo docs for property\nmore docs for property\n"
+      }
+    ]
+  },
   "children": [
     {
       "id": 11,
       "name": "AlsoInterfaceIsh",
-      "kind": 128,
+      "kind": 256,
       "kindString": "Interface",
       "flags": {},
       "comment": {
@@ -18,7 +27,7 @@
         {
           "id": 13,
           "name": "bar",
-          "kind": 512,
+          "kind": 1024,
           "kindString": "Property",
           "flags": {},
           "comment": {
@@ -32,7 +41,7 @@
         {
           "id": 12,
           "name": "foo",
-          "kind": 512,
+          "kind": 1024,
           "kindString": "Property",
           "flags": {},
           "comment": {
@@ -47,7 +56,7 @@
       "groups": [
         {
           "title": "Properties",
-          "kind": 512,
+          "kind": 1024,
           "children": [
             13,
             12
@@ -58,14 +67,14 @@
     {
       "id": 9,
       "name": "InterfaceIsh",
-      "kind": 128,
+      "kind": 256,
       "kindString": "Interface",
       "flags": {},
       "children": [
         {
           "id": 10,
           "name": "foo",
-          "kind": 512,
+          "kind": 1024,
           "kindString": "Property",
           "flags": {},
           "comment": {
@@ -80,7 +89,7 @@
       "groups": [
         {
           "title": "Properties",
-          "kind": 512,
+          "kind": 1024,
           "children": [
             10
           ]
@@ -90,7 +99,7 @@
     {
       "id": 8,
       "name": "ColumnType",
-      "kind": 1048576,
+      "kind": 2097152,
       "kindString": "Type alias",
       "flags": {},
       "type": {
@@ -101,7 +110,7 @@
     {
       "id": 38,
       "name": "Foo",
-      "kind": 1048576,
+      "kind": 2097152,
       "kindString": "Type alias",
       "flags": {},
       "type": {
@@ -109,21 +118,21 @@
         "declaration": {
           "id": 39,
           "name": "__type",
-          "kind": 32768,
+          "kind": 65536,
           "kindString": "Type literal",
           "flags": {},
           "signatures": [
             {
               "id": 40,
               "name": "__type",
-              "kind": 2048,
+              "kind": 4096,
               "kindString": "Call signature",
               "flags": {},
               "parameters": [
                 {
                   "id": 41,
                   "name": "args",
-                  "kind": 16384,
+                  "kind": 32768,
                   "kindString": "Parameter",
                   "flags": {
                     "isRest": true
@@ -149,7 +158,7 @@
     {
       "id": 24,
       "name": "HasReturnTag",
-      "kind": 1048576,
+      "kind": 2097152,
       "kindString": "Type alias",
       "flags": {},
       "type": {
@@ -157,14 +166,14 @@
         "declaration": {
           "id": 25,
           "name": "__type",
-          "kind": 32768,
+          "kind": 65536,
           "kindString": "Type literal",
           "flags": {},
           "signatures": [
             {
               "id": 26,
               "name": "__type",
-              "kind": 2048,
+              "kind": 4096,
               "kindString": "Call signature",
               "flags": {},
               "type": {
@@ -179,7 +188,7 @@
     {
       "id": 36,
       "name": "Identity",
-      "kind": 1048576,
+      "kind": 2097152,
       "kindString": "Type alias",
       "flags": {},
       "comment": {
@@ -189,7 +198,7 @@
         {
           "id": 37,
           "name": "T",
-          "kind": 65536,
+          "kind": 131072,
           "kindString": "Type parameter",
           "flags": {},
           "comment": {
@@ -205,14 +214,14 @@
     {
       "id": 27,
       "name": "IdentityFn",
-      "kind": 1048576,
+      "kind": 2097152,
       "kindString": "Type alias",
       "flags": {},
       "typeParameter": [
         {
           "id": 31,
           "name": "T",
-          "kind": 65536,
+          "kind": 131072,
           "kindString": "Type parameter",
           "flags": {}
         }
@@ -222,21 +231,21 @@
         "declaration": {
           "id": 28,
           "name": "__type",
-          "kind": 32768,
+          "kind": 65536,
           "kindString": "Type literal",
           "flags": {},
           "signatures": [
             {
               "id": 29,
               "name": "__type",
-              "kind": 2048,
+              "kind": 4096,
               "kindString": "Call signature",
               "flags": {},
               "parameters": [
                 {
                   "id": 30,
                   "name": "data",
-                  "kind": 16384,
+                  "kind": 32768,
                   "kindString": "Parameter",
                   "flags": {},
                   "type": {
@@ -257,7 +266,7 @@
     {
       "id": 16,
       "name": "IntersectionType",
-      "kind": 1048576,
+      "kind": 2097152,
       "kindString": "Type alias",
       "flags": {},
       "comment": {
@@ -271,14 +280,14 @@
             "declaration": {
               "id": 17,
               "name": "__type",
-              "kind": 32768,
+              "kind": 65536,
               "kindString": "Type literal",
               "flags": {},
               "children": [
                 {
                   "id": 18,
                   "name": "x",
-                  "kind": 512,
+                  "kind": 1024,
                   "kindString": "Property",
                   "flags": {},
                   "type": {
@@ -290,7 +299,7 @@
               "groups": [
                 {
                   "title": "Properties",
-                  "kind": 512,
+                  "kind": 1024,
                   "children": [
                     18
                   ]
@@ -303,14 +312,14 @@
             "declaration": {
               "id": 19,
               "name": "__type",
-              "kind": 32768,
+              "kind": 65536,
               "kindString": "Type literal",
               "flags": {},
               "children": [
                 {
                   "id": 20,
                   "name": "y",
-                  "kind": 512,
+                  "kind": 1024,
                   "kindString": "Property",
                   "flags": {},
                   "type": {
@@ -322,7 +331,7 @@
               "groups": [
                 {
                   "title": "Properties",
-                  "kind": 512,
+                  "kind": 1024,
                   "children": [
                     20
                   ]
@@ -336,7 +345,7 @@
     {
       "id": 21,
       "name": "NoReturnTag",
-      "kind": 1048576,
+      "kind": 2097152,
       "kindString": "Type alias",
       "flags": {},
       "type": {
@@ -344,14 +353,14 @@
         "declaration": {
           "id": 22,
           "name": "__type",
-          "kind": 32768,
+          "kind": 65536,
           "kindString": "Type literal",
           "flags": {},
           "signatures": [
             {
               "id": 23,
               "name": "__type",
-              "kind": 2048,
+              "kind": 4096,
               "kindString": "Call signature",
               "flags": {},
               "type": {
@@ -366,7 +375,7 @@
     {
       "id": 14,
       "name": "ObjectAlias",
-      "kind": 1048576,
+      "kind": 2097152,
       "kindString": "Type alias",
       "flags": {},
       "comment": {
@@ -380,7 +389,7 @@
     {
       "id": 32,
       "name": "OptionalArg",
-      "kind": 1048576,
+      "kind": 2097152,
       "kindString": "Type alias",
       "flags": {},
       "type": {
@@ -388,21 +397,21 @@
         "declaration": {
           "id": 33,
           "name": "__type",
-          "kind": 32768,
+          "kind": 65536,
           "kindString": "Type literal",
           "flags": {},
           "signatures": [
             {
               "id": 34,
               "name": "__type",
-              "kind": 2048,
+              "kind": 4096,
               "kindString": "Call signature",
               "flags": {},
               "parameters": [
                 {
                   "id": 35,
                   "name": "data",
-                  "kind": 16384,
+                  "kind": 32768,
                   "kindString": "Parameter",
                   "flags": {
                     "isOptional": true
@@ -425,7 +434,7 @@
     {
       "id": 15,
       "name": "UnionType",
-      "kind": 1048576,
+      "kind": 2097152,
       "kindString": "Type alias",
       "flags": {},
       "comment": {
@@ -448,7 +457,7 @@
     {
       "id": 4,
       "name": "ColumnType",
-      "kind": 16,
+      "kind": 32,
       "kindString": "Variable",
       "flags": {},
       "comment": {},
@@ -457,14 +466,14 @@
         "declaration": {
           "id": 5,
           "name": "__type",
-          "kind": 32768,
+          "kind": 65536,
           "kindString": "Type literal",
           "flags": {},
           "children": [
             {
               "id": 7,
               "name": "NUMBER",
-              "kind": 512,
+              "kind": 1024,
               "kindString": "Property",
               "flags": {},
               "type": {
@@ -476,7 +485,7 @@
             {
               "id": 6,
               "name": "STRING",
-              "kind": 512,
+              "kind": 1024,
               "kindString": "Property",
               "flags": {},
               "type": {
@@ -489,7 +498,7 @@
           "groups": [
             {
               "title": "Properties",
-              "kind": 512,
+              "kind": 1024,
               "children": [
                 7,
                 6
@@ -503,14 +512,14 @@
     {
       "id": 1,
       "name": "usedFoo",
-      "kind": 32,
+      "kind": 64,
       "kindString": "Function",
       "flags": {},
       "signatures": [
         {
           "id": 2,
           "name": "usedFoo",
-          "kind": 2048,
+          "kind": 4096,
           "kindString": "Call signature",
           "flags": {},
           "comment": {},
@@ -518,7 +527,7 @@
             {
               "id": 3,
               "name": "args",
-              "kind": 16384,
+              "kind": 32768,
               "kindString": "Parameter",
               "flags": {
                 "isRest": true
@@ -543,7 +552,7 @@
   "groups": [
     {
       "title": "Interfaces",
-      "kind": 128,
+      "kind": 256,
       "children": [
         11,
         9
@@ -551,7 +560,7 @@
     },
     {
       "title": "Type aliases",
-      "kind": 1048576,
+      "kind": 2097152,
       "children": [
         8,
         38,
@@ -567,14 +576,14 @@
     },
     {
       "title": "Variables",
-      "kind": 16,
+      "kind": 32,
       "children": [
         4
       ]
     },
     {
       "title": "Functions",
-      "kind": 32,
+      "kind": 64,
       "children": [
         1
       ]

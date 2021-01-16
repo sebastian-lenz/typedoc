@@ -1,34 +1,34 @@
 {
   "id": 0,
   "name": "typedoc",
-  "kind": 0,
+  "kind": 1,
   "flags": {},
   "children": [
     {
       "id": 1,
       "name": "declaration",
-      "kind": 1,
+      "kind": 2,
       "kindString": "Module",
       "flags": {},
       "children": [
         {
           "id": 2,
           "name": "Decl",
-          "kind": 64,
+          "kind": 128,
           "kindString": "Class",
           "flags": {},
           "children": [
             {
               "id": 3,
               "name": "constructor",
-              "kind": 256,
+              "kind": 512,
               "kindString": "Constructor",
               "flags": {},
               "signatures": [
                 {
                   "id": 4,
                   "name": "new Decl",
-                  "kind": 4096,
+                  "kind": 16384,
                   "kindString": "Constructor signature",
                   "flags": {},
                   "type": {
@@ -42,7 +42,7 @@
             {
               "id": 5,
               "name": "prop",
-              "kind": 512,
+              "kind": 1024,
               "kindString": "Property",
               "flags": {},
               "type": {
@@ -54,14 +54,14 @@
           "groups": [
             {
               "title": "Constructors",
-              "kind": 256,
+              "kind": 512,
               "children": [
                 3
               ]
             },
             {
               "title": "Properties",
-              "kind": 512,
+              "kind": 1024,
               "children": [
                 5
               ]
@@ -71,7 +71,7 @@
         {
           "id": 6,
           "name": "x",
-          "kind": 16,
+          "kind": 32,
           "kindString": "Variable",
           "flags": {},
           "type": {
@@ -83,14 +83,14 @@
       "groups": [
         {
           "title": "Classes",
-          "kind": 64,
+          "kind": 128,
           "children": [
             2
           ]
         },
         {
           "title": "Variables",
-          "kind": 16,
+          "kind": 32,
           "children": [
             6
           ]
@@ -100,28 +100,28 @@
     {
       "id": 7,
       "name": "export-declaration",
-      "kind": 1,
+      "kind": 2,
       "kindString": "Module",
       "flags": {},
       "children": [
         {
           "id": 8,
           "name": "Exported",
-          "kind": 64,
+          "kind": 128,
           "kindString": "Class",
           "flags": {},
           "children": [
             {
               "id": 9,
               "name": "constructor",
-              "kind": 256,
+              "kind": 512,
               "kindString": "Constructor",
               "flags": {},
               "signatures": [
                 {
                   "id": 10,
                   "name": "new Exported",
-                  "kind": 4096,
+                  "kind": 16384,
                   "kindString": "Constructor signature",
                   "flags": {},
                   "type": {
@@ -136,7 +136,7 @@
           "groups": [
             {
               "title": "Constructors",
-              "kind": 256,
+              "kind": 512,
               "children": [
                 9
               ]
@@ -146,21 +146,21 @@
         {
           "id": 11,
           "name": "NotExported",
-          "kind": 64,
+          "kind": 128,
           "kindString": "Class",
           "flags": {},
           "children": [
             {
               "id": 12,
               "name": "constructor",
-              "kind": 256,
+              "kind": 512,
               "kindString": "Constructor",
               "flags": {},
               "signatures": [
                 {
                   "id": 13,
                   "name": "new NotExported",
-                  "kind": 4096,
+                  "kind": 16384,
                   "kindString": "Constructor signature",
                   "flags": {},
                   "type": {
@@ -175,7 +175,7 @@
           "groups": [
             {
               "title": "Constructors",
-              "kind": 256,
+              "kind": 512,
               "children": [
                 12
               ]
@@ -186,7 +186,7 @@
       "groups": [
         {
           "title": "Classes",
-          "kind": 64,
+          "kind": 128,
           "children": [
             8,
             11
@@ -197,21 +197,21 @@
     {
       "id": 14,
       "name": "global-fn",
-      "kind": 1,
+      "kind": 2,
       "kindString": "Module",
       "flags": {},
       "children": [
         {
           "id": 15,
           "name": "gh1436",
-          "kind": 32,
+          "kind": 64,
           "kindString": "Function",
           "flags": {},
           "signatures": [
             {
               "id": 16,
               "name": "gh1436",
-              "kind": 2048,
+              "kind": 4096,
               "kindString": "Call signature",
               "flags": {},
               "type": {
@@ -225,7 +225,7 @@
       "groups": [
         {
           "title": "Functions",
-          "kind": 32,
+          "kind": 64,
           "children": [
             15
           ]
@@ -235,21 +235,21 @@
     {
       "id": 17,
       "name": "namespaces",
-      "kind": 1,
+      "kind": 2,
       "kindString": "Module",
       "flags": {},
       "children": [
         {
           "id": 22,
           "name": "GH1124",
-          "kind": 2,
+          "kind": 4,
           "kindString": "Namespace",
           "flags": {},
           "children": [
             {
               "id": 23,
               "name": "PrimitiveType",
-              "kind": 1048576,
+              "kind": 2097152,
               "kindString": "Type alias",
               "flags": {},
               "type": {
@@ -277,7 +277,7 @@
             {
               "id": 24,
               "name": "Value",
-              "kind": 16,
+              "kind": 32,
               "kindString": "Variable",
               "flags": {},
               "type": {
@@ -289,14 +289,14 @@
           "groups": [
             {
               "title": "Type aliases",
-              "kind": 1048576,
+              "kind": 2097152,
               "children": [
                 23
               ]
             },
             {
               "title": "Variables",
-              "kind": 16,
+              "kind": 32,
               "children": [
                 24
               ]
@@ -306,14 +306,14 @@
         {
           "id": 20,
           "name": "GH1366",
-          "kind": 2,
+          "kind": 4,
           "kindString": "Namespace",
           "flags": {},
           "children": [
             {
               "id": 21,
               "name": "Foo",
-              "kind": 4194304,
+              "kind": 8388608,
               "kindString": "Reference",
               "flags": {},
               "target": 18
@@ -322,7 +322,7 @@
           "groups": [
             {
               "title": "References",
-              "kind": 4194304,
+              "kind": 8388608,
               "children": [
                 21
               ]
@@ -332,14 +332,14 @@
         {
           "id": 18,
           "name": "Foo",
-          "kind": 128,
+          "kind": 256,
           "kindString": "Interface",
           "flags": {},
           "children": [
             {
               "id": 19,
               "name": "prop",
-              "kind": 512,
+              "kind": 1024,
               "kindString": "Property",
               "flags": {},
               "type": {
@@ -351,7 +351,7 @@
           "groups": [
             {
               "title": "Properties",
-              "kind": 512,
+              "kind": 1024,
               "children": [
                 19
               ]
@@ -362,7 +362,7 @@
       "groups": [
         {
           "title": "Namespaces",
-          "kind": 2,
+          "kind": 4,
           "children": [
             22,
             20
@@ -370,7 +370,7 @@
         },
         {
           "title": "Interfaces",
-          "kind": 128,
+          "kind": 256,
           "children": [
             18
           ]
@@ -381,7 +381,7 @@
   "groups": [
     {
       "title": "Modules",
-      "kind": 1,
+      "kind": 2,
       "children": [
         1,
         7,

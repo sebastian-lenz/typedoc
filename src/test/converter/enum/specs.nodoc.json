@@ -1,14 +1,14 @@
 {
   "id": 0,
   "name": "typedoc",
-  "kind": 0,
+  "kind": 1,
   "kindString": "Project",
   "flags": {},
   "children": [
     {
       "id": 9,
       "name": "ModuleEnum",
-      "kind": 2,
+      "kind": 4,
       "kindString": "Namespace",
       "flags": {},
       "comment": {
@@ -18,7 +18,7 @@
         {
           "id": 12,
           "name": "enumValue",
-          "kind": 16,
+          "kind": 32,
           "kindString": "Variable",
           "flags": {},
           "comment": {
@@ -32,14 +32,14 @@
         {
           "id": 10,
           "name": "enumFunction",
-          "kind": 32,
+          "kind": 64,
           "kindString": "Function",
           "flags": {},
           "signatures": [
             {
               "id": 11,
               "name": "enumFunction",
-              "kind": 2048,
+              "kind": 4096,
               "kindString": "Call signature",
               "flags": {},
               "comment": {
@@ -56,14 +56,14 @@
       "groups": [
         {
           "title": "Variables",
-          "kind": 16,
+          "kind": 32,
           "children": [
             12
           ]
         },
         {
           "title": "Functions",
-          "kind": 32,
+          "kind": 64,
           "children": [
             10
           ]
@@ -73,7 +73,7 @@
     {
       "id": 13,
       "name": "ConstEnum",
-      "kind": 4,
+      "kind": 8,
       "kindString": "Enumeration",
       "flags": {},
       "comment": {
@@ -83,7 +83,7 @@
         {
           "id": 14,
           "name": "a",
-          "kind": 8,
+          "kind": 16,
           "kindString": "Enumeration member",
           "flags": {},
           "defaultValue": "1"
@@ -91,7 +91,7 @@
         {
           "id": 15,
           "name": "b",
-          "kind": 8,
+          "kind": 16,
           "kindString": "Enumeration member",
           "flags": {},
           "defaultValue": "2"
@@ -100,7 +100,7 @@
       "groups": [
         {
           "title": "Enumeration members",
-          "kind": 8,
+          "kind": 16,
           "children": [
             14,
             15
@@ -111,7 +111,7 @@
     {
       "id": 5,
       "name": "ModuleEnum",
-      "kind": 4,
+      "kind": 8,
       "kindString": "Enumeration",
       "flags": {},
       "comment": {
@@ -121,7 +121,7 @@
         {
           "id": 6,
           "name": "EnumValue1",
-          "kind": 8,
+          "kind": 16,
           "kindString": "Enumeration member",
           "flags": {},
           "comment": {
@@ -132,7 +132,7 @@
         {
           "id": 7,
           "name": "EnumValue2",
-          "kind": 8,
+          "kind": 16,
           "kindString": "Enumeration member",
           "flags": {},
           "comment": {
@@ -143,7 +143,7 @@
         {
           "id": 8,
           "name": "EnumValue3",
-          "kind": 8,
+          "kind": 16,
           "kindString": "Enumeration member",
           "flags": {},
           "comment": {
@@ -155,7 +155,7 @@
       "groups": [
         {
           "title": "Enumeration members",
-          "kind": 8,
+          "kind": 16,
           "children": [
             6,
             7,
@@ -167,7 +167,7 @@
     {
       "id": 1,
       "name": "SimpleEnum",
-      "kind": 4,
+      "kind": 8,
       "kindString": "Enumeration",
       "flags": {},
       "comment": {
@@ -177,7 +177,7 @@
         {
           "id": 2,
           "name": "EnumValue1",
-          "kind": 8,
+          "kind": 16,
           "kindString": "Enumeration member",
           "flags": {},
           "comment": {
@@ -188,7 +188,7 @@
         {
           "id": 3,
           "name": "EnumValue2",
-          "kind": 8,
+          "kind": 16,
           "kindString": "Enumeration member",
           "flags": {},
           "comment": {
@@ -199,7 +199,7 @@
         {
           "id": 4,
           "name": "EnumValue3",
-          "kind": 8,
+          "kind": 16,
           "kindString": "Enumeration member",
           "flags": {},
           "comment": {
@@ -211,7 +211,7 @@
       "groups": [
         {
           "title": "Enumeration members",
-          "kind": 8,
+          "kind": 16,
           "children": [
             2,
             3,
@@ -224,14 +224,14 @@
   "groups": [
     {
       "title": "Namespaces",
-      "kind": 2,
+      "kind": 4,
       "children": [
         9
       ]
     },
     {
       "title": "Enumerations",
-      "kind": 4,
+      "kind": 8,
       "children": [
         13,
         5,

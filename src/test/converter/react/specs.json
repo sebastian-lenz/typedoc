@@ -1,35 +1,35 @@
 {
   "id": 0,
   "name": "typedoc",
-  "kind": 0,
+  "kind": 1,
   "kindString": "Project",
   "flags": {},
   "children": [
     {
       "id": 4,
       "name": "Demo",
-      "kind": 64,
+      "kind": 128,
       "kindString": "Class",
       "flags": {},
       "children": [
         {
           "id": 5,
           "name": "constructor",
-          "kind": 256,
+          "kind": 512,
           "kindString": "Constructor",
           "flags": {},
           "signatures": [
             {
               "id": 6,
               "name": "new Demo",
-              "kind": 4096,
+              "kind": 16384,
               "kindString": "Constructor signature",
               "flags": {},
               "parameters": [
                 {
                   "id": 7,
                   "name": "props",
-                  "kind": 16384,
+                  "kind": 32768,
                   "kindString": "Parameter",
                   "flags": {},
                   "type": {
@@ -50,7 +50,7 @@
         {
           "id": 8,
           "name": "foo",
-          "kind": 512,
+          "kind": 1024,
           "kindString": "Property",
           "flags": {
             "isPrivate": true
@@ -63,14 +63,14 @@
         {
           "id": 9,
           "name": "render",
-          "kind": 1024,
+          "kind": 2048,
           "kindString": "Method",
           "flags": {},
           "signatures": [
             {
               "id": 10,
               "name": "render",
-              "kind": 2048,
+              "kind": 4096,
               "kindString": "Call signature",
               "flags": {},
               "type": {
@@ -84,21 +84,21 @@
       "groups": [
         {
           "title": "Constructors",
-          "kind": 256,
+          "kind": 512,
           "children": [
             5
           ]
         },
         {
           "title": "Properties",
-          "kind": 512,
+          "kind": 1024,
           "children": [
             8
           ]
         },
         {
           "title": "Methods",
-          "kind": 1024,
+          "kind": 2048,
           "children": [
             9
           ]
@@ -108,14 +108,14 @@
     {
       "id": 1,
       "name": "DemoProps",
-      "kind": 128,
+      "kind": 256,
       "kindString": "Interface",
       "flags": {},
       "children": [
         {
           "id": 3,
           "name": "age",
-          "kind": 512,
+          "kind": 1024,
           "kindString": "Property",
           "flags": {},
           "type": {
@@ -126,7 +126,7 @@
         {
           "id": 2,
           "name": "name",
-          "kind": 512,
+          "kind": 1024,
           "kindString": "Property",
           "flags": {},
           "type": {
@@ -138,7 +138,7 @@
       "groups": [
         {
           "title": "Properties",
-          "kind": 512,
+          "kind": 1024,
           "children": [
             3,
             2
@@ -150,14 +150,14 @@
   "groups": [
     {
       "title": "Classes",
-      "kind": 64,
+      "kind": 128,
       "children": [
         4
       ]
     },
     {
       "title": "Interfaces",
-      "kind": 128,
+      "kind": 256,
       "children": [
         1
       ]

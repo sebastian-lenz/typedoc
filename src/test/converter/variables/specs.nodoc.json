@@ -1,20 +1,20 @@
 {
   "id": 0,
   "name": "typedoc",
-  "kind": 0,
+  "kind": 1,
   "flags": {},
   "children": [
     {
       "id": 1,
       "name": "array",
-      "kind": 1,
+      "kind": 2,
       "kindString": "Module",
       "flags": {},
       "children": [
         {
           "id": 2,
           "name": "Array",
-          "kind": 64,
+          "kind": 128,
           "kindString": "Class",
           "flags": {},
           "comment": {
@@ -24,21 +24,21 @@
             {
               "id": 3,
               "name": "constructor",
-              "kind": 256,
+              "kind": 512,
               "kindString": "Constructor",
               "flags": {},
               "signatures": [
                 {
                   "id": 4,
                   "name": "new Array",
-                  "kind": 4096,
+                  "kind": 16384,
                   "kindString": "Constructor signature",
                   "flags": {},
                   "typeParameter": [
                     {
                       "id": 5,
                       "name": "T",
-                      "kind": 65536,
+                      "kind": 131072,
                       "kindString": "Type parameter",
                       "flags": {}
                     }
@@ -61,7 +61,7 @@
           "groups": [
             {
               "title": "Constructors",
-              "kind": 256,
+              "kind": 512,
               "children": [
                 3
               ]
@@ -71,7 +71,7 @@
             {
               "id": 6,
               "name": "T",
-              "kind": 65536,
+              "kind": 131072,
               "kindString": "Type parameter",
               "flags": {}
             }
@@ -87,7 +87,7 @@
         {
           "id": 9,
           "name": "Foo",
-          "kind": 64,
+          "kind": 128,
           "kindString": "Class",
           "flags": {},
           "comment": {
@@ -97,14 +97,14 @@
             {
               "id": 10,
               "name": "constructor",
-              "kind": 256,
+              "kind": 512,
               "kindString": "Constructor",
               "flags": {},
               "signatures": [
                 {
                   "id": 11,
                   "name": "new Foo",
-                  "kind": 4096,
+                  "kind": 16384,
                   "kindString": "Constructor signature",
                   "flags": {},
                   "type": {
@@ -119,7 +119,7 @@
           "groups": [
             {
               "title": "Constructors",
-              "kind": 256,
+              "kind": 512,
               "children": [
                 10
               ]
@@ -129,7 +129,7 @@
         {
           "id": 12,
           "name": "FooList",
-          "kind": 64,
+          "kind": 128,
           "kindString": "Class",
           "flags": {},
           "comment": {
@@ -139,14 +139,14 @@
             {
               "id": 13,
               "name": "constructor",
-              "kind": 256,
+              "kind": 512,
               "kindString": "Constructor",
               "flags": {},
               "signatures": [
                 {
                   "id": 14,
                   "name": "new FooList",
-                  "kind": 4096,
+                  "kind": 16384,
                   "kindString": "Constructor signature",
                   "flags": {},
                   "type": {
@@ -171,7 +171,7 @@
           "groups": [
             {
               "title": "Constructors",
-              "kind": 256,
+              "kind": 512,
               "children": [
                 13
               ]
@@ -195,7 +195,7 @@
         {
           "id": 7,
           "name": "complex",
-          "kind": 16,
+          "kind": 32,
           "kindString": "Variable",
           "flags": {},
           "comment": {
@@ -250,7 +250,7 @@
         {
           "id": 8,
           "name": "custom",
-          "kind": 16,
+          "kind": 32,
           "kindString": "Variable",
           "flags": {},
           "comment": {
@@ -273,7 +273,7 @@
       "groups": [
         {
           "title": "Classes",
-          "kind": 64,
+          "kind": 128,
           "children": [
             2,
             9,
@@ -282,7 +282,7 @@
         },
         {
           "title": "Variables",
-          "kind": 16,
+          "kind": 32,
           "children": [
             7,
             8
@@ -293,21 +293,21 @@
     {
       "id": 15,
       "name": "destructuring",
-      "kind": 1,
+      "kind": 2,
       "kindString": "Module",
       "flags": {},
       "children": [
         {
           "id": 16,
           "name": "drawText",
-          "kind": 32,
+          "kind": 64,
           "kindString": "Function",
           "flags": {},
           "signatures": [
             {
               "id": 17,
               "name": "drawText",
-              "kind": 2048,
+              "kind": 4096,
               "kindString": "Call signature",
               "flags": {},
               "comment": {
@@ -317,7 +317,7 @@
                 {
                   "id": 18,
                   "name": "__namedParameters",
-                  "kind": 16384,
+                  "kind": 32768,
                   "kindString": "Parameter",
                   "flags": {},
                   "type": {
@@ -337,7 +337,7 @@
       "groups": [
         {
           "title": "Functions",
-          "kind": 32,
+          "kind": 64,
           "children": [
             16
           ]
@@ -347,14 +347,14 @@
     {
       "id": 19,
       "name": "literal",
-      "kind": 1,
+      "kind": 2,
       "kindString": "Module",
       "flags": {},
       "children": [
         {
           "id": 22,
           "name": "objectLiteral",
-          "kind": 16,
+          "kind": 32,
           "kindString": "Variable",
           "flags": {},
           "comment": {
@@ -365,7 +365,7 @@
             "declaration": {
               "id": 23,
               "name": "__type",
-              "kind": 32768,
+              "kind": 65536,
               "kindString": "Type literal",
               "flags": {}
             }
@@ -375,7 +375,7 @@
         {
           "id": 20,
           "name": "typeLiteral",
-          "kind": 16,
+          "kind": 32,
           "kindString": "Variable",
           "flags": {},
           "comment": {
@@ -386,7 +386,7 @@
             "declaration": {
               "id": 21,
               "name": "__type",
-              "kind": 32768,
+              "kind": 65536,
               "kindString": "Type literal",
               "flags": {}
             }
@@ -396,7 +396,7 @@
       "groups": [
         {
           "title": "Variables",
-          "kind": 16,
+          "kind": 32,
           "children": [
             22,
             20
@@ -407,7 +407,7 @@
     {
       "id": 24,
       "name": "variable",
-      "kind": 1,
+      "kind": 2,
       "kindString": "Module",
       "flags": {}
     }
@@ -415,7 +415,7 @@
   "groups": [
     {
       "title": "Modules",
-      "kind": 1,
+      "kind": 2,
       "children": [
         1,
         15,
