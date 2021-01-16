@@ -259,8 +259,9 @@ export class CommentPlugin extends ConverterComponent {
             info.reflection.comment = comment;
         }
 
-        const stripInternal = !!this.application.options.getCompilerOptions()
-            .stripInternal;
+        const excludeInternal = this.application.options.getValue(
+            "excludeInternal"
+        );
         const excludePrivate = this.application.options.getValue(
             "excludePrivate"
         );
@@ -275,7 +276,7 @@ export class CommentPlugin extends ConverterComponent {
         const hidden = reflections.filter((reflection) =>
             CommentPlugin.isHidden(
                 reflection,
-                stripInternal,
+                excludeInternal,
                 excludePrivate,
                 excludeProtected
             )
@@ -387,7 +388,7 @@ export class CommentPlugin extends ConverterComponent {
      */
     private static isHidden(
         reflection: Reflection,
-        stripInternal: boolean,
+        excludeInternal: boolean,
         excludePrivate: boolean,
         excludeProtected: boolean
     ) {
@@ -414,7 +415,7 @@ export class CommentPlugin extends ConverterComponent {
         return (
             comment.hasTag("hidden") ||
             comment.hasTag("ignore") ||
-            (comment.hasTag("internal") && stripInternal)
+            (comment.hasTag("internal") && excludeInternal)
         );
     }
 }

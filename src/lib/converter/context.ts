@@ -13,6 +13,7 @@ import {
 import type { Converter } from "./converter";
 import { isNamedNode } from "./utils/nodes";
 import { ConverterEvents } from "./converter-events";
+import { resolveAliasedSymbol } from "./utils/symbols";
 
 /**
  * The context describes the current state the converter is in.
@@ -161,13 +162,8 @@ export class Context {
         return symbol;
     }
 
-    resolveAliasedSymbol(symbol: ts.Symbol): ts.Symbol;
-    resolveAliasedSymbol(symbol: ts.Symbol | undefined): ts.Symbol | undefined;
-    resolveAliasedSymbol(symbol: ts.Symbol | undefined) {
-        while (symbol && ts.SymbolFlags.Alias & symbol.flags) {
-            symbol = this.checker.getAliasedSymbol(symbol);
-        }
-        return symbol;
+    resolveAliasedSymbol(symbol: ts.Symbol): ts.Symbol {
+        return resolveAliasedSymbol(symbol, this.checker);
     }
 
     createDeclarationReflection(

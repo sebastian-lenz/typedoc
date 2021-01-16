@@ -51,3 +51,9 @@
 
 /** @type {Foo} */
 export const usedFoo = () => 1;
+
+/** @enum {string} */
+export const ColumnType = {
+    STRING: "string",
+    NUMBER: "number",
+};

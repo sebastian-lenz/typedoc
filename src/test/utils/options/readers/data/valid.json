@@ -1,4 +1,4 @@
 {
-    "$schema": "https://json.schemastore.org/typedoc",
+    "$schema": "https://typedoc.org/schema.json",
     "gitRevision": "master"
 }

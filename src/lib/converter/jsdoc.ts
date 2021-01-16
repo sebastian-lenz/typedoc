@@ -19,10 +19,10 @@ import {
     convertTypeParameterNodes,
 } from "./factories/signature";
 
-export function convertJsDocTypedef(
+export function convertJsDocAlias(
     context: Context,
     symbol: ts.Symbol,
-    declaration: ts.JSDocTypedefTag,
+    declaration: ts.JSDocTypedefTag | ts.JSDocEnumTag,
     nameOverride?: string
 ) {
     if (
@@ -69,7 +69,7 @@ export function convertJsDocCallback(
 
 function convertJsDocInterface(
     context: Context,
-    declaration: ts.JSDocTypedefTag,
+    declaration: ts.JSDocTypedefTag | ts.JSDocEnumTag,
     symbol: ts.Symbol,
     nameOverride?: string
 ) {

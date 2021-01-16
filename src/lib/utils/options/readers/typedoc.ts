@@ -27,7 +27,7 @@ export class TypeDocReader implements OptionsReader {
         const file = this.findTypedocFile(path);
 
         if (!file) {
-            if (!container.isDefault("options")) {
+            if (container.isSet("options")) {
                 logger.error(
                     `The options file could not be found with the given path ${path}`
                 );

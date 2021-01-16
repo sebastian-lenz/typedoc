@@ -16,6 +16,7 @@ import { getCommonDirectory } from "../utils/fs";
 import { createMinimatch } from "../utils/paths";
 import { IMinimatch } from "minimatch";
 import { hasFlag } from "../utils/enum";
+import { resolveAliasedSymbol } from "./utils/symbols";
 
 /**
  * Compiles source files using TypeScript and converts compiler symbols to reflections.
@@ -298,7 +299,7 @@ export class Converter extends ChildableComponent<
         entryPoints: readonly string[],
         entryName: string
     ) {
-        const symbol = context.checker.getSymbolAtLocation(node) ?? node.symbol;
+        const symbol = getSymbolForModuleLike(context, node);
         let moduleContext: Context;
 
         if (entryPoints.length === 1) {
@@ -315,7 +316,7 @@ export class Converter extends ChildableComponent<
             moduleContext = context.withScope(reflection);
         }
 
-        for (const exp of getExports(context, node).filter((exp) =>
+        for (const exp of getExports(context, node, symbol).filter((exp) =>
             isDirectExport(context.resolveAliasedSymbol(exp), node)
         )) {
             convertSymbol(moduleContext, exp);
@@ -325,7 +326,11 @@ export class Converter extends ChildableComponent<
     }
 
     private convertReExports(moduleContext: Context, node: ts.SourceFile) {
-        for (const exp of getExports(moduleContext, node).filter(
+        for (const exp of getExports(
+            moduleContext,
+            node,
+            moduleContext.project.getSymbolFromReflection(moduleContext.scope)
+        ).filter(
             (exp) =>
                 !isDirectExport(moduleContext.resolveAliasedSymbol(exp), node)
         )) {
@@ -356,7 +361,9 @@ export class Converter extends ChildableComponent<
             this.excludeNotDocumented &&
             // If the enum is included, we should include members even if not documented.
             !hasFlag(symbol.flags, ts.SymbolFlags.EnumMember) &&
-            symbol.getDocumentationComment(checker).length === 0
+            resolveAliasedSymbol(symbol, checker).getDocumentationComment(
+                checker
+            ).length === 0
         ) {
             return true;
         }
@@ -392,24 +399,14 @@ function getModuleName(fileName: string, baseDir: string) {
     );
 }
 
-function getExports(
+function getSymbolForModuleLike(
     context: Context,
     node: ts.SourceFile | ts.ModuleBlock
-): ts.Symbol[] {
-    let symbol = context.checker.getSymbolAtLocation(node) ?? node.symbol;
-    if (!symbol && ts.isModuleBlock(node)) {
-        symbol = context.checker.getSymbolAtLocation(node.parent.name);
-    }
-
-    // The generated docs aren't great, but you really ought not be using
-    // this in the first place... so it's better than nothing.
-    const exportEq = symbol?.exports?.get("export=" as ts.__String);
-    if (exportEq) {
-        return [exportEq];
-    }
+) {
+    const symbol = context.checker.getSymbolAtLocation(node) ?? node.symbol;
 
     if (symbol) {
-        return context.checker.getExportsOfModule(symbol);
+        return symbol;
     }
 
     // This is a global file, get all symbols declared in this file...
@@ -423,7 +420,7 @@ function getExports(
         );
 
     // Detect declaration files with declare module "foo" as their only export
-    // and lift that up one level
+    // and lift that up one level as the source file symbol
     if (
         globalSymbols.length === 1 &&
         globalSymbols[0]
@@ -434,8 +431,35 @@ function getExports(
                     ts.isStringLiteral(declaration.name)
             )
     ) {
-        return context.checker.getExportsOfModule(globalSymbols[0]);
+        return globalSymbols[0];
     }
+}
+
+function getExports(
+    context: Context,
+    node: ts.SourceFile | ts.ModuleBlock,
+    symbol: ts.Symbol | undefined
+): ts.Symbol[] {
+    // The generated docs aren't great, but you really ought not be using
+    // this in the first place... so it's better than nothing.
+    const exportEq = symbol?.exports?.get("export=" as ts.__String);
+    if (exportEq) {
+        return [exportEq];
+    }
+
+    if (symbol) {
+        return context.checker
+            .getExportsOfModule(symbol)
+            .filter((s) => !hasFlag(s.flags, ts.SymbolFlags.Prototype));
+    }
+
+    // Global file with no inferred top level symbol, get all symbols declared in this file.
+    const sourceFile = node.getSourceFile();
+    const globalSymbols = context.checker
+        .getSymbolsInScope(node, ts.SymbolFlags.ModuleMember)
+        .filter((s) =>
+            s.getDeclarations()?.some((d) => d.getSourceFile() === sourceFile)
+        );
 
     return globalSymbols;
 }

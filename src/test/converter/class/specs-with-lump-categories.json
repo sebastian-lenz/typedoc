@@ -904,6 +904,14 @@
           ],
           "categories": [
             {
+              "title": "AnotherTest",
+              "children": [
+                32,
+                30,
+                28
+              ]
+            },
+            {
               "title": "Other",
               "children": [
                 24,
@@ -911,7 +919,6 @@
                 26,
                 21,
                 34,
-                32,
                 22
               ]
             },

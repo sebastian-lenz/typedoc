@@ -52,8 +52,8 @@ describe("Options - TypeDocReader", () => {
 
     it("Does not error if the option file cannot be found but was not set.", () => {
         const options = new (class LyingOptions extends Options {
-            isDefault() {
-                return true;
+            isSet() {
+                return false;
             }
         })(new Logger());
 

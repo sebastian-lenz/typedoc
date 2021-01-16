@@ -38,8 +38,8 @@ describe("Options - TSConfigReader", () => {
 
     it("Does not error if the option file cannot be found but was not set.", () => {
         const options = new (class LyingOptions extends Options {
-            isDefault() {
-                return true;
+            isSet() {
+                return false;
             }
         })(new Logger());
         options.addDefaultDeclarations();
@@ -65,5 +65,26 @@ describe("Options - TSConfigReader", () => {
             options.getFileNames().map((f) => resolve(f)),
             [resolve(__dirname, "./data/file.ts")]
         );
+    });
+
+    it("Allows stripInternal to set excludeInternal", () => {
+        options.reset();
+        options.setValue(
+            "tsconfig",
+            join(__dirname, "data/stripInternal.tsconfig.json")
+        );
+        options.read(new Logger());
+        equal(options.getValue("excludeInternal"), true);
+    });
+
+    it("Does not set excludeInternal by stripInternal if already set", () => {
+        options.reset();
+        options.setValue(
+            "tsconfig",
+            join(__dirname, "data/stripInternal.tsconfig.json")
+        );
+        options.setValue("excludeInternal", false);
+        options.read(new Logger());
+        equal(options.getValue("excludeInternal"), false);
     });
 });

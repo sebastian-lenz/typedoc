@@ -50,6 +50,12 @@ export function addTypeDocOptions(options: Pick<Options, "addDeclaration">) {
         type: ParameterType.Boolean,
     });
     options.addDeclaration({
+        name: "excludeInternal",
+        help:
+            "Prevent symbols that marked with @internal from being documented.",
+        type: ParameterType.Boolean,
+    });
+    options.addDeclaration({
         name: "excludePrivate",
         help: "Ignores private variables and methods",
         type: ParameterType.Boolean,

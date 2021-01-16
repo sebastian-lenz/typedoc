@@ -2,6 +2,7 @@ import {
     Reflection,
     ContainerReflection,
     DeclarationReflection,
+    CommentTag,
 } from "../../models";
 import { ReflectionCategory } from "../../models/ReflectionCategory";
 import { Component, ConverterComponent } from "../components";
@@ -139,8 +140,8 @@ export class CategoryPlugin extends ConverterComponent {
         const categories: ReflectionCategory[] = [];
         let defaultCat: ReflectionCategory | undefined;
         reflections.forEach((child) => {
-            const childCat = CategoryPlugin.getCategory(child);
-            if (childCat === "") {
+            const childCategories = CategoryPlugin.getCategories(child);
+            if (childCategories.length === 0) {
                 if (!defaultCat) {
                     defaultCat = categories.find(
                         (category) =>
@@ -156,14 +157,16 @@ export class CategoryPlugin extends ConverterComponent {
                 defaultCat.children.push(child);
                 return;
             }
-            let category = categories.find((cat) => cat.title === childCat);
-            if (category) {
+            for (const childCat of childCategories) {
+                let category = categories.find((cat) => cat.title === childCat);
+                if (category) {
+                    category.children.push(child);
+                    continue;
+                }
+                category = new ReflectionCategory(childCat);
                 category.children.push(child);
-                return;
+                categories.push(category);
             }
-            category = new ReflectionCategory(childCat);
-            category.children.push(child);
-            categories.push(category);
         });
         return categories;
     }
@@ -174,38 +177,45 @@ export class CategoryPlugin extends ConverterComponent {
      * @param reflection The reflection.
      * @returns The category the reflection belongs to
      */
-    static getCategory(reflection: Reflection): string {
-        function extractCategoryTag(comment: Comment) {
+    static getCategories(reflection: Reflection): string[] {
+        function extractCategoryTag(comment: Comment): string[] {
+            const categories: string[] = [];
             const tags = comment.tags;
-            const tagIndex = tags.findIndex(
-                (tag) => tag.tagName === "category"
-            );
-            if (tagIndex >= 0) {
-                const tag = tags[tagIndex].text;
-                tags.splice(tagIndex, 1);
-                return tag.trim();
-            }
-            return "";
+            const commentTags: CommentTag[] = [];
+            tags.forEach((tag) => {
+                if (tag.tagName !== "category") {
+                    commentTags.push(tag);
+                    return;
+                }
+                const text = tag.text.trim();
+                if (!text) {
+                    return;
+                }
+                categories.push(text);
+            });
+            comment.tags = commentTags;
+            return categories;
         }
 
-        let category = "";
         if (reflection.comment) {
-            category = extractCategoryTag(reflection.comment);
+            return extractCategoryTag(reflection.comment);
         } else if (
             reflection instanceof DeclarationReflection &&
             reflection.signatures
         ) {
-            // If a reflection has signatures, use the first category tag amongst them
-            for (const sig of reflection.signatures) {
-                if (sig.comment) {
-                    category = extractCategoryTag(sig.comment);
-                }
-                if (category != "") {
-                    break;
-                }
-            }
+            return reflection.signatures.reduce(
+                (categories: string[], signature) => {
+                    if (!signature.comment) {
+                        return categories;
+                    }
+                    return categories.concat(
+                        extractCategoryTag(signature.comment)
+                    );
+                },
+                []
+            );
         }
-        return category;
+        return [];
     }
 
     /**

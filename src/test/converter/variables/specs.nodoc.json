@@ -352,6 +352,29 @@
       "flags": {},
       "children": [
         {
+          "id": 22,
+          "name": "objectLiteral",
+          "kind": 32,
+          "kindString": "Variable",
+          "flags": {
+            "isConst": true
+          },
+          "comment": {
+            "shortText": "An object literal."
+          },
+          "type": {
+            "type": "reflection",
+            "declaration": {
+              "id": 23,
+              "name": "__type",
+              "kind": 65536,
+              "kindString": "Type literal",
+              "flags": {}
+            }
+          },
+          "defaultValue": "..."
+        },
+        {
           "id": 20,
           "name": "typeLiteral",
           "kind": 16,
@@ -377,13 +400,14 @@
           "title": "Variables",
           "kind": 16,
           "children": [
+            22,
             20
           ]
         }
       ]
     },
     {
-      "id": 22,
+      "id": 24,
       "name": "variable",
       "kind": 1,
       "kindString": "Module",
@@ -398,7 +422,7 @@
         1,
         15,
         19,
-        22
+        24
       ]
     }
   ]

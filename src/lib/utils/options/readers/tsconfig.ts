@@ -35,7 +35,7 @@ export class TSConfigReader implements OptionsReader {
 
         if (!fileToRead || !isFile(fileToRead)) {
             // If the user didn't give us this option, we shouldn't complain about not being able to find it.
-            if (!container.isDefault("tsconfig")) {
+            if (container.isSet("tsconfig")) {
                 logger.error(`The tsconfig file ${file} does not exist`);
             }
             return;
