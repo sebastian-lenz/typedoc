@@ -381,7 +381,11 @@ function convertClassOrInterface(
 
         constructMember.signatures = staticType
             .getConstructSignatures()
-            .map((sig) => {
+            .map((sig, i) => {
+                // Modifiers are the same for all constructors
+                if (sig.declaration && i === 0) {
+                    setModifiers(sig.declaration, constructMember);
+                }
                 const sigRef = createSignature(
                     constructContext,
                     ReflectionKind.ConstructorSignature,

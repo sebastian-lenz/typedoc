@@ -24,27 +24,6 @@
           },
           "children": [
             {
-              "id": 9,
-              "name": "constructor",
-              "kind": 512,
-              "kindString": "Constructor",
-              "flags": {},
-              "signatures": [
-                {
-                  "id": 10,
-                  "name": "new PrivateClass",
-                  "kind": 16384,
-                  "kindString": "Constructor signature",
-                  "flags": {},
-                  "type": {
-                    "type": "reference",
-                    "id": 8,
-                    "name": "PrivateClass"
-                  }
-                }
-              ]
-            },
-            {
               "id": 11,
               "name": "fakePrivateProperty",
               "kind": 1024,
@@ -154,13 +133,6 @@
             }
           ],
           "groups": [
-            {
-              "title": "Constructors",
-              "kind": 512,
-              "children": [
-                9
-              ]
-            },
             {
               "title": "Properties",
               "kind": 1024,

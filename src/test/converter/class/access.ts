@@ -52,4 +52,7 @@ export class PrivateClass {
     fakeProtectedMethod() {}
 
     private privateArrow = () => {};
+
+    /** @hidden - should not show up */
+    constructor() {}
 }
