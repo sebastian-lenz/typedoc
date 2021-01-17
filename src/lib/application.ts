@@ -219,9 +219,6 @@ export class Application extends ChildableComponent<
         // This might be a solution style tsconfig, in which case we need to add a program for each
         // reference so that the converter can look through each of these.
         if (programs[0].getRootFileNames().length === 0) {
-            this.logger.verbose(
-                "tsconfig appears to be a solution style tsconfig - creating programs for references"
-            );
             const resolvedReferences = programs[0].getResolvedProjectReferences();
             for (const ref of resolvedReferences ?? []) {
                 if (!ref) continue; // This indicates bad configuration... will be reported later.
