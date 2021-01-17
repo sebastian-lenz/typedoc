@@ -1,6 +1,6 @@
 import * as ts from "typescript";
 import * as FS from "fs";
-import { dirname } from "path";
+import { join, dirname } from "path";
 
 /**
  * Get the longest directory path common to all files.
@@ -130,4 +130,44 @@ export function readFile(file: string): string {
     }
 
     return buffer.toString("utf8", 0);
+}
+
+/**
+ * Copy a file or directory recursively.
+ */
+export async function copy(src: string, dest: string): Promise<void> {
+    const stat = FS.statSync(src);
+
+    if (stat.isDirectory()) {
+        const contained = FS.readdirSync(src);
+        contained.forEach((file) => copy(join(src, file), join(dest, file)));
+    } else if (stat.isFile()) {
+        FS.mkdirSync(dirname(dest), { recursive: true });
+        FS.copyFileSync(src, dest);
+    } else {
+        // Do nothing for FIFO, special devices.
+    }
+}
+
+/**
+ * Recursive rmdir. Node v12.10.0 adds the { recursive: true } option to
+ * the native fs rmdir function, but we don't require Node 12 yet.
+ * @param target
+ */
+export function remove(target: string) {
+    let isFile: boolean;
+    try {
+        const stat = FS.lstatSync(target);
+        isFile = !stat.isDirectory();
+    } catch {
+        return;
+    }
+
+    if (isFile) {
+        return FS.unlinkSync(target);
+    } else {
+        const files = FS.readdirSync(target);
+        files.forEach((file) => remove(join(target, file)));
+        FS.rmdirSync(target);
+    }
 }

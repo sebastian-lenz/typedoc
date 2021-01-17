@@ -1,8 +1,9 @@
 import { Application, ProjectReflection } from "..";
-import * as FS from "fs-extra";
+import * as FS from "fs";
 import * as Path from "path";
 import Assert = require("assert");
 import { TSConfigReader } from "../lib/utils/options";
+import { remove } from "../lib/utils/fs";
 
 function getFileIndex(base: string, dir = "", results: string[] = []) {
     const files = FS.readdirSync(Path.join(base, dir));
@@ -55,11 +56,11 @@ describe("Renderer", function () {
     let app: Application, project: ProjectReflection | undefined;
 
     before(function () {
-        FS.removeSync(out);
+        remove(out);
     });
 
     after(function () {
-        FS.removeSync(out);
+        remove(out);
     });
 
     it("constructs", function () {
@@ -94,7 +95,7 @@ describe("Renderer", function () {
         this.timeout(0);
         await app.generateDocs(project!, out);
 
-        FS.removeSync(Path.join(out, "assets"));
+        remove(Path.join(out, "assets"));
         compareDirectories(Path.join(__dirname, "renderer", "specs"), out);
     });
 });

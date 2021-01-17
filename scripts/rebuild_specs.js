@@ -1,8 +1,9 @@
-"use strict";
 // @ts-check
+"use strict";
 
 const ts = require("typescript");
-const fs = require("fs-extra");
+const fs = require("fs");
+const { remove } = require("../dist/lib/utils/fs");
 const path = require("path");
 const TypeDoc = require("..");
 
@@ -91,10 +92,9 @@ function rebuildConverterTests(dirs) {
 }
 
 async function rebuildRendererTest() {
-    await fs.remove(path.join(__dirname, "../src/test/renderer/specs"));
     const src = path.join(__dirname, "../examples/basic/src");
     const out = path.join(__dirname, "../src/test/renderer/specs");
-    await fs.remove(out);
+    remove(out);
 
     const app = new TypeDoc.Application();
     app.options.addReader(new TypeDoc.TSConfigReader());
@@ -137,10 +137,10 @@ async function rebuildRendererTest() {
     const gitHubRegExp = /https:\/\/github.com\/[A-Za-z0-9-]+\/typedoc\/blob\/[^/]*\/examples/g;
     return getFiles(out).map((file) => {
         const full = path.join(out, file);
-        return fs
+        return fs.promises
             .readFile(full, { encoding: "utf-8" })
             .then((text) =>
-                fs.writeFile(
+                fs.promises.writeFile(
                     full,
                     text.replace(
                         gitHubRegExp,
@@ -161,9 +161,9 @@ async function main(command = "all", filter = "") {
 
     if (["all", "converter"].includes(command)) {
         const dirs = await Promise.all(
-            (await fs.readdir(base)).map((dir) => {
+            (await fs.promises.readdir(base)).map((dir) => {
                 const dirPath = path.join(base, dir);
-                return Promise.all([dirPath, fs.stat(dirPath)]);
+                return Promise.all([dirPath, fs.promises.stat(dirPath)]);
             })
         );
 

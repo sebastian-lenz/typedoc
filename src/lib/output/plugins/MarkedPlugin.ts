@@ -1,4 +1,4 @@
-import * as FS from "fs-extra";
+import * as FS from "fs";
 import * as Path from "path";
 import * as Marked from "marked";
 import * as Handlebars from "handlebars";
@@ -7,6 +7,7 @@ import { Component, ContextAwareRendererComponent } from "../components";
 import { RendererEvent, MarkdownEvent } from "../events";
 import { BindOption, readFile } from "../../utils";
 import { highlight, isSupportedLanguage } from "../../utils/highlighter";
+import { copy } from "../../utils/fs";
 
 const customMarkedRenderer = new Marked.Renderer();
 
@@ -203,7 +204,7 @@ export class MarkedPlugin extends ContextAwareRendererComponent {
             const media = Path.resolve(this.mediaSource);
             if (FS.existsSync(media) && FS.statSync(media).isDirectory()) {
                 this.mediaDirectory = Path.join(event.outputDirectory, "media");
-                FS.copySync(media, this.mediaDirectory);
+                copy(media, this.mediaDirectory);
             } else {
                 this.mediaDirectory = undefined;
                 this.application.logger.warn(

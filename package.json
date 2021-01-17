@@ -17,10 +17,9 @@
     "url": "https://github.com/TypeStrong/TypeDoc/issues"
   },
   "engines": {
-    "node": ">= 10.8.0"
+    "node": ">= 10.12.0"
   },
   "dependencies": {
-    "fs-extra": "^9.0.1",
     "handlebars": "^4.7.6",
     "lodash": "^4.17.20",
     "lunr": "^2.3.9",
@@ -34,7 +33,6 @@
     "typescript": "4.0.x || 4.1.x"
   },
   "devDependencies": {
-    "@types/fs-extra": "^9.0.6",
     "@types/lodash": "^4.14.167",
     "@types/lunr": "^2.3.3",
     "@types/marked": "^1.2.1",

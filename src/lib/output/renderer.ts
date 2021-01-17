@@ -8,7 +8,7 @@
  */
 
 import * as Path from "path";
-import * as FS from "fs-extra";
+import * as FS from "fs";
 // eslint-disable-next-line
 const ProgressBar = require("progress");
 
@@ -17,7 +17,7 @@ import type { Theme } from "./theme";
 import { RendererEvent, PageEvent } from "./events";
 import type { ProjectReflection } from "../models/reflections/project";
 import type { UrlMapping } from "./models/UrlMapping";
-import { writeFile } from "../utils/fs";
+import { remove, writeFile } from "../utils/fs";
 import { DefaultTheme } from "./themes/DefaultTheme";
 import { RendererComponent } from "./components";
 import { Component, ChildableComponent } from "../utils/component";
@@ -251,7 +251,7 @@ export class Renderer extends ChildableComponent<
             }
 
             try {
-                FS.removeSync(directory);
+                remove(directory);
             } catch (error) {
                 this.application.logger.warn(
                     "Could not empty the output directory."
@@ -261,7 +261,7 @@ export class Renderer extends ChildableComponent<
 
         if (!FS.existsSync(directory)) {
             try {
-                FS.mkdirpSync(directory);
+                FS.mkdirSync(directory, { recursive: true });
             } catch (error) {
                 this.application.logger.error(
                     `Could not create output directory ${directory}`
