@@ -1,7 +1,7 @@
 import { ParameterReflection } from "../../../models";
 
 import { ReflectionSerializerComponent } from "../../components";
-import {
+import type {
     ParameterReflection as JSONParameterReflection,
     Reflection as JSONReflection,
 } from "../../schema";

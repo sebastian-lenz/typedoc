@@ -28,8 +28,8 @@
  */
 
 /** */
-import * as M from "../models";
-import { SourceReferenceWrapper, DecoratorWrapper } from "./serializers";
+import type * as M from "../models";
+import type { SourceReferenceWrapper, DecoratorWrapper } from "./serializers";
 
 /**
  * Describes the mapping from Model types to the corresponding JSON output type.

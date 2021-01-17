@@ -12,11 +12,11 @@ import * as FS from "fs-extra";
 // eslint-disable-next-line
 const ProgressBar = require("progress");
 
-import { Application } from "../application";
-import { Theme } from "./theme";
+import type { Application } from "../application";
+import type { Theme } from "./theme";
 import { RendererEvent, PageEvent } from "./events";
-import { ProjectReflection } from "../models/reflections/project";
-import { UrlMapping } from "./models/UrlMapping";
+import type { ProjectReflection } from "../models/reflections/project";
+import type { UrlMapping } from "./models/UrlMapping";
 import { writeFile } from "../utils/fs";
 import { DefaultTheme } from "./themes/DefaultTheme";
 import { RendererComponent } from "./components";

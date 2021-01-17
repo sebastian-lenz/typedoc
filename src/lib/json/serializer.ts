@@ -5,8 +5,8 @@ import type { Application } from "../application";
 import type { ProjectReflection } from "../models";
 import type { Renderer } from "../renderer";
 import { insertPrioritySorted } from "../utils";
-import { SerializerComponent } from "./components";
-import { ModelToObject } from "./schema";
+import type { SerializerComponent } from "./components";
+import type { ModelToObject } from "./schema";
 import * as S from "./serializers";
 
 export class Serializer implements Renderer {

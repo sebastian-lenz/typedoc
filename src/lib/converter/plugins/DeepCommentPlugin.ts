@@ -7,7 +7,7 @@ import {
 import { Comment, CommentTag } from "../../models/comments/index";
 import { Component, ConverterComponent } from "../components";
 import { Converter } from "../converter";
-import { Context } from "../context";
+import type { Context } from "../context";
 import { removeIfPresent } from "../../utils";
 
 /**

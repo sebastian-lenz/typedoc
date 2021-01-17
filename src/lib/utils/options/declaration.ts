@@ -1,4 +1,4 @@
-import { LogLevel } from "../loggers";
+import type { LogLevel } from "../loggers";
 
 /**
  * An interface describing all TypeDoc specific options. Generated from a

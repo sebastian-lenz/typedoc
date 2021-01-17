@@ -2,7 +2,7 @@ import { DeclarationReflection } from "../../../models";
 
 import { ReflectionSerializerComponent } from "../../components";
 import { ContainerReflectionSerializer } from "./container";
-import {
+import type {
     DeclarationReflection as JSONDeclarationReflection,
     ContainerReflection as JSONContainerReflection,
 } from "../../schema";

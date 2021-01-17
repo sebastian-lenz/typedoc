@@ -1,7 +1,7 @@
-import { Renderer } from "./renderer";
-import { ProjectReflection } from "../models/reflections/project";
-import { UrlMapping } from "./models/UrlMapping";
-import { NavigationItem } from "./models/NavigationItem";
+import type { Renderer } from "./renderer";
+import type { ProjectReflection } from "../models/reflections/project";
+import type { UrlMapping } from "./models/UrlMapping";
+import type { NavigationItem } from "./models/NavigationItem";
 import { RendererComponent } from "./components";
 import { Component } from "../utils/component";
 import { Resources } from "./utils/resources";

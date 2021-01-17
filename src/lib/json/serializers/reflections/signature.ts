@@ -1,7 +1,7 @@
 import { SignatureReflection } from "../../../models";
 
 import { ReflectionSerializerComponent } from "../../components";
-import {
+import type {
     SignatureReflection as JSONSignatureReflection,
     Reflection as JSONReflection,
 } from "../../schema";

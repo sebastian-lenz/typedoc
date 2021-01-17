@@ -1,6 +1,6 @@
 import { PredicateType } from "../../../models";
 import { TypeSerializerComponent } from "../../components";
-import { PredicateType as JSONPredicateType } from "../../schema";
+import type { PredicateType as JSONPredicateType } from "../../schema";
 
 export class PredicateTypeSerializer extends TypeSerializerComponent<PredicateType> {
     supports(t: unknown) {

@@ -1,11 +1,11 @@
-import { TemplateDelegate } from "handlebars";
+import type { TemplateDelegate } from "handlebars";
 import * as Path from "path";
 
 import { Event } from "../utils/events";
-import { ProjectReflection } from "../models/reflections/project";
-import { UrlMapping } from "./models/UrlMapping";
-import { NavigationItem } from "./models/NavigationItem";
-import { LegendItem } from "./plugins/LegendPlugin";
+import type { ProjectReflection } from "../models/reflections/project";
+import type { UrlMapping } from "./models/UrlMapping";
+import type { NavigationItem } from "./models/NavigationItem";
+import type { LegendItem } from "./plugins/LegendPlugin";
 
 /**
  * An event emitted by the [[Renderer]] class at the very beginning and

@@ -11,8 +11,8 @@ import {
 import { Component, ConverterComponent } from "../components";
 import { parseComment, getRawComment } from "../factories/comment";
 import { Converter } from "../converter";
-import { Context } from "../context";
-import { SourceReference } from "../../models";
+import type { Context } from "../context";
+import type { SourceReference } from "../../models";
 import { BindOption, removeIfPresent } from "../../utils";
 import { partition, unique } from "../../utils/array";
 

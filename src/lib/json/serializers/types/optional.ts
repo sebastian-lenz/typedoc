@@ -1,7 +1,7 @@
 import { OptionalType } from "../../../models";
 
 import { TypeSerializerComponent } from "../../components";
-import { OptionalType as JSONOptionalType } from "../../schema";
+import type { OptionalType as JSONOptionalType } from "../../schema";
 
 export class OptionalTypeSerializer extends TypeSerializerComponent<OptionalType> {
     supports(t: unknown) {

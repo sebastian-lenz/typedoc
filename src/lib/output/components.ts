@@ -5,7 +5,7 @@ import {
     ProjectReflection,
     DeclarationReflection,
 } from "../models/reflections/index";
-import { Renderer } from "./renderer";
+import type { Renderer } from "./renderer";
 import { RendererEvent, PageEvent } from "./events";
 
 export { Component };

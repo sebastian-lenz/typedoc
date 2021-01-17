@@ -6,9 +6,9 @@ import {
     TraverseProperty,
     TraverseCallback,
 } from "./abstract";
-import { ContainerReflection } from "./container";
-import { ParameterReflection } from "./parameter";
-import { TypeParameterReflection } from "./type-parameter";
+import type { ContainerReflection } from "./container";
+import type { ParameterReflection } from "./parameter";
+import type { TypeParameterReflection } from "./type-parameter";
 
 export class SignatureReflection
     extends Reflection

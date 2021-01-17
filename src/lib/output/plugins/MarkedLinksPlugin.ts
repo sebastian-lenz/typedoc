@@ -1,6 +1,6 @@
 import * as Util from "util";
 
-import { Reflection } from "../../models/reflections/abstract";
+import type { Reflection } from "../../models/reflections/abstract";
 import { Component, ContextAwareRendererComponent } from "../components";
 import { MarkdownEvent, RendererEvent } from "../events";
 import { BindOption } from "../../utils";

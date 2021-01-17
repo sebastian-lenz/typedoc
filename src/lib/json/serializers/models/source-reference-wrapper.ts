@@ -1,4 +1,4 @@
-import { SourceReference } from "../../../models";
+import type { SourceReference } from "../../../models";
 
 /**
  * An internal concrete implementation for the [[ SourceReference ]] interface

@@ -1,9 +1,9 @@
 import * as FS from "fs";
 import * as Path from "path";
 
-import { Application } from "../application";
+import type { Application } from "../application";
 import { readFile } from "./fs";
-import { Logger } from "./loggers";
+import type { Logger } from "./loggers";
 
 export function loadPlugins(app: Application, plugins: readonly string[]) {
     for (const plugin of resolvePluginPaths(plugins)) {

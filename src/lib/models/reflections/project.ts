@@ -3,11 +3,11 @@ import { Reflection, ReflectionKind, TraverseProperty } from "./abstract";
 import { ContainerReflection } from "./container";
 import { splitUnquotedString } from "./utils";
 import { ReferenceReflection } from "./reference";
-import { DeclarationReflection } from "./declaration";
-import { SignatureReflection } from "./signature";
-import { ParameterReflection } from "./parameter";
+import type { DeclarationReflection } from "./declaration";
+import type { SignatureReflection } from "./signature";
+import type { ParameterReflection } from "./parameter";
 import { IntrinsicType } from "../types";
-import { TypeParameterReflection } from "./type-parameter";
+import type { TypeParameterReflection } from "./type-parameter";
 import { removeIfPresent } from "../../utils";
 import type * as ts from "typescript";
 

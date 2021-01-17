@@ -1,5 +1,5 @@
 import { Type } from "./abstract";
-import { ReferenceType } from "./reference";
+import type { ReferenceType } from "./reference";
 
 /**
  * Represents a type that is constructed by querying the type of a reflection.

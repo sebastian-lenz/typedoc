@@ -2,7 +2,7 @@ import * as FS from "fs";
 import * as Path from "path";
 import * as Util from "util";
 
-import { Theme } from "../theme";
+import type { Theme } from "../theme";
 import { HelperStack } from "./resources/helpers";
 import { TemplateStack, PartialStack } from "./resources/templates";
 

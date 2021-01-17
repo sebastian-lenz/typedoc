@@ -10,7 +10,7 @@ import {
 } from "../models";
 import { flatMap, uniqueByEquals, zip } from "../utils/array";
 import { getEnumFlags, hasFlag, removeFlag } from "../utils/enum";
-import { Context } from "./context";
+import type { Context } from "./context";
 import { convertDefaultValue } from "./convert-expression";
 import { ConverterEvents } from "./converter-events";
 import { convertIndexSignature } from "./factories/index-signature";

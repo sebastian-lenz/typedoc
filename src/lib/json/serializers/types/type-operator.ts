@@ -1,7 +1,7 @@
 import { TypeOperatorType } from "../../../models";
 
 import { TypeSerializerComponent } from "../../components";
-import { TypeOperatorType as JSONTypeOperatorType } from "../../schema";
+import type { TypeOperatorType as JSONTypeOperatorType } from "../../schema";
 
 export class TypeOperatorTypeSerializer extends TypeSerializerComponent<TypeOperatorType> {
     supports(t: unknown) {

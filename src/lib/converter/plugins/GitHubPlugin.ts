@@ -1,11 +1,11 @@
 import * as ShellJS from "shelljs";
 import * as Path from "path";
 
-import { SourceReference } from "../../models/sources/file";
+import type { SourceReference } from "../../models/sources/file";
 import { Component, ConverterComponent } from "../components";
 import { BasePath } from "../utils/base-path";
 import { Converter } from "../converter";
-import { Context } from "../context";
+import type { Context } from "../context";
 import { BindOption } from "../../utils";
 
 /**

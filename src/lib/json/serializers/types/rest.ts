@@ -1,7 +1,7 @@
 import { RestType } from "../../../models";
 
 import { TypeSerializerComponent } from "../../components";
-import { RestType as JSONRestType } from "../../schema";
+import type { RestType as JSONRestType } from "../../schema";
 
 export class RestTypeSerializer extends TypeSerializerComponent<RestType> {
     supports(t: unknown) {

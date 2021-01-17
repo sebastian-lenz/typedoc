@@ -6,7 +6,7 @@ import {
     TraverseCallback,
     TraverseProperty,
 } from "./abstract";
-import { SignatureReflection } from "./signature";
+import type { SignatureReflection } from "./signature";
 
 export class ParameterReflection
     extends Reflection

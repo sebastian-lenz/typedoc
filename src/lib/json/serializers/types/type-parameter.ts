@@ -1,7 +1,7 @@
 import { TypeParameterType } from "../../../models";
 
 import { TypeSerializerComponent } from "../../components";
-import { TypeParameterType as JSONTypeParameterType } from "../../schema";
+import type { TypeParameterType as JSONTypeParameterType } from "../../schema";
 
 export class TypeParameterTypeSerializer extends TypeSerializerComponent<TypeParameterType> {
     supports(t: unknown) {

@@ -2,7 +2,7 @@ import * as ts from "typescript";
 import * as assert from "assert";
 import { resolve } from "path";
 
-import { Application } from "../application";
+import type { Application } from "../application";
 import { Type, ProjectReflection, ReflectionKind } from "../models/index";
 import { Context } from "./context";
 import { ConverterComponent } from "./components";
@@ -14,7 +14,7 @@ import { convertSymbol } from "./symbols";
 import { relative } from "path";
 import { getCommonDirectory } from "../utils/fs";
 import { createMinimatch } from "../utils/paths";
-import { IMinimatch } from "minimatch";
+import type { IMinimatch } from "minimatch";
 import { hasFlag } from "../utils/enum";
 import { resolveAliasedSymbol } from "./utils/symbols";
 

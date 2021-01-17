@@ -1,7 +1,7 @@
 import { UnionType } from "../../../models";
 
 import { TypeSerializerComponent } from "../../components";
-import { UnionType as JSONUnionType } from "../../schema";
+import type { UnionType as JSONUnionType } from "../../schema";
 
 export class UnionTypeSerializer extends TypeSerializerComponent<UnionType> {
     supports(t: unknown) {

@@ -3,8 +3,8 @@ import { existsSync, statSync } from "fs";
 
 import * as ts from "typescript";
 
-import { OptionsReader, Options } from "../options";
-import { Logger } from "../../loggers";
+import type { OptionsReader, Options } from "../options";
+import type { Logger } from "../../loggers";
 import { normalizePath } from "../../fs";
 
 function isFile(file: string) {

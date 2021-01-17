@@ -4,7 +4,7 @@ import * as ts from "typescript";
 
 import { Converter } from "./converter/index";
 import { RendererContainer } from "./renderer";
-import { ProjectReflection } from "./models/index";
+import type { ProjectReflection } from "./models/index";
 import {
     Logger,
     ConsoleLogger,
@@ -20,7 +20,7 @@ import {
     DUMMY_APPLICATION_OWNER,
 } from "./utils/component";
 import { Options, BindOption } from "./utils";
-import { TypeDocOptions } from "./utils/options/declaration";
+import type { TypeDocOptions } from "./utils/options/declaration";
 import { flatMap } from "./utils/array";
 import { discoverNpmPlugins, loadPlugins } from "./utils/plugins";
 

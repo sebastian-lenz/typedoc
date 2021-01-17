@@ -1,6 +1,6 @@
 import { ok as assert } from "assert";
 import * as shiki from "shiki";
-import { Highlighter } from "shiki/dist/highlighter";
+import type { Highlighter } from "shiki/dist/highlighter";
 import { unique } from "./array";
 
 // This is needed because Shiki includes some "fake" languages

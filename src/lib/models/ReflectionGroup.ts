@@ -1,5 +1,5 @@
-import { Reflection, ReflectionKind } from "./reflections/abstract";
-import { ReflectionCategory } from "./ReflectionCategory";
+import type { Reflection, ReflectionKind } from "./reflections/abstract";
+import type { ReflectionCategory } from "./ReflectionCategory";
 
 /**
  * A group of reflections. All reflections in a group are of the same kind.

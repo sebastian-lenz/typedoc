@@ -1,7 +1,7 @@
 import { IntrinsicType } from "../../../models";
 
 import { TypeSerializerComponent } from "../../components";
-import { IntrinsicType as JSONIntrinsicType } from "../../schema";
+import type { IntrinsicType as JSONIntrinsicType } from "../../schema";
 
 export class IntrinsicTypeSerializer extends TypeSerializerComponent<IntrinsicType> {
     supports(t: unknown) {

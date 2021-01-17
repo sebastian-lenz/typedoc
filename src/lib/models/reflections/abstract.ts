@@ -1,9 +1,9 @@
-import { SourceReference } from "../sources/file";
-import { Type } from "../types/index";
-import { Comment } from "../comments/comment";
-import { TypeParameterReflection } from "./type-parameter";
+import type { SourceReference } from "../sources/file";
+import type { Type } from "../types/index";
+import type { Comment } from "../comments/comment";
+import type { TypeParameterReflection } from "./type-parameter";
 import { splitUnquotedString } from "./utils";
-import { ProjectReflection } from "./project";
+import type { ProjectReflection } from "./project";
 
 /**
  * Holds all data models used by TypeDoc.

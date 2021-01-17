@@ -1,7 +1,7 @@
 import { ArrayType } from "../../../models";
 
 import { TypeSerializerComponent } from "../../components";
-import { ArrayType as JSONArrayType } from "../../schema";
+import type { ArrayType as JSONArrayType } from "../../schema";
 
 export class ArrayTypeSerializer extends TypeSerializerComponent<ArrayType> {
     supports(t: unknown) {

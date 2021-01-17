@@ -1,7 +1,7 @@
 import { resolve } from "path";
 import type { Application } from "../application";
 import type { ProjectReflection } from "../models";
-import { Renderer } from "../renderer";
+import type { Renderer } from "../renderer";
 import { Renderer as OldRenderer } from "./renderer";
 
 export class HtmlRenderer implements Renderer {

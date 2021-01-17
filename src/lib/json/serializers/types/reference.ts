@@ -1,7 +1,7 @@
 import { ReferenceType } from "../../../models";
 
 import { TypeSerializerComponent } from "../../components";
-import { ReferenceType as JSONReferenceType } from "../../schema";
+import type { ReferenceType as JSONReferenceType } from "../../schema";
 
 export class ReferenceTypeSerializer extends TypeSerializerComponent<ReferenceType> {
     supports(t: unknown) {

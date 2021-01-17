@@ -7,8 +7,8 @@ import {
 } from "./abstract";
 import { Type, ReflectionType } from "../types/index";
 import { ContainerReflection } from "./container";
-import { SignatureReflection } from "./signature";
-import { TypeParameterReflection } from "./type-parameter";
+import type { SignatureReflection } from "./signature";
+import type { TypeParameterReflection } from "./type-parameter";
 
 /**
  * Stores hierarchical type data.

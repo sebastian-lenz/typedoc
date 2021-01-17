@@ -2,7 +2,7 @@ import { TupleType } from "../../../models";
 import { NamedTupleMember } from "../../../models/types/tuple";
 
 import { TypeSerializerComponent } from "../../components";
-import {
+import type {
     TupleType as JSONTupleType,
     NamedTupleMemberType as JSONNamedTupleMemberType,
 } from "../../schema";

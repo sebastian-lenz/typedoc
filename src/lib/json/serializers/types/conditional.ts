@@ -1,6 +1,6 @@
 import { ConditionalType } from "../../../models";
 import { TypeSerializerComponent } from "../../components";
-import {
+import type {
     Type as JSONType,
     ConditionalType as JSONConditionalType,
 } from "../../schema";

@@ -1,8 +1,8 @@
 import * as Path from "path";
 
-import { Reflection } from "../reflections/abstract";
-import { ReflectionGroup } from "../ReflectionGroup";
-import { SourceDirectory } from "./directory";
+import type { Reflection } from "../reflections/abstract";
+import type { ReflectionGroup } from "../ReflectionGroup";
+import type { SourceDirectory } from "./directory";
 
 /**
  * Represents references of reflections to their defining source files.

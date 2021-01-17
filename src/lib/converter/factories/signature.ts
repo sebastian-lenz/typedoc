@@ -10,7 +10,7 @@ import {
     SignatureReflection,
     TypeParameterReflection,
 } from "../../models";
-import { Context } from "../context";
+import type { Context } from "../context";
 import { ConverterEvents } from "../converter-events";
 import { convertDefaultValue } from "../convert-expression";
 import { removeUndefined } from "../utils/reflections";

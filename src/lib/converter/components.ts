@@ -1,5 +1,5 @@
 import { Component, AbstractComponent } from "../utils/component";
-import { Converter } from "./converter";
+import type { Converter } from "./converter";
 
 export { Component };
 

@@ -1,4 +1,4 @@
-import { Reflection } from "../../models/reflections/abstract";
+import type { Reflection } from "../../models/reflections/abstract";
 
 /**
  * A hierarchical model holding the data of single node within the navigation.

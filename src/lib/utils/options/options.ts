@@ -1,4 +1,4 @@
-import * as ts from "typescript";
+import type * as ts from "typescript";
 
 import {
     convert,
@@ -9,11 +9,11 @@ import {
     TypeDocOptions,
     TypeDocOptionValues,
 } from "./declaration";
-import { Logger } from "../loggers";
+import type { Logger } from "../loggers";
 import { insertOrderSorted, unique } from "../array";
 import { addTypeDocOptions } from "./sources";
-import { Application } from "../../..";
-import { NeverIfInternal } from "..";
+import type { Application } from "../../..";
+import type { NeverIfInternal } from "..";
 
 /**
  * Describes an option reader that discovers user configuration and converts it to the

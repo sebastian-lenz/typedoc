@@ -6,7 +6,7 @@ import {
 import { Type, ReferenceType } from "../../models/types/index";
 import { Component, ConverterComponent } from "../components";
 import { Converter } from "../converter";
-import { Context } from "../context";
+import type { Context } from "../context";
 
 /**
  * A handler that converts all instances of [[LateResolvingType]] to their renderable equivalents.

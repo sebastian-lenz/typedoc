@@ -1,6 +1,6 @@
-import { Type } from "../types/index";
+import type { Type } from "../types/index";
 import { Reflection, ReflectionKind, TypeContainer } from "./abstract";
-import { DeclarationReflection } from "./declaration";
+import type { DeclarationReflection } from "./declaration";
 
 export class TypeParameterReflection
     extends Reflection

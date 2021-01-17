@@ -1,6 +1,6 @@
 import { TypeSerializerComponent } from "../../components";
 import { MappedType } from "../../../models";
-import { MappedType as JSONMappedType } from "../../schema";
+import type { MappedType as JSONMappedType } from "../../schema";
 
 export class MappedTypeSerializer extends TypeSerializerComponent<MappedType> {
     supports(t: unknown) {

@@ -12,7 +12,7 @@ import {
     SignatureReflection,
 } from "../models";
 import { flatMap } from "../utils/array";
-import { Context } from "./context";
+import type { Context } from "./context";
 import { ConverterEvents } from "./converter-events";
 import {
     convertParameterNodes,

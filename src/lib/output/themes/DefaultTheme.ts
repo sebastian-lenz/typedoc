@@ -2,7 +2,7 @@ import * as Path from "path";
 import * as FS from "fs";
 
 import { Theme } from "../theme";
-import { Renderer } from "../renderer";
+import type { Renderer } from "../renderer";
 import {
     Reflection,
     ReflectionKind,
@@ -10,7 +10,7 @@ import {
     ContainerReflection,
     DeclarationReflection,
 } from "../../models/reflections/index";
-import { ReflectionGroup } from "../../models/ReflectionGroup";
+import type { ReflectionGroup } from "../../models/ReflectionGroup";
 import { UrlMapping } from "../models/UrlMapping";
 import { NavigationItem } from "../models/NavigationItem";
 import { RendererEvent } from "../events";

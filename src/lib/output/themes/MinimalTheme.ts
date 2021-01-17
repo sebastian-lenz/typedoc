@@ -2,7 +2,7 @@ import * as FS from "fs";
 import * as Path from "path";
 
 import { DefaultTheme } from "./DefaultTheme";
-import { Renderer } from "../renderer";
+import type { Renderer } from "../renderer";
 import { UrlMapping } from "../models/UrlMapping";
 import {
     Reflection,

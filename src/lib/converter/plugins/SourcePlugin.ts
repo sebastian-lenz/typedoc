@@ -9,7 +9,7 @@ import {
 import { SourceDirectory, SourceFile } from "../../models/sources/index";
 import { Component, ConverterComponent } from "../components";
 import { Converter } from "../converter";
-import { Context } from "../context";
+import type { Context } from "../context";
 import { BindOption } from "../../utils";
 import { isNamedNode } from "../utils/nodes";
 import { getCommonDirectory, normalizePath } from "../../utils/fs";

@@ -1,6 +1,6 @@
 import { IndexedAccessType } from "../../../models";
 import { TypeSerializerComponent } from "../../components";
-import {
+import type {
     Type as JSONType,
     IndexedAccessType as JSONIndexedAccessType,
 } from "../../schema";

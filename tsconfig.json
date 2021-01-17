@@ -8,6 +8,7 @@
 
         "strict": true,
         "alwaysStrict": true,
+        "importsNotUsedAsValues": "error",
 
         // Linting
         "noUnusedLocals": true,

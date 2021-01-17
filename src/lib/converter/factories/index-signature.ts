@@ -6,7 +6,7 @@ import {
     ReflectionKind,
     SignatureReflection,
 } from "../../models";
-import { Context } from "../context";
+import type { Context } from "../context";
 import { ConverterEvents } from "../converter-events";
 
 export function convertIndexSignature(context: Context, symbol: ts.Symbol) {

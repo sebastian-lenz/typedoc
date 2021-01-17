@@ -1,7 +1,7 @@
 import { ReflectionType } from "../../../models";
 
 import { TypeSerializerComponent } from "../../components";
-import { ReflectionType as JSONReflectionType } from "../../schema";
+import type { ReflectionType as JSONReflectionType } from "../../schema";
 
 export class ReflectionTypeSerializer extends TypeSerializerComponent<ReflectionType> {
     supports(t: unknown) {

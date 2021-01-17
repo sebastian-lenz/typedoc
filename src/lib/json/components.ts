@@ -1,7 +1,7 @@
 import { Reflection, Type } from "../models";
 
-import { Serializer } from "./serializer";
-import { ModelToObject } from "./schema";
+import type { Serializer } from "./serializer";
+import type { ModelToObject } from "./schema";
 
 /**
  * Represents Serializer plugin component.

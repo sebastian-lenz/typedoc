@@ -1,5 +1,5 @@
 import { Component, RendererComponent } from "../components";
-import { NavigationItem } from "../models/NavigationItem";
+import type { NavigationItem } from "../models/NavigationItem";
 import { RendererEvent, PageEvent } from "../events";
 
 /**

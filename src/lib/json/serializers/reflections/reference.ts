@@ -1,6 +1,6 @@
 import { ReferenceReflection } from "../../../models";
 import { ReflectionSerializerComponent } from "../../components";
-import {
+import type {
     DeclarationReflection as JSONDeclarationReflection,
     ReferenceReflection as JSONReferenceReflection,
 } from "../../schema";

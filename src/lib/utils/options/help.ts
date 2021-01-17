@@ -1,4 +1,4 @@
-import { Options } from "./options";
+import type { Options } from "./options";
 import {
     ParameterHint,
     StringDeclarationOption,

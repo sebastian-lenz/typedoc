@@ -7,9 +7,9 @@ import {
 import { ReflectionCategory } from "../../models/ReflectionCategory";
 import { Component, ConverterComponent } from "../components";
 import { Converter } from "../converter";
-import { Context } from "../context";
+import type { Context } from "../context";
 import { BindOption } from "../../utils";
-import { Comment } from "../../models/comments/index";
+import type { Comment } from "../../models/comments/index";
 
 /**
  * A handler that sorts and categorizes the found reflections in the resolving phase.

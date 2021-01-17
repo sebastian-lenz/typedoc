@@ -1,7 +1,7 @@
 import { InferredType } from "../../../models";
 import { TypeSerializerComponent } from "../../components";
 
-import {
+import type {
     Type as JSONType,
     InferredType as JSONInferredType,
 } from "../../schema";

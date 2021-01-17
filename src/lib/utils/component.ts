@@ -1,6 +1,6 @@
 import type { Application } from "../application";
 import { EventDispatcher, Event, EventMap } from "./events";
-import { DeclarationOption } from "./options/declaration";
+import type { DeclarationOption } from "./options/declaration";
 
 /**
  * Exposes a reference to the root Application component.

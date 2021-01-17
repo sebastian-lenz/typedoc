@@ -7,7 +7,7 @@ import {
 import { Type, ReferenceType } from "../../models/types/index";
 import { Component, ConverterComponent } from "../components";
 import { Converter } from "../converter";
-import { Context } from "../context";
+import type { Context } from "../context";
 import { Comment } from "../../models/comments/comment";
 import { zip } from "../../utils/array";
 

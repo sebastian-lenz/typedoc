@@ -1,4 +1,4 @@
-import { Reflection } from "./reflections/abstract";
+import type { Reflection } from "./reflections/abstract";
 
 /**
  * A category of reflections.

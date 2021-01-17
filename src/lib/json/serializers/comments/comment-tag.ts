@@ -1,7 +1,7 @@
 import { CommentTag } from "../../../models";
 
 import { SerializerComponent } from "../../components";
-import { CommentTag as JSONCommentTag } from "../../schema";
+import type { CommentTag as JSONCommentTag } from "../../schema";
 
 export class CommentTagSerializer extends SerializerComponent<CommentTag> {
     static PRIORITY = 1000;

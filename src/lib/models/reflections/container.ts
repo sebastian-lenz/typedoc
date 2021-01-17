@@ -4,9 +4,9 @@ import {
     TraverseCallback,
     TraverseProperty,
 } from "./abstract";
-import { ReflectionCategory } from "../ReflectionCategory";
-import { ReflectionGroup } from "../ReflectionGroup";
-import { DeclarationReflection } from "./declaration";
+import type { ReflectionCategory } from "../ReflectionCategory";
+import type { ReflectionGroup } from "../ReflectionGroup";
+import type { DeclarationReflection } from "./declaration";
 
 export class ContainerReflection extends Reflection {
     /**

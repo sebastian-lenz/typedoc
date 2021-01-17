@@ -1,7 +1,7 @@
 import { Comment } from "../../../models";
 
 import { SerializerComponent } from "../../components";
-import { Comment as JSONComment } from "../../schema";
+import type { Comment as JSONComment } from "../../schema";
 
 export class CommentSerializer extends SerializerComponent<Comment> {
     static PRIORITY = 1000;

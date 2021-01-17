@@ -1,4 +1,4 @@
-import { DeclarationReflection } from "../reflections/declaration";
+import type { DeclarationReflection } from "../reflections/declaration";
 import { Type } from "./abstract";
 
 /**

@@ -1,7 +1,7 @@
 import type * as ts from "typescript";
 import { Reflection, ReflectionKind } from "./abstract";
 import { DeclarationReflection } from "./declaration";
-import { ProjectReflection } from "./project";
+import type { ProjectReflection } from "./project";
 
 /**
  * Describes a reflection which does not exist at this location, but is referenced. Used for imported reflections.

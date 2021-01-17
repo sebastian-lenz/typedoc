@@ -3,7 +3,7 @@ import * as FS from "fs";
 
 import { Component, ConverterComponent } from "../components";
 import { Converter } from "../converter";
-import { Context } from "../context";
+import type { Context } from "../context";
 import { BindOption, readFile } from "../../utils";
 import { getCommonDirectory } from "../../utils/fs";
 

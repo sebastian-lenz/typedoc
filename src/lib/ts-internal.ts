@@ -1,4 +1,4 @@
-import * as ts from "typescript";
+import type * as ts from "typescript";
 
 /**
  * Expose the internal TypeScript APIs that are used by TypeDoc

@@ -2,7 +2,7 @@ import * as ts from "typescript";
 import { format } from "util";
 import { url } from "inspector";
 import { resolve } from "path";
-import { NeverIfInternal } from "./general";
+import type { NeverIfInternal } from "./general";
 
 const isDebugging = () => Boolean(url());
 
