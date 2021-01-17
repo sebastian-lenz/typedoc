@@ -4,15 +4,7 @@
   "kind": 1,
   "kindString": "Project",
   "flags": {},
-  "comment": {
-    "shortText": "not included anywhere",
-    "tags": [
-      {
-        "tag": "property",
-        "text": "{string} foo docs for property\nmore docs for property\n"
-      }
-    ]
-  },
+  "comment": {},
   "children": [
     {
       "id": 11,
