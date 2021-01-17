@@ -178,7 +178,7 @@ export abstract class AbstractComponent<O extends ComponentHost>
             this._componentOwner instanceof AbstractComponent &&
             this._componentOwner._componentOwner === DUMMY_APPLICATION_OWNER
         ) {
-            return (this._componentOwner._componentOwner as any) as Application;
+            return (this._componentOwner as any) as Application;
         }
         return this._componentOwner.application;
     }
