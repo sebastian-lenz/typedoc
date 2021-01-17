@@ -27,7 +27,6 @@
     "marked": "^1.2.5",
     "minimatch": "^3.0.0",
     "progress": "^2.0.3",
-    "shelljs": "^0.8.4",
     "shiki": "^0.2.7",
     "typedoc-default-themes": "^0.12.4"
   },
@@ -44,7 +43,6 @@
     "@types/mockery": "^1.4.29",
     "@types/node": "^14.14.21",
     "@types/semver": "^7.3.4",
-    "@types/shelljs": "^0.8.8",
     "@typescript-eslint/eslint-plugin": "^4.13.0",
     "@typescript-eslint/parser": "^4.13.0",
     "eslint": "^7.18.0",

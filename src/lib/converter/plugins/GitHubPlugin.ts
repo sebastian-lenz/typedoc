@@ -1,5 +1,5 @@
-import * as ShellJS from "shelljs";
 import * as Path from "path";
+import { spawnSync } from "child_process";
 
 import type { SourceReference } from "../../models/sources/file";
 import { Component, ConverterComponent } from "../components";
@@ -7,6 +7,10 @@ import { BasePath } from "../utils/base-path";
 import { Converter } from "../converter";
 import type { Context } from "../context";
 import { BindOption } from "../../utils";
+
+function git(...args: string[]) {
+    return spawnSync("git", args, { encoding: "utf-8", windowsHide: true });
+}
 
 /**
  * Stores data of a repository.
@@ -55,7 +59,6 @@ export class Repository {
     constructor(path: string, gitRevision: string, repoLinks: string[]) {
         this.path = path;
         this.branch = gitRevision || "master";
-        ShellJS.pushd(path);
 
         for (let i = 0, c = repoLinks.length; i < c; i++) {
             const url = /(github(?:\.[a-z]+)*\.com)[:/]([^/]+)\/(.*)/.exec(
@@ -76,10 +79,8 @@ export class Repository {
             }
         }
 
-        let out = <ShellJS.ExecOutputReturnValue>(
-            ShellJS.exec("git ls-files", { silent: true })
-        );
-        if (out.code === 0) {
+        let out = git("-C", path, "ls-files");
+        if (out.status === 0) {
             out.stdout.split("\n").forEach((file) => {
                 if (file !== "") {
                     this.files.push(BasePath.normalize(path + "/" + file));
@@ -88,15 +89,11 @@ export class Repository {
         }
 
         if (!gitRevision) {
-            out = <ShellJS.ExecOutputReturnValue>(
-                ShellJS.exec("git rev-parse --short HEAD", { silent: true })
-            );
-            if (out.code === 0) {
+            out = git("-C", path, "rev-parse", "--short", "HEAD");
+            if (out.status === 0) {
                 this.branch = out.stdout.replace("\n", "");
             }
         }
-
-        ShellJS.popd();
     }
 
     /**
@@ -148,31 +145,17 @@ export class Repository {
         gitRevision: string,
         gitRemote: string
     ): Repository | undefined {
-        ShellJS.pushd(path);
-        const out = <ShellJS.ExecOutputReturnValue>(
-            ShellJS.exec("git rev-parse --show-toplevel", { silent: true })
-        );
-        const remotesOutput = <ShellJS.ExecOutputReturnValue>(
-            ShellJS.exec(`git remote get-url ${gitRemote}`, { silent: true })
-        );
-        ShellJS.popd();
+        const out = git("-C", path, "rev-parse", "--show-toplevel");
+        const remotesOutput = git("-C", path, "remote", "get-url", gitRemote);
 
-        if (
-            !out ||
-            out.code !== 0 ||
-            !remotesOutput ||
-            remotesOutput.code !== 0
-        ) {
+        if (out.status !== 0 || remotesOutput.status !== 0) {
             return;
         }
-
-        const remotes: string[] =
-            remotesOutput.code === 0 ? remotesOutput.stdout.split("\n") : [];
 
         return new Repository(
             BasePath.normalize(out.stdout.replace("\n", "")),
             gitRevision,
-            remotes
+            remotesOutput.stdout.split("\n")
         );
     }
 }
@@ -205,8 +188,7 @@ export class GitHubPlugin extends ConverterComponent {
      * @param converter  The converter this plugin should be attached to.
      */
     initialize() {
-        ShellJS.config.silent = true;
-        if (ShellJS.which("git")) {
+        if (git("--version").status === 0) {
             this.listenTo(
                 this.owner,
                 Converter.EVENT_RESOLVE_END,
