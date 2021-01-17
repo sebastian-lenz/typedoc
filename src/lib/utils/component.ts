@@ -1,4 +1,4 @@
-import { Application } from "../application";
+import type { Application } from "../application";
 import { EventDispatcher, Event, EventMap } from "./events";
 import { DeclarationOption } from "./options/declaration";
 
@@ -173,8 +173,12 @@ export abstract class AbstractComponent<O extends ComponentHost>
         if (this._componentOwner === DUMMY_APPLICATION_OWNER) {
             return (this as any) as Application;
         }
-        if (this._componentOwner instanceof Application) {
-            return this._componentOwner;
+        // Temporary hack, Application.application is going away.
+        if (
+            this._componentOwner instanceof AbstractComponent &&
+            this._componentOwner._componentOwner === DUMMY_APPLICATION_OWNER
+        ) {
+            return (this._componentOwner._componentOwner as any) as Application;
         }
         return this._componentOwner.application;
     }
