@@ -370,7 +370,9 @@ function getMapError(
 }
 
 function isTsEnum(map: Record<string | number, unknown>) {
-    return Object.keys(map).every((key) => map[String(map[key])] === key);
+    return Object.keys(map).every(
+        (key) => String(map[String(map[key])]) === key
+    );
 }
 
 /**
