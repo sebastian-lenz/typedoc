@@ -1,6 +1,8 @@
 import { removeIf } from "../../utils";
 import { CommentTag } from "./tag";
 
+const COPIED_TAGS = ["remarks"];
+
 /**
  * A model that represents a comment.
  *
@@ -85,14 +87,27 @@ export class Comment {
     /**
      * Copy the data of the given comment into this comment.
      *
-     * @param comment
+     * `shortText`, `text`, `returns` and tags from `COPIED_TAGS` are copied;
+     * other instance tags left unchanged.
+     *
+     * @param comment - Source comment to copy from
      */
     copyFrom(comment: Comment) {
         this.shortText = comment.shortText;
         this.text = comment.text;
         this.returns = comment.returns;
-        this.tags = comment.tags.map(
-            (tag) => new CommentTag(tag.tagName, tag.paramName, tag.text)
-        );
+        const overrideTags: CommentTag[] = comment.tags
+            .filter((tag) => COPIED_TAGS.includes(tag.tagName))
+            .map((tag) => new CommentTag(tag.tagName, tag.paramName, tag.text));
+        this.tags.forEach((tag, index) => {
+            const matchingTag = overrideTags.find(
+                (matchingOverride) => matchingOverride?.tagName === tag.tagName
+            );
+            if (matchingTag) {
+                this.tags[index] = matchingTag;
+                overrideTags.splice(overrideTags.indexOf(matchingTag), 1);
+            }
+        });
+        this.tags = [...this.tags, ...overrideTags];
     }
 }

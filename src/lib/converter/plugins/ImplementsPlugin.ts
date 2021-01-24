@@ -1,5 +1,4 @@
 import {
-    Reflection,
     ReflectionKind,
     DeclarationReflection,
     SignatureReflection,
@@ -8,8 +7,8 @@ import { Type, ReferenceType } from "../../models/types/index";
 import { Component, ConverterComponent } from "../components";
 import { Converter } from "../converter";
 import type { Context } from "../context";
-import { Comment } from "../../models/comments/comment";
 import { zip } from "../../utils/array";
+import { copyComment } from "../utils/reflections";
 
 /**
  * A plugin that detects interface implementations of functions and
@@ -82,7 +81,7 @@ export class ImplementsPlugin extends ConverterComponent {
                     interfaceMember,
                     context.project
                 );
-                this.copyComment(classMember, interfaceMember);
+                copyComment(classMember, interfaceMember);
 
                 if (
                     interfaceMember.kindOf(ReflectionKind.FunctionOrMethod) &&
@@ -105,7 +104,7 @@ export class ImplementsPlugin extends ConverterComponent {
                                             interfaceSignature,
                                             context.project
                                         );
-                                        this.copyComment(
+                                        copyComment(
                                             classSignature,
                                             interfaceSignature
                                         );
@@ -117,46 +116,6 @@ export class ImplementsPlugin extends ConverterComponent {
                 }
             }
         );
-    }
-
-    /**
-     * Copy the comment of the source reflection to the target reflection.
-     *
-     * @param target
-     * @param source
-     */
-    private copyComment(target: Reflection, source: Reflection) {
-        if (
-            target.comment &&
-            source.comment &&
-            target.comment.hasTag("inheritdoc")
-        ) {
-            target.comment.copyFrom(source.comment);
-
-            if (
-                target instanceof SignatureReflection &&
-                target.parameters &&
-                source instanceof SignatureReflection &&
-                source.parameters
-            ) {
-                for (
-                    let index = 0, count = target.parameters.length;
-                    index < count;
-                    index++
-                ) {
-                    const sourceParameter = source.parameters[index];
-                    if (sourceParameter && sourceParameter.comment) {
-                        const targetParameter = target.parameters[index];
-                        if (!targetParameter.comment) {
-                            targetParameter.comment = new Comment();
-                            targetParameter.comment.copyFrom(
-                                sourceParameter.comment
-                            );
-                        }
-                    }
-                }
-            }
-        }
     }
 
     private analyzeInheritance(
@@ -201,7 +160,7 @@ export class ImplementsPlugin extends ConverterComponent {
                         parentMember,
                         context.project
                     );
-                    this.copyComment(child, parentMember);
+                    copyComment(child, parentMember);
                 }
             }
         }

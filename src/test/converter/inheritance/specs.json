@@ -1,0 +1,404 @@
+{
+  "id": 0,
+  "name": "typedoc",
+  "kind": 1,
+  "kindString": "Project",
+  "flags": {},
+  "children": [
+    {
+      "id": 13,
+      "name": "InterfaceSource",
+      "kind": 256,
+      "kindString": "Interface",
+      "flags": {},
+      "comment": {
+        "shortText": "Source interface summary"
+      },
+      "children": [
+        {
+          "id": 14,
+          "name": "property",
+          "kind": 1024,
+          "kindString": "Property",
+          "flags": {},
+          "comment": {
+            "shortText": "Source interface property description",
+            "tags": [
+              {
+                "tag": "typeparam",
+                "text": "Source interface type parameter\n",
+                "param": "T"
+              }
+            ]
+          },
+          "type": {
+            "type": "reference",
+            "name": "T"
+          }
+        },
+        {
+          "id": 15,
+          "name": "someMethod",
+          "kind": 2048,
+          "kindString": "Method",
+          "flags": {},
+          "signatures": [
+            {
+              "id": 16,
+              "name": "someMethod",
+              "kind": 4096,
+              "kindString": "Call signature",
+              "flags": {},
+              "comment": {
+                "shortText": "Source interface method description"
+              },
+              "parameters": [
+                {
+                  "id": 17,
+                  "name": "arg",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "comment": {
+                    "text": "\n"
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "number"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "name": "T"
+              }
+            }
+          ]
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "kind": 1024,
+          "children": [
+            14
+          ]
+        },
+        {
+          "title": "Methods",
+          "kind": 2048,
+          "children": [
+            15
+          ]
+        }
+      ],
+      "typeParameter": [
+        {
+          "id": 18,
+          "name": "T",
+          "kind": 131072,
+          "kindString": "Type parameter",
+          "flags": {},
+          "comment": {
+            "shortText": "Source interface type parameter\n"
+          }
+        }
+      ]
+    },
+    {
+      "id": 19,
+      "name": "InterfaceTarget",
+      "kind": 256,
+      "kindString": "Interface",
+      "flags": {},
+      "comment": {
+        "shortText": "Source interface summary"
+      },
+      "children": [
+        {
+          "id": 20,
+          "name": "property",
+          "kind": 1024,
+          "kindString": "Property",
+          "flags": {},
+          "comment": {
+            "shortText": "Source interface property description"
+          },
+          "type": {
+            "type": "reference",
+            "name": "T"
+          }
+        },
+        {
+          "id": 21,
+          "name": "someMethod",
+          "kind": 2048,
+          "kindString": "Method",
+          "flags": {},
+          "signatures": [
+            {
+              "id": 22,
+              "name": "someMethod",
+              "kind": 4096,
+              "kindString": "Call signature",
+              "flags": {},
+              "comment": {
+                "shortText": "Source interface method description"
+              },
+              "parameters": [
+                {
+                  "id": 17,
+                  "name": "arg",
+                  "kind": 32768,
+                  "kindString": "Parameter",
+                  "flags": {},
+                  "comment": {
+                    "text": "\n"
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "number"
+                  }
+                }
+              ],
+              "type": {
+                "type": "reference",
+                "name": "T"
+              }
+            }
+          ]
+        }
+      ],
+      "groups": [
+        {
+          "title": "Properties",
+          "kind": 1024,
+          "children": [
+            20
+          ]
+        },
+        {
+          "title": "Methods",
+          "kind": 2048,
+          "children": [
+            21
+          ]
+        }
+      ],
+      "typeParameter": [
+        {
+          "id": 18,
+          "name": "T",
+          "kind": 131072,
+          "kindString": "Type parameter",
+          "flags": {},
+          "comment": {
+            "shortText": "Source interface type parameter\n"
+          }
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "functionSource",
+      "kind": 64,
+      "kindString": "Function",
+      "flags": {},
+      "signatures": [
+        {
+          "id": 2,
+          "name": "functionSource",
+          "kind": 4096,
+          "kindString": "Call signature",
+          "flags": {},
+          "comment": {
+            "shortText": "Function summary",
+            "text": "This part of the commentary will be inherited by other entities\n",
+            "returns": "Stringified sum or concatenation of numeric arguments\n",
+            "tags": [
+              {
+                "tag": "remarks",
+                "text": "\n\nRemarks will be inherited\n"
+              },
+              {
+                "tag": "example",
+                "text": "\n\nThis part of the commentary will not be inherited\n"
+              }
+            ]
+          },
+          "typeParameter": [
+            {
+              "id": 3,
+              "name": "T",
+              "kind": 131072,
+              "kindString": "Type parameter",
+              "flags": {},
+              "comment": {
+                "text": "Type of arguments"
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "id": 4,
+              "name": "arg1",
+              "kind": 32768,
+              "kindString": "Parameter",
+              "flags": {},
+              "comment": {
+                "text": "First argument"
+              },
+              "type": {
+                "type": "reference",
+                "name": "T"
+              }
+            },
+            {
+              "id": 5,
+              "name": "arg2",
+              "kind": 32768,
+              "kindString": "Parameter",
+              "flags": {},
+              "comment": {
+                "text": "Second argument"
+              },
+              "type": {
+                "type": "reference",
+                "name": "T"
+              }
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "name": "functionTargetGlobal",
+      "kind": 64,
+      "kindString": "Function",
+      "flags": {},
+      "signatures": [
+        {
+          "id": 7,
+          "name": "functionTargetGlobal",
+          "kind": 4096,
+          "kindString": "Call signature",
+          "flags": {},
+          "comment": {
+            "tags": [
+              {
+                "tag": "inheritdoc",
+                "text": "\n",
+                "param": "SubClassA.printName"
+              }
+            ]
+          },
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "name": "functionTargetLocal",
+      "kind": 64,
+      "kindString": "Function",
+      "flags": {},
+      "signatures": [
+        {
+          "id": 9,
+          "name": "functionTargetLocal",
+          "kind": 4096,
+          "kindString": "Call signature",
+          "flags": {},
+          "comment": {
+            "shortText": "Function summary",
+            "text": "This part of the commentary will be inherited by other entities\n",
+            "returns": "This will be inherited\n\n",
+            "tags": [
+              {
+                "tag": "example",
+                "text": "\n\nThis function inherited commentary from the `functionSource` function\n"
+              },
+              {
+                "tag": "remarks",
+                "text": "\n\nRemarks will be inherited\n"
+              }
+            ]
+          },
+          "typeParameter": [
+            {
+              "id": 3,
+              "name": "T",
+              "kind": 131072,
+              "kindString": "Type parameter",
+              "flags": {},
+              "comment": {
+                "text": "Type of arguments"
+              }
+            }
+          ],
+          "parameters": [
+            {
+              "id": 4,
+              "name": "arg1",
+              "kind": 32768,
+              "kindString": "Parameter",
+              "flags": {},
+              "comment": {
+                "text": "First argument"
+              },
+              "type": {
+                "type": "reference",
+                "name": "T"
+              }
+            },
+            {
+              "id": 5,
+              "name": "arg2",
+              "kind": 32768,
+              "kindString": "Parameter",
+              "flags": {},
+              "comment": {
+                "text": "Second argument"
+              },
+              "type": {
+                "type": "reference",
+                "name": "T"
+              }
+            }
+          ],
+          "type": {
+            "type": "intrinsic",
+            "name": "string"
+          }
+        }
+      ]
+    }
+  ],
+  "groups": [
+    {
+      "title": "Interfaces",
+      "kind": 256,
+      "children": [
+        13,
+        19
+      ]
+    },
+    {
+      "title": "Functions",
+      "kind": 64,
+      "children": [
+        1,
+        6,
+        8
+      ]
+    }
+  ]
+}

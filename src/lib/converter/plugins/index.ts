@@ -8,3 +8,4 @@ export { ImplementsPlugin } from "./ImplementsPlugin";
 export { PackagePlugin } from "./PackagePlugin";
 export { SourcePlugin } from "./SourcePlugin";
 export { TypePlugin } from "./TypePlugin";
+export { InheritDocPlugin } from "./InheritDocPlugin";

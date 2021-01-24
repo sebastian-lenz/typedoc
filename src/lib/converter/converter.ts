@@ -445,17 +445,21 @@ function getExports(
     node: ts.SourceFile | ts.ModuleBlock,
     symbol: ts.Symbol | undefined
 ): ts.Symbol[] {
+    const exports: ts.Symbol[] = [];
+
     // The generated docs aren't great, but you really ought not be using
     // this in the first place... so it's better than nothing.
     const exportEq = symbol?.exports?.get("export=" as ts.__String);
     if (exportEq) {
-        return [exportEq];
+        exports.push(exportEq);
     }
 
     if (symbol) {
-        return context.checker
-            .getExportsOfModule(symbol)
-            .filter((s) => !hasFlag(s.flags, ts.SymbolFlags.Prototype));
+        return exports.concat(
+            context.checker
+                .getExportsOfModule(symbol)
+                .filter((s) => !hasFlag(s.flags, ts.SymbolFlags.Prototype))
+        );
     }
 
     // Global file with no inferred top level symbol, get all symbols declared in this file.

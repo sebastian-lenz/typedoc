@@ -738,6 +738,89 @@
           "defaultValue": "..."
         },
         {
+          "id": 92,
+          "name": "gh1475",
+          "kind": 32,
+          "kindString": "Variable",
+          "flags": {},
+          "type": {
+            "type": "reflection",
+            "declaration": {
+              "id": 93,
+              "name": "__type",
+              "kind": 65536,
+              "kindString": "Type literal",
+              "flags": {},
+              "children": [
+                {
+                  "id": 94,
+                  "name": "getIt",
+                  "kind": 262144,
+                  "kindString": "Accessor",
+                  "flags": {},
+                  "getSignature": [
+                    {
+                      "id": 95,
+                      "name": "getIt",
+                      "kind": 524288,
+                      "kindString": "Get signature",
+                      "flags": {},
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "number"
+                      }
+                    }
+                  ]
+                },
+                {
+                  "id": 96,
+                  "name": "setIt",
+                  "kind": 262144,
+                  "kindString": "Accessor",
+                  "flags": {},
+                  "setSignature": [
+                    {
+                      "id": 97,
+                      "name": "setIt",
+                      "kind": 1048576,
+                      "kindString": "Set signature",
+                      "flags": {},
+                      "parameters": [
+                        {
+                          "id": 98,
+                          "name": "n",
+                          "kind": 32768,
+                          "kindString": "Parameter",
+                          "flags": {},
+                          "type": {
+                            "type": "intrinsic",
+                            "name": "number"
+                          }
+                        }
+                      ],
+                      "type": {
+                        "type": "intrinsic",
+                        "name": "void"
+                      }
+                    }
+                  ]
+                }
+              ],
+              "groups": [
+                {
+                  "title": "Accessors",
+                  "kind": 262144,
+                  "children": [
+                    94,
+                    96
+                  ]
+                }
+              ]
+            }
+          },
+          "defaultValue": "..."
+        },
+        {
           "id": 70,
           "name": "objectLiteral",
           "kind": 32,
@@ -1270,6 +1353,7 @@
           "kind": 32,
           "children": [
             50,
+            92,
             70,
             31
           ]
@@ -1277,14 +1361,14 @@
       ]
     },
     {
-      "id": 92,
+      "id": 99,
       "name": "variable",
       "kind": 2,
       "kindString": "Module",
       "flags": {},
       "children": [
         {
-          "id": 93,
+          "id": 100,
           "name": "myConst",
           "kind": 32,
           "kindString": "Variable",
@@ -1296,7 +1380,7 @@
           "defaultValue": "15"
         },
         {
-          "id": 94,
+          "id": 101,
           "name": "myLet",
           "kind": 32,
           "kindString": "Variable",
@@ -1308,7 +1392,7 @@
           "defaultValue": "15"
         },
         {
-          "id": 95,
+          "id": 102,
           "name": "myVar",
           "kind": 32,
           "kindString": "Variable",
@@ -1320,7 +1404,7 @@
           "defaultValue": "15"
         },
         {
-          "id": 96,
+          "id": 103,
           "name": "x",
           "kind": 32,
           "kindString": "Variable",
@@ -1331,7 +1415,7 @@
           }
         },
         {
-          "id": 97,
+          "id": 104,
           "name": "y",
           "kind": 32,
           "kindString": "Variable",
@@ -1348,7 +1432,7 @@
           }
         },
         {
-          "id": 98,
+          "id": 105,
           "name": "z",
           "kind": 32,
           "kindString": "Variable",
@@ -1370,12 +1454,12 @@
           "title": "Variables",
           "kind": 32,
           "children": [
-            93,
-            94,
-            95,
-            96,
-            97,
-            98
+            100,
+            101,
+            102,
+            103,
+            104,
+            105
           ]
         }
       ]
@@ -1389,7 +1473,7 @@
         1,
         15,
         30,
-        92
+        99
       ]
     }
   ]
