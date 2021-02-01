@@ -9,6 +9,7 @@
 
 import * as Path from "path";
 import * as FS from "fs";
+import type { Theme as ShikiTheme } from "shiki-themes";
 // eslint-disable-next-line
 const ProgressBar = require("progress");
 
@@ -83,6 +84,9 @@ export class Renderer extends ChildableComponent<
     @BindOption("toc")
     toc!: string[];
 
+    @BindOption("highlightTheme")
+    highlightTheme!: ShikiTheme;
+
     /**
      * Render the given project reflection to the specified output directory.
      *
@@ -93,7 +97,7 @@ export class Renderer extends ChildableComponent<
         project: ProjectReflection,
         outputDirectory: string
     ): Promise<void> {
-        await loadHighlighter();
+        await loadHighlighter(this.highlightTheme);
         if (
             !this.prepareTheme() ||
             !this.prepareOutputDirectory(outputDirectory)

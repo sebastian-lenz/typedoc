@@ -1,20 +1,19 @@
 import * as ts from "typescript";
-
+import type { SourceReference } from "../../models";
 import { Comment, CommentTag } from "../../models/comments/index";
 import {
+    DeclarationReflection,
     Reflection,
     ReflectionFlag,
     ReflectionKind,
     TypeParameterReflection,
-    DeclarationReflection,
 } from "../../models/reflections/index";
-import { Component, ConverterComponent } from "../components";
-import { parseComment, getRawComment } from "../factories/comment";
-import { Converter } from "../converter";
-import type { Context } from "../context";
-import type { SourceReference } from "../../models";
-import { BindOption, removeIfPresent } from "../../utils";
+import { BindOption, filterMap, removeIfPresent } from "../../utils";
 import { partition, unique } from "../../utils/array";
+import { Component, ConverterComponent } from "../components";
+import type { Context } from "../context";
+import { Converter } from "../converter";
+import { getRawComment, parseComment } from "../factories/comment";
 
 /**
  * These tags are not useful to display in the generated documentation.
@@ -220,14 +219,13 @@ export class CommentPlugin extends ConverterComponent {
 
         // remove functions with empty signatures after their signatures have been removed
         const [allRemoved, someRemoved] = partition(
-            hidden
-                .map((reflection) => reflection.parent!)
-                .filter((method) =>
-                    method.kindOf(
-                        ReflectionKind.FunctionOrMethod |
-                            ReflectionKind.Constructor
-                    )
-                ) as DeclarationReflection[],
+            filterMap(hidden, (reflection) =>
+                reflection.parent?.kindOf(
+                    ReflectionKind.FunctionOrMethod | ReflectionKind.Constructor
+                )
+                    ? reflection.parent
+                    : void 0
+            ) as DeclarationReflection[],
             (method) => method.signatures?.length === 0
         );
         allRemoved.forEach((reflection) =>

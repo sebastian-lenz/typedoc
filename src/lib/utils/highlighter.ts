@@ -1,6 +1,7 @@
 import { ok as assert } from "assert";
 import * as shiki from "shiki";
 import type { Highlighter } from "shiki/dist/highlighter";
+import type { Theme as ShikiTheme } from "shiki-themes";
 import { unique } from "./array";
 
 // This is needed because Shiki includes some "fake" languages
@@ -22,10 +23,10 @@ const supportedLanguages = unique([
 
 let highlighter: Highlighter | undefined;
 
-export async function loadHighlighter() {
+export async function loadHighlighter(theme: ShikiTheme) {
     if (highlighter) return;
     highlighter = await shiki.getHighlighter({
-        theme: "light-plus",
+        theme,
     });
 }
 

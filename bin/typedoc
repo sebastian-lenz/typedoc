@@ -58,6 +58,24 @@ async function run(app) {
         return ExitCodes.NoEntryPoints;
     }
 
+    if (app.options.getValue("watch")) {
+        app.convertAndWatch(async (project) => {
+            const out = app.options.getValue("out");
+            if (out) {
+                await app.generateDocs(project, out);
+            }
+            const json = app.options.getValue("json");
+            if (json) {
+                await app.generateJson(project, json);
+            }
+
+            if (!out && !json) {
+                await app.generateDocs(project, "./docs");
+            }
+        });
+        return ExitCodes.Ok;
+    }
+
     const project = app.convert();
     if (!project) {
         return ExitCodes.CompileError;

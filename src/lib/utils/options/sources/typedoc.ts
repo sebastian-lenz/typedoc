@@ -1,6 +1,7 @@
 import type { Options } from "..";
 import { LogLevel } from "../../loggers";
 import { ParameterType, ParameterHint } from "../declaration";
+import { BUNDLED_THEMES as ShikiThemes } from "shiki-themes";
 
 export function addTypeDocOptions(options: Pick<Options, "addDeclaration">) {
     options.addDeclaration({
@@ -85,6 +86,23 @@ export function addTypeDocOptions(options: Pick<Options, "addDeclaration">) {
     });
 
     options.addDeclaration({
+        name: "watch",
+        help: "Watch files for changes and rebuild docs on change.",
+        type: ParameterType.Boolean,
+    });
+    options.addDeclaration({
+        name: "preserveWatchOutput",
+        help:
+            "If set, TypeDoc will not clear the screen between compilation runs.",
+        type: ParameterType.Boolean,
+    });
+    options.addDeclaration({
+        name: "emit",
+        help: "If set, TypeDoc will emit the TypeScript compilation result",
+        type: ParameterType.Boolean,
+    });
+
+    options.addDeclaration({
         name: "out",
         help: "Specifies the location the documentation should be written to.",
         hint: ParameterHint.Directory,
@@ -103,6 +121,7 @@ export function addTypeDocOptions(options: Pick<Options, "addDeclaration">) {
         type: ParameterType.String,
         defaultValue: "default",
     });
+
     options.addDeclaration({
         name: "name",
         help:
@@ -225,5 +244,21 @@ export function addTypeDocOptions(options: Pick<Options, "addDeclaration">) {
         help:
             "Specify the options passed to Marked, the Markdown parser used by TypeDoc",
         type: ParameterType.Mixed,
+    });
+
+    options.addDeclaration({
+        name: "highlightTheme",
+        help: "Specifies the code highlighting theme.",
+        type: ParameterType.String,
+        defaultValue: "light-plus",
+        validate: (value: string): void => {
+            if (!ShikiThemes.includes(value)) {
+                throw new Error(
+                    `Highlight Theme must be one of the following: ${ShikiThemes.join(
+                        ", "
+                    )}`
+                );
+            }
+        },
     });
 }

@@ -143,6 +143,49 @@
           ]
         },
         {
+          "id": 29,
+          "name": "GH1490",
+          "kind": 256,
+          "kindString": "Interface",
+          "flags": {},
+          "children": [
+            {
+              "id": 30,
+              "name": "optionalMethod",
+              "kind": 2048,
+              "kindString": "Method",
+              "flags": {
+                "isOptional": true
+              },
+              "signatures": [
+                {
+                  "id": 31,
+                  "name": "optionalMethod",
+                  "kind": 4096,
+                  "kindString": "Call signature",
+                  "flags": {},
+                  "comment": {
+                    "shortText": "With comment"
+                  },
+                  "type": {
+                    "type": "intrinsic",
+                    "name": "void"
+                  }
+                }
+              ]
+            }
+          ],
+          "groups": [
+            {
+              "title": "Methods",
+              "kind": 2048,
+              "children": [
+                30
+              ]
+            }
+          ]
+        },
+        {
           "id": 2,
           "name": "gh1164",
           "kind": 64,
@@ -192,6 +235,13 @@
           ]
         },
         {
+          "title": "Interfaces",
+          "kind": 256,
+          "children": [
+            29
+          ]
+        },
+        {
           "title": "Functions",
           "kind": 64,
           "children": [
@@ -201,7 +251,7 @@
       ]
     },
     {
-      "id": 29,
+      "id": 32,
       "name": "comment2",
       "kind": 2,
       "kindString": "Module",
@@ -211,21 +261,21 @@
       },
       "children": [
         {
-          "id": 30,
+          "id": 33,
           "name": "multiply",
           "kind": 64,
           "kindString": "Function",
           "flags": {},
           "signatures": [
             {
-              "id": 31,
+              "id": 34,
               "name": "multiply",
               "kind": 4096,
               "kindString": "Call signature",
               "flags": {},
               "parameters": [
                 {
-                  "id": 32,
+                  "id": 35,
                   "name": "a",
                   "kind": 32768,
                   "kindString": "Parameter",
@@ -236,7 +286,7 @@
                   }
                 },
                 {
-                  "id": 33,
+                  "id": 36,
                   "name": "b",
                   "kind": 32768,
                   "kindString": "Parameter",
@@ -260,7 +310,7 @@
           "title": "Functions",
           "kind": 64,
           "children": [
-            30
+            33
           ]
         }
       ]
@@ -272,7 +322,7 @@
       "kind": 2,
       "children": [
         1,
-        29
+        32
       ]
     }
   ]

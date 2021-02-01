@@ -1,4 +1,5 @@
 import type { LogLevel } from "../loggers";
+import type { Theme as ShikiTheme } from "shiki-themes";
 
 /**
  * An interface describing all TypeDoc specific options. Generated from a
@@ -48,6 +49,10 @@ export interface TypeDocOptionMap {
     includes: string;
     media: string;
 
+    emit: boolean;
+    watch: boolean;
+    preserveWatchOutput: boolean;
+
     out: string;
     json: string;
 
@@ -75,6 +80,8 @@ export interface TypeDocOptionMap {
     logLevel: typeof LogLevel;
     listInvalidSymbolLinks: boolean;
     markedOptions: unknown;
+
+    highlightTheme: ShikiTheme;
 }
 
 /**

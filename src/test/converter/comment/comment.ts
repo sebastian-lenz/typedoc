@@ -91,3 +91,8 @@ export class CommentedClass {
 export function gh1164(scope: string) {
     return scope;
 }
+
+export interface GH1490 {
+    /** With comment */
+    optionalMethod?(): void;
+}

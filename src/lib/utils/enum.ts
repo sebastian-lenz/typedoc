@@ -14,6 +14,10 @@ export function removeFlag<T extends number>(flag: T, remove: T & {}): T {
     return ((flag ^ remove) & flag) as T;
 }
 
-export function hasFlag(flags: number, check: number): boolean {
+export function hasAllFlags(flags: number, check: number): boolean {
     return (flags & check) === check;
+}
+
+export function hasAnyFlag(flags: number, check: number): boolean {
+    return (flags & check) !== 0;
 }

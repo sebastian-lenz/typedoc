@@ -204,3 +204,6 @@ export function boolOrUndef(x: number) {
     if (x > 20) return false;
     return undefined;
 }
+
+export function merged() {}
+merged.nsFn = function () {};

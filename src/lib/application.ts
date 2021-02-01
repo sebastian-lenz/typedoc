@@ -23,6 +23,7 @@ import { Options, BindOption } from "./utils";
 import type { TypeDocOptions } from "./utils/options/declaration";
 import { flatMap } from "./utils/array";
 import { discoverNpmPlugins, loadPlugins } from "./utils/plugins";
+import { basename } from "path";
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const packageInfo = require("../../package.json") as {
@@ -241,10 +242,129 @@ export class Application extends ChildableComponent<
             return;
         }
 
+        if (this.application.options.getValue("emit")) {
+            for (const program of programs) {
+                program.emit();
+            }
+        }
+
         return this.converter.convert(
             this.expandInputFiles(this.entryPoints),
             programs
         );
+    }
+
+    public convertAndWatch(
+        success: (project: ProjectReflection) => Promise<void>
+    ): void {
+        if (
+            !this.options.getValue("preserveWatchOutput") &&
+            this.logger instanceof ConsoleLogger
+        ) {
+            ts.sys.clearScreen?.();
+        }
+
+        this.logger.verbose(
+            `Using TypeScript ${this.getTypeScriptVersion()} from ${this.getTypeScriptPath()}`
+        );
+
+        if (
+            !supportedVersionMajorMinor.some(
+                (version) => version == ts.versionMajorMinor
+            )
+        ) {
+            this.logger.warn(
+                `You are running with an unsupported TypeScript version! TypeDoc supports ${supportedVersionMajorMinor.join(
+                    ", "
+                )}`
+            );
+        }
+
+        if (Object.keys(this.options.getCompilerOptions()).length === 0) {
+            this.logger.warn(
+                `No compiler options set. This likely means that TypeDoc did not find your tsconfig.json. Generated documentation will probably be empty.`
+            );
+        }
+
+        // Doing this is considerably more complicated, we'd need to manage an array of programs, not convert until all programs
+        // have reported in the first time... just error out for now. I'm not convinced anyone will actually notice.
+        if (this.options.getFileNames().length === 0) {
+            this.logger.error(
+                "The provided tsconfig file looks like a solution style tsconfig, which is not supported in watch mode."
+            );
+            return;
+        }
+
+        // Matches the behavior of the tsconfig option reader.
+        let tsconfigFile = this.options.getValue("tsconfig");
+        tsconfigFile =
+            ts.findConfigFile(
+                tsconfigFile,
+                ts.sys.fileExists,
+                tsconfigFile.toLowerCase().endsWith(".json")
+                    ? basename(tsconfigFile)
+                    : undefined
+            ) ?? "tsconfig.json";
+
+        // We don't want to do it the first time to preserve initial debug status messages. They'll be lost
+        // after the user saves a file, but better than nothing...
+        let firstStatusReport = true;
+
+        const host = ts.createWatchCompilerHost(
+            tsconfigFile,
+            { noEmit: !this.application.options.getValue("emit") },
+            ts.sys,
+            ts.createEmitAndSemanticDiagnosticsBuilderProgram,
+            (diagnostic) => this.logger.diagnostic(diagnostic),
+            (status, newLine, _options, errorCount) => {
+                if (
+                    !firstStatusReport &&
+                    errorCount === void 0 &&
+                    !this.options.getValue("preserveWatchOutput") &&
+                    this.logger instanceof ConsoleLogger
+                ) {
+                    ts.sys.clearScreen?.();
+                }
+                firstStatusReport = false;
+                this.logger.write(
+                    ts.flattenDiagnosticMessageText(status.messageText, newLine)
+                );
+            }
+        );
+
+        let successFinished = true;
+        let currentProgram: ts.Program | undefined;
+
+        const runSuccess = () => {
+            if (!currentProgram) {
+                return;
+            }
+
+            if (successFinished) {
+                this.logger.resetErrors();
+                const project = this.converter.convert(
+                    this.expandInputFiles(this.entryPoints),
+                    currentProgram
+                );
+                currentProgram = undefined;
+                successFinished = false;
+                success(project).then(() => {
+                    successFinished = true;
+                    runSuccess();
+                });
+            }
+        };
+
+        const origAfterProgramCreate = host.afterProgramCreate;
+        host.afterProgramCreate = (program) => {
+            if (ts.getPreEmitDiagnostics(program.getProgram()).length === 0) {
+                currentProgram = program.getProgram();
+                runSuccess();
+            }
+            origAfterProgramCreate?.(program);
+        };
+
+        ts.createWatchProgram(host);
     }
 
     /**

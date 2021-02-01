@@ -16,10 +16,6 @@ export class ArgumentsReader implements OptionsReader {
     }
 
     read(container: Options, logger: Logger): void {
-        logger.verbose(
-            `Arguments reader reading with: ${JSON.stringify(this.args)}`
-        );
-
         // Make container's type more lax, we do the appropriate checks manually.
         const options = container as Options & {
             setValue(name: string, value: unknown): void;

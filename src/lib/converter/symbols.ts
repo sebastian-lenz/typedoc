@@ -8,8 +8,13 @@ import {
     ReflectionKind,
     TypeParameterReflection,
 } from "../models";
-import { flatMap, uniqueByEquals, zip } from "../utils/array";
-import { getEnumFlags, hasFlag, removeFlag } from "../utils/enum";
+import { flatMap, uniqueByEquals } from "../utils/array";
+import {
+    getEnumFlags,
+    hasAllFlags,
+    hasAnyFlag,
+    removeFlag,
+} from "../utils/enum";
 import type { Context } from "./context";
 import { convertDefaultValue } from "./convert-expression";
 import { ConverterEvents } from "./converter-events";
@@ -86,21 +91,24 @@ export function convertSymbol(
     // Declaration merging - the only type (excluding enum/enum, ns/ns, etc)
     // that TD supports is merging a class and interface. All others are
     // represented as multiple reflections
-    if (hasFlag(symbol.flags, ts.SymbolFlags.Class)) {
-        flags = removeFlag(flags, ts.SymbolFlags.Interface);
+    if (hasAllFlags(symbol.flags, ts.SymbolFlags.Class)) {
+        flags = removeFlag(
+            flags,
+            ts.SymbolFlags.Interface | ts.SymbolFlags.Function
+        );
     }
 
     // Kind of declaration merging... we treat this as a property with get/set signatures.
-    if (hasFlag(symbol.flags, ts.SymbolFlags.GetAccessor)) {
+    if (hasAllFlags(symbol.flags, ts.SymbolFlags.GetAccessor)) {
         flags = removeFlag(flags, ts.SymbolFlags.SetAccessor);
     }
 
-    if (hasFlag(symbol.flags, ts.SymbolFlags.NamespaceModule)) {
+    if (hasAllFlags(symbol.flags, ts.SymbolFlags.NamespaceModule)) {
         // This might be here if a namespace is declared several times.
         flags = removeFlag(flags, ts.SymbolFlags.ValueModule);
     }
 
-    if (hasFlag(symbol.flags, ts.SymbolFlags.Method)) {
+    if (hasAllFlags(symbol.flags, ts.SymbolFlags.Method)) {
         // This happens when someone declares an object with methods:
         // { methodProperty() {} }
         flags = removeFlag(flags, ts.SymbolFlags.Property);
@@ -162,6 +170,17 @@ function convertNamespace(
     symbol: ts.Symbol,
     nameOverride?: string
 ) {
+    let exportFlags = ts.SymbolFlags.ModuleMember;
+
+    // This can happen in JS land where "class" functions get tagged as a namespace too
+    if (symbol.getDeclarations()?.some(ts.isModuleDeclaration) !== true) {
+        exportFlags = ts.SymbolFlags.ClassMember;
+
+        if (hasAnyFlag(symbol.flags, ts.SymbolFlags.Class)) {
+            return;
+        }
+    }
+
     const reflection = context.createDeclarationReflection(
         ReflectionKind.Namespace,
         symbol,
@@ -170,7 +189,7 @@ function convertNamespace(
 
     convertSymbols(
         context.withScope(reflection),
-        getSymbolExportsWithFlag(symbol, ts.SymbolFlags.ModuleMember)
+        getSymbolExportsWithFlag(symbol, exportFlags)
     );
 }
 
@@ -262,7 +281,7 @@ function convertFunctionOrMethod(
         isMethod &&
         isInherited(context, symbol) &&
         declarations.length > 0 &&
-        hasFlag(
+        hasAllFlags(
             ts.getCombinedModifierFlags(declarations[0]),
             ts.ModifierFlags.Private
         )
@@ -286,10 +305,19 @@ function convertFunctionOrMethod(
         symbol,
         locationDeclaration
     );
-    const signatures = type.getCallSignatures();
+    // Need to get the non nullable type because interface methods might be declared
+    // with a question token. See GH1490.
+    const signatures = type.getNonNullableType().getCallSignatures();
 
     const reflection = context.createDeclarationReflection(
-        isMethod ? ReflectionKind.Method : ReflectionKind.Function,
+        context.scope.kindOf(
+            ReflectionKind.ClassOrInterface |
+                ReflectionKind.Variable |
+                ReflectionKind.Property |
+                ReflectionKind.TypeLiteral
+        )
+            ? ReflectionKind.Method
+            : ReflectionKind.Function,
         symbol,
         nameOverride
     );
@@ -310,12 +338,15 @@ function convertFunctionOrMethod(
 
     const scope = context.withScope(reflection);
     reflection.signatures ??= [];
-    for (const [signature, declaration] of zip(signatures, declarations)) {
+
+    // Can't use zip here. We might have less declarations than signatures
+    // or less signatures than declarations.
+    for (let i = 0; i < signatures.length; i++) {
         const converted = createSignature(
             scope,
             ReflectionKind.CallSignature,
-            signature,
-            declaration
+            signatures[i],
+            declarations[i]
         );
         reflection.signatures.push(converted);
     }
@@ -342,7 +373,7 @@ function convertClassOrInterface(
 
     const classDeclaration = symbol
         .getDeclarations()
-        ?.find(ts.isClassDeclaration);
+        ?.find((d) => ts.isClassDeclaration(d) || ts.isFunctionDeclaration(d));
     if (classDeclaration) {
         setModifiers(classDeclaration, reflection);
 
@@ -360,6 +391,12 @@ function convertClassOrInterface(
             )
                 continue;
             convertSymbol(reflectionContext, prop);
+
+            // We need to do this because of JS users. See GH1481
+            const refl = context.project.getReflectionFromSymbol(prop);
+            if (refl) {
+                refl.setFlag(ReflectionFlag.Static);
+            }
         }
 
         const constructMember = new DeclarationReflection(
@@ -483,7 +520,7 @@ function convertProperty(
     if (
         isInherited(context, symbol) &&
         declarations.length > 0 &&
-        hasFlag(
+        hasAllFlags(
             ts.getCombinedModifierFlags(declarations[0]),
             ts.ModifierFlags.Private
         )
@@ -520,7 +557,9 @@ function convertProperty(
     }
 
     const reflection = context.createDeclarationReflection(
-        ReflectionKind.Property,
+        context.scope.kindOf(ReflectionKind.Namespace)
+            ? ReflectionKind.Variable
+            : ReflectionKind.Property,
         symbol,
         nameOverride
     );
@@ -832,13 +871,13 @@ function setModifiers(declaration: ts.Declaration, reflection: Reflection) {
     const modifiers = ts.getCombinedModifierFlags(declaration);
     // Note: We only set this flag if the modifier is present because we allow
     // fake "private" or "protected" members via @private and @protected
-    if (hasFlag(modifiers, ts.ModifierFlags.Private)) {
+    if (hasAllFlags(modifiers, ts.ModifierFlags.Private)) {
         reflection.setFlag(ReflectionFlag.Private);
     }
-    if (hasFlag(modifiers, ts.ModifierFlags.Protected)) {
+    if (hasAllFlags(modifiers, ts.ModifierFlags.Protected)) {
         reflection.setFlag(ReflectionFlag.Protected);
     }
-    if (hasFlag(modifiers, ts.ModifierFlags.Public)) {
+    if (hasAllFlags(modifiers, ts.ModifierFlags.Public)) {
         reflection.setFlag(ReflectionFlag.Public);
     }
     reflection.setFlag(
@@ -847,14 +886,14 @@ function setModifiers(declaration: ts.Declaration, reflection: Reflection) {
     );
     reflection.setFlag(
         ReflectionFlag.Readonly,
-        hasFlag(modifiers, ts.ModifierFlags.Readonly)
+        hasAllFlags(modifiers, ts.ModifierFlags.Readonly)
     );
     reflection.setFlag(
         ReflectionFlag.Abstract,
-        hasFlag(modifiers, ts.ModifierFlags.Abstract)
+        hasAllFlags(modifiers, ts.ModifierFlags.Abstract)
     );
     reflection.setFlag(
         ReflectionFlag.Static,
-        hasFlag(modifiers, ts.ModifierFlags.Static)
+        hasAllFlags(modifiers, ts.ModifierFlags.Static)
     );
 }
