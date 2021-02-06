@@ -173,7 +173,12 @@ function convertNamespace(
     let exportFlags = ts.SymbolFlags.ModuleMember;
 
     // This can happen in JS land where "class" functions get tagged as a namespace too
-    if (symbol.getDeclarations()?.some(ts.isModuleDeclaration) !== true) {
+    if (
+        symbol
+            .getDeclarations()
+            ?.some((d) => ts.isModuleDeclaration(d) || ts.isSourceFile(d)) !==
+        true
+    ) {
         exportFlags = ts.SymbolFlags.ClassMember;
 
         if (hasAnyFlag(symbol.flags, ts.SymbolFlags.Class)) {
