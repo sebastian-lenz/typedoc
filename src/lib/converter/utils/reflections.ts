@@ -49,7 +49,7 @@ export function copyComment(target: Reflection, source: Reflection) {
              * TSDoc overrides existing parameters entirely with inherited ones, while
              * existing implementation merges them.
              * To avoid breaking things, `inheritDoc` tag is additionally checked for the parameter,
-             * so the previous behaviour will continue to work.
+             * so the previous behavior will continue to work.
              *
              * TODO: When breaking change becomes acceptable remove legacy implementation
              */
@@ -60,6 +60,15 @@ export function copyComment(target: Reflection, source: Reflection) {
             }
         }
         target.comment.removeTags("inheritdoc");
+        target.comment.copyFrom(source.comment);
+    } else if (!target.comment && source.comment) {
+        if (
+            target instanceof DeclarationReflection &&
+            source instanceof DeclarationReflection
+        ) {
+            target.typeParameters = source.typeParameters;
+        }
+        target.comment = new Comment();
         target.comment.copyFrom(source.comment);
     }
 }

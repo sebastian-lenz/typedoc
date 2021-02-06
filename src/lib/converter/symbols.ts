@@ -22,18 +22,6 @@ import { convertIndexSignature } from "./factories/index-signature";
 import { createSignature } from "./factories/signature";
 import { convertJsDocAlias, convertJsDocCallback } from "./jsdoc";
 
-function getSymbolExportsWithFlag(symbol: ts.Symbol, flag: ts.SymbolFlags) {
-    const childSymbols: ts.Symbol[] = [];
-
-    symbol.exports?.forEach((child) => {
-        if (child.flags & flag) {
-            childSymbols.push(child);
-        }
-    });
-
-    return childSymbols;
-}
-
 const symbolConverters: {
     [K in ts.SymbolFlags]?: (
         context: Context,
@@ -143,7 +131,9 @@ function convertEnum(
 
     convertSymbols(
         context.withScope(reflection),
-        getSymbolExportsWithFlag(symbol, ts.SymbolFlags.EnumMember)
+        context.checker
+            .getExportsOfModule(symbol)
+            .filter((s) => s.flags & ts.SymbolFlags.EnumMember)
     );
 }
 
@@ -194,7 +184,9 @@ function convertNamespace(
 
     convertSymbols(
         context.withScope(reflection),
-        getSymbolExportsWithFlag(symbol, exportFlags)
+        context.checker
+            .getExportsOfModule(symbol)
+            .filter((s) => s.flags & exportFlags)
     );
 }
 

@@ -1,7 +1,7 @@
 import type { Options } from "..";
 import { LogLevel } from "../../loggers";
 import { ParameterType, ParameterHint } from "../declaration";
-import { BUNDLED_THEMES as ShikiThemes } from "shiki-themes";
+import { BUNDLED_THEMES } from "shiki";
 
 export function addTypeDocOptions(options: Pick<Options, "addDeclaration">) {
     options.addDeclaration({
@@ -120,6 +120,21 @@ export function addTypeDocOptions(options: Pick<Options, "addDeclaration">) {
             "Specify the path to the theme that should be used or 'default' or 'minimal' to use built-in themes.",
         type: ParameterType.String,
         defaultValue: "default",
+    });
+    options.addDeclaration({
+        name: "highlightTheme",
+        help: "Specifies the code highlighting theme.",
+        type: ParameterType.String,
+        defaultValue: "light-plus",
+        validate: (value: string): void => {
+            if (!BUNDLED_THEMES.includes(value)) {
+                throw new Error(
+                    `highlightTheme must be one of the following: ${BUNDLED_THEMES.join(
+                        ", "
+                    )}`
+                );
+            }
+        },
     });
 
     options.addDeclaration({
@@ -244,21 +259,5 @@ export function addTypeDocOptions(options: Pick<Options, "addDeclaration">) {
         help:
             "Specify the options passed to Marked, the Markdown parser used by TypeDoc",
         type: ParameterType.Mixed,
-    });
-
-    options.addDeclaration({
-        name: "highlightTheme",
-        help: "Specifies the code highlighting theme.",
-        type: ParameterType.String,
-        defaultValue: "light-plus",
-        validate: (value: string): void => {
-            if (!ShikiThemes.includes(value)) {
-                throw new Error(
-                    `Highlight Theme must be one of the following: ${ShikiThemes.join(
-                        ", "
-                    )}`
-                );
-            }
-        },
     });
 }

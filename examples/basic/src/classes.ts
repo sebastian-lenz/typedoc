@@ -16,10 +16,10 @@ export interface NameInterface {
      *
      * It should be inherited by all subinterfaces.
      *
-     * Links - these should all point to this property:
+     * Links - these should all point to this property on the base class
      * - {@link name}
      * - {@link NameInterface.name}
-     * - {@link "classes".NameInterface.name}
+     * - {@link classes.NameInterface.name}
      * - {@link name Text} &lt;-- This one goes away eventually
      * - {@link name|Text}
      * - {@link name | Text}

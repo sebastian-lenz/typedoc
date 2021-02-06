@@ -84,6 +84,22 @@ export class ImplementsPlugin extends ConverterComponent {
                 copyComment(classMember, interfaceMember);
 
                 if (
+                    interfaceMember.kindOf(ReflectionKind.Property) &&
+                    classMember.kindOf(ReflectionKind.Accessor)
+                ) {
+                    if (classMember.getSignature) {
+                        copyComment(classMember.getSignature, interfaceMember);
+                        classMember.getSignature.implementationOf =
+                            classMember.implementationOf;
+                    }
+                    if (classMember.setSignature) {
+                        copyComment(classMember.setSignature, interfaceMember);
+                        classMember.setSignature.implementationOf =
+                            classMember.implementationOf;
+                    }
+                }
+
+                if (
                     interfaceMember.kindOf(ReflectionKind.FunctionOrMethod) &&
                     interfaceMember.signatures &&
                     classMember.signatures

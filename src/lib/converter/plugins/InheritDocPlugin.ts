@@ -64,7 +64,7 @@ export class InheritDocPlugin extends ConverterComponent {
                     source instanceof DeclarationReflection &&
                     item instanceof SignatureReflection
                 ) {
-                    const isFunction = source?.kindOf(
+                    const isFunction = source.kindOf(
                         ReflectionKind.FunctionOrMethod
                     );
                     if (isFunction) {

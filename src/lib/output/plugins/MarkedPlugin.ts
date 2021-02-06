@@ -8,6 +8,7 @@ import { RendererEvent, MarkdownEvent } from "../events";
 import { BindOption, readFile } from "../../utils";
 import { highlight, isSupportedLanguage } from "../../utils/highlighter";
 import { copy } from "../../utils/fs";
+import type { Theme } from "shiki";
 
 const customMarkedRenderer = new Marked.Renderer();
 
@@ -58,6 +59,9 @@ export class MarkedPlugin extends ContextAwareRendererComponent {
 
     @BindOption("media")
     mediaSource!: string;
+
+    @BindOption("highlightTheme")
+    theme!: Theme;
 
     /**
      * The path referenced files are located in.
@@ -114,7 +118,7 @@ export class MarkedPlugin extends ContextAwareRendererComponent {
             return text;
         }
 
-        return highlight(text, lang);
+        return highlight(text, lang, this.theme);
     }
 
     /**

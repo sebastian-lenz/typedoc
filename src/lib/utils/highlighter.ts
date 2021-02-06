@@ -1,7 +1,5 @@
 import { ok as assert } from "assert";
 import * as shiki from "shiki";
-import type { Highlighter } from "shiki/dist/highlighter";
-import type { Theme as ShikiTheme } from "shiki-themes";
 import { unique } from "./array";
 
 // This is needed because Shiki includes some "fake" languages
@@ -21,13 +19,11 @@ const supportedLanguages = unique([
     ...shiki.BUNDLED_LANGUAGES.map((lang) => lang.id),
 ]).sort();
 
-let highlighter: Highlighter | undefined;
+let highlighter: shiki.Highlighter | undefined;
 
-export async function loadHighlighter(theme: ShikiTheme) {
+export async function loadHighlighter(theme: shiki.Theme) {
     if (highlighter) return;
-    highlighter = await shiki.getHighlighter({
-        theme,
-    });
+    highlighter = await shiki.getHighlighter({ theme });
 }
 
 export function isSupportedLanguage(lang: string) {
@@ -38,7 +34,11 @@ export function getSupportedLanguages(): string[] {
     return supportedLanguages;
 }
 
-export function highlight(code: string, lang: string): string {
+export function highlight(
+    code: string,
+    lang: string,
+    theme: shiki.Theme
+): string {
     assert(highlighter, "Tried to highlight with an uninitialized highlighter");
     if (!isSupportedLanguage(lang)) {
         return code;
@@ -51,7 +51,7 @@ export function highlight(code: string, lang: string): string {
     lang = aliases.get(lang) ?? lang;
 
     const result: string[] = [];
-    for (const line of highlighter.codeToThemedTokens(code, lang, {
+    for (const line of highlighter.codeToThemedTokens(code, lang, theme, {
         includeExplanation: false,
     })) {
         for (const token of line) {

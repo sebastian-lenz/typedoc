@@ -1027,6 +1027,9 @@
                       "kind": 4096,
                       "kindString": "Call signature",
                       "flags": {},
+                      "comment": {
+                        "shortText": "Remove this subscription from its dispatcher"
+                      },
                       "type": {
                         "type": "intrinsic",
                         "name": "void"

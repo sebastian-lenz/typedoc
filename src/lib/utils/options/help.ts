@@ -6,6 +6,7 @@ import {
     DeclarationOption,
 } from "./declaration";
 import { getSupportedLanguages } from "../highlighter";
+import { BUNDLED_THEMES } from "shiki";
 
 export interface ParameterHelp {
     names: string[];
@@ -92,6 +93,12 @@ export function getOptionsHelp(options: Options): string {
         "",
         "Supported highlighting languages:",
         ...toEvenColumns(getSupportedLanguages(), 80)
+    );
+
+    output.push(
+        "",
+        "Supported highlighting themes:",
+        ...toEvenColumns(BUNDLED_THEMES, 80)
     );
 
     return output.join("\n");
