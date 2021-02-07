@@ -29,3 +29,33 @@ export type IfInternal<T, F> = InternalOnly extends true ? T : F;
  * See {@link IfInternal} for the rationale.
  */
 export type NeverIfInternal<T> = IfInternal<never, T>;
+
+/**
+ * Check if two types are equivalent, return `A` if they are, `B` if not.
+ * @see https://stackoverflow.com/a/49579497/7186598
+ */
+export type IfEquals<X, Y, A, B> = (<T>() => T extends X ? 1 : 2) extends <
+    T
+>() => T extends Y ? 1 : 2
+    ? A
+    : B;
+
+/**
+ * Get all non-readonly keys of `T`
+ * @see https://stackoverflow.com/a/49579497/7186598
+ */
+export type WritableKeys<T> = {
+    [P in keyof T]-?: IfEquals<
+        { [Q in P]: T[P] },
+        { -readonly [Q in P]: T[P] },
+        P,
+        never
+    >;
+}[keyof T];
+
+/**
+ * Get the keys of `T` which are assignable to `U`
+ */
+export type KeysOfType<T, U> = {
+    [K in keyof T]-?: T[K] extends U ? K : never;
+}[keyof T];

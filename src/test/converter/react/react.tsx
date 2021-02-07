@@ -1,4 +1,13 @@
-declare const React: unknown;
+/** @jsx React.createElement */
+declare namespace React {
+    namespace JSX {
+        interface IntrinsicElements {
+            [x: string]: any;
+        }
+    }
+
+    function createElement(): any;
+}
 
 export interface DemoProps {
     name: string;
@@ -8,11 +17,11 @@ export interface DemoProps {
 export class Demo {
     private foo: number;
 
-    constructor(props: DemoProps) {
+    constructor(_props: DemoProps) {
         this.foo = 42;
     }
 
     render() {
-        return <div>Hello world!</div>;
+        return <div>Hello world! {this.foo}</div>;
     }
 }

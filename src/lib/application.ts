@@ -10,6 +10,7 @@ import {
     ConsoleLogger,
     CallbackLogger,
     normalizePath,
+    IfInternal,
 } from "./utils/index";
 import { createMinimatch } from "./utils/paths";
 
@@ -152,7 +153,7 @@ export class Application extends ChildableComponent<
      * Return the application / root component instance.
      * @deprecated will be removed in 0.22.
      */
-    get application(): Application {
+    get application(): IfInternal<Application, unknown> {
         this.logger.deprecated(
             "Application.application is deprecated, plugins are now passed the Application instance"
         );
@@ -162,7 +163,7 @@ export class Application extends ChildableComponent<
     /**
      * @deprecated will be removed in 0.22
      */
-    get owner(): Application {
+    get owner(): IfInternal<Application, unknown> {
         this.logger.deprecated(
             "Application.owner is deprecated, plugins are now passed the Application instance"
         );
@@ -242,7 +243,7 @@ export class Application extends ChildableComponent<
             return;
         }
 
-        if (this.application.options.getValue("emit")) {
+        if (this.options.getValue("emit")) {
             for (const program of programs) {
                 program.emit();
             }

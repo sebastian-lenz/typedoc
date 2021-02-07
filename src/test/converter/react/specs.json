@@ -28,7 +28,7 @@
               "parameters": [
                 {
                   "id": 7,
-                  "name": "props",
+                  "name": "_props",
                   "kind": 32768,
                   "kindString": "Parameter",
                   "flags": {},

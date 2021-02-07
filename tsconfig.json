@@ -10,6 +10,11 @@
         "alwaysStrict": true,
         "importsNotUsedAsValues": "error",
 
+        // JSX
+        "jsx": "react",
+        "jsxFactory": "createElement",
+        "jsxFragmentFactory": "Fragment",
+
         // Linting
         "noUnusedLocals": true,
         "noUnusedParameters": true,
@@ -25,10 +30,6 @@
         "rootDir": "src/",
         "newLine": "LF"
     },
-    "include": ["src/**/*.ts"],
-    "exclude": [
-        "src/test/converter/**/*.ts",
-        "src/test/.dot/**/*.ts",
-        "src/test/module/**/*.ts"
-    ]
+    "include": ["src"],
+    "exclude": ["src/test/converter", "src/test/module"]
 }
