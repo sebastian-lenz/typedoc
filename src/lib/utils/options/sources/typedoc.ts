@@ -189,6 +189,12 @@ export function addTypeDocOptions(options: Pick<Options, "addDeclaration">) {
         defaultValue: true,
     });
     options.addDeclaration({
+        name: "hiddenCategories",
+        help:
+            "Specifies categories that will be hidden.",
+        type: ParameterType.Array
+    });
+    options.addDeclaration({
         name: "gitRevision",
         help:
             "Use specified revision instead of the last revision for linking to GitHub source files.",

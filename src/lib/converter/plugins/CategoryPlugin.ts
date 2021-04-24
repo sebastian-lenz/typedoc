@@ -27,6 +27,9 @@ export class CategoryPlugin extends ConverterComponent {
     @BindOption("categorizeByGroup")
     categorizeByGroup!: boolean;
 
+    @BindOption("hiddenCategories")
+    hiddenCategories!: string[];
+
     // For use in static methods
     static defaultCategory = "Other";
     static WEIGHTS: string[] = [];
